@@ -1,0 +1,156 @@
+2024-12-28 16:03:00,127 INFO:Fetching data for year 2016 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2016
+2024-12-28 16:03:04,212 WARNING:No data table found for year 2016.
+2024-12-28 16:03:05,217 INFO:Fetching data for year 2017 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2017
+2024-12-28 16:03:05,956 WARNING:No data table found for year 2017.
+2024-12-28 16:03:06,962 INFO:Fetching data for year 2018 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2018
+2024-12-28 16:03:07,553 WARNING:No data table found for year 2018.
+2024-12-28 16:03:08,558 INFO:Fetching data for year 2019 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2019
+2024-12-28 16:03:09,122 WARNING:No data table found for year 2019.
+2024-12-28 16:03:10,127 INFO:Fetching data for year 2020 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2020
+2024-12-28 16:03:10,720 WARNING:No data table found for year 2020.
+2024-12-28 16:03:11,725 INFO:Fetching data for year 2021 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2021
+2024-12-28 16:03:12,409 WARNING:No data table found for year 2021.
+2024-12-28 16:03:13,415 INFO:Fetching data for year 2022 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2022
+2024-12-28 16:03:14,127 WARNING:No data table found for year 2022.
+2024-12-28 16:03:15,132 INFO:Fetching data for year 2023 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2023
+2024-12-28 16:03:15,939 WARNING:No data table found for year 2023.
+2024-12-28 16:03:16,949 INFO:Data collection complete. Saved to all_uisc_clean.csv.
+2024-12-28 16:15:40,513 INFO:Fetching data for year 2016 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2016
+2024-12-28 16:17:24,616 WARNING:No data table found for year 2016. Error: Message: no such element: Unable to locate element: {"method":"css selector","selector":".resultstable"}
+  (Session info: chrome=131.0.6778.205); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+0   chromedriver                        0x0000000100f03184 cxxbridge1$str$ptr + 3626716
+1   chromedriver                        0x0000000100efb9d4 cxxbridge1$str$ptr + 3596076
+2   chromedriver                        0x0000000100968968 cxxbridge1$string$len + 89228
+3   chromedriver                        0x00000001009acd50 cxxbridge1$string$len + 368756
+4   chromedriver                        0x00000001009e65b4 cxxbridge1$string$len + 604376
+5   chromedriver                        0x00000001009a1568 cxxbridge1$string$len + 321676
+6   chromedriver                        0x00000001009a21b8 cxxbridge1$string$len + 324828
+7   chromedriver                        0x0000000100ece9ac cxxbridge1$str$ptr + 3411716
+8   chromedriver                        0x0000000100ed1ccc cxxbridge1$str$ptr + 3424804
+9   chromedriver                        0x0000000100eb586c cxxbridge1$str$ptr + 3308996
+10  chromedriver                        0x0000000100ed258c cxxbridge1$str$ptr + 3427044
+11  chromedriver                        0x0000000100ea709c cxxbridge1$str$ptr + 3249652
+12  chromedriver                        0x0000000100eec4b8 cxxbridge1$str$ptr + 3533328
+13  chromedriver                        0x0000000100eec634 cxxbridge1$str$ptr + 3533708
+14  chromedriver                        0x0000000100efb648 cxxbridge1$str$ptr + 3595168
+15  libsystem_pthread.dylib             0x00000001892a42e4 _pthread_start + 136
+16  libsystem_pthread.dylib             0x000000018929f0fc thread_start + 8
+
+2024-12-28 16:17:26,622 INFO:Fetching data for year 2017 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2017
+2024-12-28 16:19:25,112 INFO:Logging is set up.
+2024-12-28 16:19:25,112 INFO:Starting GradCafe data collection script.
+2024-12-28 16:19:26,019 INFO:WebDriver has been initialized.
+2024-12-28 16:19:26,021 INFO:Starting data fetch for year 2016.
+2024-12-28 16:19:26,021 INFO:Fetching data for year 2016 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2016
+2024-12-28 16:21:04,657 INFO:Processing page 1 for year 2016.
+2024-12-28 16:21:04,671 WARNING:No data table found on page 1 for year 2016.
+2024-12-28 16:21:04,712 INFO:Saved page source to page_source_2016_page1.html for manual inspection.
+2024-12-28 16:21:04,712 INFO:Total entries fetched for year 2016: 0.
+2024-12-28 16:21:04,713 INFO:Completed data fetch for year 2016. Total entries collected so far: 0.
+2024-12-28 16:21:06,741 INFO:Starting data fetch for year 2017.
+2024-12-28 16:21:06,744 INFO:Fetching data for year 2017 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2017
+2024-12-28 16:22:28,243 INFO:Processing page 1 for year 2017.
+2024-12-28 16:22:28,284 WARNING:No data table found on page 1 for year 2017.
+2024-12-28 16:22:28,322 INFO:Saved page source to page_source_2017_page1.html for manual inspection.
+2024-12-28 16:22:28,324 INFO:Total entries fetched for year 2017: 0.
+2024-12-28 16:22:28,324 INFO:Completed data fetch for year 2017. Total entries collected so far: 0.
+2024-12-28 16:22:30,330 INFO:Starting data fetch for year 2018.
+2024-12-28 16:22:30,331 INFO:Fetching data for year 2018 from URL: https://www.thegradcafe.com/survey/index.php?q=phd&year=2018
+2024-12-28 16:23:01,263 INFO:Logging is set up.
+2024-12-28 16:23:01,263 INFO:Starting GradCafe data collection script for Yale University Political Science program.
+2024-12-28 16:23:01,803 INFO:WebDriver has been initialized.
+2024-12-28 16:23:01,807 INFO:Starting data fetch for page 1.
+# This log entry records the fetching of data for page 1 from The GradCafe survey website.
+# The URL used for fetching data is specific to Yale University's Political Science program.
+# The log entry includes a timestamp, log level (INFO), and a message indicating the action being performed.
+2024-12-28 16:23:01,808 INFO:Fetching data for page 1 from URL: https://www.thegradcafe.com/survey/?q=&sort=newest&institution=Yale+University&program=Political+Science&degree=&season=&page=1
+import re
+
+# Function to parse the log file and extract relevant information
+def parse_log_file(log_file_path):
+  with open(log_file_path, 'r') as file:
+    log_data = file.readlines()
+
+  results = []
+  for line in log_data:
+    if "INFO:Fetching data for page" in line:
+      url_match = re.search(r'URL: (https://www.thegradcafe.com/survey/\?q=.*&page=\d+)', line)
+      if url_match:
+        url = url_match.group(1)
+        results.append({'url': url, 'entries': []})
+    elif "INFO:Processing page" in line:
+      current_page = results[-1]
+    elif "INFO:Total entries fetched" in line:
+      current_page = None
+    elif current_page and "INFO:Saved page source to" not in line:
+      gpa_match = re.search(r'GPA: (\d\.\d+)', line)
+      gre_verbal_match = re.search(r'GRE Verbal: (\d+)', line)
+      gre_quant_match = re.search(r'GRE Quant: (\d+)', line)
+      gre_awa_match = re.search(r'GRE AWA: (\d\.\d+)', line)
+      decision_match = re.search(r'(Accepted|Waitlisted|Rejected)', line)
+      if gpa_match and gre_verbal_match and gre_quant_match and gre_awa_match and decision_match:
+        entry = {
+          'gpa': gpa_match.group(1),
+          'gre_verbal': gre_verbal_match.group(1),
+          'gre_quant': gre_quant_match.group(1),
+          'gre_awa': gre_awa_match.group(1),
+          'decision': decision_match.group(1)
+        }
+        current_page['entries'].append(entry)
+
+  return results
+
+# Example usage
+log_file_path = '/Users/jk/gradcafe_data/fetch_data.log'
+parsed_data = parse_log_file(log_file_path)
+for page in parsed_data:
+  print(f"URL: {page['url']}")
+  for entry in page['entries']:
+    print(f"GPA: {entry['gpa']}, GRE Verbal: {entry['gre_verbal']}, GRE Quant: {entry['gre_quant']}, GRE AWA: {entry['gre_awa']}, Decision: {entry['decision']}")
+2024-12-28 16:26:23,903 WARNING:No data table found on page 1.
+2024-12-28 16:26:23,915 INFO:Saved page source to page_source_political_science_page1.html for manual inspection.
+2024-12-28 16:26:23,915 INFO:No data found on page 1. Assuming no more pages to scrape.
+2024-12-28 16:26:24,058 INFO:WebDriver has been closed.
+2024-12-28 16:26:24,063 INFO:Data successfully saved to all_uisc_clean_political_science.csv. Total entries: 0.
+2024-12-28 16:26:24,063 INFO:GradCafe data collection script has completed.
+2024-12-28 16:30:59,329 INFO:Logging is set up.
+2024-12-28 16:30:59,329 INFO:Starting GradCafe data collection...
+2024-12-28 16:30:59,329 INFO:Fetching page 1: https://www.thegradcafe.com/survey/?q=&sort=newest&institution=Yale%20University&program=Political%20Science&degree=PhD&season=&page=1
+2024-12-28 16:31:00,156 WARNING:No table found on page 1
+2024-12-28 16:31:00,156 INFO:Page 1: Fetched 0 entries
+2024-12-28 16:31:00,156 INFO:No results found on page 1. Ending scrape.
+2024-12-28 16:31:00,161 INFO:No data scraped.
+2024-12-28 16:34:31,207 INFO:Logging is set up.
+2024-12-28 16:34:31,208 INFO:Starting GradCafe data collection script for Yale University Political Science PhD program.
+2024-12-28 16:34:32,413 INFO:WebDriver has been initialized.
+2024-12-28 16:34:32,415 INFO:Starting data fetch for page 1.
+2024-12-28 16:34:32,415 INFO:Fetching page 1: https://www.thegradcafe.com/survey/?q=&sort=newest&institution=Yale+University&program=Political+Science&degree=PhD&season=&page=1
+2024-12-28 16:36:10,596 WARNING:No table found on page 1.
+2024-12-28 16:36:10,608 INFO:Saved page source to page_source_political_science_page1.html for manual inspection.
+2024-12-28 16:36:10,608 INFO:No results found on page 1. Assuming no more pages to scrape.
+2024-12-28 16:36:10,615 INFO:No data scraped.
+2024-12-28 16:36:10,819 INFO:WebDriver has been closed.
+2024-12-28 16:36:10,819 INFO:GradCafe data collection script has completed.
+2024-12-28 16:46:33,592 INFO:Logging is set up.
+2024-12-28 16:46:33,593 INFO:Starting GradCafe data collection script for Yale University Political Science PhD program.
+2024-12-28 16:46:34,969 INFO:WebDriver has been initialized.
+2024-12-28 16:46:34,970 INFO:Starting data fetch for page 1.
+2024-12-28 16:46:34,974 INFO:Fetching page 1: https://www.thegradcafe.com/survey/?q=&sort=newest&institution=Yale+University&program=Political+Science&degree=PhD&season=&page=1
+2024-12-28 16:48:05,149 WARNING:No table found on page 1.
+2024-12-28 16:48:05,159 INFO:Saved page source to page_source_political_science_page1.html for manual inspection.
+2024-12-28 16:48:05,159 INFO:No results found on page 1. Assuming no more pages to scrape.
+2024-12-28 16:48:05,164 INFO:No data scraped.
+2024-12-28 16:48:05,326 INFO:WebDriver has been closed.
+2024-12-28 16:48:05,326 INFO:GradCafe data collection script has completed.
+2024-12-28 16:49:25,501 INFO:Logging is set up.
+2024-12-28 16:49:25,501 INFO:Starting GradCafe data collection script for Yale University Political Science PhD program.
+2024-12-28 16:49:26,452 INFO:WebDriver has been initialized.
+2024-12-28 16:49:26,454 INFO:Starting data fetch for page 1.
+2024-12-28 16:49:26,458 INFO:Fetching page 1: https://www.thegradcafe.com/survey/?q=&sort=newest&institution=Yale+University&program=Political+Science&degree=PhD&season=&page=1
+2024-12-28 16:50:56,316 WARNING:No table found on page 1.
+2024-12-28 16:50:56,329 INFO:Saved page source to page_source_political_science_page1.html for manual inspection.
+2024-12-28 16:50:56,329 INFO:No results found on page 1. Assuming no more pages to scrape.
+2024-12-28 16:50:56,337 INFO:No data scraped.
+2024-12-28 16:50:56,519 INFO:WebDriver has been closed.
+2024-12-28 16:50:56,519 INFO:GradCafe data collection script has completed.
