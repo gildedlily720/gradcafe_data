@@ -271,7 +271,7 @@ def main():
     ap.add_argument("--skip-boards", action="store_true")
     ap.add_argument("--max-pages", type=int, default=4)
     ap.add_argument("--ledger-from", help="merge a saved out/sweep_*.json into seen.json and exit (no fetching)")
-    ap.add_argument("--id-floor", type=int, help="LinkedIn job IDs at or below this existed before the window (re-listings); default = ledger max_linkedin_job_id_seen")
+    ap.add_argument("--id-floor", type=int, default=0, help="optional: drop LinkedIn IDs at or below this (off by default; LinkedIn hands out IDs from blocks consumed over days, so an ID floor is NOT a reliable repost test; use curate.py's applicant-count check instead)")
     a = ap.parse_args()
     if a.ledger_from:
         saved = json.load(open(a.ledger_from))
@@ -300,9 +300,9 @@ def main():
     seen = {it["key"] for it in ledger["items"]}
     def norm(it): return re.sub(r"[^a-z0-9]+", " ", f"{it.get('employer','')}|{it.get('title','')}".lower()).strip()
     seen_norm = {norm(it) for it in ledger["items"]}
-    # No-repost rule: LinkedIn job IDs are assigned at creation and only grow. "Listed N minutes ago" resets on every
-    # re-listing, so the only trustworthy "new" signal is an ID above the highest ID seen at the previous check.
-    floor = a.id_floor if a.id_floor is not None else int(ledger.get("max_linkedin_job_id_seen", 0) or 0)
+    # Repost screening happens in curate.py (applicant count versus listed age). An ID floor is optional and off by
+    # default: LinkedIn assigns job IDs from blocks that are consumed over several days, so IDs are not a clock.
+    floor = a.id_floor or 0
     found = {}
 
     def add(items):
@@ -350,7 +350,7 @@ def main():
     new = [i for i in items if i["new"]]
     relisted = [i for i in items if i.get("repost_by_id")]
     print(f"\n# Sweep {now.strftime('%Y-%m-%d %H:%M UTC')} window since {since.strftime('%Y-%m-%d %H:%M UTC')}: {len(items)} in window, "
-          f"{len(new)} new (LinkedIn ID above {floor}), {len(relisted)} re-listed older postings dropped\n")
+          f"{len(new)} new to the ledger" + (f", {len(relisted)} dropped by --id-floor {floor}" if floor else "") + "\n")
     lane = None
     for i in new:
         if i["lane"] != lane:
