@@ -270,7 +270,25 @@ def main():
     ap.add_argument("--skip-linkedin", action="store_true")
     ap.add_argument("--skip-boards", action="store_true")
     ap.add_argument("--max-pages", type=int, default=4)
+    ap.add_argument("--ledger-from", help="merge a saved out/sweep_*.json into seen.json and exit (no fetching)")
     a = ap.parse_args()
+    if a.ledger_from:
+        saved = json.load(open(a.ledger_from))
+        ledger = json.load(open(LEDGER)) if os.path.exists(LEDGER) else {"items": [], "max_linkedin_job_id_seen": 0}
+        seen = {it["key"] for it in ledger["items"]}
+        added = 0
+        for i in saved["items"]:
+            if i["key"] in seen: continue
+            ledger["items"].append({"key": i["key"], "title": i["title"], "employer": i["employer"], "location": i["location"],
+                                    "pay": "", "lane": i["lane"], "first_seen": saved["run_at"][:16],
+                                    "evidence": f"{i['source']} {i['posted_text'] or i['date']}", "status": "swept", "url": i["url"]})
+            seen.add(i["key"]); added += 1
+        mx = max([ledger.get("max_linkedin_job_id_seen", 0)] + [i["id"] for i in saved["items"] if i["source"] == "linkedin"])
+        ledger["max_linkedin_job_id_seen"] = mx
+        ledger["updated"] = dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes")
+        json.dump(ledger, open(LEDGER, "w"), indent=1)
+        print(f"ledger: +{added} from {a.ledger_from}; {len(ledger['items'])} entries; max LinkedIn id {mx}")
+        return
     now = dt.datetime.now(dt.timezone.utc)
     if a.since:
         since = dt.datetime.fromisoformat(a.since.replace("Z", "+00:00"))
