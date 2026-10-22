@@ -2,3 +2,4 @@
 *.xlsx
 
 job_sweeps/out/
+job_sweeps/__pycache__/
