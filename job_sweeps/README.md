@@ -71,7 +71,7 @@ NYS Attorney General Investigative Analyst; NYC DCWP Investigator Worker Protect
 Manhattan Borough President Special Assistant (803780); Everstream Analyst Intelligence
 Solutions; Deloitte Project Analyst OSINT Forensics; Hilco Analyst Global Investigations;
 Kobre & Kim Analyst I; Kroll Associate Investigations Diligence & Compliance; Kharon Research
-Analyst; Booking Holdings Analyst ERM; Democracy Forward Research Assistant; Documented
+Analyst; Booking Holdings Analyst ERM; Serdika Insight (via ecruit) U.S. Policy, Political & Investment Risk Research Consultant (Oct 22); Democracy Forward Research Assistant; Documented
 Research Fellowship; Third Bridge Associate and Research Associate Library; JPMorganChase
 Security & Resiliency Field Research Analyst; Sibylline Protective Intelligence Analyst;
 Control Risks Intelligence Analyst; Ergo Custom Research Analyst; Moonshot Threat Intelligence
