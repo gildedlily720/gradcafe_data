@@ -2,89 +2,62 @@
 
 Hourly sweep for new postings in the lanes listed in `lanes.md`. Each day's findings go in
 `YYYY-MM-DD.md`; every posting ever surfaced goes in `seen.json` so later checks only report
-genuinely new items.
+genuinely new items. Raw results of each run land in `out/sweep_<utc timestamp>.json`.
 
-## Sources used (in order of how well they date a posting)
+## The script
 
-1. Alert emails in Gmail: LinkedIn job-alert digests (about every two hours, each covers the
-   user's ~15 saved searches), Glassdoor daily alerts (carry "Just posted" / "9h" ages),
-   beBee alerts, LinkedIn saved-job and recommendation emails.
-2. The Jobs & Careers job-search tool (US postings, relevance ranked, no dates, top 3 per page)
-   run with the lane queries below, pages 1-2.
-3. The Workopia search tool (`posted_within_days` filter; its relevance is weak outside
-   underwriting titles; `postedDate` is usually empty).
-4. Web search (extended mode) to date a specific posting or find the employer's own listing.
+    python3 job_sweeps/sweep.py --hours 1.25                 # the hourly check (75-minute window)
+    python3 job_sweeps/sweep.py --since 2026-10-22T04:00:00Z # everything since midnight ET on Oct 22
+    add --update-ledger to record everything found in seen.json after the items have been reported
 
-## What is blocked in this environment
+It prints a markdown list of NEW items (not in the ledger, not a repost of a ledger item) grouped
+by lane, flags titles that look senior, and writes the full window to `out/`.
 
-Outbound requests to `www.linkedin.com`, `boards-api.greenhouse.io`, `api.lever.co`,
-`data.cityofnewyork.us` (and, by the same policy, Workday, Ashby, USAJOBS, Glassdoor, Indeed,
-cityjobs.nyc.gov, statejobs.ny.gov) are denied by the cloud environment's network policy, so
-posting timestamps cannot be read directly. If those hosts are added under Allowed domains in
-the environment settings (Edit environment, Network access), the hourly check should switch to
-LinkedIn's guest search feed with a one-hour window as the primary source:
+Sources, all with real posting times (network access to these hosts was enabled Oct 22):
 
-    https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=<query>&location=New%20York%2C%20United%20States&f_TPR=r3600&start=0
+1. LinkedIn guest job search, `f_TPR=r<seconds>` window, 61 lane queries, run for the New York
+   City metro (geoId 90000070), remote US (geoId 103644278 with `f_WT=2`) and, for policy,
+   trust and safety, intelligence, political risk and government lanes, the DC metro
+   (geoId 90000097). Each card carries a date and a relative age ("2 hours ago"); the script
+   turns the age into a timestamp. Pages of 25; the script stops at the first short page.
+2. Greenhouse boards (`first_published`): recordedfuture, exiger, sayari, alethea, anthropic,
+   everstreamanalytics, verainstituteofjustice, okx, teneo, humanrightswatch, discord, reddit,
+   pinterest, xai, scaleai, coinbase, robinhood, stripe, janes, 10alabs, fgsglobal, cision.
+3. Lever (`createdAt`): palantir, LeadBank, everbridge, shieldai. Ashby (`publishedAt`): trm-labs,
+   openai, ramp.
+4. Workday job API (`postedOn` text such as "Posted Today"): AIG (aig/aig) and Edelman
+   (djeholdings/edelman-careers-E200). Other Workday tenants exist (Chubb, Aon, WTW, Kroll,
+   Moody's, Verisk, Zurich, Everest, RAND, Fitch, Gallagher, Lockton) but their site names were
+   not discoverable without a browser; LinkedIn covers their postings within hours anyway.
+5. NYC Jobs open dataset `kpav-sd4t` (`posting_date`, lags about two days; filtered to analyst,
+   investigator, intelligence, policy, research, emergency management, integrity, fraud,
+   compliance, communications and planning titles).
 
-(`f_TPR=r3600` = past hour; each job card carries a `<time datetime="...">` element.)
-Greenhouse boards (`/v1/boards/<slug>/jobs`, field `updated_at`), Lever (`createdAt`) and the
-NYC Jobs dataset `kpav-sd4t` (field `posting_date`) give exact timestamps too.
+Not available: USAJOBS needs an API key (free registration at developer.usajobs.gov; add it as
+an environment secret and the script can be extended), Workable blocks scripted access
+(Control Risks), and cityjobs.nyc.gov and statejobs.ny.gov render client-side.
 
-## Dating heuristics while the network is blocked
-
-- LinkedIn job IDs are assigned in sequence. `seen.json` keeps `max_linkedin_job_id_seen`;
-  an ID above it was created after the last check. On Oct 21-22 the IDs grew by roughly
-  1.5 million per day.
-- Glassdoor alert ages ("Just posted", "9h", "1d") are relative to the email's send time.
-- Anything with no dating evidence is listed as "date unverified", never as new.
-
-## Lane queries for the Jobs & Careers tool (city New York, state NY, seniority INTERNSHIP/ENTRY/MID)
-
-1. Political risk: political risk, country risk, sovereign risk, geopolitical risk, geopolitics,
-   geoeconomics, economic security, risk consulting, strategic intelligence x analyst/associate/researcher.
-2. Sanctions and financial crime: sanctions, export controls, AML, KYC, financial crime,
-   illicit finance, blockchain investigations, market surveillance, enforcement x analyst/investigator/associate.
-3. Investigations: due diligence, corporate intelligence, investigative research, beneficial
-   ownership, forensic investigations, fraud investigations, asset recovery, white collar,
-   litigation analyst, investigative analyst, public defender x analyst/investigator/associate.
-4. Intelligence and security (non-cyber): threat intelligence, protective intelligence,
-   executive protection, travel risk, crisis response, GSOC, corporate security, OSINT,
-   counterterrorism, intelligence analyst x analyst/associate/officer; exclude SIEM,
-   penetration testing, vulnerability management.
-5. Specialty insurance: political risk insurance, political violence, terrorism, war risk,
-   kidnap and ransom, crisis management, trade credit, surety, credit insurance, transactional
-   liability, financial lines, D&O, fine art, specie, aviation, marine, cargo, reinsurance,
-   SIU x underwriter/assistant underwriter/broker/trainee/analyst/investigator.
-6. Trust and safety: trust and safety, content policy, platform integrity, policy enforcement,
-   AI policy, election integrity, disinformation, influence operations, human rights x analyst/researcher/associate.
-7. Policy and research: national security, foreign policy, international affairs, think tank,
-   legislative, policy research, criminal justice, social policy, urban planning, fact-checking,
-   research writing x research associate/research assistant/program associate/policy analyst/fellow/writer.
-8. Strategic communications: strategic communications, crisis communications, public affairs,
-   government affairs, media analysis, media monitoring, insights x analyst/associate/coordinator/assistant account executive.
-9. Government: District Attorney, Department of Investigation, Inspector General, CCRB, Mayor's
-   Office, DFS, DCJS, Attorney General, Comptroller, MTA, Port Authority, NYPD, Federal Reserve
-   Bank of New York, Emergency Management, FEMA, City of New York x analyst/investigator/policy analyst/fellow.
-10. Entry routes: graduate program, early careers, rotational program, analyst program,
-    development program, trainee, fellowship, recent graduate x risk/insurance/underwriting/
-    intelligence/policy/compliance/investigations/research/public affairs.
+Alert emails in Gmail (LinkedIn digests roughly every two hours, Glassdoor daily, beBee) remain a
+cross-check: the hourly run reads anything received since the previous check.
 
 ## Hourly procedure
 
-1. Gmail: `newer_than:2h` from the alert senders (jobalerts-noreply@linkedin.com,
-   jobs-noreply@linkedin.com, noreply@glassdoor.com, noreply@notification.bebee.com,
-   alerts@ziprecruiter.com, indeed.com, idealist.org, welcometothejungle.com, usajobs.gov,
-   myworkday.com, greenhouse.io, lever.co). Read each new thread as plain text and extract
-   every posting (title, employer, location, pay, LinkedIn job ID or URL).
-2. Run the ten lane queries above (pages 1-2) and the Workopia underwriting queries with
-   `posted_within_days: 1`.
-3. Drop anything already in `seen.json` (match on LinkedIn job ID, or on employer + title +
-   location) and anything on the already-applied list below.
-4. Date what is left (heuristics above). Report new items in the posting format used in the
-   daily file; put undated items in a separate "date unverified" block.
-5. Append to the day's file, add to `seen.json` (update `max_linkedin_job_id_seen`), commit and
-   push to branch `claude/wizardly-cerf-21o03d`.
-6. If nothing is new, say so in one line.
+1. `python3 job_sweeps/sweep.py --hours 1.25` (plus Gmail `newer_than:2h` from the alert senders:
+   jobalerts-noreply@linkedin.com, jobs-noreply@linkedin.com, noreply@glassdoor.com,
+   noreply@notification.bebee.com, alerts@ziprecruiter.com, indeed.com).
+2. Curate the NEW items against `lanes.md`: drop off-lane titles, mark senior ones, skip the
+   already-applied list below.
+3. Report the kept items in the posting format of the daily file (title, employer and unit,
+   location, posted evidence, salary, experience asked, deadline, why it fits, link), with a
+   separate short block for date-unverified items. Nothing new: one line.
+4. Append to the day's file (New York date), run the script again with `--update-ledger` (or
+   add the curated keys by hand), commit and push to branch `claude/wizardly-cerf-21o03d`.
+
+## Dating notes
+
+- LinkedIn job IDs are sequential; `seen.json` keeps `max_linkedin_job_id_seen`. LinkedIn also
+  re-lists postings under new IDs, so the script treats the same employer plus title as a repost.
+- Glassdoor alert ages ("Just posted", "9h") are relative to the email's send time.
 
 ## Already applied (from the coaching tracker in Drive, Oct 3, 2026), do not re-report
 
