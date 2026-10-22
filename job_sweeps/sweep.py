@@ -271,6 +271,7 @@ def main():
     ap.add_argument("--skip-boards", action="store_true")
     ap.add_argument("--max-pages", type=int, default=4)
     ap.add_argument("--ledger-from", help="merge a saved out/sweep_*.json into seen.json and exit (no fetching)")
+    ap.add_argument("--id-floor", type=int, help="LinkedIn job IDs at or below this existed before the window (re-listings); default = ledger max_linkedin_job_id_seen")
     a = ap.parse_args()
     if a.ledger_from:
         saved = json.load(open(a.ledger_from))
@@ -299,6 +300,9 @@ def main():
     seen = {it["key"] for it in ledger["items"]}
     def norm(it): return re.sub(r"[^a-z0-9]+", " ", f"{it.get('employer','')}|{it.get('title','')}".lower()).strip()
     seen_norm = {norm(it) for it in ledger["items"]}
+    # No-repost rule: LinkedIn job IDs are assigned at creation and only grow. "Listed N minutes ago" resets on every
+    # re-listing, so the only trustworthy "new" signal is an ID above the highest ID seen at the previous check.
+    floor = a.id_floor if a.id_floor is not None else int(ledger.get("max_linkedin_job_id_seen", 0) or 0)
     found = {}
 
     def add(items):
@@ -325,8 +329,9 @@ def main():
         if it["source"] == "linkedin" and it["posted_at"]:
             if dt.datetime.fromisoformat(it["posted_at"]) < since - dt.timedelta(minutes=30):
                 continue
-        it["new"] = it["key"] not in seen and norm(it) not in seen_norm
-        it["repost_of_seen"] = it["key"] not in seen and norm(it) in seen_norm
+        it["repost_by_id"] = it["source"] == "linkedin" and floor > 0 and int(it["id"]) <= floor
+        it["new"] = it["key"] not in seen and norm(it) not in seen_norm and not it["repost_by_id"]
+        it["repost_of_seen"] = (it["key"] not in seen and norm(it) in seen_norm) or it["repost_by_id"]
         it["senior"] = bool(SENIOR.search(it["title"]))
         items.append(it)
     # collapse same employer+title found under several LinkedIn IDs in this run (reposts), keep newest
@@ -340,10 +345,12 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     stamp = now.strftime("%Y%m%dT%H%M%SZ")
     path = os.path.join(OUT, f"sweep_{stamp}.json")
-    json.dump({"run_at": now.isoformat(), "since": since.isoformat(), "count": len(items), "items": items}, open(path, "w"), indent=1)
+    json.dump({"run_at": now.isoformat(), "since": since.isoformat(), "id_floor": floor, "count": len(items), "items": items}, open(path, "w"), indent=1)
 
     new = [i for i in items if i["new"]]
-    print(f"\n# Sweep {now.strftime('%Y-%m-%d %H:%M UTC')} window since {since.strftime('%Y-%m-%d %H:%M UTC')}: {len(items)} in window, {len(new)} new\n")
+    relisted = [i for i in items if i.get("repost_by_id")]
+    print(f"\n# Sweep {now.strftime('%Y-%m-%d %H:%M UTC')} window since {since.strftime('%Y-%m-%d %H:%M UTC')}: {len(items)} in window, "
+          f"{len(new)} new (LinkedIn ID above {floor}), {len(relisted)} re-listed older postings dropped\n")
     lane = None
     for i in new:
         if i["lane"] != lane:

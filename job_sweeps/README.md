@@ -80,3 +80,11 @@ Associate Consultant; AlertMedia Global Intelligence Analyst; HSBC AVP Financial
 Analysis; W.W. Norton Editorial Assistant; NYT News Assistant Data and Researcher; BerlinRosen
 and Civitas (Orchestra); Milltown Partners Senior Analyst; federal Pathways and ITA
 applications (see tracker).
+
+## No-repost rule (added Oct 22, 11:30 am ET)
+- A posting counts as new only if it was created after the previous check. LinkedIn's "listed N minutes ago" resets on every re-listing, so it is not evidence of a new posting; most "just listed" cards are re-listings of requisitions created days or weeks earlier.
+- LinkedIn job IDs are assigned at creation and only increase (about 0.7M a day, roughly 20k to 40k an hour). `sweep.py` now drops any LinkedIn item whose ID is at or below the ledger's `max_linkedin_job_id_seen` (the highest ID seen at the previous check) and reports those only as a count of "re-listed older postings dropped". Override with `--id-floor N` for a custom window; for the Oct 22 since-midnight screen the floor was 4482030840, the highest ID in the Oct 21 10:08 pm ET LinkedIn digest.
+- Gmail digest items follow the same rule: compare the LinkedIn ID in the link against the ledger max before reporting.
+- Glassdoor "Just posted" is not enough on its own; confirm on the employer site (a new requisition number or a posted date). Board feeds (Greenhouse `first_published`, Lever `createdAt`, Ashby `publishedAt`, NYC Jobs `posting_date`) carry real creation dates; Workday "Posted Today" is accepted.
+- Employer-side checks that work from here: Greenhouse boards API (`first_published`), Fiserv and Guidehouse Workday (`postedOn`), Crum & Forster iCIMS (requisition number, e.g. 2026-5178), AEI iCIMS (requisition order only; its JSON-LD `datePosted` is rendered at fetch time and unusable). Not reachable: USAJOBS search (client-rendered), Lever LeadBank (404), Liberty Mutual careers, Allianz Phenom (no US cargo hit), Brown & Brown (403), Workday roots for Lazard, Berkley, Ankura, MTA, Zurich, MUFG and PJT (406).
+- Reporting: list only non-repost items as postings. Items that are not reposts but were created one to three days earlier (for example NYC Jobs rows that the open dataset publishes with a two-day lag) go in a separate "not a repost, created earlier" line so they are never mistaken for today's.
