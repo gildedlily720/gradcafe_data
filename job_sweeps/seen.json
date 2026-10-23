@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T13:36+00:00",
+ "updated": "2026-10-23T14:22+00:00",
  "max_linkedin_job_id_seen": 4482892130,
  "notes": "LinkedIn IDs are sequential; anything above max_linkedin_job_id_seen was created after the last check. Keys: linkedin:<id>, glassdoor:<listingId>, or key:<employer>|<title>|<location>.",
  "items": [
@@ -108602,6 +108602,18 @@
    "evidence": "linkedin 21 minutes ago",
    "status": "swept",
    "url": "https://www.linkedin.com/jobs/view/4450829868/"
+  },
+  {
+   "key": "linkedin:4482493487",
+   "title": "Principal Associate, Security Intelligence Analyst, Protective Intelligence, Global Workplace Services",
+   "employer": "Capital One",
+   "location": "New York, NY",
+   "pay": "$98,900-$135,600 by location",
+   "lane": "Intelligence and security",
+   "first_seen": "2026-10-23T14:22+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 14:08Z; 'listed 1 day ago', first 25 applicants (new on LinkedIn); asks at least 3 years of intelligence, OSINT and online-investigation experience",
+   "status": "noted Oct 23 section K as off-level (3+ years)",
+   "url": "https://www.linkedin.com/jobs/view/4482493487/"
   }
  ]
 }
