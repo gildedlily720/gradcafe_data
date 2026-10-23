@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T09:26+00:00",
+ "updated": "2026-10-23T10:17+00:00",
  "max_linkedin_job_id_seen": 4482864097,
  "notes": "LinkedIn IDs are sequential; anything above max_linkedin_job_id_seen was created after the last check. Keys: linkedin:<id>, glassdoor:<listingId>, or key:<employer>|<title>|<location>.",
  "items": [
@@ -90074,6 +90074,42 @@
    "evidence": "linkedin 1 hour ago",
    "status": "swept",
    "url": "https://www.linkedin.com/jobs/view/4481650775/"
+  },
+  {
+   "key": "linkedin:4480778683",
+   "title": "Background Investigator I (part-time, on-call)",
+   "employer": "Jobgether (on behalf of a partner)",
+   "location": "United States",
+   "pay": "",
+   "lane": "Investigations",
+   "first_seen": "2026-10-23T10:17+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 10:08Z; 'listed 2 days ago', 162 applicants; part-time on-call, public trust clearance required",
+   "status": "not reported (part-time, clearance)",
+   "url": "https://www.linkedin.com/jobs/view/4480778683/"
+  },
+  {
+   "key": "linkedin:4482171238",
+   "title": "Transaction Monitoring Analyst / Financial Fraud Investigator - Entry Level (AML RightSource, via Braintrust)",
+   "employer": "Braintrust / AML RightSource",
+   "location": "United States (remote)",
+   "pay": "$40,000 rising to $42,000 after 90 days",
+   "lane": "Sanctions and financial crime",
+   "first_seen": "2026-10-23T10:17+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 10:08Z; 'listed 1 day ago', 64 applicants; posting text says 'Application Window: Ongoing (evergreen position)', a standing requisition re-advertised through Braintrust",
+   "status": "noted Oct 23 section G as an evergreen requisition, not a new posting",
+   "url": "https://www.linkedin.com/jobs/view/4482171238/"
+  },
+  {
+   "key": "linkedin:4464686039",
+   "title": "Analyst - Case Operations",
+   "employer": "Pathward",
+   "location": "United States (hybrid at listed offices)",
+   "pay": "$43,000-$70,000",
+   "lane": "Sanctions and financial crime",
+   "first_seen": "2026-10-23T10:17+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 10:08Z; 'listed 1 day ago', over 200 applicants (REPOST by the applicant-count test)",
+   "status": "repost, not reported",
+   "url": "https://www.linkedin.com/jobs/view/4464686039/"
   }
  ]
 }
