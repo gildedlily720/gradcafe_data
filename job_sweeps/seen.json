@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T07:23+00:00",
+ "updated": "2026-10-23T08:18+00:00",
  "max_linkedin_job_id_seen": 4482825805,
  "notes": "LinkedIn IDs are sequential; anything above max_linkedin_job_id_seen was created after the last check. Keys: linkedin:<id>, glassdoor:<listingId>, or key:<employer>|<title>|<location>.",
  "items": [
@@ -82418,6 +82418,42 @@
    "evidence": "linkedin 27 minutes ago",
    "status": "swept",
    "url": "https://www.linkedin.com/jobs/view/4480630186/"
+  },
+  {
+   "key": "linkedin:4480740086",
+   "title": "Research Intern (TRUE Global Intelligence)",
+   "employer": "FleishmanHillard",
+   "location": "New York, NY (also Dallas, Los Angeles, Seattle, St. Louis, Washington DC), hybrid",
+   "pay": "",
+   "lane": "Strategic communications",
+   "first_seen": "2026-10-23T08:18+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 08:08Z; LinkedIn 'listed 2 days ago', 50 applicants (unclear, not a repost by the test; no earlier FH intern posting in ledger); 40 hrs/week for at least 6 months, bachelor's or higher",
+   "status": "noted Oct 23 section E as a 6-month internship created about Oct 21",
+   "url": "https://www.linkedin.com/jobs/view/4480740086/"
+  },
+  {
+   "key": "linkedin:4478627509",
+   "title": "Research Fellow",
+   "employer": "10a Labs",
+   "location": "San Francisco, CA",
+   "pay": "",
+   "lane": "Trust and safety",
+   "first_seen": "2026-10-23T08:18+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 08:08Z; San Francisco twin of the New York Research Fellow posting 4478635154 already in the ledger since Oct 20; 63 applicants after 12 hours",
+   "status": "already covered via the New York twin, not reported",
+   "url": "https://www.linkedin.com/jobs/view/4478627509/"
+  },
+  {
+   "key": "linkedin:4418401633",
+   "title": "Preferred Communities Medicaid Research & Health Systems Impact Intern (unpaid)",
+   "employer": "International Rescue Committee",
+   "location": "New York, NY",
+   "pay": "unpaid",
+   "lane": "off lane",
+   "first_seen": "2026-10-23T08:18+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 08:08Z; old ID, unpaid internship",
+   "status": "not reported",
+   "url": "https://www.linkedin.com/jobs/view/4418401633/"
   }
  ]
 }
