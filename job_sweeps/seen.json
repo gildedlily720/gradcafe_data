@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T15:36+00:00",
+ "updated": "2026-10-23T16:18+00:00",
  "max_linkedin_job_id_seen": 4483113073,
  "notes": "LinkedIn IDs are sequential; anything above max_linkedin_job_id_seen was created after the last check. Keys: linkedin:<id>, glassdoor:<listingId>, or key:<employer>|<title>|<location>.",
  "items": [
@@ -503,8 +503,8 @@
    "pay": "",
    "lane": "surety / credit insurance",
    "first_seen": "2026-10-22T11:41Z",
-   "evidence": "beBee; senior version dated Feb 2026",
-   "status": "undated",
+   "evidence": "beBee datePosted 2026-10-16; 3+ years credit underwriting or credit analysis",
+   "status": "off-level (3+ years credit underwriting); dated Oct 16",
    "url": "https://bebee.com/us/jobs/risk-underwriter-americas-bondaval-new-york--t7xk-884708683"
   },
   {
@@ -515,8 +515,8 @@
    "pay": "",
    "lane": "credit insurance",
    "first_seen": "2026-10-22T11:41Z",
-   "evidence": "beBee",
-   "status": "undated",
+   "evidence": "beBee datePosted 2026-09-07, validThrough 2026-11-12",
+   "status": "older posting, created Sep 7 (beBee datePosted); requirements not stated",
    "url": "https://bebee.com/us/jobs/underwriter-credit-insurance-energy-transition-finance-energetic-new-york-city--ss-us-pd4wc5"
   },
   {
@@ -527,8 +527,8 @@
    "pay": "",
    "lane": "specialty insurance (casualty)",
    "first_seen": "2026-10-22T11:41Z",
-   "evidence": "beBee",
-   "status": "undated",
+   "evidence": "beBee datePosted 2026-09-07, validThrough 2026-11-07; Associate Underwriter Program, $65,000-$80,000, hybrid Mon-Wed",
+   "status": "older posting, created Sep 7 (beBee datePosted), still open to Nov 7; noted Oct 23 section N",
    "url": ""
   },
   {
@@ -22603,12 +22603,12 @@
    "key": "linkedin:4481376020",
    "title": "Underwriter or Underwriting Specialist - Zurich E&S",
    "employer": "Zurich North America",
-   "location": "Parsippany, NJ",
-   "pay": "",
+   "location": "New York, NY / Parsippany, NJ / Chicago / Atlanta (hybrid)",
+   "pay": "$60,000-$95,000 Underwriter; $75,000-$125,000 Specialist",
    "lane": "Political risk",
    "first_seen": "2026-10-22T14:46",
    "evidence": "linkedin 1 minute ago",
-   "status": "swept",
+   "status": "reported Oct 23 section N (created Oct 22 per beBee datePosted, first 25 applicants, locations include New York, hybrid)",
    "url": "https://www.linkedin.com/jobs/view/4481376020/"
   },
   {
