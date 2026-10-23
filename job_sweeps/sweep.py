@@ -105,6 +105,11 @@ ASHBY_BOARDS = ["trm-labs", "openai", "ramp"]
 WORKDAY_SITES = [  # (host, tenant, site, label)
     ("aig.wd1.myworkdayjobs.com", "aig", "aig", "AIG"),
     ("djeholdings.wd5.myworkdayjobs.com", "djeholdings", "edelman-careers-E200", "Edelman"),
+    ("mmc.wd1.myworkdayjobs.com", "mmc", "MMC", "Marsh McLennan"),
+    ("travelers.wd5.myworkdayjobs.com", "travelers", "External", "Travelers"),
+    ("guidehouse.wd1.myworkdayjobs.com", "guidehouse", "External", "Guidehouse"),
+    ("thehartford.wd5.myworkdayjobs.com", "thehartford", "Careers_External", "The Hartford"),
+    ("cna.wd1.myworkdayjobs.com", "cna", "CNA_Careers", "CNA"),
 ]
 WORKDAY_SEARCHES = ["analyst", "underwriter", "associate", "intelligence", "investigations", "policy", "early careers"]
 NYC_KEYWORDS = re.compile(r"analyst|investigat|intelligence|policy|research|emergency|resilien|integrity|"
