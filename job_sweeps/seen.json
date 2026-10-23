@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T11:26+00:00",
+ "updated": "2026-10-23T12:24+00:00",
  "max_linkedin_job_id_seen": 4482870086,
  "notes": "LinkedIn IDs are sequential; anything above max_linkedin_job_id_seen was created after the last check. Keys: linkedin:<id>, glassdoor:<listingId>, or key:<employer>|<title>|<location>.",
  "items": [
@@ -99506,6 +99506,42 @@
    "evidence": "linkedin 51 minutes ago",
    "status": "swept",
    "url": "https://www.linkedin.com/jobs/view/4446439281/"
+  },
+  {
+   "key": "linkedin:4446429839",
+   "title": "Private Equity Due Diligence Specialist",
+   "employer": "Stifel Financial Corp.",
+   "location": "New York, NY",
+   "pay": "$85,000-$100,000",
+   "lane": "off lane (investment due diligence)",
+   "first_seen": "2026-10-23T12:24+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 12:08Z; 'listed 1 day ago', over 200 applicants (REPOST by the applicant-count test); 1-3 years",
+   "status": "repost, not reported",
+   "url": "https://www.linkedin.com/jobs/view/4446429839/"
+  },
+  {
+   "key": "linkedin:4480933117",
+   "title": "Analyst - Risk and Controls - Global Corporate & Investment Banking",
+   "employer": "MUFG",
+   "location": "New York, NY",
+   "pay": "",
+   "lane": "off lane (operational risk)",
+   "first_seen": "2026-10-23T12:24+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 12:08Z; 'listed 1 day ago', 172 applicants (REPOST by the applicant-count test); 1-3 years",
+   "status": "repost, not reported",
+   "url": "https://www.linkedin.com/jobs/view/4480933117/"
+  },
+  {
+   "key": "linkedin:4473505310",
+   "title": "GSOC Analyst",
+   "employer": "New York Life",
+   "location": "New York, NY",
+   "pay": "",
+   "lane": "Intelligence and security",
+   "first_seen": "2026-10-23T12:24+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 12:08Z; New York Life's own SuccessFactors site dates this GSOC Analyst posting Sep 29, 2026 (see Oct 22 section O); repost",
+   "status": "repost, not reported",
+   "url": "https://www.linkedin.com/jobs/view/4473505310/"
   }
  ]
 }
