@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T05:23+00:00",
+ "updated": "2026-10-23T06:19+00:00",
  "max_linkedin_job_id_seen": 4482743551,
  "notes": "LinkedIn IDs are sequential; anything above max_linkedin_job_id_seen was created after the last check. Keys: linkedin:<id>, glassdoor:<listingId>, or key:<employer>|<title>|<location>.",
  "items": [
@@ -79166,6 +79166,30 @@
    "evidence": "ashby:trm-labs publishedAt 2026-10-23T05:16:57.914+00:00",
    "status": "swept",
    "url": "https://jobs.ashbyhq.com/trm-labs/32fa63e4-56ee-4d76-a24e-c91dcee2bad0"
+  },
+  {
+   "key": "linkedin:4482116902",
+   "title": "Research Analyst",
+   "employer": "Women In Need, Inc. (Win)",
+   "location": "New York, NY",
+   "pay": "$70,000-$75,000",
+   "lane": "Policy and research",
+   "first_seen": "2026-10-23T06:19+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 06:08Z; LinkedIn 'listed 1 day ago', over 200 applicants; employer UKG board RESEA001411 posted 2026-10-21T14:08Z (not a repost, created Oct 21)",
+   "status": "reported Oct 23 section C as created Oct 21",
+   "url": "https://www.linkedin.com/jobs/view/4482116902/"
+  },
+  {
+   "key": "linkedin:4482182351",
+   "title": "Associate Economist 2",
+   "employer": "Moody's Corporation",
+   "location": "United States",
+   "pay": "",
+   "lane": "Policy and research",
+   "first_seen": "2026-10-23T06:19+00:00",
+   "evidence": "LinkedIn digest 2026-10-23 06:08Z; LinkedIn 'listed 1 day ago', 87 applicants; employer TalentBrew page Job ID 15614 datePosted 2026-10-12 (repost)",
+   "status": "repost, not reported",
+   "url": "https://www.linkedin.com/jobs/view/4482182351/"
   }
  ]
 }
