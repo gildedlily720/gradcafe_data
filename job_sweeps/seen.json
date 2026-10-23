@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T15:30+00:00",
+ "updated": "2026-10-23T15:36+00:00",
  "max_linkedin_job_id_seen": 4483113073,
  "notes": "LinkedIn IDs are sequential; anything above max_linkedin_job_id_seen was created after the last check. Keys: linkedin:<id>, glassdoor:<listingId>, or key:<employer>|<title>|<location>.",
  "items": [
@@ -117864,7 +117864,7 @@
    "lane": "board",
    "first_seen": "2026-10-23T15:19",
    "evidence": "workday:Guidehouse Posted Today",
-   "status": "swept",
+   "status": "reported Oct 23 section L; downgraded to noted in section M under the DC rule (on-site Tysons, no remote stated)",
    "url": "https://guidehouse.wd1.myworkdayjobs.com/en-US/External/job/Home-Office-Tysons-VA/Threat-Monitoring-Analyst_45761"
   },
   {
@@ -118010,6 +118010,102 @@
    "evidence": "greenhouse:recordedfuture first_published 2026-10-23T11:08:45-04:00",
    "status": "swept",
    "url": "https://job-boards.greenhouse.io/recordedfuture/jobs/8907592002"
+  },
+  {
+   "key": "ashby:fdab8fd4-2d27-4878-990c-c2b940340336",
+   "title": "Global Investigator (Triage)",
+   "employer": "TRM Labs",
+   "location": "United States (remote)",
+   "pay": "",
+   "lane": "Investigations / Sanctions and financial crime",
+   "first_seen": "2026-10-23T15:36+00:00",
+   "evidence": "Ashby board publishedAt 2026-10-15T22:14Z; 1-3 years fine; public trust; remote",
+   "status": "reported Oct 23 section M (created Oct 15, not a repost)",
+   "url": "https://jobs.ashbyhq.com/trm-labs/fdab8fd4-2d27-4878-990c-c2b940340336"
+  },
+  {
+   "key": "greenhouse:4452672009",
+   "title": "Field Intelligence Analyst (Remote, US)",
+   "employer": "Sayari",
+   "location": "Remote - US",
+   "pay": "",
+   "lane": "Intelligence and security",
+   "first_seen": "2026-10-23T15:36+00:00",
+   "evidence": "Greenhouse first_published 2026-10-15; deployed customer-facing analyst, clearance for government portfolios",
+   "status": "noted Oct 23 section M as off-level",
+   "url": "https://job-boards.greenhouse.io/sayari/jobs/4452672009"
+  },
+  {
+   "key": "workday:cna:R-8303",
+   "title": "Underwriting Technician, Large Casualty",
+   "employer": "CNA",
+   "location": "Remote, USA",
+   "pay": "",
+   "lane": "Specialty insurance",
+   "first_seen": "2026-10-23T15:36+00:00",
+   "evidence": "CNA Workday startDate 2026-10-21; typically 3 years office experience",
+   "status": "noted Oct 23 section M as off-level",
+   "url": "https://cna.wd1.myworkdayjobs.com/CNA_Careers/job/Remote-USA/Underwriting-Technician--Large-Casualty_R-8303-1"
+  },
+  {
+   "key": "workday:guidehouse:40623",
+   "title": "OSINT Analyst",
+   "employer": "Guidehouse",
+   "location": "Washington, DC",
+   "pay": "from $98,000",
+   "lane": "Intelligence and security",
+   "first_seen": "2026-10-23T15:36+00:00",
+   "evidence": "Guidehouse Workday startDate 2026-10-20; active Top Secret, 4 years",
+   "status": "noted Oct 23 section M as cleared",
+   "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---DC-Washington/OSINT-Analyst_40623"
+  },
+  {
+   "key": "workday:guidehouse:45631",
+   "title": "Data Analyst",
+   "employer": "Guidehouse",
+   "location": "US - Remote",
+   "pay": "from $92,000",
+   "lane": "off lane",
+   "first_seen": "2026-10-23T15:36+00:00",
+   "evidence": "Guidehouse Workday startDate 2026-10-21; 3 years",
+   "status": "noted Oct 23 section M",
+   "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---Remote-Any-location/Data-Analyst_45631"
+  },
+  {
+   "key": "workday:guidehouse:45426",
+   "title": "TSA Risk Analyst",
+   "employer": "Guidehouse",
+   "location": "McLean, VA",
+   "pay": "",
+   "lane": "Government",
+   "first_seen": "2026-10-23T15:36+00:00",
+   "evidence": "Guidehouse Workday startDate 2026-10-20; 3+ years",
+   "status": "noted Oct 23 section M as off-level",
+   "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/TSA-Risk-Analyst_45426"
+  },
+  {
+   "key": "workday:guidehouse:42847",
+   "title": "Program Analyst",
+   "employer": "Guidehouse",
+   "location": "Washington, DC",
+   "pay": "",
+   "lane": "Government",
+   "first_seen": "2026-10-23T15:36+00:00",
+   "evidence": "Guidehouse Workday startDate 2026-10-19; active Secret",
+   "status": "noted Oct 23 section M as cleared",
+   "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---DC-Washington/Program-Analyst_42847"
+  },
+  {
+   "key": "workday:mmc:R_364096",
+   "title": "Strategy and Operations Associate (Marsh reinsurance operations)",
+   "employer": "Marsh McLennan",
+   "location": "New York, NY",
+   "pay": "",
+   "lane": "off lane",
+   "first_seen": "2026-10-23T15:36+00:00",
+   "evidence": "MMC Workday startDate 2026-10-22; consulting background",
+   "status": "noted Oct 23 section M",
+   "url": "https://mmc.wd1.myworkdayjobs.com/en-US/MMC/job/New-York---1166/Operations-Associate_R_364096"
   }
  ]
 }
