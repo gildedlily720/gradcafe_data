@@ -23,7 +23,7 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
-from typing import Any
+from typing import Annotated, Any
 from urllib.parse import urlsplit
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request
@@ -400,7 +400,9 @@ def _parse_import(payload: Any, origin: str, fmt: str | None, settings: Settings
     for name in ("fmt", "format"):
         if name in params and fmt:
             kwargs[name] = fmt
-    result = parse(payload, origin=origin, **kwargs) if "origin" in params else parse(payload, origin, **kwargs)
+    result = (
+        parse(payload, origin=origin, **kwargs) if "origin" in params else parse(payload, origin, **kwargs)
+    )
     if inspect.isawaitable(result):
         result = asyncio.run(result)  # handlers run in the threadpool, so no loop is running here
     return [j if isinstance(j, Job) else Job.from_dict(j) for j in (result or [])]
@@ -437,11 +439,11 @@ def _employer_lookup(registry: Any) -> Callable[[Job], Employer | None]:
 
 def job_filters(
     q: str | None = Query(None, description="full-text search"),
-    lane: list[str] | None = Query(None, description="lane id(s); repeat or comma-separate"),
-    group: list[str] | None = Query(None, description="group id(s)"),
-    source: list[str] | None = Query(None, description="source name(s)"),
-    status: list[str] | None = Query(None, description="status(es) or 'all'"),
-    employer: list[str] | None = Query(None, description="employer key(s)"),
+    lane: Annotated[list[str] | None, Query(description="lane id(s); repeat or comma-separate")] = None,
+    group: Annotated[list[str] | None, Query(description="group id(s)")] = None,
+    source: Annotated[list[str] | None, Query(description="source name(s)")] = None,
+    status: Annotated[list[str] | None, Query(description="status(es) or 'all'")] = None,
+    employer: Annotated[list[str] | None, Query(description="employer key(s)")] = None,
     entry: str | None = Query(None, description="1 = entry-level (or unknown) only"),
     min_score: float | None = Query(None, ge=0, le=100),
     location: str | None = Query(None),
@@ -559,7 +561,9 @@ def _employer_matches(e: dict, group: str | None, lane: str | None, q: str | Non
     if lane and lane not in (e.get("lanes") or []):
         return False
     if q:
-        hay = " ".join(str(e.get(k) or "") for k in ("key", "name", "hq", "ats", "ats_vendor", "notes")).lower()
+        hay = " ".join(
+            str(e.get(k) or "") for k in ("key", "name", "hq", "ats", "ats_vendor", "notes")
+        ).lower()
         return all(tok in hay for tok in q.lower().split())
     return True
 
@@ -615,15 +619,18 @@ def create_app(
 
     @app.get("/config.js", include_in_schema=False)
     def config_js() -> Response:
-        body = 'window.JOBSWEEP_MODE = "api";\n' + "window.JOBSWEEP_DEFAULTS = " + json.dumps(
-            {"min_score": ctx.min_score()}
-        ) + ";\n"
+        body = (
+            'window.JOBSWEEP_MODE = "api";\n'
+            + "window.JOBSWEEP_DEFAULTS = "
+            + json.dumps({"min_score": ctx.min_score()})
+            + ";\n"
+        )
         return Response(body, media_type="application/javascript")
 
     # ---- jobs -------------------------------------------------------------------------------------
     @app.get("/api/jobs")
     def list_jobs(
-        filters: dict = Depends(job_filters),
+        filters: Annotated[dict, Depends(job_filters)],
         sort: str = Query("score"),
         limit: int = Query(50, ge=1, le=MAX_LIMIT),
         offset: int = Query(0, ge=0),
@@ -665,7 +672,7 @@ def create_app(
 
     # ---- catalog / stats --------------------------------------------------------------------------
     @app.get("/api/lanes")
-    def lanes(filters: dict = Depends(job_filters)) -> dict:
+    def lanes(filters: Annotated[dict, Depends(job_filters)]) -> dict:
         try:
             return _lane_payload(ctx, filters)
         except ValueError as exc:
@@ -685,7 +692,10 @@ def create_app(
 
     @app.get("/api/employers")
     def employers(
-        group: str | None = None, lane: str | None = None, q: str | None = None, manual_only: str | None = None
+        group: str | None = None,
+        lane: str | None = None,
+        q: str | None = None,
+        manual_only: str | None = None,
     ) -> dict:
         reg = ctx.registry
 
@@ -763,12 +773,13 @@ def create_app(
     @app.get("/api/digest")
     def digest(
         days: float = Query(1, gt=0),
-        format: str = Query("md", pattern="^(md|markdown|json)$"),  # noqa: A002 - public query name
+        format: str = Query("md", pattern="^(md|markdown|json)$"),  # public query name
         min_score: float | None = Query(None, ge=0, le=100),
     ) -> Response:
         from ..export import digest as make_digest
 
-        text = make_digest(ctx.store, days=days, min_score=min_score, fmt=format, taxonomy=ctx.taxonomy)
+        span: float | int = int(days) if float(days).is_integer() else days
+        text = make_digest(ctx.store, days=span, min_score=min_score, fmt=format, taxonomy=ctx.taxonomy)
         if format == "json":
             return JSONResponse(json.loads(text))
         return PlainTextResponse(text, media_type="text/markdown; charset=utf-8")

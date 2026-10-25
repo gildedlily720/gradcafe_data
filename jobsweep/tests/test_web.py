@@ -37,7 +37,9 @@ GROUPS = [
     ("earlier-lanes", "Earlier lanes", ["program-evaluation"]),
 ]
 LANE_GROUPS = {lane: g for g, _, lanes in GROUPS for lane in lanes}
-LONG_DESC = "About the role\nWe underwrite political risk.\n\n- Prepare files\n- Analyse obligors\n\n" + ("word " * 300)
+LONG_DESC = "About the role\nWe underwrite political risk.\n\n- Prepare files\n- Analyse obligors\n\n" + (
+    "word " * 300
+)
 
 
 class FakeTaxonomy:
@@ -79,17 +81,55 @@ def mk(source: str, sid: str, title: str, score: float, lanes: list[str], **kw) 
 
 
 SAMPLE = [
-    mk("greenhouse", "1", "Political Risk Underwriting Assistant", 80, ["political-risk"], entry_level=True,
-       location="London, UK", description=LONG_DESC, remote=False),
-    mk("lever", "abc/def", "Sanctions Analyst", 70, ["sanctions"], company="K2 Integrity", entry_level=True,
-       remote=True),
-    mk("usajobs", "DHS-1", "Intelligence Research Specialist", 60, ["federal-pathways"],
-       company="Department of Homeland Security", location="Washington, DC", tags=["pathways"]),
-    mk("greenhouse", "2", "Senior Director, Threat Intelligence", 30, ["threat-intelligence"],
-       company="Recorded Future", entry_level=False),
+    mk(
+        "greenhouse",
+        "1",
+        "Political Risk Underwriting Assistant",
+        80,
+        ["political-risk"],
+        entry_level=True,
+        location="London, UK",
+        description=LONG_DESC,
+        remote=False,
+    ),
+    mk(
+        "lever",
+        "abc/def",
+        "Sanctions Analyst",
+        70,
+        ["sanctions"],
+        company="K2 Integrity",
+        entry_level=True,
+        remote=True,
+    ),
+    mk(
+        "usajobs",
+        "DHS-1",
+        "Intelligence Research Specialist",
+        60,
+        ["federal-pathways"],
+        company="Department of Homeland Security",
+        location="Washington, DC",
+        tags=["pathways"],
+    ),
+    mk(
+        "greenhouse",
+        "2",
+        "Senior Director, Threat Intelligence",
+        30,
+        ["threat-intelligence"],
+        company="Recorded Future",
+        entry_level=False,
+    ),
     mk("greenhouse", "3", "Program Evaluation Analyst", 50, ["program-evaluation"], company="Mathematica"),
-    Job(source="import", source_id="indeed:9", title="Office Coordinator", company="Acme", url="https://example.com/9",
-        score=10.0),
+    Job(
+        source="import",
+        source_id="indeed:9",
+        title="Office Coordinator",
+        company="Acme",
+        url="https://example.com/9",
+        score=10.0,
+    ),
 ]
 
 
@@ -168,8 +208,23 @@ def test_jobs_default_shape_and_order(client: TestClient) -> None:
     assert uids(r) == ["greenhouse:1", "lever:abc/def", "usajobs:DHS-1", "greenhouse:2", "import:indeed:9"]
     assert body["total"] == 5
     row = body["items"][0]
-    for key in ("uid", "title", "company", "url", "lanes", "groups", "score", "status", "note", "first_seen",
-                "last_seen", "active", "duplicate_of", "match_reasons", "description"):
+    for key in (
+        "uid",
+        "title",
+        "company",
+        "url",
+        "lanes",
+        "groups",
+        "score",
+        "status",
+        "note",
+        "first_seen",
+        "last_seen",
+        "active",
+        "duplicate_of",
+        "match_reasons",
+        "description",
+    ):
         assert key in row
     assert row["status"] == "new" and row["description"] == LONG_DESC
 
@@ -210,7 +265,16 @@ def test_jobs_sorts(client: TestClient) -> None:
 
 
 @pytest.mark.parametrize(
-    "query", ["sort=random", "status=bogus", "status=new,bogus", "limit=0", "limit=5000", "min_score=500", "offset=-1"]
+    "query",
+    [
+        "sort=random",
+        "status=bogus",
+        "status=new,bogus",
+        "limit=0",
+        "limit=5000",
+        "min_score=500",
+        "offset=-1",
+    ],
 )
 def test_jobs_bad_params_are_422(client: TestClient, query: str) -> None:
     r = client.get("/api/jobs?" + query)
@@ -279,7 +343,9 @@ def test_status_update_persists(client: TestClient, store) -> None:
 
 def test_status_update_uid_with_slash(client: TestClient) -> None:
     r = client.post("/api/jobs/lever%3Aabc%2Fdef/status", json={"status": "interviewing"})
-    assert r.status_code == 200 and r.json()["uid"] == "lever:abc/def" and r.json()["status"] == "interviewing"
+    assert (
+        r.status_code == 200 and r.json()["uid"] == "lever:abc/def" and r.json()["status"] == "interviewing"
+    )
 
 
 @pytest.mark.parametrize("status", JOB_STATUSES)
@@ -339,7 +405,17 @@ def test_lanes_counts_follow_filters(client: TestClient) -> None:
 
 def test_stats_and_runs(client: TestClient, store) -> None:
     stats = client.get("/api/stats").json()
-    for key in ("total", "active", "new_24h", "new_7d", "by_group", "by_lane", "by_source", "by_status", "last_run"):
+    for key in (
+        "total",
+        "active",
+        "new_24h",
+        "new_7d",
+        "by_group",
+        "by_lane",
+        "by_source",
+        "by_status",
+        "last_run",
+    ):
         assert key in stats
     assert stats["total"] == 6 and stats["last_run"] is None
     assert client.get("/api/runs").json() == []
@@ -385,7 +461,9 @@ def test_employers(client: TestClient) -> None:
     assert body["sweepable"][0]["open_jobs"] == 40
     assert client.get("/api/employers?q=beaz").json()["manual"] == []
     assert client.get("/api/employers?group=government").json() == {"sweepable": [], "manual": []}
-    assert [e["key"] for e in client.get("/api/employers?lane=political-risk").json()["sweepable"]] == ["beazley"]
+    assert [e["key"] for e in client.get("/api/employers?lane=political-risk").json()["sweepable"]] == [
+        "beazley"
+    ]
     assert client.get("/api/employers?manual_only=1").json()["sweepable"] == []
 
 
@@ -433,7 +511,9 @@ def test_sweep_runs_in_background_and_rejects_concurrent(client: TestClient, app
     release, calls = _install_fake_sweep(monkeypatch)
     idle = client.get("/api/sweep/status").json()
     assert idle == {"running": False, "last_report": None, "progress": {}}
-    r = client.post("/api/sweep", json={"sources": "greenhouse,usajobs", "include_metered": True, "boards": True})
+    r = client.post(
+        "/api/sweep", json={"sources": "greenhouse,usajobs", "include_metered": True, "boards": True}
+    )
     assert r.status_code == 202 and r.json() == {"started": True}
     try:
         for _ in range(200):
@@ -502,7 +582,11 @@ def test_import_with_stub_parser(client: TestClient, store, taxonomy, monkeypatc
         ]  # fmt: skip
 
     monkeypatch.setattr(web_app, "_parse_import", fake_parse)
-    body = {"origin": "indeed connector!", "format": "auto", "payload": "**Job Title:** Political Risk Analyst"}
+    body = {
+        "origin": "indeed connector!",
+        "format": "auto",
+        "payload": "**Job Title:** Political Risk Analyst",
+    }
     r = client.post("/api/import", json=body)
     assert r.status_code == 200, r.text
     res = r.json()
@@ -521,7 +605,14 @@ def test_import_with_stub_parser(client: TestClient, store, taxonomy, monkeypatc
 
 @pytest.mark.parametrize(
     "body",
-    [{"payload": ""}, {"payload": "   "}, {}, {"payload": []}, {"payload": 5}, {"payload": "a,b", "format": "xml"}],
+    [
+        {"payload": ""},
+        {"payload": "   "},
+        {},
+        {"payload": []},
+        {"payload": 5},
+        {"payload": "a,b", "format": "xml"},
+    ],
 )
 def test_import_validation(client: TestClient, body: dict) -> None:
     assert client.post("/api/import", json=body).status_code == 422
@@ -616,7 +707,9 @@ def test_catalog_taxonomy_fallback_reads_lanes_yaml() -> None:
 def test_app_js_parses_with_node() -> None:
     if not NODE:
         pytest.skip("node not installed")
-    res = subprocess.run([NODE, "--check", str(STATIC_DIR / "app.js")], capture_output=True, text=True, timeout=60)
+    res = subprocess.run(
+        [NODE, "--check", str(STATIC_DIR / "app.js")], capture_output=True, text=True, timeout=60
+    )
     assert res.returncode == 0, res.stderr
 
 
@@ -630,11 +723,24 @@ def test_ui_is_self_contained_and_xss_safe() -> None:
     assert not re.search(r"""(src|href)=["']https?://""", html)
     assert "@import" not in css and "url(http" not in css
     assert not re.search(r"""fetch\(\s*["'`]https?://""", js)
-    # job data is never injected as HTML
+    # job data is never injected as HTML (checked on the code, comments stripped)
+    code = re.sub(r"/\*.*?\*/", "", js, flags=re.S)
     for sink in ("innerHTML", "outerHTML", "insertAdjacentHTML", "document.write", "eval("):
-        assert sink not in js, sink
+        assert sink not in code, sink
     # both modes and the API surface the contract defines
-    for needle in ('"static"', '"api"', "data/jobs.json", "data/lanes.json", "data/stats.json", "data/employers.json",
-                   "data/sources.json", "api/jobs", "api/lanes", "api/sweep/status", "api/import", "localStorage"):
+    for needle in (
+        '"static"',
+        '"api"',
+        "data/jobs.json",
+        "data/lanes.json",
+        "data/stats.json",
+        "data/employers.json",
+        "data/sources.json",
+        "api/jobs",
+        "api/lanes",
+        "api/sweep/status",
+        "api/import",
+        "localStorage",
+    ):
         assert needle in js, needle
     assert "prefers-color-scheme: dark" in css
