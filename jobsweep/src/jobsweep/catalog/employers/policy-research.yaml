@@ -163,7 +163,7 @@ employers:
     groups: [intelligence-security, geopolitical-risk]
     ats: bamboohr
     board: understandingwar
-    careers_url: https://www.understandingwar.org/careers
+    careers_url: https://understandingwar.bamboohr.com/careers
     hq: "Washington, DC"
     locations: ["Washington, DC"]
     verified: "2026-10-25"
@@ -201,7 +201,7 @@ employers:
     groups: [geopolitical-risk]
     ats: recruitee
     board: crisisgroup
-    careers_url: https://www.crisisgroup.org/careers
+    careers_url: https://crisisgroup.recruitee.com/
     hq: "Brussels, Belgium"
     locations: ["Washington, DC", "New York, NY", "London, UK", "Brussels, Belgium"]
     verified: "2026-10-25"
@@ -386,7 +386,7 @@ employers:
     groups: [government]
     ats: greenhouse
     board: partnershipforpublicservice
-    careers_url: https://ourpublicservice.org/about/careers/
+    careers_url: https://job-boards.greenhouse.io/partnershipforpublicservice
     hq: "Washington, DC"
     locations: ["Washington, DC"]
     verified: "2026-10-25"
@@ -702,7 +702,7 @@ employers:
     lanes: [urban-planning-research, social-policy-advocacy]
     ats: greenhouse
     board: lisc
-    careers_url: https://www.lisc.org/about-us/careers/
+    careers_url: https://job-boards.greenhouse.io/lisc
     hq: "New York, NY"
     locations: ["New York, NY", "Washington, DC"]
     verified: "2026-10-25"
@@ -715,7 +715,7 @@ employers:
     groups: [government]
     ats: greenhouse
     board: nycedc
-    careers_url: https://edc.nyc/careers
+    careers_url: https://job-boards.greenhouse.io/nycedc
     hq: "New York, NY"
     locations: ["New York, NY"]
     verified: "2026-10-25"
@@ -1062,7 +1062,7 @@ employers:
     lanes: [research-writing]
     ats: greenhouse
     board: axios
-    careers_url: https://www.axios.com/careers
+    careers_url: https://job-boards.greenhouse.io/axios
     hq: "Arlington, VA"
     locations: ["Washington, DC", "New York, NY", "Remote US"]
     verified: "2026-10-25"
@@ -1086,7 +1086,7 @@ employers:
     lanes: [research-writing]
     ats: greenhouse
     board: nationalpublicradioinc
-    careers_url: https://www.npr.org/careers
+    careers_url: https://job-boards.greenhouse.io/nationalpublicradioinc
     hq: "Washington, DC"
     locations: ["Washington, DC", "New York, NY"]
     verified: "2026-10-25"
