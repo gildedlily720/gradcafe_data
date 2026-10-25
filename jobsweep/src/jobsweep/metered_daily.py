@@ -115,7 +115,9 @@ def query_pool(taxonomy: Any, source: str, lanes: list[str] | None) -> list[Sear
             elif source == "hasdata_indeed":
                 extra = {"pages": 1}
             else:
-                extra = {"actor": "hiringcafe", "max_charge_usd": 0.08, "timeout_secs": 120}
+                # Leave time to enrich descriptions used by qualification screening.
+                limit = 20
+                extra = {"actor": "hiringcafe", "max_charge_usd": 0.08, "timeout_secs": 240}
             pool.append(
                 replace(
                     query,
