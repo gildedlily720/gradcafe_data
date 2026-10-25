@@ -661,3 +661,5 @@ dialog.help::backdrop { background: var(--scrim); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+.icon.flip-up { transform: rotate(-90deg); }
+.icon.flip-down { transform: rotate(90deg); }

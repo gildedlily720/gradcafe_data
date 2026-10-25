@@ -162,7 +162,8 @@ def normalize_text(text: str | None) -> str:
         return ""
     if text.isascii():
         return text
-    text = unicodedata.normalize("NFKC", text)
+    if max(text) >= "\u2000":  # ligatures, full-width forms, special spaces: worth NFKC
+        text = unicodedata.normalize("NFKC", text)
     return _UNI_RE.sub(lambda m: _UNI_MAP[m.group(0)], text)
 
 
@@ -366,6 +367,8 @@ class Term:
         "canon",
         "token_only",
         "prefix",
+        "pairs",
+        "need_forms",
     )
 
     def __init__(self, raw: str, idx: int = 0):
@@ -378,6 +381,9 @@ class Term:
         #   subs    - lower-case substrings that must occur in the text
         self.anchors: tuple[frozenset[bytes], ...] = ()
         self.forms: tuple[bytes, ...] = ()
+        #   pairs   - per token-sequence variant, the adjacent word pairs it needs (alternatives per slot)
+        self.pairs: tuple[tuple[frozenset[tuple[bytes, bytes]], ...], ...] = ()
+        self.need_forms = False
         self.subs: tuple[str, ...] = ()
         self.token_only = False
         self.rx: re.Pattern[str] | None = None
@@ -407,7 +413,23 @@ class Term:
             self.anchors = (frozenset(f.encode() for f in _word_forms(words[0])),)
             return
         self.pattern = _plain_pattern(raw, self.case_sensitive)
-        self.forms = _canonical_forms(raw)
+        variants, last_forms = _canonical_variants(raw)
+        if variants and all(len(v) >= 2 for v in variants):
+            last_b = [f.encode() for f in last_forms]
+            stem = last_forms[0]
+            while stem and not all(f.startswith(stem) for f in last_forms):
+                stem = stem[:-1]
+            self.forms = tuple(
+                dict.fromkeys((" " + " ".join([*v[:-1], stem or v[-1]])).encode() for v in variants)
+            )
+            pv = []
+            for v in variants:
+                vb = [w.encode() for w in v]
+                reqs = [frozenset({(vb[i], vb[i + 1])}) for i in range(len(vb) - 2)]
+                reqs.append(frozenset((vb[-2], f) for f in last_b))
+                pv.append(tuple(reqs))
+            self.pairs = tuple(pv)
+            self.need_forms = any(len(v) >= 3 for v in variants)
         if re.search(r"(?i)\band\b|&", raw):
             words = [w for w in words if w != "and"]
         long_words = [w for w in words if len(w) >= 2]
@@ -417,16 +439,24 @@ class Term:
     # -- matching ----------------------------------------------------------------------------------
     def find(self, text: _Text) -> str | None:
         """Matched text (or the term itself) when the term occurs in ``text``."""
-        toks = text.toks
-        for alt in self.anchors:
-            if alt.isdisjoint(toks):
+        if self.pairs:
+            tp = text.pairs
+            for variant in self.pairs:
+                if all(not req.isdisjoint(tp) for req in variant):
+                    break
+            else:
                 return None
-        if self.token_only:
-            return self.raw
-        if self.forms:
-            canon = text.canon
-            if not any(f in canon for f in self.forms):
-                return None
+            if self.need_forms:
+                canon = text.canon
+                if not any(f in canon for f in self.forms):
+                    return None
+        else:
+            toks = text.toks
+            for alt in self.anchors:
+                if alt.isdisjoint(toks):
+                    return None
+            if self.token_only:
+                return self.raw
         if self.subs:
             low = text.low
             if not all(s in low for s in self.subs):
@@ -479,35 +509,33 @@ class Term:
         return f"Term({self.raw!r})"
 
 
-def _canonical_forms(term: str) -> tuple[bytes, ...]:
-    """b" w1 w2 ..." strings one of which occurs in the canonical token string whenever the term matches.
+def _canonical_variants(term: str) -> tuple[list[list[str]], list[str]]:
+    """Token sequences (with/without "and" for each "&") one of which every match of a plain term produces.
 
-    Empty when the term holds characters whose optional/literal handling breaks that guarantee
-    (apostrophes and dots are optional in the pattern, other punctuation is literal).
+    Returns ``([], [])`` when the term holds characters whose handling breaks that guarantee
+    (apostrophes and dots are optional in the pattern, other punctuation is literal). The second
+    item lists the forms the last word may take (plurals).
     """
     s = re.sub(r"\s+", " ", term.strip()).lower()
     if re.search(r"[^a-z0-9 &,/-]", s):
-        return ()
+        return [], []
     s = re.sub(r"\s*&\s*", " \x00 ", s)
     s = re.sub(r"(?<=[a-z0-9]) and (?=[a-z0-9])", " \x00 ", s)
     words = re.findall(r"[a-z0-9]+|\x00", s)
     while words and words[-1] == "\x00":
         words.pop()
+    while words and words[0] == "\x00":
+        words.pop(0)
     if not words:
-        return ()
-    last = words[-1]
-    forms = _word_forms(last)
-    stem = last
-    while stem and not all(f.startswith(stem) for f in forms):
-        stem = stem[:-1]
-    words[-1] = stem or last
+        return [], []
     variants: list[list[str]] = [[]]
     for w in words:
         if w == "\x00":
             variants = [v + ["and"] for v in variants] + [list(v) for v in variants]
         else:
             variants = [v + [w] for v in variants]
-    return tuple(dict.fromkeys((" " + " ".join(v)).encode() for v in variants if v))
+    last = words[-1]
+    return variants, (_word_forms(last) if len(last) >= 2 else [last])
 
 
 def compile_term(raw: str) -> Term:
@@ -516,15 +544,16 @@ def compile_term(raw: str) -> Term:
 
 
 class _Text:
-    """A normalised text with its lower-case form, token set and canonical token string."""
+    """A normalised text: lower-case form, token set, adjacent-token pairs, canonical token string."""
 
-    __slots__ = ("norm", "low", "toks", "canon")
+    __slots__ = ("norm", "low", "toks", "pairs", "canon")
 
     def __init__(self, text: str | None):
         self.norm = normalize_text(text)
         self.low = self.norm.lower()
         words = self.low.encode("ascii", "replace").translate(_TOKEN_TABLE).split()
         self.toks = set(words)
+        self.pairs = set(zip(words, words[1:]))
         self.canon = b" " + b" ".join(words) + b" "
 
 
@@ -1013,6 +1042,8 @@ class Taxonomy:
         self._body_tok: dict[bytes, list[int]] = {}
         self._title_index: dict[bytes, list[int]] = {}
         self._body_index: dict[bytes, list[int]] = {}
+        self._title_pair: dict[tuple[bytes, bytes], list[int]] = {}
+        self._body_pair: dict[tuple[bytes, bytes], list[int]] = {}
         self._title_always: list[int] = []
         self._body_always: list[int] = []
         df: dict[bytes, int] = {}  # how many terms use a word: common words make poor index keys
@@ -1025,6 +1056,11 @@ class Taxonomy:
             base = min(alt, key=len)
             return (base in _COMMON_WORDS, df.get(base, 0), -len(base), pos)
 
+        def pair_rank(req: frozenset[tuple[bytes, bytes]], pos: int) -> tuple[int, int, int, int]:
+            a, b = min(req, key=lambda p: len(p[1]))
+            common = (a in _COMMON_WORDS or a == b"and") + (b in _COMMON_WORDS or b == b"and")
+            return (common, df.get(a, 0) + df.get(b, 0), -(len(a) + len(b)), pos)
+
         for term in self._terms:
             body_role = any(cat in ("P", "C") for _, cat in self._roles[term.idx])
             if term.token_only:
@@ -1032,6 +1068,13 @@ class Taxonomy:
                     self._title_tok.setdefault(v, []).append(term.idx)
                     if body_role:
                         self._body_tok.setdefault(v, []).append(term.idx)
+            elif term.pairs:
+                for variant in term.pairs:
+                    req = min(variant, key=lambda r: pair_rank(r, variant.index(r)))
+                    for pair in req:
+                        self._title_pair.setdefault(pair, []).append(term.idx)
+                        if body_role:
+                            self._body_pair.setdefault(pair, []).append(term.idx)
             elif term.anchors:
                 key = min(term.anchors, key=lambda alt: key_rank(alt, term.anchors.index(alt)))
                 for v in key:
@@ -1046,6 +1089,8 @@ class Taxonomy:
         self._body_tok_keys = frozenset(self._body_tok)
         self._title_keys = frozenset(self._title_index)
         self._body_keys = frozenset(self._body_index)
+        self._title_pair_keys = frozenset(self._title_pair)
+        self._body_pair_keys = frozenset(self._body_pair)
 
     def _supersets(self) -> list[frozenset[int]]:
         """For each term, the terms whose canonical tokens strictly contain it ('war risk' in 'war risk insurance')."""
@@ -1088,9 +1133,11 @@ class Taxonomy:
         if title:
             tok, tok_keys = self._title_tok, self._title_tok_keys
             index, keys, always = self._title_index, self._title_keys, self._title_always
+            pair, pair_keys = self._title_pair, self._title_pair_keys
         else:
             tok, tok_keys = self._body_tok, self._body_tok_keys
             index, keys, always = self._body_index, self._body_keys, self._body_always
+            pair, pair_keys = self._body_pair, self._body_pair_keys
         out: dict[int, str] = {}
         raw = self._raw
         for v in text.toks & tok_keys:
@@ -1099,6 +1146,8 @@ class Taxonomy:
         cands: set[int] = set(always)
         for v in text.toks & keys:
             cands.update(index[v])
+        for pr in text.pairs & pair_keys:
+            cands.update(pair[pr])
         terms = self._terms
         for tid in cands:
             hit = terms[tid].find(text)
@@ -1640,6 +1689,8 @@ def _is_cyber(body: _Text) -> bool:
     n = len(body.toks & _CYBER_TOKENS)
     if n >= CYBER_MIN_TERMS:
         return True
+    if not n:
+        return False
     for p in _CYBER_PHRASES:
         if p in body.low:
             n += 1

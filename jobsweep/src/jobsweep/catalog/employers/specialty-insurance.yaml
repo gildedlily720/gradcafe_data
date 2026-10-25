@@ -199,11 +199,11 @@ employers:
     careers_url: https://careers.chubb.com
     hq: Zurich, Switzerland / New York, NY
     locations: [New York, NY, Whitehouse Station, NJ, Philadelphia, PA, London, UK]
-    title_filter: '(?i)(politic|sovereign|\bcredit\b|surety|marine|cargo|aviation|aerospace|kidnap|\bK&R\b|crisis|special risks?|terror|\bwar\b|financial lines|\bD&O\b|management liability|executive (risk|liability)|transaction|\bM&A\b|fine art|specie|jewel|\bSIU\b|fraud|investigat|reinsurance|Chubb Associate|trainee|graduate|intern\b|internship|placement)'
+    title_filter: '(?i)(underwrit|politic|sovereign|\bcredit\b|surety|marine|cargo|aviation|aerospace|kidnap|\bK&R\b|crisis|special risks?|terror|\bwar\b|financial lines|\bD&O\b|management liability|executive (risk|liability)|transaction|\bM&A\b|fine art|specie|jewel|\bSIU\b|fraud|investigat|reinsurance|Chubb Associate|trainee|graduate|intern\b|internship|placement)'
     search_terms: [political risk, credit, surety, marine, aviation, financial lines, fraud, Chubb Associate]
     verified: "2026-10-25"
     open_jobs: 726
-    notes: "Global board (~726). Political Risk & Specialty Credit, Chubb Crisis Management (K&R), marine, aerospace, financial lines, SIU (ESIS). 'Chubb Associate' = early-career underwriting programme; Bermuda summer placements incl. Sovereign Risk."
+    notes: "Global board (~726); search_terms narrow it server-side (keyword search also matches descriptions), so the title filter also keeps generic underwriter titles. Political Risk & Specialty Credit, Chubb Crisis Management (K&R), marine, aerospace, financial lines, SIU (ESIS). 'Chubb Associate' = early-career underwriting programme; Bermuda summer placements incl. Sovereign Risk."
 
   - key: aig
     name: AIG

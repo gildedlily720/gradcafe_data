@@ -547,9 +547,7 @@
       it.status = status;
       if (note !== undefined && note !== null) it.note = note;
       it.status_updated_at = new Date().toISOString();
-      const entry = { status: it.status, at: it.status_updated_at };
-      if (it.note) entry.note = it.note;
-      this.triage[uid] = entry;
+      this.triage[uid] = { status: it.status, note: it.note || "", at: it.status_updated_at };
       this.filtered = null;
       if (!ls.set(TRIAGE_KEY, this.triage)) toast("Could not save to this browser's storage", { error: true });
       return it;
@@ -865,7 +863,7 @@
     }, opts.lead || null, h("span", { class: "label", text: opts.label }), h("span", { class: "n", text: fmtNum(opts.count || 0) }));
   }
 
-  function laneItems(g, indent) {
+  function laneItems(g) {
     const lanes = g.lanes || [];
     const showAll = state.showEmpty[g.id];
     const visible = lanes.filter((l) => showAll || l.count > 0 || state.f.lanes.includes(l.id));
@@ -873,7 +871,7 @@
     const ul = h("ul");
     for (const l of visible) {
       ul.append(h("li", null, nodeButton({
-        cls: indent ? "lane-node" : "lane-node",
+        cls: "lane-node",
         label: l.name || l.id,
         title: (l.name || l.id) + " · Ctrl/⌘-click to combine",
         count: l.count,
@@ -924,7 +922,7 @@
           count: g.count, pressed: f.groups.includes(g.id), lead: swatch(g.id),
           onclick: (e) => pickGroup(g.id, e),
         })));
-      if (expanded) append(li, laneItems(g, true));
+      if (expanded) append(li, laneItems(g));
       tree.append(li);
     }
     const parts = [
@@ -1321,6 +1319,7 @@
         renderFoot();
         renderResultCount();
       }
+      reobserve();
     } catch (err) {
       if (id !== state.reqId) return;
       state.loading = false;
@@ -1334,16 +1333,17 @@
   }
 
   function restoreSelection() {
-    const want = state.pendingJob || state.selUid;
+    const pending = state.pendingJob;
     state.pendingJob = null;
-    let i = want ? indexOfUid(want) : -1;
+    const want = pending || state.selUid;
+    const i = want ? indexOfUid(want) : -1;
     if (i >= 0) {
-      select(i, { open: !isWide() && Boolean(want === parseHash().job && want), scroll: true });
+      select(i, { open: Boolean(pending) && !isWide(), scroll: true });
       return;
     }
-    if (want && want === parseHash().job) {
+    if (pending) {
       // Shared link to a job outside the current filters: still show it.
-      openUid(want);
+      openUid(pending);
       return;
     }
     state.sel = -1;
@@ -1353,6 +1353,13 @@
       renderDetail(null);
       writeHash();
     }
+  }
+
+  // Re-arm the infinite-scroll observer: it only fires on changes, and the footer may never leave view.
+  function reobserve() {
+    if (!state.io) return;
+    state.io.unobserve($("list-foot"));
+    state.io.observe($("list-foot"));
   }
 
   const maybeLoadMore = () => {
@@ -1662,7 +1669,7 @@
 
   async function setStatus(uid, status, opts) {
     opts = opts || {};
-    const it = findItem(uid);
+    const it = findItem(uid) || opts.item;
     if (!it) return;
     const prev = it.status || "new";
     if (prev === status) return;
@@ -1714,9 +1721,9 @@
       else rowsEl().append(el);
       renderResultCount();
       renderFoot();
-      setStatus(uid, prev, { undo: true, silent: true }).then(() => select(at));
+      setStatus(uid, prev, { undo: true, silent: true, item }).then(() => select(at));
     } else {
-      setStatus(uid, prev, { undo: true, silent: true });
+      setStatus(uid, prev, { undo: true, silent: true, item });
     }
     toast("Undone: back to " + STATUS_LABEL[prev]);
   }
@@ -1759,7 +1766,7 @@
       const sec = $("view-" + v.id);
       if (sec) sec.hidden = v.id !== view;
     }
-    for (const a of document.querySelectorAll("[data-view]")) {
+    for (const a of document.querySelectorAll("a[data-view]")) {
       if (a.dataset.view === view) a.setAttribute("aria-current", "page");
       else a.removeAttribute("aria-current");
       if (a.dataset.view === "jobs") a.setAttribute("href", state.jobsHash);
@@ -2030,9 +2037,9 @@
     const submit = h("button", { class: "btn primary", type: "submit" }, icon("play", "sm"), "Run sweep");
     form.append(
       h("div", { class: "form-grid" },
-        h("fieldset", { class: "field", style: { gridColumn: "1 / -1" } }, h("legend", { text: "Sources (none ticked = every available, non-metered source)" }), srcList),
-        h("fieldset", { class: "field", style: { gridColumn: "1 / -1" } }, h("legend", { text: "Groups (none = all active lanes)" }), grpList, laneDet),
-        h("fieldset", { class: "field", style: { gridColumn: "1 / -1" } }, h("legend", { text: "Options" }), toggles),
+        h("fieldset", { class: "field", style: { "grid-column": "1 / -1" } }, h("legend", { text: "Sources (none ticked = every available, non-metered source)" }), srcList),
+        h("fieldset", { class: "field", style: { "grid-column": "1 / -1" } }, h("legend", { text: "Groups (none = all active lanes)" }), grpList, laneDet),
+        h("fieldset", { class: "field", style: { "grid-column": "1 / -1" } }, h("legend", { text: "Options" }), toggles),
         h("label", { class: "field" }, h("span", { text: "Posted within" }), days),
         h("label", { class: "field" }, h("span", { text: "Max queries per source" }), maxQ)),
       h("div", { class: "form-actions" }, submit, h("span", { class: "muted", id: "sweep-form-msg", "aria-live": "polite" })));
@@ -2133,7 +2140,7 @@
         parts.push(h("div", { class: "form-actions" }, h("a", { class: "btn", href: "#/jobs?days=1&sort=newest" }, "View new jobs")));
       }
     }
-    box.replaceChildren(h("div", { class: "card card-pad", style: { marginTop: "14px" } }, parts));
+    box.replaceChildren(h("div", { class: "card card-pad", style: { "margin-top": "14px" } }, parts));
   }
 
   // Import --------------------------------------------------------------------------------------------
@@ -2157,7 +2164,7 @@
       else if (/\.csv$/i.test(f.name)) fmt.value = "csv";
       else if (/\.(md|markdown)$/i.test(f.name)) fmt.value = "md";
     });
-    const result = h("div", { "aria-live": "polite", style: { marginTop: "12px" } });
+    const result = h("div", { "aria-live": "polite", style: { "margin-top": "12px" } });
     const submit = h("button", { class: "btn primary", type: "submit" }, icon("upload", "sm"), "Import jobs");
     const form = h("form", { class: "card card-pad" },
       h("div", { class: "form-grid" },
@@ -2165,7 +2172,7 @@
         h("label", { class: "field" }, h("span", { text: "Format" }), fmt),
         h("label", { class: "field" }, h("span", { text: "Or load a file" }), file)),
       h("datalist", { id: "origin-suggest" }, ["indeed-connector", "workopia", "jobs-and-careers", "linkedin", "manual"].map((v) => h("option", { value: v }))),
-      h("label", { class: "field", style: { marginTop: "14px" } }, h("span", { text: "Results" }), text),
+      h("label", { class: "field", style: { "margin-top": "14px" } }, h("span", { text: "Results" }), text),
       h("div", { class: "form-actions" }, submit,
         h("button", { class: "btn", type: "button", text: "Clear", onclick: () => { text.value = ""; result.replaceChildren(); text.focus(); } })),
       result);
@@ -2263,10 +2270,12 @@
       if (idx >= 0) select(idx, { open: true, scroll: false });
     });
 
-    const io = "IntersectionObserver" in window
-      ? new IntersectionObserver((entries) => { if (entries.some((x) => x.isIntersecting)) maybeLoadMore(); }, { root: $("job-list"), rootMargin: "600px" })
-      : null;
-    if (io) io.observe($("list-foot"));
+    if ("IntersectionObserver" in window) {
+      state.io = new IntersectionObserver((entries) => {
+        if (entries.some((x) => x.isIntersecting)) maybeLoadMore();
+      }, { root: $("job-list"), rootMargin: "600px" });
+      state.io.observe($("list-foot"));
+    }
 
     window.matchMedia(WIDE_QUERY).addEventListener("change", () => {
       $("detail").classList.remove("open");
