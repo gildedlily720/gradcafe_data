@@ -1,0 +1,133 @@
+{
+ "data": [
+  {
+   "id": "501326",
+   "benefits": "<div><!--block-->Kharon is a highly disruptive and incredibly innovative organization that navigates risk at the intersection of global security threats + international commerce.</div><div><!--block-->&nbsp;</div><div><!--block-->What does that mean? Great question.</div><div><!--block--><br></div><div><!--block-->Operating at the nexus of global security, Kharon is on a mission to revolutionize the current landscape. We take really complex data as it relates to global security and empower our clients to not only understand the risk associated with their potential business relationships but to operationalize that data so that they can make the best and most informed decisions possible. From financial crimes and sanctions to export controls and threat identifications, our tools optimize protection against the types of risks that could otherwise be incredibly dangerous and excessively costly to any business. Serving many of today’s leading global financial and multinational institutions, Kharon products are the most powerful in the space with a precision and depth that is absolutely unparalleled.&nbsp;</div><div><!--block--><br></div><div><!--block-->When you look at any major global crisis event, we’re providing intelligence that’s at the heart of those circumstances. We connect the dots in a way that’s meaningful. Now, we’re experiencing unprecedented growth. As the world continues to evolve in complexity, so too does the demand for our products. Given the significance of our work and the increasing global reliance on our insights, we are looking for a<strong> Senior Data Engineer </strong>to join us as we work to shape the way businesses perceive and navigate global risks.&nbsp;</div><div><!--block--><br></div><div><!--block-->To the right person, this will be the perfect kind of challenge. Our mission is compelling, our product is powerful, and we’re growing at a rate that makes us unstoppable. If you’re looking to be surrounded by people who will inspire you to think and challenge you to grow then look no further. Our team is made up of some of the most visionary and uncompromising individuals you will ever encounter. We don’t take ourselves seriously but we’re serious about the work we do and there is absolutely no slowing us down. &nbsp;</div><div><!--block--><br></div><div><!--block-->To keep that momentum going, we do our very best to make sure that each and every team member is completely taken care of. We’re nothing without our people and we strive to offer a package that reflects that. As a Kharon team member, you can expect:</div><ul><li><!--block-->Fully sponsored medical, dental, and vision insurances</li><li><!--block-->FSA program for both medical and dependent care</li><li><!--block-->Long term disability</li><li><!--block-->401k + Roth with matching and immediate vesting &nbsp;</li><li><!--block-->Flexible paid time off + 11 paid holidays&nbsp;</li></ul><div><!--block--><br>The base salary range at Kharon is set between<strong> </strong>$160,000 to $200,000. Please note that this figure does not necessarily include potential bonuses, commissions, benefits, or equity that may be part of the overall compensation package.<br><br></div><div><!--block-->If interested in pursuing this position, please visit<a href=\"http://www.kharon.com\"> www.kharon.com/careers</a> to apply.&nbsp;</div><div><!--block--><br></div><div><!--block-->Kharon is an equal opportunity employer.&nbsp; Kharon is committed to cultivating and maintaining a workplace that is free from harassment and discrimination.&nbsp; All qualified applicants will receive consideration for employment without regard to race, religion, color, national origin, ethnicity, gender, gender identity or expression, sexual orientation or identity, neurodiversity, appearances, age, protected veteran status, or status as a qualified individual with disability.</div><div><!--block--><br>#LI-AG1 #LI-Hybrid<br><br></div>",
+   "benefits_header": "ABOUT KHARON:",
+   "compensation": "$160,000 - $200,000 / year",
+   "compensation_minimum": 160000.0,
+   "compensation_maximum": 200000.0,
+   "compensation_currency": "USD",
+   "compensation_frequency": "year",
+   "compensation_visible": true,
+   "deadline_at": "2026-11-27T23:59:59-08:00",
+   "description": "<div><!--block--><strong>TL;DR</strong> Kharon is seeking a full-time Senior Data Engineer based in Denver, Colorado. This role requires in-office attendance 3 days a week.&nbsp;</div>",
+   "employment_type": "full_time",
+   "employment_type_text": "Full Time",
+   "key_responsibilities": "<ul><li><!--block-->Help build large-scale distributed automated data processing systems and data lakes, while optimizing for both computational and storage efficiency on AWS Databricks.</li><li><!--block-->Create data pipelines, infrastructure, and overall workflow orchestration to pull data from a diverse set of data sources into the Kharon Data Lake.</li><li><!--block-->Build systems to track, monitor and validate the quality of data coming into or going out of Kharon Data Lake.</li><li><!--block-->Collaborate with engineers, architects, and data scientists to implement scalable solutions to solve complex problems.</li><li><!--block-->Interact and develop with internal and external APIs.</li><li><!--block-->Work with product and business teams to define novel and critical metrics for the business.</li><li><!--block-->Follow good engineering practices like documentation, diagrams, and unit/validation tests</li><li><!--block-->Take full responsibilities for the development, deployment, adoption monitoring and maintenance of the data systems and services you build.</li></ul><div><!--block--><br></div>",
+   "key_responsibilities_header": "RESPONSIBILITIES:",
+   "reporting_to": "",
+   "skills_knowledge_expertise": "<ul><li><!--block-->5+ years of experience, not including internships as a software engineer or a data engineer and a strong passion to learn.</li><li><!--block-->BS/MS in Computer Science or equivalent experience in related fields.</li><li><!--block-->Experience in Python, Pandas, PySpark, and Notebooks.</li><li><!--block-->SQL knowledge and experience working with relational databases including schema design, access patterns, query performance optimization, etc.</li><li><!--block-->Experience with data pipeline technologies like AWS Glue, Airflow, Kafka, or other cloud based equivalence.</li><li><!--block-->Experience with ETL and data warehousing like Databricks, Snowflake, or equivalent.</li><li><!--block-->Container-based deployment experience using Docker and Kubernetes.</li><li><!--block-->Strong verbal and written communication skills.</li></ul><div><!--block--><strong>NICE TO HAVE:</strong></div><ul><li><!--block-->Experience working with or data modeling for graph databases like Neo4J, Neptune, etc.</li><li><!--block-->API experience using FastAPI, Flask, Spring Boot or equivalent.</li><li><!--block-->Understanding of elasticsearch data and query modeling is a big plus.</li><li><!--block-->Interests or experience in Geopolitics, Sanction Compliance, or Financial Risk.</li></ul><div><!--block--><br></div>",
+   "skills_knowledge_expertise_header": "QUALIFICATIONS:",
+   "title": "Senior Data Engineer",
+   "url": "https://kharon.pinpointhq.com/en/postings/a4f89dba-09f2-4cbd-924e-1af279b92539",
+   "path": "/en/postings/a4f89dba-09f2-4cbd-924e-1af279b92539",
+   "workplace_type": "hybrid",
+   "workplace_type_text": "Hybrid",
+   "job": {
+    "id": "508523",
+    "requisition_id": "25-0053",
+    "department": {
+     "id": "66431",
+     "name": "Engineering"
+    },
+    "division": null,
+    "structure_custom_group_one": null
+   },
+   "location": {
+    "id": "82671",
+    "city": "Denver",
+    "name": "Denver",
+    "postal_code": "80202",
+    "province": "Colorado",
+    "street_address": "1550 Wewatta Street, Suite 500"
+   }
+  },
+  {
+   "id": "527104",
+   "benefits": "<div><!--block-->Kharon operates at the nexus of global security and is on a mission to revolutionize the current landscape. We take complex data as it relates to global security and empower our clients to not only understand the risk associated with their potential business relationships but to operationalize that data so that they can make the best and most informed decisions possible.&nbsp;</div><div><!--block--><br></div><div><!--block-->From financial crimes and sanctions to export controls and threat identifications, our tools optimize protection against the types of risks that could otherwise be incredibly dangerous and excessively costly to any business. Serving many of today’s leading global financial and multinational institutions, Kharon products are the most powerful in the space with a precision and depth that is absolutely unparalleled.&nbsp;</div><div><!--block--><br></div><div><!--block-->When you look at any major global crisis event, we’re providing intelligence that’s at the heart of those circumstances. We connect the dots in a way that’s meaningful. As the world continues to evolve in complexity, so too does the demand for our products. Given the significance of our work and the increasing global reliance on our insights, we are looking for a Data Scientist, Retrieval &amp; Agentic Systems to join us as we work to shape the way businesses perceive and navigate global risks.&nbsp;</div><div><!--block--><br></div><div><!--block--><strong>Disclosures</strong></div><div><!--block-->Kharon is committed to cultivating and maintaining a workplace that is free from harassment and discrimination. All qualified applicants will receive consideration for employment without regard to race, religion, color, national origin, ethnicity, gender, gender identity or expression, sexual orientation or identity, neurodiversity, appearances, age, protected veteran status, or status as a qualified individual with disability.&nbsp;</div><div><!--block--><br></div><div><!--block-->If you require any adjustment to participate in the recruitment process, please contact <a href=\"mailto:apply@kharon.com\">apply@kharon.com</a>. You must have the right to work in Europe and Spain. Kharon is unable to offer visa sponsorship for this role.</div><div><!--block--><br>By applying for this position, you acknowledge that Kharon will process your personal data for recruitment purposes in accordance with applicable data protection laws, including the EU General Data Protection Regulation and Spanish data protection legislation. For information about how we collect, use, store, and protect your personal data, please review our Candidate Privacy Notice at <a href=\"http://kharon.com/privacy\">www.kharon.com/privacy</a>. You have the right to access, correct, or request deletion of your data, to object to or restrict its processing, and to lodge a complaint with the Spanish data protection authority, the AEPD, at<a href=\"http://www.aepd.es\"> www.aepd.es</a>. To exercise your rights, contact us at <a href=\"mailto:apply@kharon.com\">apply@kharon.com</a>.&nbsp;<br><br></div><div><!--block-->If your application is unsuccessful, your data will be retained for up to 12 months before being securely deleted. If you accept a role, your data will transfer to your employee record.<br><br>#LI-AG1 #LI-Hybrid</div>",
+   "benefits_header": "ABOUT KHARON:",
+   "compensation": "€85,000 - €95,000 / year",
+   "compensation_minimum": 85000.0,
+   "compensation_maximum": 95000.0,
+   "compensation_currency": "EUR",
+   "compensation_frequency": "year",
+   "compensation_visible": true,
+   "deadline_at": null,
+   "description": "<div><!--block--><strong>Location:</strong> Madrid, Spain</div><div><!--block--><strong>Annual Remuneration</strong>: €85,000 - €95,000 and discretionary annual bonus</div><div><!--block--><strong>Pay Frequency</strong>: Monthly</div><div><!--block--><strong>Probationary Period:</strong> 180 days</div><div><!--block--><strong>Work Arrangement</strong>: Hybrid, 3-days per week</div><div><!--block--><br></div><div><!--block--><strong>TL;DR</strong> Kharon is seeking a full-time Data Scientist, Retrieval &amp; Agentic Systems based in Madrid.&nbsp;</div>",
+   "employment_type": "full_time",
+   "employment_type_text": "Full Time",
+   "key_responsibilities": "<ul><li><!--block-->Owning and evolving Corestream, Kharon's risk intelligence feed — a dynamic platform that surfaces entity-level insights and topic-based risk narratives to customers</li><li><!--block-->Redesigning and improving Kharon's semantic search capabilities, opening new avenues for content discovery — drawing on modern approaches including BM25 tuning, semantic distance, RAG, and reranking</li><li><!--block-->Integrating Kharon's risk analysis outputs into the search layer, ensuring that graph-based insights surface meaningfully within search results and sub-network exploration</li><li><!--block-->Driving the evolution of Kharon's narrative generation pipeline — how we take graph and analytical data and transform it into compelling, accurate written intelligence for customers</li><li><!--block-->Partnering with Product and Engineering to take ownership of the Corestream roadmap and push it to its next stage</li><li><!--block-->Tweaking and optimizing the metrics that define search quality and narrative relevance<br><br></li></ul><div><!--block--><br></div>",
+   "key_responsibilities_header": "RESPONSIBILITIES:",
+   "reporting_to": "",
+   "skills_knowledge_expertise": "<ul><li><!--block-->A proven interest or experience in global security, financial crimes, sanctions, export controls, or related domains</li><li><!--block-->3+ years of experience in a Data Science or AI Engineering role</li><li><!--block-->Hands-on experience with semantic search — including familiarity with BM25, vector search, reranking, and retrieval evaluation</li><li><!--block-->Experience with RAG pipelines and working with agentic systems in production</li><li><!--block-->Proficiency in Python and SQL</li><li><!--block-->Strong product alignment — able to read a roadmap, take ownership of tickets, and drive initiatives forward independently</li><li><!--block-->Bonus: Experience with graph-aware search or integrating knowledge graph outputs into retrieval systems</li></ul><div><!--block--><br></div>",
+   "skills_knowledge_expertise_header": "QUALIFICATIONS:",
+   "title": "Data Scientist, Retrieval & Agentic Systems ",
+   "url": "https://kharon.pinpointhq.com/en/postings/5985d1ec-5629-4821-be7d-469f4623b9f1",
+   "path": "/en/postings/5985d1ec-5629-4821-be7d-469f4623b9f1",
+   "workplace_type": "hybrid",
+   "workplace_type_text": "Hybrid",
+   "job": {
+    "id": "532429",
+    "requisition_id": "25-0048",
+    "department": {
+     "id": "66431",
+     "name": "Engineering"
+    },
+    "division": null,
+    "structure_custom_group_one": null
+   },
+   "location": {
+    "id": "82676",
+    "city": "Madrid",
+    "name": "Madrid ",
+    "postal_code": "M 28046",
+    "province": "Madrid",
+    "street_address": "Paseo de la Castellana, 43"
+   }
+  },
+  {
+   "id": "527106",
+   "benefits": "<div><!--block-->Kharon operates at the nexus of global security and is on a mission to revolutionize the current landscape. We take complex data as it relates to global security and empower our clients to not only understand the risk associated with their potential business relationships but to operationalize that data so that they can make the best and most informed decisions possible.&nbsp;</div><div><!--block--><br></div><div><!--block-->From financial crimes and sanctions to export controls and threat identifications, our tools optimize protection against the types of risks that could otherwise be incredibly dangerous and excessively costly to any business. Serving many of today’s leading global financial and multinational institutions, Kharon products are the most powerful in the space with a precision and depth that is absolutely unparalleled.&nbsp;</div><div><!--block--><br></div><div><!--block-->When you look at any major global crisis event, we’re providing intelligence that’s at the heart of those circumstances. We connect the dots in a way that’s meaningful. As the world continues to evolve in complexity, so too does the demand for our products. Given the significance of our work and the increasing global reliance on our insights, we are looking for a Senior Data Scientist, Graph Risk Analytics to join us as we work to shape the way businesses perceive and navigate global risks.&nbsp;</div><div><!--block--><br></div><div><!--block--><strong>Disclosures</strong></div><div><!--block-->Kharon is committed to cultivating and maintaining a workplace that is free from harassment and discrimination. All qualified applicants will receive consideration for employment without regard to race, religion, color, national origin, ethnicity, gender, gender identity or expression, sexual orientation or identity, neurodiversity, appearances, age, protected veteran status, or status as a qualified individual with disability.&nbsp;</div><div><!--block--><br></div><div><!--block-->If you require any adjustment to participate in the recruitment process, please contact <a href=\"mailto:apply@kharon.com\">apply@kharon.com</a>. You must have the right to work in Europe and Spain. Kharon is unable to offer visa sponsorship for this role.</div><div><!--block--><br>By applying for this position, you acknowledge that Kharon will process your personal data for recruitment purposes in accordance with applicable data protection laws, including the EU General Data Protection Regulation and Spanish data protection legislation. For information about how we collect, use, store, and protect your personal data, please review our Candidate Privacy Notice at <a href=\"http://kharon.com/privacy\">www.kharon.com/privacy</a>. You have the right to access, correct, or request deletion of your data, to object to or restrict its processing, and to lodge a complaint with the Spanish data protection authority, the AEPD, at<a href=\"http://www.aepd.es\"> www.aepd.es</a>. To exercise your rights, contact us at <a href=\"mailto:apply@kharon.com\">apply@kharon.com</a>.&nbsp;<br><br></div><div><!--block-->If your application is unsuccessful, your data will be retained for up to 12 months before being securely deleted. If you accept a role, your data will transfer to your employee record.<br><br>#LI-AG1 #LI-Hybrid</div>",
+   "benefits_header": "ABOUT KHARON:",
+   "compensation": "€95,000 - €115,000 / year",
+   "compensation_minimum": 95000.0,
+   "compensation_maximum": 115000.0,
+   "compensation_currency": "EUR",
+   "compensation_frequency": "year",
+   "compensation_visible": true,
+   "deadline_at": null,
+   "description": "<div><!--block--><strong>Location:</strong> Madrid, Spain</div><div><!--block--><strong>Annual Remuneration</strong>: €95,000 - €115,000 and discretionary annual bonus</div><div><!--block--><strong>Pay Frequency</strong>: Monthly</div><div><!--block--><strong>Probationary Period:</strong> 180 days</div><div><!--block--><strong>Work Arrangement</strong>: Hybrid, 3-days per week</div><div><!--block--><br></div><div><!--block--><strong>TL;DR</strong> Kharon is seeking a full-time Senior Data Scientist, Graph Risk Analytics based in Madrid.&nbsp;</div>",
+   "employment_type": "full_time",
+   "employment_type_text": "Full Time",
+   "key_responsibilities": "<div><!--block--><strong>Responsibilities:</strong></div><ul><li><!--block-->Taking ownership of Kharon's risk propagation and entity analytics system — the engine that evaluates entities in our knowledge graph and surfaces meaningful risk signals to customers</li><li><!--block-->Designing and implementing complex analytical logic that translate nuanced geopolitical and financial risk into structured, interpretable outputs</li><li><!--block-->Building and maintaining scalable data pipelines and graph-based ML systems that power risk scoring and entity analysis</li><li><!--block-->Partnering closely with Research, Product, and Engineering teams to understand evolving risk frameworks and translate them into robust, maintainable systems</li><li><!--block-->Iterating on the system's architecture to increase the complexity and precision it can handle — this is not a rip-and-replace, but a thoughtful evolution of a system already in production</li><li><!--block-->Exploring how LLMs and other AI techniques can be integrated to handle increasingly complex risk logic</li></ul>",
+   "key_responsibilities_header": "RESPONSIBILITIES:",
+   "reporting_to": "",
+   "skills_knowledge_expertise": "<ul><li><!--block-->A proven interest or experience in global security, financial crimes, sanctions, export controls, or related domains</li><li><!--block-->4+ years of experience as a Data Scientist, with demonstrated ownership of production systems</li><li><!--block-->Strong foundation in statistics and the ability to apply quantitative methods to complex, real-world problems</li><li><!--block-->Proficiency in Python, SQL, and working with graph databases or knowledge graph structures</li><li><!--block-->Experience with graph analysis, graph ML, or network analysis — professional experience is a strong differentiator</li><li><!--block-->Comfort working across research and data engineering contexts — this role spans all three</li><li><!--block-->Experience with Docker, Kubernetes, and API development</li><li><!--block-->Strong product instincts — able to go deep technically while staying aligned to customer and business outcomes</li><li><!--block-->Bonus: Experience with LLMs or AI-assisted analytical systems</li></ul><div><!--block--><br></div>",
+   "skills_knowledge_expertise_header": "QUALIFICATIONS:",
+   "title": "Senior Data Scientist, Graph Risk Analytics",
+   "url": "https://kharon.pinpointhq.com/en/postings/e51a0933-27b8-4212-8df3-ab1a386ff148",
+   "path": "/en/postings/e51a0933-27b8-4212-8df3-ab1a386ff148",
+   "workplace_type": "hybrid",
+   "workplace_type_text": "Hybrid",
+   "job": {
+    "id": "532431",
+    "requisition_id": "25-0047",
+    "department": {
+     "id": "66431",
+     "name": "Engineering"
+    },
+    "division": null,
+    "structure_custom_group_one": null
+   },
+   "location": {
+    "id": "82676",
+    "city": "Madrid",
+    "name": "Madrid ",
+    "postal_code": "M 28046",
+    "province": "Madrid",
+    "street_address": "Paseo de la Castellana, 43"
+   }
+  }
+ ]
+}

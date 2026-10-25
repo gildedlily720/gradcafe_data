@@ -1,0 +1,116 @@
+{
+ "_capture": {
+  "source": "github.com/jobverify/jobverify-backend scraper/wati/fixtures (raw Workable API captures)",
+  "captured_at": "2026-10-23T02:55:03.631Z",
+  "note": "apply.workable.com returned HTTP 429 (Cloudflare 1015) to this egress on 2026-10-25; results trimmed"
+ },
+ "request": {
+  "url": "https://apply.workable.com/api/v3/accounts/wati-dot-i-o/jobs",
+  "body": {
+   "query": "",
+   "location": [],
+   "department": [],
+   "worktype": [],
+   "remote": [],
+   "token": "WzE3NjI5OTIwMDAwMDAsNTI4NDYyMV0="
+  }
+ },
+ "response": {
+  "results": [
+   {
+    "id": 5235642,
+    "shortcode": "DFB2529170",
+    "title": "Agentic Engineer - Backend Software - Shenzhen",
+    "remote": false,
+    "location": {
+     "city": "Shenzhen",
+     "country": "China",
+     "countryCode": "CN",
+     "region": "Guangdong Province"
+    },
+    "locations": [
+     {
+      "city": "Shenzhen",
+      "country": "China",
+      "countryCode": "CN",
+      "hidden": false,
+      "region": "Guangdong Province"
+     },
+     {
+      "city": "Hong Kong",
+      "country": "Hong Kong",
+      "countryCode": "HK",
+      "hidden": false,
+      "region": "Hong Kong"
+     }
+    ],
+    "state": "published",
+    "isInternal": false,
+    "code": "",
+    "published": "2025-10-30T00:00:00.000Z",
+    "language": "en",
+    "department": [
+     "Engineering"
+    ],
+    "accountUid": "da70e071-85cc-431f-b985-66f433ef6d33",
+    "approvalStatus": "approved",
+    "workplace": "on_site"
+   },
+   {
+    "id": 4570445,
+    "shortcode": "99F31A2507",
+    "title": "Staff/ Lead Product Manager",
+    "remote": false,
+    "location": {
+     "city": "Bengaluru",
+     "country": "India",
+     "countryCode": "IN",
+     "region": "Karnataka"
+    },
+    "locations": [
+     {
+      "city": "Bengaluru",
+      "country": "India",
+      "countryCode": "IN",
+      "hidden": false,
+      "region": "Karnataka"
+     },
+     {
+      "city": "Chennai",
+      "country": "India",
+      "countryCode": "IN",
+      "hidden": false,
+      "region": "Tamil Nadu"
+     },
+     {
+      "city": "Shenzhen",
+      "country": "China",
+      "countryCode": "CN",
+      "hidden": false,
+      "region": "Guangdong Province"
+     },
+     {
+      "city": "San Francisco",
+      "country": "United States",
+      "countryCode": "US",
+      "hidden": false,
+      "region": "California"
+     }
+    ],
+    "state": "published",
+    "isInternal": false,
+    "code": "",
+    "published": "2025-10-02T00:00:00.000Z",
+    "type": "full",
+    "language": "en",
+    "department": [
+     "Product"
+    ],
+    "accountUid": "da70e071-85cc-431f-b985-66f433ef6d33",
+    "approvalStatus": "approved",
+    "workplace": "hybrid"
+   }
+  ],
+  "total": 57
+ }
+}

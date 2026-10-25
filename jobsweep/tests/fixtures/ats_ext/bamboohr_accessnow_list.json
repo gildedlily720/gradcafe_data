@@ -1,0 +1,47 @@
+{
+ "meta": {
+  "totalCount": 2
+ },
+ "result": [
+  {
+   "id": "237",
+   "jobOpeningName": "Incident Response Analyst",
+   "departmentId": "18476",
+   "departmentLabel": "Helpline",
+   "employmentStatusLabel": "Full-Time basis",
+   "employmentType": null,
+   "location": {
+    "city": null,
+    "state": null
+   },
+   "atsLocation": {
+    "country": "Philippines",
+    "state": null,
+    "province": "Philippines",
+    "city": "Indonesia, India"
+   },
+   "isRemote": null,
+   "locationType": "1"
+  },
+  {
+   "id": "238",
+   "jobOpeningName": "Financial Reporting Manager",
+   "departmentId": "19255",
+   "departmentLabel": "Operations - Finance",
+   "employmentStatusLabel": "Full-Time basis",
+   "employmentType": null,
+   "location": {
+    "city": null,
+    "state": null
+   },
+   "atsLocation": {
+    "country": "Costa Rica",
+    "state": null,
+    "province": null,
+    "city": "San Jose"
+   },
+   "isRemote": null,
+   "locationType": "1"
+  }
+ ]
+}

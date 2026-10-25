@@ -1,0 +1,217 @@
+{
+ "offset": 2,
+ "limit": 2,
+ "totalFound": 385,
+ "content": [
+  {
+   "id": "744000157571529",
+   "name": "Commercial Contracts Counsel",
+   "uuid": "b2606975-1ec8-48c1-a56a-0792b95f5cbb",
+   "jobAdId": "23a762e6-51c5-42d1-87ff-c2be6c005626",
+   "defaultJobAd": true,
+   "refNumber": "REF33421V",
+   "company": {
+    "identifier": "Experian",
+    "name": "Experian"
+   },
+   "releasedDate": "2026-10-23T21:16:29.423Z",
+   "location": {
+    "city": "Heredia",
+    "region": "Heredia",
+    "country": "cr",
+    "address": "Centro Corporativo el Cafetal",
+    "remote": false,
+    "hybrid": true,
+    "fullLocation": "Heredia, Heredia, Costa Rica"
+   },
+   "industry": {
+    "id": "financial_services",
+    "label": "Financial Services"
+   },
+   "department": {
+    "id": "2618823",
+    "label": "Legal & Compliance"
+   },
+   "function": {
+    "id": "information_technology",
+    "label": "Information Technology"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "not_applicable",
+    "label": "Not Applicable"
+   },
+   "customField": [
+    {
+     "fieldId": "60e69c4340634a60d33cee4a",
+     "fieldLabel": "Cost Centre",
+     "valueId": "1600.CR.261.703000",
+     "valueLabel": "1600.CR.261.703000"
+    },
+    {
+     "fieldId": "60e69e937e79e3168b3b0cff",
+     "fieldLabel": "Employee Status",
+     "valueId": "2316a0dc-542b-4be2-a231-d586b8528aab",
+     "valueLabel": "Regular"
+    },
+    {
+     "fieldId": "60e69eb6b672f26743759012",
+     "fieldLabel": "Schedule",
+     "valueId": "2b5b66bb-53a3-42b0-a68b-88bd1810c947",
+     "valueLabel": "Full Time"
+    },
+    {
+     "fieldId": "6156f582e72a6b6d239c984f",
+     "fieldLabel": "Work Location",
+     "valueId": "10865265",
+     "valueLabel": "CR Heredia (El Cafetal 2)"
+    },
+    {
+     "fieldId": "60e6a34d7e79e3168b3b0d01",
+     "fieldLabel": "Grade",
+     "valueId": "2092",
+     "valueLabel": "CR10.100 | EB9"
+    },
+    {
+     "fieldId": "COUNTRY",
+     "fieldLabel": "Country/Region",
+     "valueId": "cr",
+     "valueLabel": "Costa Rica"
+    },
+    {
+     "fieldId": "60e69e78b91f374974b7ff3d",
+     "fieldLabel": "Role Type",
+     "valueId": "98965939-c245-4064-a6cb-4d88862c88be",
+     "valueLabel": "Home"
+    },
+    {
+     "fieldId": "60bf852122069d3816fd7cd1",
+     "fieldLabel": "Department",
+     "valueId": "2618823",
+     "valueLabel": "Legal & Compliance"
+    },
+    {
+     "fieldId": "60bf852122069d3816fd7cd0",
+     "fieldLabel": "Brands",
+     "valueId": "default",
+     "valueLabel": "Experian"
+    }
+   ],
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157571529",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  },
+  {
+   "id": "744000157560029",
+   "name": "Analista Sênior de Remuneração Variável a Vendas",
+   "uuid": "f08f528b-ab5c-4f55-8087-204bd1db9588",
+   "jobAdId": "ff8c2d95-ba73-490e-9c09-a246bda1e034",
+   "defaultJobAd": true,
+   "refNumber": "REF33058Y",
+   "company": {
+    "identifier": "Experian",
+    "name": "Experian"
+   },
+   "releasedDate": "2026-10-23T19:57:52.407Z",
+   "location": {
+    "city": "São Paulo",
+    "country": "br",
+    "address": "Av. das Nações Unidas, 14.401",
+    "remote": false,
+    "hybrid": true,
+    "hybridDescription": "40% dos dias úteis no escritório, em geral 2x na semana.",
+    "fullLocation": "São Paulo, , Brazil"
+   },
+   "industry": {
+    "id": "financial_services",
+    "label": "Financial Services"
+   },
+   "department": {
+    "id": "2618789",
+    "label": "Human Resources"
+   },
+   "function": {
+    "id": "information_technology",
+    "label": "Information Technology"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "not_applicable",
+    "label": "Not Applicable"
+   },
+   "customField": [
+    {
+     "fieldId": "60e69c4340634a60d33cee4a",
+     "fieldLabel": "Cost Centre",
+     "valueId": "1800.BR.100.802500",
+     "valueLabel": "1800.BR.100.802500"
+    },
+    {
+     "fieldId": "60e69e937e79e3168b3b0cff",
+     "fieldLabel": "Employee Status",
+     "valueId": "2316a0dc-542b-4be2-a231-d586b8528aab",
+     "valueLabel": "Regular"
+    },
+    {
+     "fieldId": "60e69eb6b672f26743759012",
+     "fieldLabel": "Schedule",
+     "valueId": "2b5b66bb-53a3-42b0-a68b-88bd1810c947",
+     "valueLabel": "Full Time"
+    },
+    {
+     "fieldId": "6156f582e72a6b6d239c984f",
+     "fieldLabel": "Work Location",
+     "valueId": "10550899",
+     "valueLabel": "BR SP SAO PAULO (0001-80)"
+    },
+    {
+     "fieldId": "60e6a34d7e79e3168b3b0d01",
+     "fieldLabel": "Grade",
+     "valueId": "77181",
+     "valueLabel": "EB9.Corporate Sao Paulo | EB9"
+    },
+    {
+     "fieldId": "COUNTRY",
+     "fieldLabel": "Country/Region",
+     "valueId": "br",
+     "valueLabel": "Brazil"
+    },
+    {
+     "fieldId": "60e69e78b91f374974b7ff3d",
+     "fieldLabel": "Role Type",
+     "valueId": "bf21b4b0-99e7-4670-a4f0-222ad3790c9b",
+     "valueLabel": "Hybrid"
+    },
+    {
+     "fieldId": "60bf852122069d3816fd7cd1",
+     "fieldLabel": "Department",
+     "valueId": "2618789",
+     "valueLabel": "Human Resources"
+    },
+    {
+     "fieldId": "60bf852122069d3816fd7cd0",
+     "fieldLabel": "Brands",
+     "valueId": "bc8773eb-6c9f-4abb-8067-798e9b50dfb5",
+     "valueLabel": "Serasa Experian"
+    }
+   ],
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157560029",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  }
+ ]
+}

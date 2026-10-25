@@ -1,0 +1,144 @@
+{
+ "opportunities": [
+  {
+   "Id": "ee090dbb-8569-42b0-84ab-de56da17abc7",
+   "Featured": false,
+   "Title": "University Officer",
+   "RequisitionNumber": "UNIVE003322",
+   "FullTime": true,
+   "JobCategoryName": "Global Impact",
+   "Locations": [
+    {
+     "Id": "1ebe42e2-617f-5beb-a7ba-31bcf035e0c7",
+     "LocalizedName": null,
+     "LocalizedLocationId": "JORD2",
+     "LocalizedDescription": "Jordan Gender",
+     "Address": {
+      "Line1": "Abdel Rahem El-Haj Mohammad St.,Fountain Plaza Building # 66 Entrance 1, 4th Floor Sweifieh",
+      "Line2": null,
+      "City": "Amman",
+      "PostalCode": "0000",
+      "State": null,
+      "Country": {
+       "Code": "JOR",
+       "Name": "Jordan"
+      }
+     },
+     "DisplayName": false,
+     "DisplayLocationId": false,
+     "DisplayAddress": true,
+     "DisplayStreetAddress": false,
+     "DisplayDescription": false,
+     "SourceOfTruth": 1,
+     "Coordinates": {
+      "Latitude": 46.16786061794418,
+      "Longitude": -64.84372009197959
+     }
+    }
+   ],
+   "PostedDate": "2026-10-25T13:00:21.381Z",
+   "BriefDescription": "IREX is a global solutions provider that partners with communities and institutions in the United States and around the world to cultivate leaders, expand access to education, and create economic opportunity. With deep expertise, a forward-looking vision, and world-class practices in AI for Education, Future-Ready Workforce, Higher Education Solutions, Leadership Development, and Online Safety, IREX delivers innovative and proven solutions that help people, institutions, and communities thrive in a rapidly changing world.",
+   "MatchScore": 1.0,
+   "MatchedLocations": [],
+   "Distance": null,
+   "JobLocationType": null,
+   "OpportunityType": 0
+  },
+  {
+   "Id": "8f374f7e-b049-44a3-a0a8-762c0bcde487",
+   "Featured": false,
+   "Title": "Program Coordinator, Partnerships YLAI",
+   "RequisitionNumber": "PROGR003321",
+   "FullTime": true,
+   "JobCategoryName": "Global Impact",
+   "Locations": [
+    {
+     "Id": "583d377d-e9d1-59ae-bd80-6605c0291ac5",
+     "LocalizedName": "Headquarters",
+     "LocalizedLocationId": "DC",
+     "LocalizedDescription": "Washington, DC",
+     "Address": {
+      "Line1": "1350 I Street NW",
+      "Line2": "Suite 1100",
+      "City": "Washington",
+      "PostalCode": "20005",
+      "State": {
+       "Code": "DC",
+       "Name": "District of Columbia"
+      },
+      "Country": {
+       "Code": "USA",
+       "Name": "United States"
+      }
+     },
+     "DisplayName": true,
+     "DisplayLocationId": false,
+     "DisplayAddress": true,
+     "DisplayStreetAddress": false,
+     "DisplayDescription": false,
+     "SourceOfTruth": 1,
+     "Coordinates": {
+      "Latitude": 38.901035370725,
+      "Longitude": -77.031299843002
+     }
+    }
+   ],
+   "PostedDate": "2026-10-23T16:42:45.84Z",
+   "BriefDescription": "IREX is looking for a Program Coordinator to support the YLAI program Partnerships, who will support U.S. partners throughout the fellowship process, from outreach and recruitment to onboarding, matching, program implementation, and ongoing engagement. This role will coordinate partnership activities that create meaningful professional experiences for YLAI participants while delivering value to partner organizations. These connections can lead to opportunities such as business growth, knowledge sharing, innovation, and new market opportunities.\n\nWe are looking for our next team member, could that be you?",
+   "MatchScore": 1.0,
+   "MatchedLocations": [],
+   "Distance": null,
+   "JobLocationType": 0,
+   "OpportunityType": 0
+  },
+  {
+   "Id": "36ec3e6d-28c8-4fe2-8aca-bcaaded569ae",
+   "Featured": false,
+   "Title": "Program Coordinator, Community Solutions Program (CSP)",
+   "RequisitionNumber": "PROGR003318",
+   "FullTime": true,
+   "JobCategoryName": "Global Impact",
+   "Locations": [
+    {
+     "Id": "583d377d-e9d1-59ae-bd80-6605c0291ac5",
+     "LocalizedName": "Headquarters",
+     "LocalizedLocationId": "DC",
+     "LocalizedDescription": "Washington, DC",
+     "Address": {
+      "Line1": "1350 I Street NW",
+      "Line2": "Suite 1100",
+      "City": "Washington",
+      "PostalCode": "20005",
+      "State": {
+       "Code": "DC",
+       "Name": "District of Columbia"
+      },
+      "Country": {
+       "Code": "USA",
+       "Name": "United States"
+      }
+     },
+     "DisplayName": true,
+     "DisplayLocationId": false,
+     "DisplayAddress": true,
+     "DisplayStreetAddress": false,
+     "DisplayDescription": false,
+     "SourceOfTruth": 1,
+     "Coordinates": {
+      "Latitude": 38.901035370725,
+      "Longitude": -77.031299843002
+     }
+    }
+   ],
+   "PostedDate": "2026-10-22T19:47:49.335Z",
+   "BriefDescription": "IREX seeks a Program Coordinator to initially support the Community Solutions Program (CSP), a U.S. Department of State-funded professional exchange focused on regional economic growth, cross-sector collaboration, and community prosperity.\n\nWe're looking for our next team member. Could it be you?",
+   "MatchScore": 1.0,
+   "MatchedLocations": [],
+   "Distance": null,
+   "JobLocationType": 0,
+   "OpportunityType": 0
+  }
+ ],
+ "totalCount": 14,
+ "locations": []
+}

@@ -1,0 +1,331 @@
+{
+ "offset": 0,
+ "limit": 100,
+ "totalFound": 4,
+ "content": [
+  {
+   "id": "744000157119478",
+   "name": "Senior Protective Intelligence Analyst",
+   "uuid": "b8d9f4c9-a641-4764-8e08-c128cf01ec61",
+   "jobAdId": "04f82bf0-d94f-45ea-99df-d3ad62e57de3",
+   "defaultJobAd": true,
+   "refNumber": "REF29358G",
+   "company": {
+    "identifier": "Securitas",
+    "name": "Securitas"
+   },
+   "releasedDate": "2026-10-22T12:25:09.165Z",
+   "location": {
+    "city": "Milton Keynes",
+    "region": "England",
+    "country": "gb",
+    "remote": false,
+    "hybrid": false,
+    "latitude": "52.0406224",
+    "longitude": "-0.7594171",
+    "fullLocation": "Milton Keynes, England, United Kingdom"
+   },
+   "industry": {
+    "id": "security_and_investigations",
+    "label": "Security And Investigations"
+   },
+   "department": {},
+   "function": {
+    "id": "analyst",
+    "label": "Analyst"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "mid_senior_level",
+    "label": "Mid-Senior Level"
+   },
+   "customField": [
+    {
+     "fieldId": "62697230738fb86bcf86b45b",
+     "fieldLabel": "Branch",
+     "valueId": "dff6daff-5f1c-49ba-863a-f708aa937dd3",
+     "valueLabel": "197 - Intelligence Hub"
+    },
+    {
+     "fieldId": "65e5b6024454566b94e8fa88",
+     "fieldLabel": "Pay Rate (UK)",
+     "valueId": "cdd032e7-023b-48f0-b6c2-4f9d01c9c06b",
+     "valueLabel": "Annual"
+    },
+    {
+     "fieldId": "COUNTRY",
+     "fieldLabel": "Country/Region",
+     "valueId": "gb",
+     "valueLabel": "United Kingdom"
+    },
+    {
+     "fieldId": "62697322738fb86bcf86b45c",
+     "fieldLabel": "Reason of job opening",
+     "valueId": "d8cfba3b-5b9b-4726-be44-f05368008062",
+     "valueLabel": "New Role"
+    },
+    {
+     "fieldId": "62697265d64608203043f03e",
+     "fieldLabel": "Job category",
+     "valueId": "47d8e63c-2e6b-4660-b6da-3cbe82a8e67e",
+     "valueLabel": "Intelligence"
+    },
+    {
+     "fieldId": "626972ed5c96561ef7f085a9",
+     "fieldLabel": "Labor type",
+     "valueId": "09583f3b-2480-43f9-abc8-91126ec6ff35",
+     "valueLabel": "Indirect (UK)"
+    },
+    {
+     "fieldId": "626972205c96561ef7f085a8",
+     "fieldLabel": "Area",
+     "valueId": "56479e0f-9f8f-4e69-a695-3763c6eeadd0",
+     "valueLabel": "UK - RIC"
+    },
+    {
+     "fieldId": "6267f03969f68919d25b8d58",
+     "fieldLabel": "Brands",
+     "valueId": "4a895b44-c15a-4504-8fe3-bf1cb9b8eb25",
+     "valueLabel": "Securitas UK"
+    },
+    {
+     "fieldId": "626973036fec5b04a258d9dd",
+     "fieldLabel": "Type of Contract",
+     "valueId": "7cfd96f1-1574-4112-b10d-acc9191c9c18",
+     "valueLabel": "Permanent"
+    },
+    {
+     "fieldId": "6274d2a16c2fb649108957bc",
+     "fieldLabel": "Work location",
+     "valueLabel": "Milton Keynes"
+    }
+   ],
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/Securitas/postings/744000157119478",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  },
+  {
+   "id": "744000155986710",
+   "name": "Risk Intelligence Analyst",
+   "uuid": "969fa7fa-e46d-4fa2-b904-3888b2723f4f",
+   "jobAdId": "d19f3575-d45b-456e-9eb8-2c731fdf2a4d",
+   "defaultJobAd": true,
+   "refNumber": "REF29242O",
+   "company": {
+    "identifier": "Securitas",
+    "name": "Securitas"
+   },
+   "releasedDate": "2026-10-16T12:50:25.623Z",
+   "location": {
+    "city": "Milton Keynes",
+    "region": "England",
+    "country": "gb",
+    "remote": false,
+    "hybrid": false,
+    "latitude": "52.0406224",
+    "longitude": "-0.7594171",
+    "fullLocation": "Milton Keynes, England, United Kingdom"
+   },
+   "industry": {
+    "id": "security_and_investigations",
+    "label": "Security And Investigations"
+   },
+   "department": {},
+   "function": {
+    "id": "analyst",
+    "label": "Analyst"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "not_applicable",
+    "label": "Not Applicable"
+   },
+   "customField": [
+    {
+     "fieldId": "62697230738fb86bcf86b45b",
+     "fieldLabel": "Branch",
+     "valueId": "dff6daff-5f1c-49ba-863a-f708aa937dd3",
+     "valueLabel": "197 - Intelligence Hub"
+    },
+    {
+     "fieldId": "65e5b6024454566b94e8fa88",
+     "fieldLabel": "Pay Rate (UK)",
+     "valueId": "cdd032e7-023b-48f0-b6c2-4f9d01c9c06b",
+     "valueLabel": "Annual"
+    },
+    {
+     "fieldId": "COUNTRY",
+     "fieldLabel": "Country/Region",
+     "valueId": "gb",
+     "valueLabel": "United Kingdom"
+    },
+    {
+     "fieldId": "62697322738fb86bcf86b45c",
+     "fieldLabel": "Reason of job opening",
+     "valueId": "d8cfba3b-5b9b-4726-be44-f05368008062",
+     "valueLabel": "New Role"
+    },
+    {
+     "fieldId": "62697265d64608203043f03e",
+     "fieldLabel": "Job category",
+     "valueId": "47d8e63c-2e6b-4660-b6da-3cbe82a8e67e",
+     "valueLabel": "Intelligence"
+    },
+    {
+     "fieldId": "626972ed5c96561ef7f085a9",
+     "fieldLabel": "Labor type",
+     "valueId": "09583f3b-2480-43f9-abc8-91126ec6ff35",
+     "valueLabel": "Indirect (UK)"
+    },
+    {
+     "fieldId": "626972205c96561ef7f085a8",
+     "fieldLabel": "Area",
+     "valueId": "56479e0f-9f8f-4e69-a695-3763c6eeadd0",
+     "valueLabel": "UK - RIC"
+    },
+    {
+     "fieldId": "6267f03969f68919d25b8d58",
+     "fieldLabel": "Brands",
+     "valueId": "4a895b44-c15a-4504-8fe3-bf1cb9b8eb25",
+     "valueLabel": "Securitas UK"
+    },
+    {
+     "fieldId": "626973036fec5b04a258d9dd",
+     "fieldLabel": "Type of Contract",
+     "valueId": "7cfd96f1-1574-4112-b10d-acc9191c9c18",
+     "valueLabel": "Permanent"
+    },
+    {
+     "fieldId": "6274d2a16c2fb649108957bc",
+     "fieldLabel": "Work location",
+     "valueLabel": "Milton Keynes"
+    }
+   ],
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/Securitas/postings/744000155986710",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  },
+  {
+   "id": "744000149044399",
+   "name": "Protective Intelligence Analyst",
+   "uuid": "24faf116-6c1b-4a3e-9b8e-320b16e1fd8d",
+   "jobAdId": "6c3578c2-cee5-4f71-bfbf-889b8a24c436",
+   "defaultJobAd": true,
+   "refNumber": "REF28521I",
+   "company": {
+    "identifier": "Securitas",
+    "name": "Securitas"
+   },
+   "releasedDate": "2026-09-11T14:46:09.658Z",
+   "location": {
+    "city": "Milton Keynes",
+    "region": "England",
+    "country": "gb",
+    "remote": false,
+    "hybrid": false,
+    "latitude": "52.0406224",
+    "longitude": "-0.7594171",
+    "fullLocation": "Milton Keynes, England, United Kingdom"
+   },
+   "industry": {
+    "id": "security_and_investigations",
+    "label": "Security And Investigations"
+   },
+   "department": {},
+   "function": {
+    "id": "analyst",
+    "label": "Analyst"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "not_applicable",
+    "label": "Not Applicable"
+   },
+   "customField": [
+    {
+     "fieldId": "62697230738fb86bcf86b45b",
+     "fieldLabel": "Branch",
+     "valueId": "dff6daff-5f1c-49ba-863a-f708aa937dd3",
+     "valueLabel": "197 - Intelligence Hub"
+    },
+    {
+     "fieldId": "65e5b6024454566b94e8fa88",
+     "fieldLabel": "Pay Rate (UK)",
+     "valueId": "cdd032e7-023b-48f0-b6c2-4f9d01c9c06b",
+     "valueLabel": "Annual"
+    },
+    {
+     "fieldId": "COUNTRY",
+     "fieldLabel": "Country/Region",
+     "valueId": "gb",
+     "valueLabel": "United Kingdom"
+    },
+    {
+     "fieldId": "62697322738fb86bcf86b45c",
+     "fieldLabel": "Reason of job opening",
+     "valueId": "d8cfba3b-5b9b-4726-be44-f05368008062",
+     "valueLabel": "New Role"
+    },
+    {
+     "fieldId": "62697265d64608203043f03e",
+     "fieldLabel": "Job category",
+     "valueId": "47d8e63c-2e6b-4660-b6da-3cbe82a8e67e",
+     "valueLabel": "Intelligence"
+    },
+    {
+     "fieldId": "626972ed5c96561ef7f085a9",
+     "fieldLabel": "Labor type",
+     "valueId": "09583f3b-2480-43f9-abc8-91126ec6ff35",
+     "valueLabel": "Indirect (UK)"
+    },
+    {
+     "fieldId": "626972205c96561ef7f085a8",
+     "fieldLabel": "Area",
+     "valueId": "56479e0f-9f8f-4e69-a695-3763c6eeadd0",
+     "valueLabel": "UK - RIC"
+    },
+    {
+     "fieldId": "6267f03969f68919d25b8d58",
+     "fieldLabel": "Brands",
+     "valueId": "4a895b44-c15a-4504-8fe3-bf1cb9b8eb25",
+     "valueLabel": "Securitas UK"
+    },
+    {
+     "fieldId": "626973036fec5b04a258d9dd",
+     "fieldLabel": "Type of Contract",
+     "valueId": "7cfd96f1-1574-4112-b10d-acc9191c9c18",
+     "valueLabel": "Permanent"
+    },
+    {
+     "fieldId": "6274d2a16c2fb649108957bc",
+     "fieldLabel": "Work location",
+     "valueLabel": "Milton Keynes"
+    }
+   ],
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/Securitas/postings/744000149044399",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  }
+ ]
+}

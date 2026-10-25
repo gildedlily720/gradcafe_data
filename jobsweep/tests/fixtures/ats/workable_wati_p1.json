@@ -1,0 +1,129 @@
+{
+ "_capture": {
+  "source": "github.com/jobverify/jobverify-backend scraper/wati/fixtures (raw Workable API captures)",
+  "captured_at": "2026-10-23T02:55:03.631Z",
+  "note": "apply.workable.com returned HTTP 429 (Cloudflare 1015) to this egress on 2026-10-25; results trimmed"
+ },
+ "request": {
+  "url": "https://apply.workable.com/api/v3/accounts/wati-dot-i-o/jobs",
+  "body": {
+   "query": "",
+   "location": [],
+   "department": [],
+   "worktype": [],
+   "remote": []
+  }
+ },
+ "response": {
+  "nextPage": "WzE3ODg5MTIwMDAwMDAsNjA4NzM3NF0=",
+  "results": [
+   {
+    "id": 6216859,
+    "shortcode": "89E979B9A0",
+    "title": "Product Support Associate - L2",
+    "remote": false,
+    "location": {
+     "city": "Bengaluru",
+     "country": "India",
+     "countryCode": "IN",
+     "region": "Karnataka"
+    },
+    "locations": [
+     {
+      "city": "Bengaluru",
+      "country": "India",
+      "countryCode": "IN",
+      "hidden": false,
+      "region": "Karnataka"
+     }
+    ],
+    "state": "published",
+    "isInternal": false,
+    "code": "",
+    "published": "2026-10-23T00:00:00.000Z",
+    "type": "full",
+    "language": "en",
+    "department": [
+     "Customer Service"
+    ],
+    "accountUid": "da70e071-85cc-431f-b985-66f433ef6d33",
+    "approvalStatus": "approved",
+    "workplace": "hybrid"
+   },
+   {
+    "id": 6218908,
+    "shortcode": "F92A9ABAF5",
+    "title": "Product Support Intern",
+    "remote": false,
+    "location": {
+     "city": "Bengaluru",
+     "country": "India",
+     "countryCode": "IN",
+     "region": "Karnataka"
+    },
+    "locations": [
+     {
+      "city": "Bengaluru",
+      "country": "India",
+      "countryCode": "IN",
+      "hidden": false,
+      "region": "Karnataka"
+     }
+    ],
+    "state": "published",
+    "isInternal": false,
+    "code": "",
+    "published": "2026-10-23T00:00:00.000Z",
+    "type": "full",
+    "language": "en",
+    "department": [
+     "Customer Service"
+    ],
+    "accountUid": "da70e071-85cc-431f-b985-66f433ef6d33",
+    "approvalStatus": "approved",
+    "workplace": "hybrid"
+   },
+   {
+    "id": 6171222,
+    "shortcode": "9E83820E61",
+    "title": "Account Executive - Iberia",
+    "remote": true,
+    "location": {
+     "city": "",
+     "country": "Portugal",
+     "countryCode": "PT",
+     "region": null
+    },
+    "locations": [
+     {
+      "city": "",
+      "country": "Portugal",
+      "countryCode": "PT",
+      "hidden": false,
+      "region": null
+     },
+     {
+      "city": "",
+      "country": "Spain",
+      "countryCode": "ES",
+      "hidden": false,
+      "region": null
+     }
+    ],
+    "state": "published",
+    "isInternal": false,
+    "code": "",
+    "published": "2026-10-05T00:00:00.000Z",
+    "type": "full",
+    "language": "en",
+    "department": [
+     "Sales"
+    ],
+    "accountUid": "da70e071-85cc-431f-b985-66f433ef6d33",
+    "approvalStatus": "approved",
+    "workplace": "remote"
+   }
+  ],
+  "total": 57
+ }
+}
