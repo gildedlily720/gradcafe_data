@@ -18,6 +18,10 @@ on:
         description: "Comma-separated source names (blank = every available non-metered source)"
         required: false
         default: ""
+      verify_credentials:
+        description: "Check metered-source credentials without running searches"
+        type: boolean
+        default: false
       include_metered:
         description: "Also run metered sources (TheirStack, HasData, Apify) when their keys are set"
         type: boolean
@@ -62,6 +66,45 @@ jobs:
       - name: Install jobsweep
         working-directory: jobsweep
         run: uv pip install -e '.[jobspy]'
+
+      - name: Verify metered-source credentials
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.verify_credentials }}
+        env:
+          THEIRSTACK_API_KEY: ${{ secrets.THEIRSTACK_API_KEY }}
+          HASDATA_API_KEY: ${{ secrets.HASDATA_API_KEY }}
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+        run: |
+          python - <<'PY'
+          import os
+          import sys
+          from urllib.error import HTTPError
+          from urllib.request import Request, urlopen
+
+          # Account reads only: no job searches, scraper runs, or response bodies in logs.
+          checks = [
+              ("TheirStack", "https://api.theirstack.com/v0/billing/credit-balance", "THEIRSTACK_API_KEY", "Authorization", "Bearer "),
+              ("HasData", "https://api.hasdata.com/user/me/usage", "HASDATA_API_KEY", "x-api-key", ""),
+              ("Apify", "https://api.apify.com/v2/users/me", "APIFY_TOKEN", "Authorization", "Bearer "),
+          ]
+          failed = False
+          for name, url, key_name, header, prefix in checks:
+              key = os.environ.get(key_name, "")
+              if not key:
+                  print(f"{name}: missing credential")
+                  failed = True
+                  continue
+              try:
+                  request = Request(url, headers={header: prefix + key, "Accept": "application/json"})
+                  with urlopen(request, timeout=30) as response:
+                      print(f"{name}: authenticated (HTTP {response.status})")
+              except HTTPError as exc:
+                  print(f"{name}: HTTP {exc.code}")
+                  failed = True
+              except Exception as exc:
+                  print(f"{name}: request failed ({type(exc).__name__})")
+                  failed = True
+          sys.exit(1 if failed else 0)
+          PY
 
       - name: Restore state from the state branch
         run: |
