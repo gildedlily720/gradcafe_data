@@ -161,7 +161,7 @@ groups:
         active: true
         title: ["transactional risk", "transactional risks", "transactional liability", "transaction liability",
                 '/\bW&I\b/', "warranty & indemnity", "warranty and indemnity", "reps & warranties",
-                "reps and warranties", '/\bRWI\b/', '/\bR&W\b/', "M&A insurance", "tax insurance",
+                "reps and warranties", "RWI", '/\bR&W\b/', "M&A insurance", "tax insurance",
                 "contingent risk", "contingent risks", "transaction solutions"]
         phrases: ["representations and warranties insurance", "representations & warranties insurance",
                   "R&W insurance", "RWI policy", "RWI policies", "W&I insurance",
@@ -188,7 +188,7 @@ groups:
                   "directors' and officers' liability", "management liability insurance", "financial lines insurance",
                   "financial lines underwriting", "financial lines team", "professional indemnity insurance",
                   "professional liability insurance", "E&O insurance", "errors and omissions insurance",
-                  "employment practices liability insurance", '/\bEPLI\b/', "fiduciary liability insurance",
+                  "employment practices liability insurance", "EPLI", "fiduciary liability insurance",
                   "crime insurance", "fidelity bond", "financial institutions bond", "bankers blanket bond",
                   "bankers professional indemnity", "securities class action", "Side A DIC",
                   "investment managers insurance", "lawyers professional liability"]
@@ -426,8 +426,8 @@ groups:
                   "physical security information management", "PSIM", "Genetec", "Lenel"]
         context: ["security operations", "physical security", "monitoring", "incidents", "alerts", "shifts",
                   "travel", "executives", "crisis", "dispatch", "escalation"]
-        exclude: ["cyber", "cybersecurity", '/\bSOC\b/', "information security", "infosec", "security engineer",
-                  "network operations", '/\bNOC\b/', "penetration", "SIEM", "incident responder", "cloud security",
+        exclude: ["cyber", "cybersecurity", "SOC", "information security", "infosec", "security engineer",
+                  "network operations", "NOC", "penetration", "SIEM", "incident responder", "cloud security",
                   "endpoint", "IT security", "network security"]
         queries: ["GSOC analyst", "GSOC operator", "global security operations center analyst", "watch officer",
                   "security operations center operator physical security", "intelligence watch analyst",
@@ -443,8 +443,8 @@ groups:
                 "personnel security", "industrial security", "facility security officer", "facility security",
                 "insider risk", "security investigations", "security program analyst", "security planning"]
         phrases: ["security risk assessments", "security risk assessment", "physical security assessments",
-                  "site security assessments", "crime prevention through environmental design", '/\bCPTED\b/',
-                  "access control systems", "enterprise security risk management", '/\bESRM\b/', "NISPOM",
+                  "site security assessments", "crime prevention through environmental design", "CPTED",
+                  "access control systems", "enterprise security risk management", "ESRM", "NISPOM",
                   "32 CFR Part 117", "personnel security investigations", "insider risk program",
                   "insider threat program", "business continuity planning", "crisis and continuity",
                   "resilience planning", "security incident reporting", "ASIS International",
@@ -453,7 +453,7 @@ groups:
         context: ["security operations", "risk assessment", "crisis management", "investigations", "executives",
                   "facilities", "travel", "compliance", "incident", "vendors", "guard force"]
         exclude: ["cyber", "cybersecurity", "information security", "infosec", "security engineer", "penetration",
-                  "application security", "cloud security", "network security", '/\bSOC\b/', "IT security",
+                  "application security", "cloud security", "network security", "SOC", "IT security",
                   "security architect", "SIEM", "devsecops", "security guard", "unarmed", "armed security", "patrol",
                   "concierge", "engineer", "GRC", "risk engineering"]
         queries: ["corporate security analyst", "security risk analyst", "physical security analyst",
@@ -492,9 +492,9 @@ groups:
         phrases: ["violent extremist", "violent extremists", "extremist groups", "extremist content",
                   "terrorist organizations", "terrorist organisations", "foreign terrorist organizations",
                   "designated terrorist", "jihadist", "jihadism", "white supremacist", "accelerationism",
-                  "accelerationist", "racially and ethnically motivated violent extremism", '/\bREMVE\b/',
+                  "accelerationist", "racially and ethnically motivated violent extremism", "REMVE",
                   "domestic violent extremism", "terrorist content", "terrorist and violent extremist content",
-                  '/\bTVEC\b/', "GIFCT", "Tech Against Terrorism", "deradicalisation", "deradicalization",
+                  "TVEC", "GIFCT", "Tech Against Terrorism", "deradicalisation", "deradicalization",
                   "online radicalization", "terrorism prevention"]
         context: ["national security", "intelligence", "online harms", "trust and safety", "hate speech", "policy",
                   "research", "Middle East", "Africa", "Arabic"]
@@ -519,7 +519,7 @@ groups:
                   "Defense Language Proficiency Test", "socio-cultural analysis", "sociocultural analysis",
                   "human terrain", "country studies", "foreign media", "vernacular media",
                   "regional subject matter expert", "regional SME", "geographic combatant command",
-                  "combatant command", '/\bCOCOMs?\b/', "AFRICOM", "CENTCOM", "INDOPACOM", "EUCOM", "SOUTHCOM"]
+                  "combatant command", "COCOM", "COCOMs", "AFRICOM", "CENTCOM", "INDOPACOM", "EUCOM", "SOUTHCOM"]
         context: ["Arabic", "Farsi", "Russian", "Mandarin", "Korean", "Spanish", "TS/SCI", "security clearance",
                   "government contractor", "DoD", "research"]
         exclude: ["sales", "account executive"]
@@ -540,7 +540,7 @@ groups:
                   "electro-optical imagery", "RF geolocation", "radio frequency data", "signals data",
                   "defense industrial base", "national security customers", "intelligence community customers",
                   "defense technology", "defence technology", "dual-use", "DoD and IC", "IC and DoD",
-                  "warfighter", "warfighters", "battlespace", "C4ISR", '/\bISR\b/',
+                  "warfighter", "warfighters", "battlespace", "C4ISR", "ISR",
                   "intelligence, surveillance and reconnaissance",
                   "intelligence, surveillance, and reconnaissance", "Janes", "order of battle",
                   "foreign military"]
@@ -570,7 +570,7 @@ groups:
         phrases: ["corporate investigations", "asset tracing", "asset searches", "asset search",
                   "background investigations", "public records research", "court records", "corporate registries",
                   "company registries", "media searches", "source inquiries", "source enquiries",
-                  "discreet inquiries", "human intelligence", '/\bHUMINT\b/', "internal investigations",
+                  "discreet inquiries", "human intelligence", "HUMINT", "internal investigations",
                   "investigative reports", "investigative firm", "investigations firm", "litigation intelligence",
                   "complex investigations", "cross-border investigations", "investigative techniques"]
         context: ["due diligence", "research", "foreign language", "litigation", "clients", "reports", "LexisNexis",
@@ -607,7 +607,7 @@ groups:
       - id: beneficial-ownership
         name: "Beneficial ownership research"
         active: true
-        title: ["beneficial ownership", "ownership research", "ownership researcher", "ownership analyst", '/\bUBO\b/',
+        title: ["beneficial ownership", "ownership research", "ownership researcher", "ownership analyst", "UBO",
                 "corporate ownership", "entity research", "entity researcher", "corporate structure", "ownership data"]
         phrases: ["beneficial owners", "ultimate beneficial owner", "ultimate beneficial owners",
                   "ultimate beneficial ownership", "beneficial ownership registers", "beneficial ownership transparency",
@@ -868,7 +868,7 @@ groups:
         phrases: ["forced labor", "forced labour", "modern slavery", "Uyghur Forced Labor Prevention Act",
                   "UFLPA", "Withhold Release Order", "withhold release orders", "Section 307",
                   "human trafficking", "child labor", "child labour", "Xinjiang", "social audits",
-                  "sub-tier suppliers", "Corporate Sustainability Due Diligence Directive", '/\bCSDDD\b/',
+                  "sub-tier suppliers", "Corporate Sustainability Due Diligence Directive", "CSDDD",
                   "German Supply Chain Act", "LkSG", "OECD Due Diligence Guidance", "UN Guiding Principles",
                   "conflict minerals", "EU Deforestation Regulation", "Modern Slavery Act"]
         context: ["ESG", "sustainability", "compliance", "suppliers", "sourcing", "audits", "customs", "trade", "NGOs",
@@ -965,7 +965,7 @@ groups:
         name: "Export controls and export compliance"
         active: true
         title: ["export controls", "export control", "export compliance", "trade compliance", "export licensing",
-                "export license", "export licence", '/\bITAR\b/', "trade controls", "strategic trade",
+                "export license", "export licence", "ITAR", "trade controls", "strategic trade",
                 "nonproliferation", "non-proliferation", "counterproliferation", "counter-proliferation",
                 "customs compliance", "import compliance"]
         phrases: ["Export Administration Regulations", "International Traffic in Arms Regulations",
@@ -974,7 +974,7 @@ groups:
                   "dual-use goods", "end-use checks", "end-user screening", "restricted party screening",
                   "deemed exports", "technology control plans", "foreign direct product rule", "export enforcement",
                   "WMD proliferation", "Wassenaar Arrangement", "Missile Technology Control Regime",
-                  "Nuclear Suppliers Group", "Export Control Joint Unit", '/\bECJU\b/', "strategic export controls",
+                  "Nuclear Suppliers Group", "Export Control Joint Unit", "ECJU", "strategic export controls",
                   "semiconductor export controls"]
         context: ["compliance", "customs", "trade", "licensing", "classification", "sanctions", "semiconductors",
                   "defense", "technology", "logistics"]
@@ -988,7 +988,7 @@ groups:
       - id: aml-kyc
         name: "AML and KYC investigations"
         active: true
-        title: ['/\bAML\b/', '/\bKYC\b/', '/\bBSA\b/', '/\bCDD\b/', "client onboarding", "transaction monitoring",
+        title: ['/\bAML\b/', '/\bKYC\b/', "BSA", "CDD", "client onboarding", "transaction monitoring",
                 "financial crimes investigator", "financial crime investigator", "financial crimes analyst",
                 "financial crime analyst", "periodic review analyst"]
         phrases: ["money laundering", "know your customer", "customer due diligence",
@@ -1010,7 +1010,7 @@ groups:
       - id: fincrime-intelligence
         name: "Financial crime risk analysis and financial intelligence"
         active: true
-        title: ["financial intelligence", '/\bFIU\b/', "financial crime risk", "financial crimes risk",
+        title: ["financial intelligence", "FIU", "financial crime risk", "financial crimes risk",
                 "financial crime intelligence", "financial crimes intelligence", "fincrime", "financial crime",
                 "financial crimes", "economic crime"]
         phrases: ["financial crime risk assessment", "financial crime risk assessments",
@@ -1019,7 +1019,7 @@ groups:
                   "law enforcement requests", "314(b) information sharing", "Egmont Group", "FATF",
                   "Financial Action Task Force", "mutual evaluation", "national risk assessment",
                   "FinCEN advisories", "financial intelligence units",
-                  "Joint Money Laundering Intelligence Taskforce", '/\bJMLIT\b/']
+                  "Joint Money Laundering Intelligence Taskforce", "JMLIT"]
         context: ["AML", "sanctions", "fraud", "data analytics", "SQL", "law enforcement", "banking", "regulators",
                   "compliance", "reporting"]
         exclude: ["leukemia", "clinical"]
@@ -1035,13 +1035,13 @@ groups:
         title: ["illicit finance", "threat finance", "counter threat finance", "terrorist financing",
                 "proliferation financing", "kleptocracy", "anti-corruption", "anticorruption", "transnational crime",
                 "organized crime", "organised crime", "illicit trade", "illicit markets", "illicit networks",
-                '/\bCFT\b/', "counter-narcotics", "counternarcotics"]
+                "CFT", "counter-narcotics", "counternarcotics"]
         phrases: ["illicit financial flows", "illicit financial activity", "illicit funds", "kleptocrats", "kleptocratic",
                   "grand corruption", "state capture", "dirty money", "money laundering networks",
                   "professional money launderers", "terrorist financing networks", "financing of terrorism",
                   "sanctions evasion networks", "proliferation finance", "narcotics trafficking",
                   "drug trafficking organizations", "transnational criminal organizations", "Transparency International",
-                  "Global Financial Integrity", "Organized Crime and Corruption Reporting Project", '/\bOCCRP\b/',
+                  "Global Financial Integrity", "Organized Crime and Corruption Reporting Project", "OCCRP",
                   "FACT Coalition", "Office of Terrorism and Financial Intelligence", "anti-kleptocracy",
                   "golden passports"]
         context: ["AML", "sanctions", "research", "investigations", "policy", "think tank", "corruption",
@@ -1063,7 +1063,7 @@ groups:
                 "onchain analyst", "virtual asset"]
         phrases: ["blockchain analytics", "on-chain analysis", "on-chain data", "onchain data",
                   "cryptocurrency tracing", "crypto tracing", "blockchain forensics", "crypto forensics",
-                  "virtual asset service providers", '/\bVASPs?\b/', "darknet markets", "darknet market",
+                  "virtual asset service providers", "VASP", "VASPs", "darknet markets", "darknet market",
                   "crypto mixers", "ransomware payments", "pig butchering", "crypto scams", "crypto fraud",
                   "illicit crypto", "Chainalysis Reactor", "Chainalysis", "TRM Labs", "Crystal Blockchain",
                   "Merkle Science", "wallet attribution", "address attribution", "Lazarus Group", "Travel Rule",
@@ -1137,7 +1137,7 @@ groups:
                 "integrity specialist", "site integrity", "community standards", "user safety", "online safety",
                 "platform policy", "product policy", "safety policy"]
         phrases: ["content moderation", "community guidelines", "harmful content",
-                  "child sexual abuse material", '/\bCSAM\b/', "hate speech", "graphic violence",
+                  "child sexual abuse material", "CSAM", "hate speech", "graphic violence",
                   "platform manipulation", "inauthentic behavior", "Digital Services Act", "Online Safety Act",
                   "Ofcom", "eSafety", "transparency reports", "content policies", "integrity teams", "TSPA",
                   "Trust & Safety Professional Association", "harm types", "online harms", "policy escalations",
@@ -1222,7 +1222,7 @@ groups:
         name: "Disinformation, misinformation and influence operations"
         active: true
         title: ["disinformation", "misinformation", "influence operations", "information operations",
-                "foreign influence", "information integrity", "information manipulation", '/\bFIMI\b/',
+                "foreign influence", "information integrity", "information manipulation", "FIMI",
                 "narrative intelligence", "narrative analyst", "information warfare", "propaganda",
                 "information threats", "malign influence"]
         phrases: ["coordinated inauthentic behavior", "coordinated inauthentic behaviour", "inauthentic accounts",
@@ -1343,15 +1343,15 @@ groups:
       - id: international-orgs
         name: "International organizations and human rights groups"
         active: true
-        title: ["junior professional officer", '/\bJPO\b/', "young professionals programme", "young professional",
+        title: ["junior professional officer", "JPO", "young professionals programme", "young professional",
                 "associate expert", "associate programme officer", "programme officer", "UN programme officer",
                 "programme management officer", "humanitarian affairs officer", "human rights officer",
-                "political affairs officer", "UN volunteer", '/\bUNV\b/', "programme analyst", "programme associate"]
+                "political affairs officer", "UN volunteer", "UNV", "programme analyst", "programme associate"]
         phrases: ["United Nations", "UN agencies", "UN system", "multilateral organizations",
                   "multilateral organisations", "international organizations", "international organisations",
                   "intergovernmental organization", "intergovernmental organisation", "OSCE", "World Bank",
                   "International Monetary Fund", "UNDP", "UNHCR", "UNICEF", "UN Security Council",
-                  "UN Secretariat", "Inspira", "International Committee of the Red Cross", '/\bICRC\b/',
+                  "UN Secretariat", "Inspira", "International Committee of the Red Cross", "ICRC",
                   "International Crisis Group", "Human Rights Watch", "Amnesty International",
                   "international NGO", "INGO", "Interpol", "Europol", "UNODC"]
         context: ["international", "multilateral", "development", "humanitarian", "policy", "field", "languages",
@@ -1431,7 +1431,7 @@ groups:
                   "prosecution", "victims"]
         exclude: ["police officer", "correction officer", "corrections officer", "probation officer", "parole officer",
                   "sergeant", "deputy sheriff", "security guard", "nurse", "case manager", "counselor", "therapist",
-                  "attorney", '/\bADA\b/']
+                  "attorney", "ADA"]
         queries: ["criminal justice research assistant", "criminal justice policy analyst", "crime analyst entry level",
                   "justice policy research associate", "criminal justice program associate",
                   "public safety policy analyst", "criminal legal reform research"]
@@ -1648,7 +1648,7 @@ groups:
                   "Financial Frauds Bureau", "Investigation Division", "DANY"]
         context: ["prosecutors", "prosecution", "grand jury", "criminal cases", "investigations", "NYPD", "intelligence",
                   "trial", "cases", "court"]
-        exclude: ["assistant district attorney", '/\bADA\b/', "attorney", "custodial", "mechanic", "stenographer",
+        exclude: ["assistant district attorney", "ADA", "attorney", "custodial", "mechanic", "stenographer",
                   "special officer"]
         queries: ["investigative analyst district attorney", "district attorney analyst", "crime strategies analyst",
                   "trial preparation assistant", "district attorney office investigator", "hate crimes analyst",
@@ -1664,9 +1664,9 @@ groups:
         title: ["inspector general", "investigative auditor", "integrity investigator", "integrity monitor",
                 "monitorship", "confidential investigator", "special investigator", "background investigator",
                 "complaint investigator", "police oversight", "oversight analyst", "investigative analyst",
-                '/\bOIG\b/', "civilian oversight", "integrity officer"]
+                "OIG", "civilian oversight", "integrity officer"]
         phrases: ["Department of Investigation", "NYC DOI", "New York City Department of Investigation",
-                  "Civilian Complaint Review Board", '/\bCCRB\b/', "Business Integrity Commission",
+                  "Civilian Complaint Review Board", "CCRB", "Business Integrity Commission",
                   "Conflicts of Interest Board", "Office of the Inspector General", "Inspector General for the NYPD",
                   "inspectors general", "integrity monitoring", "corruption investigations", "public corruption",
                   "fraud, waste and abuse", "fraud, waste, and abuse", "police misconduct", "allegations of misconduct",
@@ -1688,7 +1688,7 @@ groups:
         title: ["Mayor's Office", "Mayor’s Office", "City Hall", "mayoral", "Urban Fellow", "Urban Fellows",
                 "advance associate", "mayoral fellow", "Mayor's Graduate Scholar"]
         phrases: ["Office of the Mayor", "Mayor's Office of Operations", "Mayor's Office of Criminal Justice",
-                  '/\bMOCJ\b/', "Mayor's Office of Contract Services", "Mayor's Management Report", "Deputy Mayor for",
+                  "MOCJ", "Mayor's Office of Contract Services", "Mayor's Management Report", "Deputy Mayor for",
                   "mayoral administration", "Mayor's Office of Data Analytics", "citywide policy",
                   "citywide initiatives", "NYC Office of Management and Budget", "Office of Policy and Planning",
                   "New York City Urban Fellows"]
@@ -1706,7 +1706,7 @@ groups:
         active: true
         title: ["bank examiner", "insurance examiner", "criminal justice program representative",
                 "program research specialist", "examiner of municipal affairs", "medical facilities auditor",
-                "Medicaid fraud", "program integrity", "NYPD", "Port Authority", '/\bMTA\b/', "DCJS", "OMIG",
+                "Medicaid fraud", "program integrity", "NYPD", "Port Authority", "MTA", "DCJS", "OMIG",
                 "NYS DFS", "excise tax investigator"]
         phrases: ["New York State Department of Financial Services", "Department of Financial Services",
                   "Division of Criminal Justice Services", "Office of the Attorney General",
@@ -1737,7 +1737,7 @@ groups:
                   "monetary policy implementation", "open market operations", "Markets Group",
                   "Supervision Group", "Research and Statistics Group",
                   "Financial Institution Supervision Group", "Liberty Street Economics",
-                  "Federal Open Market Committee", '/\bFOMC\b/', "prudential supervision",
+                  "Federal Open Market Committee", "FOMC", "prudential supervision",
                   "systemically important", "bank holding companies", "large financial institutions",
                   "payments policy", "Research Analyst Program"]
         context: ["economics", "banking", "supervision", "regulation", "monetary policy", "markets", "data",
@@ -1753,15 +1753,15 @@ groups:
         title: ["emergency management", "emergency manager", "emergency preparedness", "emergency planner",
                 "emergency planning", "preparedness", "disaster recovery", "disaster response", "disaster",
                 "resiliency", "hazard mitigation", "continuity of operations", '/\b(?-i:COOP)\b/', "FEMA",
-                "reservist", '/\b(?-i:CORE)\b/', "emergency operations", '/\bEOC\b/', "public assistance specialist",
+                "reservist", '/\b(?-i:CORE)\b/', "emergency operations", "EOC", "public assistance specialist",
                 "individual assistance"]
         phrases: ["Federal Emergency Management Agency", "NYC Emergency Management", "New York City Emergency Management",
                   "Office of Emergency Management", "Cadre of On-Call Response/Recovery Employees",
                   "FEMA Reservist", "Reservist program", "disaster deployments", "National Incident Management System",
-                  '/\bNIMS\b/', "Incident Command System", "ICS-100", "Stafford Act", "hazard mitigation planning",
+                  "NIMS", "Incident Command System", "ICS-100", "Stafford Act", "hazard mitigation planning",
                   "tabletop exercises", "after-action reports", "after action reports", "emergency operations center",
                   "continuity planning", "coastal resiliency", "climate resiliency",
-                  "Homeland Security Exercise and Evaluation Program", '/\bHSEEP\b/', "Certified Emergency Manager",
+                  "Homeland Security Exercise and Evaluation Program", "HSEEP", "Certified Emergency Manager",
                   "DHSES", "Division of Homeland Security and Emergency Services"]
         context: ["disasters", "hurricanes", "flooding", "response", "recovery", "planning", "exercises", "shelters",
                   "logistics", "community", "hazards"]
@@ -1785,7 +1785,7 @@ groups:
                 "international relations specialist", "international trade specialist", "intelligence specialist",
                 '/\bGS-?0?[579]\b/', "recent grad"]
         phrases: ["Recent Graduates Program", "Pathways Recent Graduates", "recent graduate appointment",
-                  "Presidential Management Fellows", '/\bPMF\b/', "Schedule D", "excepted service appointment",
+                  "Presidential Management Fellows", "PMF", "Schedule D", "excepted service appointment",
                   "Participant Agreement", "non-competitive conversion", "noncompetitive conversion", "GS-0130",
                   "GS-0131", "GS-0132", "GS-0301", "GS-0343", "GS-1801", "within the previous two years"]
         context: ["federal", "USAJOBS", "U.S. citizenship", "security clearance", "agency", "OPM",
@@ -1805,10 +1805,10 @@ groups:
                 "wage and hour investigator", "wage-hour investigator", "investigative assistant",
                 '/\bInvestigator \((?:General|Criminal|Fraud|Compliance)\)/', "federal investigator",
                 "industry operations investigator", "OIG investigator"]
-        phrases: ["Employee Benefits Security Administration", '/\bEBSA\b/', "ERISA",
+        phrases: ["Employee Benefits Security Administration", "EBSA", "ERISA",
                   "Employee Retirement Income Security Act", "Wage and Hour Division", "Office of Inspector General",
                   "Federal Bureau of Investigation", "Homeland Security Investigations", "Diplomatic Security Service",
-                  "Defense Counterintelligence and Security Agency", '/\bDCSA\b/',
+                  "Defense Counterintelligence and Security Agency", "DCSA",
                   "Bureau of Alcohol, Tobacco, Firearms and Explosives", "criminal investigations",
                   "civil investigations", "GS-1811", "GS-1801", "GS-1810", "Law Enforcement Availability Pay"]
         context: ["federal", "investigations", "interviews", "evidence", "subpoenas", "compliance", "enforcement",
@@ -1857,7 +1857,7 @@ groups:
         title: ["analyst program", "analyst programme", "associate program", "associate programme",
                 "development program", "development programme", "leadership development", "analyst development",
                 "analyst class", "analyst training", "associate training", "trainee program", "trainee programme",
-                "management trainee", '/\bLDP\b/', "accelerated development"]
+                "management trainee", "LDP", "accelerated development"]
         phrases: ["two-year analyst program", "2-year analyst program", "incoming analyst class",
                   "analyst cohort", "associate cohort", "structured development program",
                   "leadership development program", "development program participants",
@@ -2011,12 +2011,12 @@ groups:
       - id: real-estate
         name: "Real estate (Marx Realty internship pursuit, July 2026)"
         active: false
-        title: ["real estate", '/\bCRE\b/', "acquisitions analyst", "leasing", "property management", "realty",
+        title: ["real estate", "CRE", "acquisitions analyst", "leasing", "property management", "realty",
                 "investment sales", "asset management analyst", "real estate analyst"]
         phrases: ["commercial real estate", "office buildings", "office properties", "retail properties",
                   "property acquisitions", "leasing activity", "rent rolls", "ARGUS Enterprise", "cap rates",
-                  "cap rate", "net operating income", '/\bNOI\b/', "tenant relations", "tenant improvement",
-                  "Marx Realty", "Class A office", "placemaking", '/\bREITs?\b/']
+                  "cap rate", "net operating income", "NOI", "tenant relations", "tenant improvement",
+                  "Marx Realty", "Class A office", "placemaking", "REIT", "REITs"]
         context: ["Excel", "financial modeling", "properties", "tenants", "investments", "New York City", "Manhattan",
                   "brokers", "market research", "valuations", "landlord"]
         exclude: ["real estate agent", "realtor", "mortgage loan officer", "maintenance", "porter", "superintendent",
