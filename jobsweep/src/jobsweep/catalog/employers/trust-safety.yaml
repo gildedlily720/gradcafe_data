@@ -1,0 +1,997 @@
+# Employer registry -- group: trust-safety
+# Lanes: trust-safety-policy, policy-enforcement-ai-safeguards, ai-policy-forecasting, election-integrity,
+#        disinformation, human-rights.
+#
+# Coverage (researched 2026-10-25; 90 employers, 51 sweepable - every one hit through its public
+# ATS API this session - and 39 manual 'check by hand' entries):
+#   * AI labs: OpenAI, Anthropic, xAI/X, Scale AI, Perplexity, Mistral, Character.AI, ElevenLabs, UK AISI;
+#     Google DeepMind manual (left Greenhouse for Google Careers).
+#   * Platforms: Snap, Pinterest, Reddit, Discord, Roblox, Twitch, Spotify, Airbnb, Match Group, Bumble,
+#     Grindr, Wikimedia; manual: Meta, Google/YouTube/Jigsaw, Microsoft (MTAC, LinkedIn), TikTok, Etsy, Bluesky.
+#     Every platform / AI-lab board carries a title_filter so only T&S / integrity / policy titles are kept.
+#   * T&S vendors & child safety: Hive, Cinder, Thorn; manual: Alice (ex-ActiveFence, Comeet), NCMEC (Dayforce).
+#   * Disinformation / influence ops: Alethea, Cyabra, ISD, Graphika, NewsGuard, Blackbird.AI, Moonshot, CIR,
+#     CCDH, Tech Against Terrorism, Atlantic Council DFRLab.
+#   * AI policy / safety research / forecasting: CSET (via Georgetown Workday + filter), RAND, Epoch AI, METR,
+#     Apollo Research, Partnership on AI, FLI, Coefficient Giving (ex-Open Philanthropy), ARI, Data & Society;
+#     manual: GovAI, Metaculus, FRI, IFP, Horizon, FAS, IAPS, CLTR, AI Now, CDT.
+#   * Elections & democracy: Protect Democracy, NDI, IRI, Common Cause, Issue One; manual: Brennan Center,
+#     Democracy Works, BPC, States United, IFES.
+#   * Human rights: HRW, Amnesty USA, WITNESS, Access Now, CPJ, PEN America, BHRRC, CIVIC, ACLU; manual:
+#     Amnesty International (London), Freedom House, Human Rights First, PHR, ARTICLE 19, Global Witness, OSF.
+#
+# Notable gaps / caveats:
+#   * Workable (Blackbird.AI, Moonshot, CIR, Metaculus) answered HTTP 429 / Cloudflare 'error code 1015' to
+#     every call from this egress all session, so those four are kept manual here (ats_vendor: workable); the
+#     intelligence-security file lists Blackbird.AI, Moonshot and CIR as verified Workable boards under the
+#     same keys, and the registry merge keeps that board.
+#   * Paylocity's v2 public feed returns [] for States United even while its HTML board lists a job - the
+#     paylocity adapter may need an HTML (window.pageData) fallback.
+#   * Democracy Works' Greenhouse board returned 404 (unpublished between hiring rounds) - kept manual.
+#   * Unsupported ATS: JazzHR (Brennan, FAS), Taleo (Freedom House), Paycor (Human Rights First), Comeet (Alice),
+#     Dayforce (NCMEC), Gem (Bluesky), Clinch (Etsy), custom/Cloudflare-protected pages (CDT, IFES, BPC,
+#     ARTICLE 19, Atlantic Council, Metaculus, GovAI, IFP ...).
+#   * Dropped: Logically (administration 2025, assets sold), Global Disinformation Index (no current hiring
+#     presence), Checkstep / Tremau / TSPA / Integrity Institute (no public board or too small), Center for
+#     AI Safety (SF only; no ATS), and low-signal generalist boards (Lyft, DoorDash, eBay, Nextdoor, Patreon,
+#     Substack, Mozilla, Cohere, Amazon, Uber) where T&S hiring is rare.
+#   * Namesake traps: Greenhouse 'cais', 'turing', 'moonshot', 'hive' and BambooHR 'safeai', 'iri', 'cdt' are
+#     unrelated companies; Lever 'hive' is the moderation vendor.
+#   * Open jobs across sweepable boards at verification: 4158 (before title filters).
+group: trust-safety
+employers:
+
+  # ------------------------------------------------------------------ AI labs and model developers (model policy, safeguards, global affairs)
+  - key: openai
+    name: "OpenAI"
+    lanes: [policy-enforcement-ai-safeguards, trust-safety-policy, ai-policy-forecasting, election-integrity, disinformation]
+    groups: [policy-research]
+    ats: ashby
+    board: "openai"
+    careers_url: "https://openai.com/careers/"
+    hq: "San Francisco, CA"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat|preparedness|governance|national security|forecast|geopolit|model behavio|responsible|societal|alignment|frontier risk)'
+    verified: "2026-10-25"
+    open_jobs: 793
+    notes: "Huge board; filter keeps Model Policy, User Safety & Risk Ops, Intelligence & Investigations, Integrity, Preparedness, Global Affairs. Ops analyst roles are the entry points."
+  - key: anthropic
+    name: "Anthropic"
+    lanes: [policy-enforcement-ai-safeguards, trust-safety-policy, ai-policy-forecasting, election-integrity, disinformation]
+    groups: [policy-research]
+    ats: greenhouse
+    board: "anthropic"
+    careers_url: "https://www.anthropic.com/careers"
+    hq: "San Francisco, CA"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat|preparedness|governance|national security|forecast|geopolit|model behavio|responsible|societal|alignment|frontier risk)'
+    verified: "2026-10-25"
+    open_jobs: 682
+    notes: "Safeguards Enforcement Analyst / Policy Design / Threat Intel roles; Anthropic Fellows Program (AI safety & security; Economics & Policy) is the early-career route."
+  - key: google-deepmind
+    name: "Google DeepMind"
+    lanes: [ai-policy-forecasting, policy-enforcement-ai-safeguards]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://www.google.com/about/careers/applications/jobs/results?company=DeepMind"
+    ats_vendor: "google careers (custom)"
+    hq: "London, UK"
+    locations: ["London, UK", "New York, NY"]
+    notes: "DeepMind left Greenhouse (board 404); roles now on Google Careers filtered to company=DeepMind (Responsible Development & Innovation, frontier safety & governance, public policy)."
+  - key: xai
+    name: "xAI (incl. X)"
+    lanes: [policy-enforcement-ai-safeguards, trust-safety-policy]
+    ats: greenhouse
+    board: "xai"
+    careers_url: "https://x.ai/careers"
+    hq: "Palo Alto, CA"
+    locations: ["San Francisco, CA", "London, UK"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat|preparedness|governance|national security|forecast|geopolit|model behavio|responsible|societal|alignment|frontier risk)'
+    verified: "2026-10-25"
+    open_jobs: 298
+    notes: "Greenhouse board now named 'SpaceXSI' after the SpaceX/xAI combination; X safety operations (child safety, harmful activity, prohibited content) post here. Mostly AI-tutor noise without the filter."
+  - key: scale-ai
+    name: "Scale AI"
+    lanes: [policy-enforcement-ai-safeguards, ai-policy-forecasting]
+    ats: greenhouse
+    board: "scaleai"
+    careers_url: "https://scale.com/careers"
+    hq: "San Francisco, CA"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat|preparedness|governance|national security|forecast|geopolit|model behavio|responsible|societal|alignment|frontier risk)'
+    verified: "2026-10-25"
+    open_jobs: 171
+    notes: "Red-teaming / safety evaluation and public-sector policy roles."
+  - key: perplexity
+    name: "Perplexity"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: ashby
+    board: "perplexity"
+    careers_url: "https://www.perplexity.ai/hub/careers"
+    hq: "San Francisco, CA"
+    locations: ["New York, NY", "London, UK"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat|preparedness|governance|national security|forecast|geopolit|model behavio|responsible|societal|alignment|frontier risk)'
+    verified: "2026-10-25"
+    open_jobs: 132
+  - key: mistral-ai
+    name: "Mistral AI"
+    lanes: [policy-enforcement-ai-safeguards, ai-policy-forecasting]
+    ats: ashby
+    board: "mistral.ai"
+    careers_url: "https://mistral.ai/careers"
+    hq: "Paris, France"
+    locations: ["London, UK", "New York, NY"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat|preparedness|governance|national security|forecast|geopolit|model behavio|responsible|societal|alignment|frontier risk)'
+    verified: "2026-10-25"
+    open_jobs: 225
+    notes: "Moved from Lever (jobs.lever.co/mistral now empty) to Ashby board 'mistral.ai'."
+  - key: character-ai
+    name: "Character.AI"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: ashby
+    board: "character"
+    careers_url: "https://character.ai/careers"
+    hq: "Menlo Park, CA"
+    locations: ["New York, NY"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat|preparedness|governance|national security|forecast|geopolit|model behavio|responsible|societal|alignment|frontier risk)'
+    verified: "2026-10-25"
+    open_jobs: 13
+    notes: "Youth-safety and T&S policy focus."
+  - key: elevenlabs
+    name: "ElevenLabs"
+    lanes: [policy-enforcement-ai-safeguards, trust-safety-policy, election-integrity]
+    ats: ashby
+    board: "elevenlabs"
+    careers_url: "https://elevenlabs.io/careers"
+    hq: "London, UK"
+    locations: ["London, UK", "New York, NY"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat|preparedness|governance|national security|forecast|geopolit|model behavio|responsible|societal|alignment|frontier risk)'
+    verified: "2026-10-25"
+    open_jobs: 159
+    notes: "Voice-cloning safeguards, fraud and election-deepfake policy roles."
+  - key: uk-ai-security-institute
+    name: "UK AI Security Institute (AISI)"
+    lanes: [ai-policy-forecasting, policy-enforcement-ai-safeguards]
+    groups: [policy-research]
+    ats: greenhouse
+    board: "aisi"
+    careers_url: "https://www.aisi.gov.uk/careers"
+    hq: "London, UK"
+    locations: ["London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 8
+    notes: "UK government (DSIT) AI safety/security institute; research, red-team and policy roles."
+
+  # ------------------------------------------------------------------ Platforms with trust & safety / integrity / public-policy teams
+  - key: meta
+    name: "Meta"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards, election-integrity, disinformation, human-rights]
+    ats: other
+    careers_url: "https://www.metacareers.com/jobs?q=trust%20and%20safety"
+    ats_vendor: "custom (metacareers)"
+    hq: "Menlo Park, CA"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    notes: "Content policy, integrity, threat disruption (influence ops), human rights policy; search by hand."
+  - key: google
+    name: "Google (incl. YouTube, Jigsaw)"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards, election-integrity, disinformation]
+    ats: other
+    careers_url: "https://www.google.com/about/careers/applications/jobs/results?q=%22trust%20and%20safety%22"
+    ats_vendor: "google careers (custom)"
+    hq: "Mountain View, CA"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    notes: "Trust & Safety, YouTube policy enforcement, Threat Analysis Group, Jigsaw."
+  - key: microsoft
+    name: "Microsoft (incl. LinkedIn T&S, MTAC)"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards, disinformation, election-integrity]
+    ats: other
+    careers_url: "https://jobs.careers.microsoft.com/global/en/search?q=trust%20and%20safety"
+    ats_vendor: "eightfold (custom)"
+    hq: "Redmond, WA"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    notes: "Digital Safety, Responsible AI, Microsoft Threat Analysis Center (influence ops), Democracy Forward."
+  - key: tiktok
+    name: "TikTok (incl. USDS)"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards, election-integrity, disinformation]
+    ats: other
+    careers_url: "https://lifeattiktok.com/search?keyword=trust%20and%20safety"
+    ats_vendor: "custom (lifeattiktok)"
+    hq: "Culver City, CA"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    notes: "Largest NYC T&S employer (policy, risk analysis, moderation QA, USDS). Many associate-level roles."
+  - key: snap
+    name: "Snap Inc."
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards, election-integrity]
+    ats: workday
+    board: "snapchat/wd1/snap"
+    careers_url: "https://careers.snap.com/"
+    hq: "Santa Monica, CA"
+    locations: ["New York, NY", "London, UK"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat)'
+    verified: "2026-10-25"
+    open_jobs: 208
+  - key: pinterest
+    name: "Pinterest"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: greenhouse
+    board: "pinterest"
+    careers_url: "https://www.pinterestcareers.com/"
+    hq: "San Francisco, CA"
+    locations: ["New York, NY", "Dublin, Ireland"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat)'
+    verified: "2026-10-25"
+    open_jobs: 163
+  - key: reddit
+    name: "Reddit"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: greenhouse
+    board: "reddit"
+    careers_url: "https://redditinc.com/careers"
+    hq: "San Francisco, CA"
+    locations: ["New York, NY", "London, UK", "Dublin, Ireland"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat)'
+    verified: "2026-10-25"
+    open_jobs: 160
+  - key: discord
+    name: "Discord"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: greenhouse
+    board: "discord"
+    careers_url: "https://discord.com/careers"
+    hq: "San Francisco, CA"
+    locations: ["New York, NY", "Remote, US"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat)'
+    verified: "2026-10-25"
+    open_jobs: 46
+  - key: roblox
+    name: "Roblox"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: greenhouse
+    board: "roblox"
+    careers_url: "https://careers.roblox.com/"
+    hq: "San Mateo, CA"
+    locations: ["New York, NY", "London, UK"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat)'
+    verified: "2026-10-25"
+    open_jobs: 269
+    notes: "Safety investigations, moderation operations, law-enforcement liaison, public policy."
+  - key: twitch
+    name: "Twitch"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: greenhouse
+    board: "twitch"
+    careers_url: "https://careers.twitch.com/"
+    hq: "San Francisco, CA"
+    locations: ["New York, NY", "London, UK"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat)'
+    verified: "2026-10-25"
+    open_jobs: 58
+  - key: spotify
+    name: "Spotify"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: lever
+    board: "spotify"
+    careers_url: "https://www.lifeatspotify.com/jobs"
+    hq: "Stockholm, Sweden"
+    locations: ["New York, NY", "London, UK"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat)'
+    verified: "2026-10-25"
+    open_jobs: 90
+    notes: "Platform Integrity / content policy team largely NYC + London."
+  - key: airbnb
+    name: "Airbnb"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: greenhouse
+    board: "airbnb"
+    careers_url: "https://careers.airbnb.com/"
+    hq: "San Francisco, CA"
+    locations: ["Remote, US", "Dublin, Ireland"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat)'
+    verified: "2026-10-25"
+    open_jobs: 191
+  - key: match-group
+    name: "Match Group (Tinder, Hinge)"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: lever
+    board: "matchgroup"
+    careers_url: "https://mtch.com/careers"
+    hq: "Dallas, TX"
+    locations: ["New York, NY", "Los Angeles, CA"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat)'
+    verified: "2026-10-25"
+    open_jobs: 68
+  - key: bumble
+    name: "Bumble Inc."
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: ashby
+    board: "bumbleinc"
+    careers_url: "https://bumble.com/en/jobs"
+    hq: "Austin, TX"
+    locations: ["London, UK", "New York, NY"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat)'
+    verified: "2026-10-25"
+    open_jobs: 21
+    notes: "bumble.com/jobs points at a Workday maintenance page; live board is Ashby 'bumbleinc'."
+  - key: grindr
+    name: "Grindr"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: ashby
+    board: "Grindr LLC"
+    careers_url: "https://www.grindr.com/careers"
+    hq: "West Hollywood, CA"
+    locations: ["Los Angeles, CA", "Remote, US"]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat)'
+    verified: "2026-10-25"
+    open_jobs: 26
+    notes: "Ashby board name contains a space ('Grindr LLC'; URL-encoded Grindr%20LLC), found in grindr.com careers.js."
+  - key: etsy
+    name: "Etsy"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: other
+    careers_url: "https://careers.etsy.com/jobs/search?query=trust"
+    ats_vendor: "clinch (custom)"
+    hq: "Brooklyn, NY"
+    locations: ["New York, NY"]
+    notes: "Brooklyn HQ; Trust & Safety, scaled detection & enforcement, content evaluation teams."
+  - key: wikimedia-foundation
+    name: "Wikimedia Foundation"
+    lanes: [trust-safety-policy, disinformation, human-rights]
+    ats: greenhouse
+    board: "wikimedia"
+    careers_url: "https://wikimediafoundation.org/about/jobs/"
+    hq: "San Francisco, CA"
+    locations: ["Remote, US", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 14
+    notes: "Remote-first; Trust & Safety, global advocacy and public policy."
+  - key: bluesky
+    name: "Bluesky Social"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: other
+    careers_url: "https://bsky.social/about/join"
+    ats_vendor: "gem"
+    hq: "Seattle, WA"
+    locations: ["Remote, US"]
+    notes: "Jobs hosted on Gem (jobs.gem.com/bluesky) - no supported public API."
+
+  # ------------------------------------------------------------------ T&S vendors and child-safety organisations
+  - key: hive
+    name: "Hive"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: lever
+    board: "hive"
+    careers_url: "https://thehive.ai/careers"
+    hq: "San Francisco, CA"
+    locations: ["New York, NY", "Remote, US"]
+    verified: "2026-10-25"
+    open_jobs: 74
+    notes: "Content-moderation AI vendor (Lever 'hive' confirmed via thehive.ai; Greenhouse 'hive' is unrelated)."
+  - key: activefence
+    name: "Alice (formerly ActiveFence)"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards, disinformation]
+    ats: other
+    careers_url: "https://alice.io/careers"
+    ats_vendor: "comeet"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Tel Aviv, Israel"]
+    notes: "ActiveFence rebranded as Alice (activefence.com/careers redirects to alice.io); jobs via Comeet. Hires T&S intelligence analysts / threat researchers."
+  - key: cinder
+    name: "Cinder"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: ashby
+    board: "cinder"
+    careers_url: "https://cinder.ai/careers"
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 10
+    notes: "T&S operations software (ex-Meta founders)."
+  - key: thorn
+    name: "Thorn"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: greenhouse
+    board: "thorn"
+    careers_url: "https://www.thorn.org/careers/"
+    hq: "Manhattan Beach, CA"
+    locations: ["Remote, US"]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "Child-safety tech nonprofit (Safer, research, policy)."
+  - key: ncmec
+    name: "National Center for Missing & Exploited Children (NCMEC)"
+    lanes: [trust-safety-policy, policy-enforcement-ai-safeguards]
+    ats: other
+    careers_url: "https://www.dayforcehcm.com/CandidatePortal/en-US/ncmec"
+    ats_vendor: "dayforce"
+    hq: "Alexandria, VA"
+    locations: ["Washington, DC"]
+    notes: "CyberTipline analysts; separate INTERN site on Dayforce."
+
+  # ------------------------------------------------------------------ Disinformation, influence-operations and online-harms research
+  - key: graphika
+    name: "Graphika"
+    lanes: [disinformation, election-integrity]
+    groups: [intelligence-security]
+    ats: other
+    careers_url: "https://www.graphika.com/careers"
+    ats_vendor: "custom"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    notes: "Influence-operations / online-harms intelligence analysts; openings listed on site or careers@graphika.com."
+  - key: newsguard
+    name: "NewsGuard"
+    lanes: [disinformation, election-integrity]
+    ats: other
+    careers_url: "https://www.newsguardtech.com/careers/"
+    ats_vendor: "custom form"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Remote, US", "London, UK"]
+    notes: "Staff reporters / misinformation analysts (1-2 yrs exp), editorial interns; apply via site form."
+  - key: alethea
+    name: "Alethea"
+    lanes: [disinformation, election-integrity]
+    groups: [intelligence-security]
+    ats: greenhouse
+    board: "alethea"
+    careers_url: "https://alethea.com/careers"
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "Remote, US"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Narrative-risk / disinformation detection vendor; board live but empty at verification."
+  - key: blackbird-ai
+    name: "Blackbird.AI"
+    lanes: [disinformation]
+    groups: [intelligence-security]
+    ats: other
+    careers_url: "https://blackbird.ai/careers/"
+    ats_vendor: "workable"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Remote, US"]
+    notes: "workable board 'blackbirdai' could not be verified on 2026-10-25 (API rate-limited) - kept manual."
+  - key: cyabra
+    name: "Cyabra"
+    lanes: [disinformation]
+    groups: [intelligence-security]
+    ats: bamboohr
+    board: "cyabra"
+    careers_url: "https://cyabra.com/careers/"
+    hq: "Tel Aviv, Israel"
+    locations: ["New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "BambooHR company-info confirms 'Cyabra'."
+  - key: institute-for-strategic-dialogue
+    name: "Institute for Strategic Dialogue (ISD)"
+    lanes: [disinformation, election-integrity, human-rights]
+    groups: [intelligence-security]
+    ats: recruitee
+    board: "isdglobal"
+    careers_url: "https://isdglobal.recruitee.com/"
+    hq: "London, UK"
+    locations: ["London, UK", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Digital research analysts (extremism, disinformation, elections); board live but empty at verification."
+  - key: moonshot
+    name: "Moonshot"
+    lanes: [disinformation, trust-safety-policy]
+    groups: [intelligence-security]
+    ats: other
+    careers_url: "https://moonshotteam.com/careers/"
+    ats_vendor: "workable"
+    hq: "London, UK"
+    locations: ["London, UK", "Washington, DC"]
+    notes: "workable board 'moonshot' could not be verified on 2026-10-25 (API rate-limited) - kept manual."
+  - key: centre-for-information-resilience
+    name: "Centre for Information Resilience (CIR)"
+    lanes: [disinformation, human-rights]
+    groups: [intelligence-security]
+    ats: other
+    careers_url: "https://www.info-res.org/careers/"
+    ats_vendor: "workable"
+    hq: "London, UK"
+    locations: ["London, UK", "Remote, US"]
+    notes: "workable board 'centre-for-information-resilience' could not be verified on 2026-10-25 (API rate-limited) - kept manual."
+  - key: center-for-countering-digital-hate
+    name: "Center for Countering Digital Hate (CCDH)"
+    lanes: [disinformation, trust-safety-policy]
+    ats: other
+    careers_url: "https://counterhate.com/jobs"
+    ats_vendor: "custom"
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "London, UK"]
+  - key: tech-against-terrorism
+    name: "Tech Against Terrorism"
+    lanes: [trust-safety-policy, disinformation]
+    groups: [intelligence-security]
+    ats: other
+    careers_url: "https://techagainstterrorism.org/careers"
+    ats_vendor: "custom"
+    hq: "London, UK"
+    locations: ["London, UK"]
+  - key: atlantic-council
+    name: "Atlantic Council (DFRLab)"
+    lanes: [disinformation, election-integrity, ai-policy-forecasting]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://www.atlanticcouncil.org/about/careers/"
+    ats_vendor: "custom"
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "DFRLab research assistants / associates (OSINT, foreign influence); site blocks bots - check by hand."
+
+  # ------------------------------------------------------------------ AI policy, AI-safety research and forecasting organisations
+  - key: govai
+    name: "Centre for the Governance of AI (GovAI)"
+    lanes: [ai-policy-forecasting]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://www.governance.ai/opportunities"
+    ats_vendor: "custom"
+    hq: "Oxford, UK"
+    locations: ["London, UK", "Washington, DC"]
+    notes: "Research Scholar / Fellow roles plus DC and UK Summer/Winter Fellowships (early-career route)."
+  - key: cset
+    name: "Center for Security and Emerging Technology (CSET, Georgetown)"
+    lanes: [ai-policy-forecasting]
+    groups: [policy-research]
+    ats: workday
+    board: "georgetown/wd1/Georgetown_Admin_Careers"
+    careers_url: "https://cset.georgetown.edu/careers/"
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    title_filter: '(?i)(\bCSET\b|emerging tech|artificial intelligence|\bAI\b|national security|research analyst|research fellow|data research)'
+    verified: "2026-10-25"
+    open_jobs: 139
+    notes: "CSET hires through Georgetown University's Workday board (shared with all of Georgetown; 0 CSET titles open at verification) - the title filter keeps research-analyst / AI / emerging-tech titles; confirm the unit is CSET. Student RA roles are internal-only."
+  - key: rand-corporation
+    name: "RAND"
+    lanes: [ai-policy-forecasting]
+    groups: [policy-research]
+    ats: workday
+    board: "rand/wd5/External_Career_Site"
+    careers_url: "https://www.rand.org/jobs.html"
+    hq: "Santa Monica, CA"
+    locations: ["Arlington, VA", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 22
+    notes: "AI security / technology & security policy (TASP) research roles; Summer Associate Program."
+  - key: epoch-ai
+    name: "Epoch AI"
+    lanes: [ai-policy-forecasting]
+    ats: lever
+    board: "epoch-ai"
+    careers_url: "https://epoch.ai/about/careers"
+    locations: ["Remote, US"]
+    verified: "2026-10-25"
+    open_jobs: 8
+    notes: "AI trends research & forecasting; remote."
+  - key: metaculus
+    name: "Metaculus"
+    lanes: [ai-policy-forecasting]
+    ats: other
+    careers_url: "https://www.metaculus.com/careers/"
+    ats_vendor: "workable"
+    locations: ["Remote, US"]
+    notes: "Forecasting platform. workable board 'metaculus' could not be verified on 2026-10-25 (API rate-limited) - kept manual."
+  - key: forecasting-research-institute
+    name: "Forecasting Research Institute (FRI)"
+    lanes: [ai-policy-forecasting]
+    ats: other
+    careers_url: "https://forecastingresearch.org/careers"
+    ats_vendor: "custom"
+    locations: ["Remote, US"]
+    notes: "Research Assistant / student RA roles listed on site."
+  - key: metr
+    name: "METR"
+    lanes: [ai-policy-forecasting, policy-enforcement-ai-safeguards]
+    ats: lever
+    board: "metr"
+    careers_url: "https://metr.org/careers"
+    hq: "Berkeley, CA"
+    locations: ["Berkeley, CA", "Remote, US"]
+    verified: "2026-10-25"
+    open_jobs: 8
+    notes: "Frontier-model evaluation; policy and research roles."
+  - key: apollo-research
+    name: "Apollo Research"
+    lanes: [ai-policy-forecasting, policy-enforcement-ai-safeguards]
+    ats: lever
+    board: "apolloresearch"
+    careers_url: "https://www.apolloresearch.ai/careers"
+    hq: "London, UK"
+    locations: ["London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 14
+    notes: "AI evaluations / governance team in London."
+  - key: partnership-on-ai
+    name: "Partnership on AI"
+    lanes: [ai-policy-forecasting, trust-safety-policy]
+    ats: rippling
+    board: "pai-job-board"
+    careers_url: "https://partnershiponai.org/careers/"
+    hq: "San Francisco, CA"
+    locations: ["Remote, US"]
+    verified: "2026-10-25"
+    open_jobs: 9
+    notes: "Rippling lists one row per location, so open_jobs overcounts distinct roles."
+  - key: future-of-life-institute
+    name: "Future of Life Institute"
+    lanes: [ai-policy-forecasting]
+    ats: lever
+    board: "futureof-life"
+    careers_url: "https://futureoflife.org/about-us/careers/"
+    hq: "Campbell, CA"
+    locations: ["Washington, DC", "Remote, US", "Brussels, Belgium"]
+    verified: "2026-10-25"
+    open_jobs: 11
+  - key: institute-for-progress
+    name: "Institute for Progress (IFP)"
+    lanes: [ai-policy-forecasting]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://ifp.org/opportunities/"
+    ats_vendor: "custom"
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+  - key: horizon-institute-for-public-service
+    name: "Horizon Institute for Public Service"
+    lanes: [ai-policy-forecasting, fellowships]
+    groups: [policy-research, entry-routes]
+    ats: other
+    careers_url: "https://horizonpublicservice.org/careers/"
+    ats_vendor: "fillout (custom)"
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Horizon Fellowship places early-career people in emerging-tech policy roles in DC; staff EOI via Fillout."
+  - key: federation-of-american-scientists
+    name: "Federation of American Scientists (FAS)"
+    lanes: [ai-policy-forecasting]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://fas.applytojob.com/"
+    ats_vendor: "jazzhr"
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "AI & emerging-tech policy associates; JazzHR (applytojob) not supported."
+  - key: institute-for-ai-policy-and-strategy
+    name: "Institute for AI Policy and Strategy (IAPS)"
+    lanes: [ai-policy-forecasting]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://www.iaps.ai/careers"
+    ats_vendor: "custom"
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "Remote, US"]
+    notes: "AI policy fellowship and researcher roles."
+  - key: centre-for-long-term-resilience
+    name: "Centre for Long-Term Resilience (CLTR)"
+    lanes: [ai-policy-forecasting]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://www.longtermresilience.org/work-with-us/"
+    ats_vendor: "custom"
+    hq: "London, UK"
+    locations: ["London, UK"]
+  - key: coefficient-giving
+    name: "Coefficient Giving (formerly Open Philanthropy)"
+    lanes: [ai-policy-forecasting]
+    ats: ashby
+    board: "coefficientgiving"
+    careers_url: "https://coefficientgiving.org/careers/"
+    hq: "San Francisco, CA"
+    locations: ["Washington, DC", "Remote, US"]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "AI governance grantmaking (program associate / research fellow rounds). Mostly an EOI board between rounds."
+  - key: americans-for-responsible-innovation
+    name: "Americans for Responsible Innovation (ARI)"
+    lanes: [ai-policy-forecasting]
+    groups: [policy-research]
+    ats: rippling
+    board: "americans-for-responsible-innovation"
+    careers_url: "https://ari.us/careers/"
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "DC AI-policy advocacy; Rippling board live but empty."
+  - key: ai-now-institute
+    name: "AI Now Institute"
+    lanes: [ai-policy-forecasting]
+    ats: other
+    careers_url: "https://ainowinstitute.org/careers"
+    ats_vendor: "custom"
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+  - key: data-and-society
+    name: "Data & Society Research Institute"
+    lanes: [ai-policy-forecasting, disinformation]
+    groups: [policy-research]
+    ats: greenhouse
+    board: "datasocietyresearchinstitute"
+    careers_url: "https://datasociety.net/careers-at-data-society/"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Remote, US"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "AI & democracy / AI-enabled scams research; board empty at verification (fills in hiring rounds)."
+  - key: center-for-democracy-and-technology
+    name: "Center for Democracy & Technology (CDT)"
+    lanes: [ai-policy-forecasting, election-integrity, trust-safety-policy]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://cdt.org/careers/"
+    ats_vendor: "custom"
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "Brussels, Belgium"]
+    notes: "Elections & Democracy fellow, free-expression and AI governance policy roles; site blocks bots."
+
+  # ------------------------------------------------------------------ Elections and democracy
+  - key: brennan-center
+    name: "Brennan Center for Justice"
+    lanes: [election-integrity]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://brennancenter.applytojob.com/"
+    ats_vendor: "jazzhr"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    notes: "Democracy program research/legal internships and associate roles; JazzHR (applytojob) unsupported."
+  - key: democracy-works
+    name: "Democracy Works"
+    lanes: [election-integrity]
+    ats: other
+    careers_url: "https://democracy.works/careers"
+    ats_vendor: "greenhouse (board offline)"
+    hq: "Brooklyn, NY"
+    locations: ["Remote, US"]
+    notes: "Greenhouse 'democracyworks' returned 404 on 2026-10-25 (board unpublished between hiring rounds); seasonal Voting Information Project fellows. Re-check before an election cycle."
+  - key: bipartisan-policy-center
+    name: "Bipartisan Policy Center"
+    lanes: [election-integrity]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://careers.bipartisanpolicy.org/"
+    ats_vendor: "custom"
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Elections Project policy analysts; Cloudflare-protected careers subdomain."
+  - key: protect-democracy
+    name: "Protect Democracy"
+    lanes: [election-integrity, disinformation]
+    ats: recruitee
+    board: "protectdemocracy"
+    careers_url: "https://protectdemocracy.org/jobs/"
+    hq: "Washington, DC"
+    locations: ["Remote, US", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 5
+  - key: states-united-democracy-center
+    name: "States United Democracy Center"
+    lanes: [election-integrity]
+    ats: other
+    careers_url: "https://recruiting.paylocity.com/recruiting/jobs/All/989bd500-cfa5-43b3-8f63-c198bd614eac/States-United-Democracy-Center"
+    ats_vendor: "paylocity"
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY", "Remote, US"]
+    notes: "Paylocity company GUID 989bd500-cfa5-43b3-8f63-c198bd614eac, but its v2 public feed returns [] even while the HTML board lists a job (feed not enabled) - kept manual so the sweep does not report 0."
+  - key: national-democratic-institute
+    name: "National Democratic Institute (NDI)"
+    lanes: [election-integrity, human-rights]
+    groups: [policy-research]
+    ats: rippling
+    board: "ndi_careers"
+    careers_url: "https://www.ndi.org/careers"
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Moved from UltiPro (NAT1051NDEM board now empty) to Rippling; consultant pool at ndi-consultant-talent-community."
+  - key: international-republican-institute
+    name: "International Republican Institute (IRI)"
+    lanes: [election-integrity, human-rights, disinformation]
+    groups: [policy-research]
+    ats: ultipro
+    board: "INT1048/201c19d1-4b06-d159-bba4-6a102267f555"
+    careers_url: "https://www.iri.org/work-with-iri/"
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "Main UltiPro board (two other INT1048 boards - internships/consultants - were empty). Program Associate is the entry role."
+  - key: ifes
+    name: "International Foundation for Electoral Systems (IFES)"
+    lanes: [election-integrity, disinformation]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://www.ifes.org/careers"
+    ats_vendor: "custom"
+    hq: "Arlington, VA"
+    locations: ["Washington, DC"]
+    notes: "Careers page blocks bots; program associates, election-integrity advisors."
+  - key: common-cause
+    name: "Common Cause"
+    lanes: [election-integrity]
+    ats: lever
+    board: "commoncause"
+    careers_url: "https://www.commoncause.org/careers/"
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 3
+  - key: issue-one
+    name: "Issue One"
+    lanes: [election-integrity]
+    ats: rippling
+    board: "issue-one-jobs"
+    careers_url: "https://issueone.org/jobs/"
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: "Also an older BambooHR 'issueonereform' board (2 senior roles) linked from the same page."
+
+  # ------------------------------------------------------------------ Human rights
+  - key: human-rights-watch
+    name: "Human Rights Watch"
+    lanes: [human-rights]
+    groups: [policy-research]
+    ats: greenhouse
+    board: "humanrightswatch"
+    careers_url: "https://www.hrw.org/careers"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 7
+    notes: "Research assistants / associates and departmental internships."
+  - key: amnesty-international-usa
+    name: "Amnesty International USA"
+    lanes: [human-rights]
+    ats: adp
+    board: "c6fdd7c6-1b63-450d-ba2b-c679abf65f53|19000101_000001"
+    careers_url: "https://www.amnestyusa.org/about-us/careers/"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "ADP WorkforceNow cid from the careers page; feed live but empty at verification."
+  - key: amnesty-international
+    name: "Amnesty International (International Secretariat)"
+    lanes: [human-rights]
+    ats: other
+    careers_url: "https://careers.amnesty.org/vacancy/find/results/"
+    ats_vendor: "custom"
+    hq: "London, UK"
+    locations: ["London, UK"]
+    notes: "Researchers, campaigners, Amnesty Tech / Evidence Lab."
+  - key: freedom-house
+    name: "Freedom House"
+    lanes: [human-rights, election-integrity, disinformation]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://phe.tbe.taleo.net/phe01/ats/careers/v2/jobSearch?org=FREEHOUS&cws=39"
+    ats_vendor: "taleo"
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY"]
+  - key: human-rights-first
+    name: "Human Rights First"
+    lanes: [human-rights]
+    ats: other
+    careers_url: "https://www.humanrightsfirst.org/careers"
+    ats_vendor: "paycor"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    notes: "Extremism & disinformation program plus refugee/asylum work."
+  - key: physicians-for-human-rights
+    name: "Physicians for Human Rights"
+    lanes: [human-rights]
+    ats: other
+    careers_url: "https://phr.org/about/jobs/"
+    ats_vendor: "custom"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+  - key: witness
+    name: "WITNESS"
+    lanes: [human-rights, disinformation]
+    ats: bamboohr
+    board: "witness"
+    careers_url: "https://www.witness.org/about/jobs/"
+    hq: "Brooklyn, NY"
+    locations: ["New York, NY", "Remote, US"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Video-evidence / deepfakes & human-rights org; BambooHR company-info confirms 'Witness'."
+  - key: access-now
+    name: "Access Now"
+    lanes: [human-rights, trust-safety-policy]
+    ats: bamboohr
+    board: "accessnow"
+    careers_url: "https://www.accessnow.org/careers/"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Remote, US", "Brussels, Belgium"]
+    verified: "2026-10-25"
+    open_jobs: 2
+    notes: "Digital rights; Digital Security Helpline incident-response analysts."
+  - key: committee-to-protect-journalists
+    name: "Committee to Protect Journalists (CPJ)"
+    lanes: [human-rights]
+    ats: bamboohr
+    board: "cpjorg"
+    careers_url: "https://cpj.org/about/jobs/"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 1
+  - key: pen-america
+    name: "PEN America"
+    lanes: [human-rights, disinformation]
+    ats: bamboohr
+    board: "pen"
+    careers_url: "https://pen.org/careers/"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "BambooHR company-info: 'Pen American Center'."
+  - key: article-19
+    name: "ARTICLE 19"
+    lanes: [human-rights, trust-safety-policy]
+    ats: other
+    careers_url: "https://www.article19.org/vacancies/"
+    ats_vendor: "custom"
+    hq: "London, UK"
+    locations: ["London, UK"]
+    notes: "Free-expression / content-governance policy; site blocks bots."
+  - key: business-and-human-rights-resource-centre
+    name: "Business & Human Rights Resource Centre"
+    lanes: [human-rights]
+    ats: bamboohr
+    board: "bhrrc"
+    careers_url: "https://www.business-humanrights.org/en/about-us/jobs/"
+    hq: "London, UK"
+    locations: ["London, UK", "New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "Runs a Columbia Human Rights Graduate Fellowship."
+  - key: global-witness
+    name: "Global Witness"
+    lanes: [human-rights, disinformation]
+    ats: other
+    careers_url: "https://globalwitness.org/en/careers/current-vacancies/"
+    ats_vendor: "custom"
+    hq: "London, UK"
+    locations: ["London, UK", "Washington, DC"]
+    notes: "Digital threats / disinformation investigations alongside environmental defenders work."
+  - key: center-for-civilians-in-conflict
+    name: "Center for Civilians in Conflict (CIVIC)"
+    lanes: [human-rights]
+    groups: [policy-research]
+    ats: bamboohr
+    board: "civilians"
+    careers_url: "https://civiliansinconflict.org/careers/"
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 11
+  - key: aclu
+    name: "ACLU (National Office)"
+    lanes: [human-rights, election-integrity]
+    groups: [policy-research]
+    ats: greenhouse
+    board: "aclu"
+    careers_url: "https://www.aclu.org/careers"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 16
+  - key: open-society-foundations
+    name: "Open Society Foundations"
+    lanes: [human-rights, election-integrity]
+    groups: [policy-research]
+    ats: other
+    careers_url: "https://www.opensocietyfoundations.org/employment"
+    ats_vendor: "custom"
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
