@@ -490,10 +490,13 @@ def test_off_domain_title_blocks_prior(tax: Taxonomy) -> None:
 
 
 def test_generalist_bank_role_gets_no_prior_lanes(tax: Taxonomy) -> None:
-    bank = Employer(key="bank", name="Big Bank", lanes=["aml-kyc", "sanctions"], groups=["sanctions-fincrime"])
+    bank = Employer(
+        key="bank", name="Big Bank", lanes=["aml-kyc", "sanctions"], groups=["sanctions-fincrime"]
+    )
     desc = "Execute M&A transactions. All staff comply with anti-money laundering and sanctions policies."
     assert run(tax, "Investment Banking Analyst", desc, bank).lanes == []
     assert run(tax, "KYC Analyst", desc, bank).lanes[0] == "aml-kyc"
+    assert run(tax, "Cloud Programs Analyst", desc, bank).lanes == []
 
 
 def test_implausible_title_with_domain_description(tax: Taxonomy) -> None:

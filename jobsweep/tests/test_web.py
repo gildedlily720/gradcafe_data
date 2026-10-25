@@ -403,6 +403,24 @@ def test_lanes_counts_follow_filters(client: TestClient) -> None:
     assert client.get("/api/lanes?status=bogus").status_code == 422
 
 
+@pytest.mark.parametrize(
+    "query",
+    ["status=new&entry=1&min_score=25", "min_score=40", "status=all&q=analyst", "remote=0&days=30",
+     "status=new&include_inactive_lanes=1", "source=greenhouse"],
+)  # fmt: skip
+def test_lane_counts_fast_path_matches_public_count_api(
+    client: TestClient, store, monkeypatch, query: str
+) -> None:
+    # a job in both an active and an inactive lane, plus the inactive-only one from SAMPLE
+    store.upsert_jobs([mk("greenhouse", "4", "Evaluation and Sanctions Analyst", 55, ["program-evaluation", "sanctions"],
+                          company="Other Org")])  # fmt: skip
+    fast = client.get("/api/lanes?" + query).json()
+    monkeypatch.setattr(web_app, "_grouped_counts", lambda *a, **k: None)
+    slow = client.get("/api/lanes?" + query).json()
+    assert fast == slow
+    assert any(lane["count"] for g in fast["groups"] for lane in g["lanes"])
+
+
 def test_stats_and_runs(client: TestClient, store) -> None:
     stats = client.get("/api/stats").json()
     for key in (

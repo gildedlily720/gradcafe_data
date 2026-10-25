@@ -585,6 +585,8 @@ _OFF_DOMAIN_RE = re.compile(
       |security\s+officer|fundrais\w*|donor|development\s+(?:associate|officer|coordinator|assistant)
       |investment\s+banking|private\s+banking|wealth\s+management|relationship\s+manager|loan\s+officer
       |mortgage|teller|traders?|portfolio\s+manager|quant\w*
+      |cloud|infrastructure|devsecops|it\s+(?:analyst|specialist|operations|manager|director|project|auditor)
+      |network\s+(?:operations|administrator|technician|specialist)
     )\b""",
     re.I | re.X,
 )

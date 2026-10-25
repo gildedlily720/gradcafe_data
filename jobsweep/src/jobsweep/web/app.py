@@ -526,6 +526,52 @@ def _source_rows(settings: Settings) -> list[dict]:
     return out
 
 
+def _grouped_counts(store: Any, tax: dict, base: dict[str, Any]) -> tuple[dict, dict] | None:
+    """Per-lane and per-group counts under ``base`` filters in four grouped queries.
+
+    Equivalent to ``store.count(lanes=[x], **base)`` for every lane (and groups likewise) but uses the
+    store's filter builder (``Store._where``) and job_lanes table; returns None when those internals are
+    not available so the caller falls back to the public ``count()`` API.
+    """
+    where_fn = getattr(store, "_where", None)
+    conn, lock = getattr(store, "_conn", None), getattr(store, "_lock", None)
+    if where_fn is None or conn is None or lock is None:
+        return None
+    inactive_lanes = {
+        lane.get("id")
+        for g in tax.get("groups", [])
+        for lane in g.get("lanes", [])
+        if g.get("active") is False or lane.get("active") is False
+    }
+    inactive_groups = {g.get("id") for g in tax.get("groups", []) if g.get("active") is False}
+
+    def grouped(column: str, filters: dict[str, Any]) -> dict[str, int]:
+        where, params = where_fn(**filters)
+        glue = " AND " if where else " WHERE "
+        sql = (
+            f"SELECT x.{column}, COUNT(DISTINCT j.uid) FROM jobs j JOIN job_lanes x ON x.uid = j.uid"
+            f"{where}{glue}x.{column} != '' GROUP BY x.{column}"
+        )
+        with lock:
+            return {str(k): int(n) for k, n in conn.execute(sql, params).fetchall()}
+
+    try:
+        lane_n = grouped("lane", base)
+        group_n = grouped("grp", base)
+        if not base.get("include_inactive_lanes") and (inactive_lanes or inactive_groups):
+            # Selecting an earlier (inactive) lane shows jobs matching only inactive lanes, so count those
+            # lanes the way an explicit selection would.
+            wide = dict(base, include_inactive_lanes=True)
+            lane_n.update({k: v for k, v in grouped("lane", wide).items() if k in inactive_lanes})
+            group_n.update({k: v for k, v in grouped("grp", wide).items() if k in inactive_groups})
+    except ValueError:
+        raise
+    except Exception as exc:  # noqa: BLE001 - schema drift: use the public API instead
+        log.debug("grouped lane counts unavailable: %s", exc)
+        return None
+    return lane_n, group_n
+
+
 def _lane_payload(ctx: BoardContext, filters: dict[str, Any]) -> dict:
     """taxonomy.to_dict() with ``count`` on every group and lane.
 
@@ -535,17 +581,21 @@ def _lane_payload(ctx: BoardContext, filters: dict[str, Any]) -> dict:
     """
     store = ctx.store
     data = copy.deepcopy(ctx.taxonomy.to_dict())
-    stats = store.stats()
-    by_lane: dict[str, int] = stats.get("by_lane") or {}
-    by_group: dict[str, int] = stats.get("by_group") or {}
     base = {k: v for k, v in filters.items() if k not in ("lanes", "groups")}
-    if base:
-        lane_n = {lid: store.count(lanes=[lid], **base) for lid, n in by_lane.items() if n}
-        group_n = {gid: store.count(groups=[gid], **base) for gid, n in by_group.items() if n}
+    fast = _grouped_counts(store, data, base) if base else None
+    if fast is not None:
+        lane_n, group_n = fast
         data["total"] = store.count(**base)
     else:
-        lane_n, group_n = by_lane, by_group
-        data["total"] = stats.get("active", 0)
+        stats = store.stats()
+        lane_n = stats.get("by_lane") or {}
+        group_n = stats.get("by_group") or {}
+        if base:  # public API only: one COUNT per lane/group that has jobs
+            lane_n = {lid: store.count(lanes=[lid], **base) for lid, n in lane_n.items() if n}
+            group_n = {gid: store.count(groups=[gid], **base) for gid, n in group_n.items() if n}
+            data["total"] = store.count(**base)
+        else:
+            data["total"] = stats.get("active", 0)
     for g in data.get("groups", []):
         g["count"] = int(group_n.get(g.get("id"), 0))
         for lane in g.get("lanes", []):
