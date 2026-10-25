@@ -1,0 +1,173 @@
+name: jobsweep daily sweep
+
+on:
+  schedule:
+    # 11:23 UTC = 07:23 New York during EDT (06:23 during EST). Scheduled runs only fire on the default branch.
+    - cron: "23 11 * * *"
+  workflow_dispatch:
+    inputs:
+      lanes:
+        description: "Comma-separated lane ids (blank = all active lanes)"
+        required: false
+        default: ""
+      groups:
+        description: "Comma-separated group ids (blank = all)"
+        required: false
+        default: ""
+      sources:
+        description: "Comma-separated source names (blank = every available non-metered source)"
+        required: false
+        default: ""
+      include_metered:
+        description: "Also run metered sources (TheirStack, HasData, Apify) when their keys are set"
+        type: boolean
+        default: false
+      publish_pages:
+        description: "Publish the board to GitHub Pages"
+        type: boolean
+        default: true
+      open_issue:
+        description: "Open/update the daily digest issue when there are new matches"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  issues: write
+
+concurrency:
+  group: jobsweep-sweep
+  cancel-in-progress: false
+
+env:
+  STATE_BRANCH: jobsweep-state
+  JOBSWEEP_DB: ${{ github.workspace }}/jobsweep/var/jobsweep.db
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    outputs:
+      new_count: ${{ steps.digest.outputs.new_count }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install jobsweep
+        working-directory: jobsweep
+        run: uv pip install -e '.[jobspy]'
+
+      - name: Restore state from the state branch
+        run: |
+          if git fetch --depth=1 origin "$STATE_BRANCH" 2>/dev/null; then
+            git show "origin/$STATE_BRANCH:state.json.gz" > "$RUNNER_TEMP/state.json.gz" 2>/dev/null \
+              && jobsweep state import "$RUNNER_TEMP/state.json.gz" \
+              || echo "No usable state snapshot yet."
+          else
+            echo "State branch $STATE_BRANCH does not exist yet; starting fresh."
+          fi
+
+      - name: Sweep
+        working-directory: jobsweep
+        env:
+          USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
+          USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL }}
+          PIPEWORX_API_KEY: ${{ secrets.PIPEWORX_API_KEY }}
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+          THEIRSTACK_API_KEY: ${{ secrets.THEIRSTACK_API_KEY }}
+          HASDATA_API_KEY: ${{ secrets.HASDATA_API_KEY }}
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          SOCRATA_APP_TOKEN: ${{ secrets.SOCRATA_APP_TOKEN }}
+          IN_LANES: ${{ inputs.lanes }}
+          IN_GROUPS: ${{ inputs.groups }}
+          IN_SOURCES: ${{ inputs.sources }}
+          IN_METERED: ${{ inputs.include_metered }}
+        run: |
+          args=()
+          [ -n "$IN_LANES" ] && args+=(--lanes "$IN_LANES")
+          [ -n "$IN_GROUPS" ] && args+=(--groups "$IN_GROUPS")
+          [ -n "$IN_SOURCES" ] && args+=(--sources "$IN_SOURCES")
+          [ "$IN_METERED" = "true" ] && args+=(--include-metered)
+          # Partial source errors are normal (rate limits, a board moving); never fail the whole run on them.
+          jobsweep sweep "${args[@]}" --json > "$RUNNER_TEMP/sweep-report.json" || echo "::warning::sweep reported errors"
+          jobsweep sweep --help >/dev/null
+
+      - name: Digest
+        id: digest
+        working-directory: jobsweep
+        run: |
+          jobsweep digest --days 1 --format md --out "$RUNNER_TEMP/digest.md"
+          jobsweep digest --days 1 --format json --out "$RUNNER_TEMP/digest.json"
+          new_count=$(python -c "import json,sys; d=json.load(open(sys.argv[1])); print(d.get('total', len(d.get('items', []))))" "$RUNNER_TEMP/digest.json" 2>/dev/null || echo 0)
+          echo "new_count=$new_count" >> "$GITHUB_OUTPUT"
+          { echo "## Job sweep digest"; echo; cat "$RUNNER_TEMP/digest.md"; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Export static board
+        working-directory: jobsweep
+        run: jobsweep export --out "$RUNNER_TEMP/site"
+
+      - name: Save state to the state branch
+        run: |
+          jobsweep state export "$RUNNER_TEMP/state.json.gz" --max-description 4000
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          wt="$RUNNER_TEMP/state-wt"
+          if git ls-remote --exit-code --heads origin "$STATE_BRANCH" >/dev/null; then
+            git fetch --depth=1 origin "$STATE_BRANCH"
+            git worktree add "$wt" "origin/$STATE_BRANCH"
+            git -C "$wt" checkout -B "$STATE_BRANCH"
+          else
+            git worktree add --detach "$wt"
+            git -C "$wt" checkout --orphan "$STATE_BRANCH"
+            git -C "$wt" rm -rf --quiet . || true
+          fi
+          day=$(date -u +%F)
+          mkdir -p "$wt/history"
+          cp "$RUNNER_TEMP/state.json.gz" "$wt/state.json.gz"
+          cp "$RUNNER_TEMP/digest.md" "$wt/digest.md"
+          cp "$RUNNER_TEMP/digest.md" "$wt/history/$day.md"
+          printf '# jobsweep state\n\nMachine-written by the daily sweep. `state.json.gz` is the database snapshot;\n`history/` holds one digest per day.\n' > "$wt/README.md"
+          git -C "$wt" add -A
+          git -C "$wt" commit -q -m "jobsweep state $day" || echo "No state change."
+          git -C "$wt" push -q origin "HEAD:$STATE_BRANCH"
+
+      - name: Upload digest and report
+        uses: actions/upload-artifact@v7
+        with:
+          name: jobsweep-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/digest.md
+            ${{ runner.temp }}/digest.json
+            ${{ runner.temp }}/sweep-report.json
+          retention-days: 30
+
+      - name: Upload Pages artifact
+        if: ${{ github.event_name == 'schedule' || inputs.publish_pages }}
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ${{ runner.temp }}/site
+
+      - name: Open or update the digest issue
+        if: ${{ (github.event_name == 'schedule' || inputs.open_issue) && steps.digest.outputs.new_count != '0' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash jobsweep/scripts/gh_digest_issue.sh "$RUNNER_TEMP/digest.md" "$(date -u +%F)"
+
+  deploy-pages:
+    needs: sweep
+    if: ${{ github.event_name == 'schedule' || inputs.publish_pages }}
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,0 +1,52 @@
+name: jobsweep CI
+
+on:
+  push:
+    paths:
+      - "jobsweep/**"
+      - ".github/workflows/jobsweep-*.yml"
+  pull_request:
+    paths:
+      - "jobsweep/**"
+      - ".github/workflows/jobsweep-*.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: jobsweep-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: jobsweep
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: uv pip install -e '.[dev]'
+      - name: Lint
+        run: |
+          ruff check src tests
+          ruff format --check src tests
+      - name: Validate catalog
+        run: python scripts/validate_catalog.py
+      - name: Tests (offline)
+        run: pytest -m "not live"
+      - name: Packaging smoke test
+        env:
+          JOBSWEEP_DB: ${{ runner.temp }}/ci.db
+        run: |
+          jobsweep doctor || true
+          jobsweep sweep --dry-run
+          jobsweep export --out "$RUNNER_TEMP/site"
+          test -f "$RUNNER_TEMP/site/index.html"
+          test -f "$RUNNER_TEMP/site/data/jobs.json"
