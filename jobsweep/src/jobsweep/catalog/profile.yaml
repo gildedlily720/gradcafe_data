@@ -1,0 +1,28 @@
+# Candidate profile used for scoring (models.Profile; ARCHITECTURE.md section 4.3).
+# Override with your own copy via JOBSWEEP_PROFILE=/path/to/profile.yaml. Unknown keys are ignored.
+
+# Location fit: a posting whose location mentions one of these (case-insensitive substring) earns the
+# location bonus. "Washington" covers Washington, DC; "Remote" matches postings labelled remote.
+preferred_locations: ["New York", "Washington", "Remote", "London"]
+
+# Treat fully remote postings (Job.remote == True) as a location match even when the stated location
+# is somewhere else.
+remote_ok: true
+
+# Early-career ceiling: postings that require more than this many years of experience are marked
+# entry_level = false (they are stored, but ranked down and hidden by "entry only" views).
+max_years_experience: 3
+
+# Internships are not wanted right now: postings classified as internships are stored but hidden by default.
+include_internships: false
+
+# Keep postings whose seniority cannot be determined (entry_level = None) in entry-level views
+# instead of dropping them; many ATS titles carry no level at all.
+include_unknown_seniority: true
+
+# Default visibility threshold on the 0-100 score: lower-scoring postings are stored but hidden
+# by default in the board, CLI and MCP searches.
+min_score: 25
+
+# ISO 3166-1 alpha-2 countries searched by country-scoped sources (Adzuna, JobSpy, ...): US and UK.
+countries: ["US", "GB"]
