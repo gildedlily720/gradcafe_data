@@ -872,7 +872,7 @@
     for (const l of visible) {
       ul.append(h("li", null, nodeButton({
         cls: "lane-node",
-        label: l.name || l.id,
+        label: shortName(l.name || l.id),
         title: (l.name || l.id) + " · Ctrl/⌘-click to combine",
         count: l.count,
         pressed: state.f.lanes.includes(l.id),
@@ -941,7 +941,7 @@
         const ul = h("ul", { class: "tree" });
         for (const l of g.lanes || []) {
           ul.append(h("li", null, nodeButton({
-            cls: "lane-node", label: l.name || l.id, count: l.count, pressed: f.lanes.includes(l.id),
+            cls: "lane-node", label: shortName(l.name || l.id), title: l.name || l.id, count: l.count, pressed: f.lanes.includes(l.id),
             onclick: (e) => pickLane(l.id, e), lead: swatch(g.id),
           })));
         }
@@ -2003,7 +2003,7 @@
       const runs = await data.runs();
       hist.replaceChildren(runs.length ? h("div", { class: "table-wrap" }, h("table", { class: "data" },
         h("thead", null, h("tr", null, ["Run", "Started", "Took", "Targets", "OK", "Errors", "New", "Stored", ""].map((t, i) =>
-          h("th", { class: i >= 3 && i <= 7 ? "num" : null, text: t })))),
+          h("th", { class: i === 0 || (i >= 3 && i <= 7) ? "num" : null, text: t })))),
         h("tbody", null, runs.map(runRow)))) : h("p", { class: "muted", text: "No sweeps recorded yet." }));
     } catch (err) {
       hist.replaceChildren(errorBox(err));

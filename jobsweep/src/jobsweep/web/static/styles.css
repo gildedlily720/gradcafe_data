@@ -52,7 +52,7 @@
   --radius: 8px;
   --radius-sm: 6px;
   --header-h: 52px;
-  --sidebar-w: 252px;
+  --sidebar-w: 244px;
   color-scheme: light;
 }
 
@@ -252,7 +252,7 @@ a.count:hover { background: var(--hover); text-decoration: none; }
 
 .layout {
   flex: 1; min-height: 0; display: grid;
-  grid-template-columns: var(--sidebar-w) minmax(0, 1fr) minmax(420px, 42%);
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr) minmax(400px, 37%);
 }
 body:not([data-view="jobs"]) .layout { grid-template-columns: minmax(0, 1fr); }
 body:not([data-view="jobs"]) .sidebar,
@@ -285,7 +285,7 @@ body:not([data-view="jobs"]) .detail { display: none; }
 .node.zero { color: var(--text-3); }
 .node.zero .n { opacity: 0.6; }
 .group-row { display: flex; align-items: center; gap: 0; margin-top: 2px; }
-.group-row .node { font-weight: 560; color: var(--text); }
+.group-row .node { font-weight: 560; color: var(--text); flex: 1; min-width: 0; width: auto; }
 .group-row .caret {
   width: 22px; height: 28px; display: grid; place-items: center; border: 0; background: transparent;
   color: var(--text-3); cursor: pointer; border-radius: var(--radius-sm); flex: none;
@@ -331,7 +331,9 @@ body:not([data-view="jobs"]) .detail { display: none; }
   border: 0; background: transparent; outline: none; height: 100%; font-size: 12.5px; color: var(--text); min-width: 0;
 }
 .control select { cursor: pointer; padding-right: 2px; }
-.control input[type="text"], .control input[type="search"] { width: 112px; }
+.control input[type="text"], .control input[type="search"] { width: 92px; }
+.toolbar .control input[type="search"] { width: 220px; }
+.toolbar .control select { max-width: 240px; text-overflow: ellipsis; }
 .control .lbl { color: var(--text-3); }
 .switch { cursor: pointer; user-select: none; }
 .switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
@@ -342,7 +344,7 @@ body:not([data-view="jobs"]) .detail { display: none; }
 .switch input:checked + .track::after { transform: translateX(11px); }
 .switch input:focus-visible + .track { outline: 2px solid var(--accent-ring); outline-offset: 2px; }
 .switch:has(input:checked) { color: var(--text); }
-.range input[type="range"] { width: 92px; accent-color: var(--accent); margin: 0; }
+.range input[type="range"] { width: 84px; accent-color: var(--accent); margin: 0; }
 .range output { min-width: 20px; text-align: right; font-variant-numeric: tabular-nums; color: var(--text); font-weight: 600; }
 .dropdown { position: relative; }
 .dropdown > summary { list-style: none; cursor: pointer; }
@@ -367,7 +369,7 @@ body:not([data-view="jobs"]) .detail { display: none; }
 .filter-chip:hover { filter: brightness(0.96); }
 .link-btn { border: 0; background: none; color: var(--accent); cursor: pointer; padding: 2px 4px; font-size: 12px; border-radius: 4px; }
 .link-btn:hover { text-decoration: underline; }
-.filters-toggle { display: none; }
+.btn.filters-toggle { display: none; }
 
 /* ---- job list -------------------------------------------------------------------------------- */
 .list { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; background: var(--surface); }
@@ -404,6 +406,8 @@ body:not([data-view="jobs"]) .detail { display: none; }
 .row-meta .sep { color: var(--border-strong); }
 .row-meta .salary { color: var(--text-2); font-variant-numeric: tabular-nums; }
 .row-chips { display: flex; align-items: center; gap: 4px; flex-wrap: nowrap; overflow: hidden; min-width: 0; margin-top: 1px; }
+.row-chips .chip { flex: 0 1 auto; min-width: 3.2em; max-width: 190px; }
+.row-chips .chip.more { flex: none; min-width: 0; }
 .row-side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; min-width: 64px; }
 .dates { display: flex; flex-direction: column; align-items: flex-end; font-size: 11.5px; color: var(--text-3); line-height: 1.35; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .closing { color: var(--text-2); }
@@ -427,8 +431,8 @@ body:not([data-view="jobs"]) .detail { display: none; }
 
 /* chips and badges */
 .chip {
-  display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550;
-  white-space: nowrap; max-width: 220px; overflow: hidden; text-overflow: ellipsis;
+  display: inline-block; height: 20px; line-height: 18px; padding: 0 7px; border-radius: 5px; font-size: 11.5px; font-weight: 550;
+  white-space: nowrap; max-width: 220px; overflow: hidden; text-overflow: ellipsis; vertical-align: middle;
   color: hsl(var(--h, 220) var(--s, 10%) var(--chip-l-text));
   background: hsl(var(--h, 220) var(--s, 10%) var(--chip-l-bg) / var(--chip-a-bg));
   border: 1px solid hsl(var(--h, 220) var(--s, 10%) var(--chip-l-bg) / var(--chip-a-border));
@@ -490,14 +494,17 @@ body:not([data-view="jobs"]) .detail { display: none; }
 .detail .badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
 .detail section { margin-top: 20px; }
 .detail h3 { margin: 0 0 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); font-weight: 650; }
-.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1px; background: var(--border);
+.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); margin: 0;
   border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.fact { background: var(--surface); padding: 8px 10px; min-width: 0; }
+.fact { padding: 8px 10px; min-width: 0; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  margin: 0 -1px -1px 0; }
 .fact dt { font-size: 11px; color: var(--text-3); margin-bottom: 2px; }
 .fact dd { margin: 0; font-size: 13px; color: var(--text); overflow-wrap: anywhere; }
 .fact dd.soon { color: var(--danger); font-weight: 600; }
 .lane-bars { display: grid; gap: 7px; }
-.lane-bar { display: grid; grid-template-columns: minmax(0, 1fr) 120px 30px; gap: 10px; align-items: center; font-size: 12.5px; }
+.lane-bar { display: grid; grid-template-columns: minmax(0, 1fr) 110px 30px; gap: 10px; align-items: center; font-size: 12.5px; }
+.lane-bar > span:first-child { min-width: 0; display: block; }
+.lane-bar .chip { max-width: 100%; }
 .lane-bar .bar { height: 6px; border-radius: 3px; background: var(--surface-3); overflow: hidden; }
 .lane-bar .bar span { display: block; height: 100%; border-radius: 3px; background: hsl(var(--h, 220) var(--s, 10%) var(--swatch-l)); }
 .lane-bar .v { text-align: right; color: var(--text-3); font-variant-numeric: tabular-nums; font-size: 11.5px; }
@@ -639,8 +646,8 @@ dialog.help::backdrop { background: var(--scrim); }
   .search { margin-left: 4px; max-width: none; }
   .filters { display: none; }
   .filters.open { display: flex; }
-  .filters-toggle { display: inline-flex; }
-  .row { grid-template-columns: 30px minmax(0, 1fr); gap: 10px; padding: 10px 10px; }
+  .btn.filters-toggle { display: inline-flex; }
+  .row { grid-template-columns: 30px minmax(0, 1fr); gap: 4px 10px; padding: 10px 10px 6px; }
   .score { width: 30px; }
   .row-side { grid-column: 2; flex-direction: row; align-items: center; justify-content: space-between; min-width: 0; }
   .dates { flex-direction: row; gap: 8px; }
@@ -651,8 +658,12 @@ dialog.help::backdrop { background: var(--scrim); }
   .help-body { grid-template-columns: 1fr; }
   .lane-bar { grid-template-columns: minmax(0, 1fr) 70px 28px; }
 }
+@media (max-width: 600px) {
+  #help-btn { display: none; }
+  .result-count { display: none; }
+}
 @media (max-width: 420px) {
-  .brand .word { display: none; }
+  .brand .logo { display: none; }
   .control input[type="text"], .control input[type="search"] { width: 96px; }
 }
 @media (hover: none) {
@@ -663,3 +674,6 @@ dialog.help::backdrop { background: var(--scrim); }
 }
 .icon.flip-up { transform: rotate(-90deg); }
 .icon.flip-down { transform: rotate(90deg); }
+input[type="file"] { font-size: 12.5px; color: var(--text-2); max-width: 100%; }
+input[type="file"]::file-selector-button { font: inherit; font-weight: 550; margin-right: 8px; padding: 5px 10px; border-radius: 6px;
+  border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); cursor: pointer; }

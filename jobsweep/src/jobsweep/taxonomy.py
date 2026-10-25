@@ -1374,7 +1374,12 @@ class Taxonomy:
         lawyer = _LAWYER_RE.search(title.norm)
         if lawyer:
             return False, years, [f"lawyer role: '{lawyer.group(0)}' in title"]
-        if re.search(r"\bassociate\b", title.low) and _BAR_RE.search(body_low):
+        if (
+            "associate" in title.low
+            and ("bar" in body_low or "j.d" in body_low or "juris" in body_low)
+            and re.search(r"\bassociate\b", title.low)
+            and _BAR_RE.search(body_low)
+        ):
             return False, years, ["lawyer role: bar admission required"]
 
         grades = _federal_grades(job)
