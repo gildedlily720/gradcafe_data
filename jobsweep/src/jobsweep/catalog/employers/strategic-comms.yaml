@@ -1,0 +1,849 @@
+# Employer registry -- group: strategic-comms
+# Strategic communications & advisory research, crisis / issues management, public & government affairs,
+# reputation / stakeholder / media analysis, insights & monitoring.
+#
+# Coverage (researched 2026-10-25; every non-"other" board was hit through its public API this session):
+#   * Strategic-comms / crisis / financial-comms advisories (NYC, DC, London): Teneo, FGS Global, Brunswick,
+#     Edelman (incl. Smithfield, DXI), Burson (BCW + Hill & Knowlton, incl. ex-BSG insights and Direct Impact),
+#     Weber Shandwick, FleishmanHillard, Golin Ketchum, Portland (Omnicom), FTI Consulting Strategic Comms,
+#     APCO, Prosek, Joele Frank, Ruder Finn, Purple Strategies, Citigate Dewe Rogerson, MHP Group, Grayling.
+#   * Public / government affairs consultancies: Penta (incl. Hamilton Place Strategies; US + Europe boards),
+#     BerlinRosen, Global Strategy Group, Precision Strategies, Signal Group, Flint Global, Hanbury Strategy;
+#     manual: DGA Group, SKDK, Mercury, Brownstein, Akin, Invariant, Subject Matter, Seven Letter, Kivvit,
+#     Marathon, Hilltop, Capalino, Public First, Global Counsel.
+#   * Insights / monitoring / polling: Morning Consult, Meltwater, Muck Rack, Signal AI, Cision, Brandwatch,
+#     Hootsuite (Talkwalker), PeakMetrics, Ipsos, YouGov, Gallup, Pew Research Center, GQR, PSB Insights,
+#     RepTrak; manual: Harris Poll, Onclusive.
+#   * Policy / political intelligence platforms: Quorum, FiscalNote (CQ), POLITICO (Pro, AgencyIQ), National
+#     Journal, Dods; manual: Bloomberg (Bloomberg Government).
+#   Omnicom's agencies (Weber Shandwick, FleishmanHillard, Golin Ketchum, Portland) share one ~1,900-job
+#   Workday board (interpublic/wd5/OMC); each entry pulls only its own brand via search_terms plus a
+#   title_filter, and open_jobs records that brand search's count rather than the whole board.
+#
+# Notable gaps / caveats:
+#   * DGA Group (incl. Albright Stonebridge) runs UKG Pro on the new host dgahr.rec.pro.ukg.net (9 jobs on
+#     2026-10-25). The ultipro adapter accepts 'host/TENANT/guid', but validate_catalog.py only accepts
+#     'TENANT/guid' and recruiting.ultipro.com answers 404 for this tenant, so it is listed manually.
+#   * Bully Pulpit Interactive (Workable account 'bully-pulpit-international', 16 jobs on its careers page) and
+#     Rational 360 (Workable 'rational-360'): Workable's API was Cloudflare rate-limiting this egress (HTTP 429
+#     "error code 1015") for the whole session. Both stay manual until a check succeeds.
+#   * Unreachable from the research egress (TLS handshake failures / 503): Sard Verbinnen, SKDK, Kivvit,
+#     Hilltop, Capalino, Abernathy MacGregor (H/Advisors). The first five are listed manually; H/Advisors
+#     has no public board (its Havas Workday sites carry no H/Advisors roles), so it is left out.
+#   * Unsupported or no ATS (manual list): Kekst CNC (Publicis Jibe -> iCIMS), Harris Poll (iCIMS), Bloomberg
+#     (Avature), Brownstein (viRecruit), Onclusive (LinkedIn only), Public First and Global Counsel
+#     (Cloudflare-blocked sites), and boutiques that hire by email or a site form (Gladstone Place, Marathon,
+#     Seven Letter, Subject Matter, Invariant, Headland).
+#   * Dropped: Hamilton Place Strategies (merged into Penta), Hill+Knowlton (merged into Burson), Benenson
+#     Strategy Group (folded into Burson), Talkwalker (part of Hootsuite; its old Lever board is empty),
+#     NewsWhip (part of Sprout Social), Instinctif (part of TEAM LEWIS), Edison Research (its site now redirects
+#     to SSRS), MikeWorldWide (no careers page), Echelon Insights, Navigator Research and Axios HQ (no board
+#     found), "Main Street Advocacy" (not a hiring employer of note), and Holland & Knight (almost no policy
+#     roles on its Workday board). Ballard Partners, Cornerstone Government Affairs, Forbes Tate and ICR post
+#     roles only on LinkedIn or by email.
+group: strategic-comms
+employers:
+
+  # ------------------------------------------------- strategic comms / crisis / financial-comms advisories
+  - key: teneo
+    name: Teneo
+    lanes: [strategic-comms-advisory, crisis-comms, reputation-media-analysis, public-government-affairs]
+    groups: [geopolitical-risk]
+    ats: greenhouse
+    board: teneo
+    careers_url: https://www.teneo.com/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 53
+    notes: "CEO advisory: strategic communications, Teneo Research / insights, risk and financial advisory. Some UK graduate roles are posted on Pinpoint (teneo.pinpointhq.com, 3 jobs)."
+
+  - key: fgs-global
+    name: FGS Global
+    lanes: [strategic-comms-advisory, crisis-comms, public-government-affairs, reputation-media-analysis]
+    ats: greenhouse
+    board: fgsglobal
+    careers_url: https://job-boards.greenhouse.io/fgsglobal
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 17
+    notes: "Finsbury Glover Hering (incl. the former Glover Park Group). Financial, crisis and public-affairs advisory; graduate associate intakes."
+
+  - key: brunswick-group
+    name: Brunswick Group
+    lanes: [strategic-comms-advisory, crisis-comms, reputation-media-analysis, public-government-affairs]
+    groups: [geopolitical-risk]
+    ats: greenhouse
+    board: brunswickgroup
+    careers_url: https://www.brunswickgroup.com/careers/
+    hq: "London, UK"
+    locations: ["London, UK", "New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 46
+    notes: "Critical-issues advisory; Brunswick Insight (research) and Brunswick Geopolitical. Executive / associate entry roles."
+
+  - key: edelman
+    name: Edelman
+    lanes: [strategic-comms-advisory, crisis-comms, reputation-media-analysis, insights-monitoring, public-government-affairs]
+    ats: workday
+    board: djeholdings/wd5/edelman-careers-E200
+    careers_url: https://djeholdings.wd5.myworkdayjobs.com/edelman-careers-E200
+    hq: "Chicago, IL"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 141
+    notes: "Daniel J. Edelman Holdings tenant. Includes Edelman Smithfield (financial comms) and Edelman Data & Intelligence (DXI); Zeno and United Minds are separate sites on the same tenant. Entry level = Assistant Account Executive."
+
+  - key: burson
+    name: Burson
+    lanes: [strategic-comms-advisory, crisis-comms, public-government-affairs, reputation-media-analysis, insights-monitoring]
+    ats: greenhouse
+    board: bursonglobalcareers
+    careers_url: https://www.bursonglobal.com/careers
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 192
+    notes: "WPP agency formed from BCW and Hill & Knowlton (2024). Includes Burson Insights & Intelligence (ex-Benenson Strategy Group), Crisis & Risk, and Direct Impact (grassroots public affairs, DC). The old 'bursonglobal' and 'hillandknowlton' Greenhouse boards are dead or empty."
+
+  - key: weber-shandwick
+    name: Weber Shandwick
+    lanes: [strategic-comms-advisory, crisis-comms, public-government-affairs, reputation-media-analysis]
+    ats: workday
+    board: interpublic/wd5/OMC
+    careers_url: https://interpublic.wd5.myworkdayjobs.com/en-US/OMC
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    title_filter: '(?i)(public affairs|corporate affairs|corporate (issues|reputation|communications)|government|international affairs|policy|crisis|issues|reputation|media relations|earned media|stakeholder|advocacy|research|insight|intelligence|analytic|analyst|measurement|account (executive|coordinator|manager|supervisor)|\bassociate\b(?! creative)|\bintern\b|fellow|graduate|consultant)'
+    search_terms: [Weber Shandwick]
+    verified: "2026-10-25"
+    open_jobs: 99
+    notes: "Omnicom (after the IPG acquisition) runs one shared Workday board (~1,945 jobs); the brand search returns about 99. Corporate & Public Affairs, Corporate Issues and Crisis practices; Weber Advisory."
+
+  - key: fleishmanhillard
+    name: FleishmanHillard
+    lanes: [strategic-comms-advisory, crisis-comms, public-government-affairs, reputation-media-analysis, insights-monitoring]
+    ats: workday
+    board: interpublic/wd5/OMC
+    careers_url: https://interpublic.wd5.myworkdayjobs.com/en-US/OMC
+    hq: "St. Louis, MO"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    title_filter: '(?i)(public affairs|corporate affairs|corporate (issues|reputation|communications)|government|international affairs|policy|crisis|issues|reputation|media relations|earned media|stakeholder|advocacy|research|insight|intelligence|analytic|analyst|measurement|account (executive|coordinator|manager|supervisor)|\bassociate\b(?! creative)|\bintern\b|fellow|graduate|consultant)'
+    search_terms: [FleishmanHillard]
+    verified: "2026-10-25"
+    open_jobs: 46
+    notes: "Omnicom shared Workday board, brand search. Includes TRUE Global Intelligence (research / insights analysts) and public-affairs / issues & crisis teams. Its old Greenhouse board ('fleishmanhillard') now carries only 2 Brussels internships."
+
+  - key: ketchum
+    name: Golin Ketchum
+    lanes: [strategic-comms-advisory, crisis-comms, reputation-media-analysis]
+    ats: workday
+    board: interpublic/wd5/OMC
+    careers_url: https://golinketchum.com/careers-jobs/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    title_filter: '(?i)(public affairs|corporate affairs|corporate (issues|reputation|communications)|government|international affairs|policy|crisis|issues|reputation|media relations|earned media|stakeholder|advocacy|research|insight|intelligence|analytic|analyst|measurement|account (executive|coordinator|manager|supervisor)|\bassociate\b(?! creative)|\bintern\b|fellow|graduate|consultant)'
+    search_terms: [Ketchum, Golin]
+    verified: "2026-10-25"
+    open_jobs: 23
+    notes: "Golin and Ketchum (combined under Omnicom); both brand searches on the shared Workday board return the same ~23 jobs. Corporate reputation, issues & crisis, analytics."
+
+  - key: portland-communications
+    name: Portland Communications
+    lanes: [strategic-comms-advisory, public-government-affairs, crisis-comms]
+    ats: workday
+    board: interpublic/wd5/OMC
+    careers_url: https://portland-communications.com/careers/
+    hq: "London, UK"
+    locations: ["London, UK", "Washington, DC", "New York, NY"]
+    title_filter: '(?i)(public affairs|corporate affairs|corporate (issues|reputation|communications)|government|international affairs|policy|crisis|issues|reputation|media relations|earned media|stakeholder|advocacy|research|insight|intelligence|analytic|analyst|measurement|account (executive|coordinator|manager|supervisor)|\bassociate\b(?! creative)|\bintern\b|fellow|graduate|consultant)'
+    search_terms: [Portland Communications]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "Omnicom strategic-comms / public-affairs consultancy; moved from Teamtailor (portland.teamtailor.com now 404) to the shared Omnicom Workday board. Runs a paid Portland Internship / graduate intake in London."
+
+  - key: fti-consulting
+    name: FTI Consulting
+    lanes: [strategic-comms-advisory, crisis-comms, public-government-affairs, reputation-media-analysis]
+    groups: [investigations-dd]
+    ats: workday
+    board: fticonsulting/wd108/FTIConsultingCareers
+    careers_url: https://fticonsulting.wd108.myworkdayjobs.com/FTIConsultingCareers
+    hq: "Washington, DC"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 248
+    notes: "Whole-firm board (strategic communications, forensic and litigation consulting, economics). The Strategic Communications segment posts Consultant / Public Affairs / Crisis Communications roles and graduate placements. Compass Lexecon has its own site on the same tenant."
+
+  - key: apco-worldwide
+    name: APCO Worldwide
+    lanes: [public-government-affairs, strategic-comms-advisory, crisis-comms, reputation-media-analysis]
+    groups: [geopolitical-risk]
+    ats: oracle
+    board: fa-evxv-saasfaprod1.fa.ocs.oraclecloud.com/CX_1
+    careers_url: https://apcoworldwide.com/about/people/careers/
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 14
+    notes: "Oracle Recruiting site, found via the careers page's Gatsby page-data. Public affairs, campaigns & advocacy, and APCO Geopolitical Radar; 6-month paid internship programme for graduates."
+
+  - key: prosek-partners
+    name: Prosek Partners
+    lanes: [strategic-comms-advisory, crisis-comms, reputation-media-analysis]
+    ats: greenhouse
+    board: prosek
+    careers_url: https://www.prosek.com/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY", "London, UK", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 25
+    notes: "Financial / corporate communications and crisis; Assistant Account Executive entry roles."
+
+  - key: joele-frank
+    name: Joele Frank, Wilkinson Brimmer Katcher
+    lanes: [strategic-comms-advisory, crisis-comms]
+    ats: lever
+    board: joelefrank
+    careers_url: https://jobs.lever.co/joelefrank
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 2
+    notes: "M&A, activism and crisis communications. Hires mostly through an open-application posting (analyst / associate class)."
+
+  - key: ruder-finn
+    name: Ruder Finn
+    lanes: [strategic-comms-advisory, crisis-comms, public-government-affairs]
+    ats: workday
+    board: ruderfinn/wd5/ruderfinn
+    careers_url: https://ruderfinn.wd5.myworkdayjobs.com/ruderfinn
+    hq: "New York, NY"
+    locations: ["New York, NY", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 32
+    notes: "Independent agency; Relate (public affairs & crisis) practice; account-executive entry roles."
+
+  - key: purple-strategies
+    name: Purple Strategies
+    lanes: [strategic-comms-advisory, reputation-media-analysis, crisis-comms]
+    ats: greenhouse
+    board: purplestrategies
+    careers_url: https://job-boards.greenhouse.io/purplestrategies
+    hq: "Alexandria, VA"
+    locations: ["Alexandria, VA", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 4
+    notes: "Corporate reputation and issue campaigns (research-driven strategy and engagement)."
+
+  - key: mhp-group
+    name: MHP Group
+    lanes: [strategic-comms-advisory, public-government-affairs, crisis-comms]
+    ats: teamtailor
+    board: mhpgroup
+    careers_url: https://mhpgroup.teamtailor.com/
+    hq: "London, UK"
+    locations: ["London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 4
+    notes: "London financial PR, public affairs and reputation; verified via jobs.rss."
+
+  - key: citigate-dewe-rogerson
+    name: Citigate Dewe Rogerson
+    lanes: [strategic-comms-advisory, reputation-media-analysis]
+    ats: greenhouse
+    board: citigatedewerogerson
+    careers_url: https://job-boards.greenhouse.io/citigatedewerogerson
+    hq: "London, UK"
+    locations: ["London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 8
+    notes: "Financial and corporate communications. Board is mostly APAC plus London PR account executives and media-intelligence associates."
+
+  - key: grayling
+    name: Grayling
+    lanes: [public-government-affairs, strategic-comms-advisory]
+    ats: greenhouse
+    board: grayling123
+    careers_url: https://grayling.com/join-us/
+    hq: "London, UK"
+    locations: ["London, UK", "New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "Public affairs and PR network (London-headquartered; US offices incl. New York)."
+
+  - key: kekst-cnc
+    name: Kekst CNC
+    lanes: [strategic-comms-advisory, crisis-comms, reputation-media-analysis]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers.publicisgroupe.com/kekstcnc/jobs
+    hq: "New York, NY"
+    locations: ["New York, NY", "London, UK"]
+    notes: "Publicis Groupe; the Jibe career site applies through iCIMS (careers-publicisgroupe.icims.com). The Lever board 'kekstcnc' still exists but lists 0 jobs."
+
+  - key: sard-verbinnen
+    name: Sard Verbinnen & Co
+    lanes: [strategic-comms-advisory, crisis-comms]
+    ats: other
+    ats_vendor: unknown
+    careers_url: https://www.sardverbinnen.com/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY", "London, UK"]
+    notes: "Top NYC financial / crisis communications firm (analyst / associate hires). Its site reset or refused connections from the research egress, so the ATS could not be identified."
+
+  - key: gladstone-place-partners
+    name: Gladstone Place Partners
+    lanes: [strategic-comms-advisory, crisis-comms]
+    ats: other
+    ats_vendor: email
+    careers_url: https://www.gladstoneplace.com/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    notes: "M&A / activism / crisis communications boutique; applications by email (careers@gladstoneplace.com)."
+
+  - key: headland
+    name: Headland
+    lanes: [strategic-comms-advisory, crisis-comms]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.headlandconsultancy.com/careers/
+    hq: "London, UK"
+    locations: ["London, UK"]
+    notes: "London corporate / financial communications consultancy; no ATS links on its careers page."
+
+  # ------------------------------------------------------------ public / government affairs consultancies
+  - key: penta-group
+    name: Penta
+    lanes: [public-government-affairs, insights-monitoring, strategic-comms-advisory, reputation-media-analysis]
+    ats: lever
+    board: pentagrp
+    careers_url: https://pentagroup.com/careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY", "San Francisco, CA"]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "Stakeholder intelligence and public affairs; absorbed Hamilton Place Strategies (hamiltonplacestrategies.com redirects here). Hires Insights & Monitoring Analysts and Monitoring interns. European roles are on Personio (penta-group-europe)."
+
+  - key: penta-group-europe
+    name: Penta (Europe)
+    lanes: [public-government-affairs, insights-monitoring, strategic-comms-advisory]
+    ats: personio
+    board: penta
+    careers_url: https://penta.jobs.personio.com/
+    hq: "London, UK"
+    locations: ["London, UK", "Brussels, Belgium"]
+    verified: "2026-10-25"
+    open_jobs: 2
+    notes: "Penta Group Europe Limited (London / Brussels)."
+
+  - key: berlinrosen
+    name: BerlinRosen
+    lanes: [strategic-comms-advisory, public-government-affairs, crisis-comms]
+    ats: greenhouse
+    board: berlinrosen
+    careers_url: https://job-boards.greenhouse.io/berlinrosen
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 13
+    notes: "Progressive public affairs / campaigns and corporate comms; Account Coordinator roles and seasonal fellowships."
+
+  - key: global-strategy-group
+    name: Global Strategy Group
+    lanes: [public-government-affairs, insights-monitoring, strategic-comms-advisory]
+    ats: lever
+    board: globalstrategygroup
+    careers_url: https://globalstrategygroup.com/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 2
+    notes: "Polling, research and public affairs (GSG Political, Public Affairs Research Associate roles)."
+
+  - key: precision-strategies
+    name: Precision Strategies
+    lanes: [strategic-comms-advisory, public-government-affairs, insights-monitoring]
+    ats: breezy
+    board: precision-strategies
+    careers_url: https://www.precisionstrategies.com/careers/
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 20
+    notes: "Strategic comms, public affairs and data insights; Associate-level openings."
+
+  - key: signal-group
+    name: Signal Group
+    lanes: [public-government-affairs, strategic-comms-advisory]
+    ats: breezy
+    board: signal-group
+    careers_url: https://signal-group.breezy.hr/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 2
+    notes: "DC public affairs and government relations consultancy."
+
+  - key: flint-global
+    name: Flint Global
+    lanes: [public-government-affairs, strategic-comms-advisory]
+    groups: [policy-research]
+    ats: bamboohr
+    board: flintglobal
+    careers_url: https://flint-global.com/join-flint/
+    hq: "London, UK"
+    locations: ["London, UK", "Brussels, Belgium"]
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: "Policy / regulatory and public-affairs advisory; runs an annual analyst (graduate) intake."
+
+  - key: hanbury-strategy
+    name: Hanbury Strategy
+    lanes: [public-government-affairs, strategic-comms-advisory, insights-monitoring]
+    ats: teamtailor
+    board: hanburystrategy
+    careers_url: https://hanburystrategy.teamtailor.com/
+    hq: "London, UK"
+    locations: ["London, UK", "Brussels, Belgium"]
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: "Public affairs, polling and campaigns consultancy (UK and EU); Public Affairs and Communications Executive entry roles. Verified via jobs.rss."
+
+  - key: dga-group
+    name: DGA Group
+    lanes: [public-government-affairs, strategic-comms-advisory, crisis-comms]
+    groups: [geopolitical-risk]
+    ats: other
+    ats_vendor: ukg
+    careers_url: https://dgahr.rec.pro.ukg.net/DEN1502DGBV/JobBoard/35d54f2b-b9c1-442f-9403-035c369c012b/?q=&o=postedDateDesc
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY", "London, UK"]
+    notes: "Includes Albright Stonebridge Group. UKG Pro board answered LoadSearchResults with 9 jobs on 2026-10-25 at host dgahr.rec.pro.ukg.net (adapter form 'dgahr.rec.pro.ukg.net/DEN1502DGBV/35d54f2b-b9c1-442f-9403-035c369c012b'), but the validator rejects host-prefixed ultipro boards, so it is listed manually."
+
+  - key: skdk
+    name: SKDK
+    lanes: [public-government-affairs, strategic-comms-advisory, crisis-comms]
+    ats: other
+    ats_vendor: unknown
+    careers_url: https://www.skdk.com/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    notes: "Stagwell public affairs / political comms firm. Its site failed the TLS handshake from the research egress, and no ATS board was found."
+
+  - key: mercury-public-affairs
+    name: Mercury Public Affairs
+    lanes: [public-government-affairs, strategic-comms-advisory, crisis-comms]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.mercuryllc.com/why-join-us
+    locations: ["New York, NY", "Washington, DC"]
+    notes: "Omnicom Public Relations Group. Its jobs are not tagged 'Mercury' on Omnicom's Workday board (search returns 0); its careers subpage 404s, so check by hand."
+
+  - key: brownstein-hyatt-farber-schreck
+    name: Brownstein Hyatt Farber Schreck
+    lanes: [public-government-affairs]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: virecruit
+    careers_url: https://www.bhfs.com/careers/policy-professionals
+    hq: "Denver, CO"
+    locations: ["Washington, DC", "New York, NY"]
+    notes: "Leading federal lobbying practice; policy analyst / policy assistant roles posted on apply.bhfs.com (viRecruit)."
+
+  - key: akin
+    name: Akin
+    lanes: [public-government-affairs]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.akingump.com/en/careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY", "London, UK"]
+    notes: "Public law & policy (lobbying) practice hires policy advisors and public-policy analysts / assistants."
+
+  - key: invariant
+    name: Invariant
+    lanes: [public-government-affairs, strategic-comms-advisory]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.weareinvariant.com/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Bipartisan government relations / strategic comms firm; no public ATS (its /careers path 404s). Check the site or LinkedIn."
+
+  - key: subject-matter
+    name: Subject Matter
+    lanes: [public-government-affairs, strategic-comms-advisory]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.subjectmatter.com/careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Government relations and creative / comms agency; no ATS links on its careers page."
+
+  - key: seven-letter
+    name: Seven Letter
+    lanes: [public-government-affairs, strategic-comms-advisory, insights-monitoring]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://sevenletter.com/careers/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Bipartisan strategic comms, public affairs and research (Seven Letter Insight)."
+
+  - key: marathon-strategies
+    name: Marathon Strategies
+    lanes: [strategic-comms-advisory, crisis-comms, public-government-affairs]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://marathonstrategies.com/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    notes: "Crisis, litigation and public-affairs communications; no ATS links on its careers page."
+
+  - key: kivvit
+    name: Kivvit
+    lanes: [public-government-affairs, strategic-comms-advisory, crisis-comms]
+    ats: other
+    ats_vendor: unknown
+    careers_url: https://www.kivvit.com/careers
+    locations: ["New York, NY", "Washington, DC"]
+    notes: "Public affairs / crisis firm (NY, NJ, Chicago, DC). Its site failed the TLS handshake from the research egress."
+
+  - key: hilltop-public-solutions
+    name: Hilltop Public Solutions
+    lanes: [public-government-affairs, strategic-comms-advisory]
+    ats: other
+    ats_vendor: unknown
+    careers_url: https://www.hilltoppublicsolutions.com/careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY"]
+    notes: "Democratic-aligned public affairs and campaigns firm. Its site failed the TLS handshake from the research egress."
+
+  - key: capalino
+    name: Capalino
+    lanes: [public-government-affairs]
+    ats: other
+    ats_vendor: unknown
+    careers_url: https://www.capalino.com/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    notes: "Leading NYC government-affairs / lobbying firm (associate and analyst hires). Its site failed the TLS handshake from the research egress."
+
+  - key: bully-pulpit-interactive
+    name: Bully Pulpit Interactive
+    lanes: [strategic-comms-advisory, public-government-affairs, insights-monitoring]
+    ats: other
+    ats_vendor: workable
+    careers_url: https://bpigroup.com/careers-na/
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY", "London, UK"]
+    notes: "Workable account 'bully-pulpit-international'. The careers page embeds 16 jobs (e.g. Associate, Strategic Communications, DC; Insights roles, NYC), but Workable's API was rate-limiting this egress (HTTP 429), so the board could not be verified. Switch to ats: workable, board: bully-pulpit-international once a check succeeds."
+
+  - key: rational-360
+    name: Rational 360
+    lanes: [public-government-affairs, strategic-comms-advisory, crisis-comms]
+    ats: other
+    ats_vendor: workable
+    careers_url: https://apply.workable.com/rational-360/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "rational360.com/careers redirects to Workable account 'rational-360'; not verified because Workable's API was rate-limiting this egress (HTTP 429)."
+
+  - key: public-first
+    name: Public First
+    lanes: [public-government-affairs, insights-monitoring]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.publicfirst.co.uk/careers
+    hq: "London, UK"
+    locations: ["London, UK"]
+    notes: "Policy, research and polling consultancy with a graduate scheme. Its site blocks automated fetches (Cloudflare 403), so the ATS was not identified."
+
+  - key: global-counsel
+    name: Global Counsel
+    lanes: [public-government-affairs, strategic-comms-advisory]
+    groups: [policy-research, geopolitical-risk]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://global-counsel.com/careers
+    hq: "London, UK"
+    locations: ["London, UK", "Brussels, Belgium", "Washington, DC"]
+    notes: "Policy / political-risk and public-affairs advisory with an analyst intake. Its site blocks automated fetches (Cloudflare 403)."
+
+  # ------------------------------------------------------------- insights / monitoring / polling
+  - key: morning-consult
+    name: Morning Consult
+    lanes: [insights-monitoring, reputation-media-analysis, public-government-affairs]
+    ats: ashby
+    board: morningconsult
+    careers_url: https://jobs.ashbyhq.com/morningconsult
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY", "Remote US", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 12
+    notes: "Survey intelligence (brand / reputation tracking, political polling); research roles are mostly remote-US."
+
+  - key: meltwater
+    name: Meltwater
+    lanes: [insights-monitoring, reputation-media-analysis]
+    ats: jobvite
+    board: meltwater
+    careers_url: https://www.meltwater.com/en/careers
+    hq: "San Francisco, CA"
+    locations: ["New York, NY", "London, UK", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 59
+    notes: "Media / social monitoring. Its careers portal (meltwatercareers.ttcportals.com) sits behind Cloudflare; the jobs.jobvite.com/meltwater HTML list answered with 59 jobs (verified with curl, since probe_ats.py has no jobvite check)."
+
+  - key: muck-rack
+    name: Muck Rack
+    lanes: [insights-monitoring, reputation-media-analysis]
+    ats: greenhouse
+    board: muckrack
+    careers_url: https://muckrack.com/jobs
+    hq: "New York, NY"
+    locations: ["New York, NY", "Remote US", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 13
+    notes: "PR / media-intelligence platform (fully remote)."
+
+  - key: signal-ai
+    name: Signal AI
+    lanes: [insights-monitoring, reputation-media-analysis]
+    ats: ashby
+    board: signal-ai
+    careers_url: https://jobs.ashbyhq.com/signal-ai
+    hq: "London, UK"
+    locations: ["London, UK", "New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 2
+    notes: "AI media monitoring and reputation / risk intelligence."
+
+  - key: cision
+    name: Cision
+    lanes: [insights-monitoring, reputation-media-analysis]
+    ats: greenhouse
+    board: cision
+    careers_url: https://job-boards.greenhouse.io/cision
+    hq: "Chicago, IL"
+    locations: ["New York, NY", "London, UK", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 47
+    notes: "Media monitoring / measurement (incl. PR Newswire); media-research and insights analyst roles."
+
+  - key: brandwatch
+    name: Brandwatch
+    lanes: [insights-monitoring, reputation-media-analysis]
+    ats: greenhouse
+    board: brandwatch
+    careers_url: https://job-boards.greenhouse.io/brandwatch
+    hq: "Brighton, UK"
+    locations: ["London, UK", "New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 19
+    notes: "Social listening / consumer intelligence (Cision-owned)."
+
+  - key: hootsuite
+    name: Hootsuite (Talkwalker)
+    lanes: [insights-monitoring]
+    ats: greenhouse
+    board: hootsuite
+    careers_url: https://job-boards.greenhouse.io/hootsuite
+    hq: "Vancouver, BC"
+    locations: ["Remote US", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 4
+    notes: "Owns Talkwalker (social listening); the old Talkwalker Lever board is empty."
+
+  - key: peakmetrics
+    name: PeakMetrics
+    lanes: [insights-monitoring, reputation-media-analysis]
+    groups: [trust-safety]
+    ats: ashby
+    board: peakmetrics
+    careers_url: https://jobs.ashbyhq.com/peakmetrics
+    locations: ["Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 2
+    notes: "Narrative intelligence / media monitoring (comms and national-security clients). Current openings are sales roles only."
+
+  - key: onclusive
+    name: Onclusive
+    lanes: [insights-monitoring, reputation-media-analysis]
+    ats: other
+    ats_vendor: linkedin
+    careers_url: https://onclusive.com/our-company/careers/
+    locations: ["New York, NY", "London, UK"]
+    notes: "Media monitoring and measurement (ex-Kantar Media monitoring); its careers page points only to LinkedIn Jobs."
+
+  - key: ipsos
+    name: Ipsos
+    lanes: [insights-monitoring, public-government-affairs, reputation-media-analysis]
+    ats: oracle
+    board: ecqf.fa.em2.oraclecloud.com/CX
+    careers_url: https://ecqf.fa.em2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX
+    hq: "Paris, France"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 183
+    notes: "Ipsos Public Affairs (polling, reputation research) plus market research. Sites CX and IpsosCareers return the same requisitions; the early-careers page links to IpsosCareers."
+
+  - key: yougov
+    name: YouGov
+    lanes: [insights-monitoring, public-government-affairs]
+    ats: workday
+    board: yougov/wd103/YouGov_External_Careers
+    careers_url: https://yougov.wd103.myworkdayjobs.com/YouGov_External_Careers
+    hq: "London, UK"
+    locations: ["London, UK", "New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 52
+    notes: "Online polling / public-opinion research; research executive / analyst roles."
+
+  - key: gallup
+    name: Gallup
+    lanes: [insights-monitoring, public-government-affairs]
+    ats: greenhouse
+    board: gallup
+    careers_url: https://job-boards.greenhouse.io/gallup
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 41
+    notes: "Public-opinion and workplace research; Associate Consultant / research associate roles (DC, Omaha)."
+
+  - key: pew-research-center
+    name: Pew Research Center
+    lanes: [insights-monitoring]
+    groups: [policy-research]
+    ats: workday
+    board: pewtrusts/wd5/CenterExternal
+    careers_url: https://www.pewresearch.org/about/careers/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 4
+    notes: "Survey research / public opinion; Research Assistant and Research Associate roles."
+
+  - key: gqr
+    name: GQR
+    lanes: [insights-monitoring, public-government-affairs]
+    ats: bamboohr
+    board: gqrr
+    careers_url: https://www.gqrr.com/careers/
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Greenberg Quinlan Rosner: political and public-affairs polling. The board is live but had no openings on 2026-10-25."
+
+  - key: psb-insights
+    name: PSB Insights
+    lanes: [insights-monitoring, reputation-media-analysis, public-government-affairs]
+    ats: adp
+    board: 6aeba74d-fc85-4311-a37b-0f69eabbb55d
+    careers_url: https://www.psbinsights.com/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Stagwell research consultancy (ex-Penn Schoen Berland): reputation, public affairs and political research. The ADP board is live but had no openings on 2026-10-25."
+
+  - key: reptrak
+    name: RepTrak
+    lanes: [reputation-media-analysis, insights-monitoring]
+    ats: bamboohr
+    board: reptrak
+    careers_url: https://www.reptrak.com/careers/
+    hq: "Boston, MA"
+    locations: ["Boston, MA", "New York, NY", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Corporate reputation measurement (ex-Reputation Institute). The board is live but had no openings on 2026-10-25."
+
+  - key: harris-poll
+    name: The Harris Poll
+    lanes: [insights-monitoring, reputation-media-analysis]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-theharrispoll.icims.com/jobs/search
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    notes: "Stagwell polling / reputation research (Axios Harris Poll 100); iCIMS portal."
+
+  # ------------------------------------------------- policy / political intelligence platforms & media
+  - key: quorum
+    name: Quorum
+    lanes: [public-government-affairs, insights-monitoring]
+    ats: ashby
+    board: quorum
+    careers_url: https://jobs.ashbyhq.com/quorum
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: "Public-affairs / legislative-tracking software (government affairs teams are its customers)."
+
+  - key: fiscalnote
+    name: FiscalNote
+    lanes: [public-government-affairs, insights-monitoring]
+    groups: [policy-research]
+    ats: lever
+    board: fiscalnote
+    careers_url: https://jobs.lever.co/fiscalnote
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 7
+    notes: "Policy and legislative intelligence (CQ / Roll Call); policy analysts and editors."
+
+  - key: politico
+    name: POLITICO
+    lanes: [public-government-affairs, insights-monitoring]
+    groups: [policy-research]
+    ats: workday
+    board: politico/wd108/POLITICO
+    careers_url: https://politico.wd108.myworkdayjobs.com/POLITICO
+    hq: "Arlington, VA"
+    locations: ["Washington, DC", "New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 42
+    notes: "POLITICO Pro (policy intelligence) and AgencyIQ (regulatory intelligence analysts). POLITICO Europe (Brussels / London) has its own site: politico/wd108/POLITICOEU (19 jobs)."
+
+  - key: national-journal
+    name: National Journal
+    lanes: [public-government-affairs, insights-monitoring]
+    groups: [policy-research]
+    ats: lever
+    board: nationaljournal
+    careers_url: https://jobs.lever.co/nationaljournal
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "Membership policy and government-affairs research (research analyst, editorial research & data associate). Gravity Research's careers page also links to this Lever board."
+
+  - key: dods-group
+    name: Dods Political Intelligence
+    lanes: [insights-monitoring, public-government-affairs]
+    ats: bamboohr
+    board: dodsgroupltd
+    careers_url: https://dodsgroupltd.bamboohr.com/careers
+    hq: "London, UK"
+    locations: ["London, UK", "Brussels, Belgium"]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "UK / EU political monitoring and policy-intelligence analysts. Currently shows only a general-vacancies posting."
+
+  - key: bloomberg
+    name: Bloomberg
+    lanes: [insights-monitoring, public-government-affairs]
+    ats: other
+    ats_vendor: avature
+    careers_url: https://bloomberg.avature.net/careers
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    notes: "Bloomberg Government (policy analysts, legislative / regulatory research) and Bloomberg Intelligence."
