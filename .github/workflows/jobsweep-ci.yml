@@ -42,6 +42,11 @@ jobs:
         run: python scripts/validate_catalog.py
       - name: Tests (offline)
         run: pytest -m "not live"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Board JavaScript integration tests
+        run: node --test tests/*.cjs
       - name: Packaging smoke test
         env:
           JOBSWEEP_DB: ${{ runner.temp }}/ci.db
