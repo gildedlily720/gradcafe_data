@@ -9,7 +9,7 @@ daily allowance. A rerun cannot buy another batch on the same UTC day.
 | --- | --- | --- | --- |
 | TheirStack | 1 rotating query, up to 6 returned rows | 6 API credits/day; 200 reserved credits/calendar month | Current API credit balance must cover the request |
 | HasData Indeed | Up to 10 rotating queries, one page each; automatically reduced to 3 on a 1,000-credit account | 10 credits/request; 4,000 reserved credits/calendar month | Actual account total and remaining credits are read before each daily batch |
-| Apify Hiring.Cafe | 1 rotating query, up to 50 results | $0.08 actor charge/run; $2.50 reserved actor charges/calendar month | Account hard limit must already fit inside included plan credit; remaining credit must cover the run plus $0.10 overhead headroom |
+| Apify Hiring.Cafe | 1 rotating query, up to 20 results with descriptions, 240-second timeout | $0.08 actor charge/run; $2.50 reserved actor charges/calendar month | Account hard limit must already fit inside included plan credit; remaining credit must cover the run plus $0.10 overhead headroom |
 
 A 5,000-credit HasData account allows 10 requests/day, at most 3,100 credits in
 a 31-day month. The connected account observed during setup was a 1,000-credit
