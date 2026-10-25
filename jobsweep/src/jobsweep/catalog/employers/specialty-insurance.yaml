@@ -367,16 +367,16 @@ employers:
 
   - key: nationwide
     name: Nationwide
-    lanes: [insurance-fraud-siu, political-risk, trade-credit-surety]
+    lanes: [insurance-fraud-siu, political-risk, trade-credit-surety, financial-lines]
     ats: workday
     board: nationwide/wd1/Nationwide_Career
     careers_url: https://www.nationwide.com/personal/about-us/careers/
     hq: Columbus, OH
     locations: [New York, NY, Columbus, OH]
-    title_filter: '(?i)(\bSIU\b|fraud|investigat|politic|\bcredit\b|surety|E&S)'
+    title_filter: '(?i)(\bSIU\b|fraud|investigat|politic|\bcredit\b|surety|E&S|management liability|\bD&O\b|financial lines|executive (risk|liability))'
     verified: "2026-10-25"
     open_jobs: 153
-    notes: "SIU plus Nationwide E&S/Specialty 'Credit & Political Risk' (structured credit) team in New York."
+    notes: "SIU plus Nationwide E&S/Specialty: Credit & Political Risk (structured credit) team in New York, surety, management liability / D&O; E&S and surety underwriting summer internships."
 
   - key: berkshire-hathaway-specialty-insurance
     name: Berkshire Hathaway Specialty Insurance

@@ -162,8 +162,7 @@ def normalize_text(text: str | None) -> str:
         return ""
     if text.isascii():
         return text
-    if max(text) >= "\u2000":  # ligatures, full-width forms, special spaces: worth NFKC
-        text = unicodedata.normalize("NFKC", text)
+    text = unicodedata.normalize("NFKC", text)
     return _UNI_RE.sub(lambda m: _UNI_MAP[m.group(0)], text)
 
 
