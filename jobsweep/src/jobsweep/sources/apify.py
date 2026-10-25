@@ -185,7 +185,9 @@ class ApifySource(Source):
         timeout = httpx.Timeout(min(timeout_s, 300) + 45.0, connect=15.0)
         try:
             async with self.ctx.limiter.for_url(url):
-                resp = await self.ctx.client.post(url, params=params, json=payload, headers=headers, timeout=timeout)
+                resp = await self.ctx.client.post(
+                    url, params=params, json=payload, headers=headers, timeout=timeout
+                )
         except httpx.TimeoutException as exc:
             raise SourceError(f"apify: actor {actor} did not answer within {timeout.read:.0f}s") from exc
         except httpx.TransportError as exc:

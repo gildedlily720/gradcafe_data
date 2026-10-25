@@ -134,7 +134,12 @@ class TheirStackSource(Source):
         location = (
             "; ".join(locs)
             if len(locs) > 1
-            else (r.get("short_location") or r.get("long_location") or r.get("location") or (locs[0] if locs else ""))
+            else (
+                r.get("short_location")
+                or r.get("long_location")
+                or r.get("location")
+                or (locs[0] if locs else "")
+            )
         )
 
         remote: bool | None = None

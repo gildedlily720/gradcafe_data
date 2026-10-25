@@ -166,11 +166,6 @@ def normalize_text(text: str | None) -> str:
     return _UNI_RE.sub(lambda m: _UNI_MAP[m.group(0)], text)
 
 
-def _tokens(low: str) -> set[bytes]:
-    """Maximal ASCII alnum runs of an already lower-cased text."""
-    return set(low.encode("ascii", "replace").translate(_TOKEN_TABLE).split())
-
-
 def _word_forms(word: str) -> list[str]:
     """The word plus the plural forms a plain term's last word also matches."""
     out = [word]
@@ -798,7 +793,6 @@ class _Ev:
     title: list[int] = field(default_factory=list)
     phrase_title: list[int] = field(default_factory=list)
     phrase_desc: list[int] = field(default_factory=list)
-    context: list[int] = field(default_factory=list)
     exclude: int | None = None
 
 
@@ -954,16 +948,40 @@ class Taxonomy:
                     if cat == "X" and self._terms[tid].canon in (("cyber",), ("cybersecurity",)):
                         cyber_lanes.add(li)
         self._cyber_lanes = frozenset(cyber_lanes)
+        self._raw = [t.raw for t in self._terms]
+        # T/P/X roles per term (context is counted per lane by set intersection) and per-lane context sets
+        self._roles_tpx: list[list[tuple[int, str]]] = [
+            [(li, cat) for li, cat in roles if cat != "C"] for roles in self._roles
+        ]
+        lane_ctx: list[set[int]] = [set() for _ in self._lane_list]
+        for tid, roles in enumerate(self._roles):
+            for li, cat in roles:
+                if cat == "C":
+                    lane_ctx[li].add(tid)
+        self._lane_ctx = [frozenset(x) for x in lane_ctx]
+        self._domain_terms = frozenset(
+            tid for tid, roles in enumerate(self._roles) if any(cat != "X" for _, cat in roles)
+        )
+        self._super = self._supersets()
 
-        # inverted index on each term's most distinctive anchor word
+        # inverted indexes: single-word terms by every form (a hit is a match), others by their
+        # most distinctive anchor word (a hit makes them a candidate for the slower checks)
+        self._title_tok: dict[bytes, list[int]] = {}
+        self._body_tok: dict[bytes, list[int]] = {}
         self._title_index: dict[bytes, list[int]] = {}
         self._body_index: dict[bytes, list[int]] = {}
         self._title_always: list[int] = []
         self._body_always: list[int] = []
         for term in self._terms:
             body_role = any(cat in ("P", "C") for _, cat in self._roles[term.idx])
-            if term.anchors:
-                key = max(term.anchors, key=lambda alt: (len(alt[0]), -term.anchors.index(alt)))
+            if term.token_only:
+                for v in term.anchors[0]:
+                    self._title_tok.setdefault(v, []).append(term.idx)
+                    if body_role:
+                        self._body_tok.setdefault(v, []).append(term.idx)
+            elif term.anchors:
+                order = list(term.anchors)
+                key = max(order, key=lambda alt: (min(len(v) for v in alt), -order.index(alt)))
                 for v in key:
                     self._title_index.setdefault(v, []).append(term.idx)
                     if body_role:
@@ -972,8 +990,27 @@ class Taxonomy:
                 self._title_always.append(term.idx)
                 if body_role:
                     self._body_always.append(term.idx)
+        self._title_tok_keys = frozenset(self._title_tok)
+        self._body_tok_keys = frozenset(self._body_tok)
         self._title_keys = frozenset(self._title_index)
         self._body_keys = frozenset(self._body_index)
+
+    def _supersets(self) -> list[frozenset[int]]:
+        """For each term, the terms whose canonical tokens strictly contain it ('war risk' in 'war risk insurance')."""
+        by_canon: dict[tuple[str, ...], list[int]] = {}
+        for t in self._terms:
+            by_canon.setdefault(t.canon, []).append(t.idx)
+        sup: list[set[int]] = [set() for _ in self._terms]
+        for t in self._terms:
+            c = t.canon
+            n = len(c)
+            if t.regex or n < 2:
+                continue
+            for size in range(1, n):
+                for i in range(n - size + 1):
+                    for sub_tid in by_canon.get(c[i : i + size], ()):
+                        sup[sub_tid].add(t.idx)
+        return [frozenset(x) for x in sup]
 
     def _compile_locations(self) -> None:
         self._loc_prefs: list[tuple[str, str]] = []  # (kind, label)
@@ -996,34 +1033,40 @@ class Taxonomy:
 
     # ---- matching -------------------------------------------------------------------------------
     def _match(self, text: _Text, title: bool) -> dict[int, str]:
-        index, keys, always = (
-            (self._title_index, self._title_keys, self._title_always)
-            if title
-            else (self._body_index, self._body_keys, self._body_always)
-        )
+        if title:
+            tok, tok_keys = self._title_tok, self._title_tok_keys
+            index, keys, always = self._title_index, self._title_keys, self._title_always
+        else:
+            tok, tok_keys = self._body_tok, self._body_tok_keys
+            index, keys, always = self._body_index, self._body_keys, self._body_always
+        out: dict[int, str] = {}
+        raw = self._raw
+        for v in text.toks & tok_keys:
+            for tid in tok[v]:
+                out[tid] = raw[tid]
         cands: set[int] = set(always)
         for v in text.toks & keys:
             cands.update(index[v])
-        out: dict[int, str] = {}
         terms = self._terms
         for tid in cands:
-            hit = terms[tid].find(text.low, text.norm, text.toks)
+            hit = terms[tid].find(text)
             if hit is not None:
                 out[tid] = hit
         return out
 
-    def _distinct(self, tids: list[int]) -> list[int]:
-        """Drop hits that duplicate or are contained in another hit of the same category."""
+    def _distinct(self, tids: list[int], hits: set[int] | frozenset[int] | None = None) -> list[int]:
+        """Drop hits that duplicate ('K&R' / 'K and R') or sit inside another hit of the same list."""
         if len(tids) < 2:
             return list(tids)
-        terms = self._terms
+        pool = set(tids) if hits is None else hits
+        terms, sup = self._terms, self._super
         kept: list[int] = []
         seen: set[tuple[str, ...]] = set()
         for t in tids:
             c = terms[t].canon
             if c in seen:
                 continue
-            if any(_is_sub(c, terms[o].canon) for o in tids if o != t):
+            if sup[t] and not sup[t].isdisjoint(pool):
                 continue
             seen.add(c)
             kept.append(t)
@@ -1043,31 +1086,29 @@ class Taxonomy:
     def _employer_prior_ok(self, title: _Text, title_hits: dict[int, str], off: bool) -> bool:
         if off:
             return False
-        if any(cat != "X" for tid in title_hits for _, cat in self._roles[tid]):
+        if not self._domain_terms.isdisjoint(title_hits):
             return True
         return _GENERIC_RE.search(title.norm) is not None
 
     def _evidence(self, title_hits: dict[int, str], body_hits: dict[int, str]) -> dict[int, _Ev]:
+        """Title/phrase/exclude evidence per lane (context is added later for lanes that need it)."""
         ev: dict[int, _Ev] = {}
+        roles = self._roles_tpx
         for tid in sorted(title_hits):
-            for li, cat in self._roles[tid]:
+            for li, cat in roles[tid]:
                 e = ev.get(li) or ev.setdefault(li, _Ev())
                 if cat == "T":
                     e.title.append(tid)
                 elif cat == "P":
                     e.phrase_title.append(tid)
-                elif cat == "C":
-                    e.context.append(tid)
                 elif e.exclude is None:
                     e.exclude = tid
         for tid in sorted(body_hits):
             if tid in title_hits:
                 continue
-            for li, cat in self._roles[tid]:
+            for li, cat in roles[tid]:
                 if cat == "P":
                     (ev.get(li) or ev.setdefault(li, _Ev())).phrase_desc.append(tid)
-                elif cat == "C":
-                    (ev.get(li) or ev.setdefault(li, _Ev())).context.append(tid)
         return ev
 
     # ---- lane scoring ---------------------------------------------------------------------------
@@ -1095,6 +1136,7 @@ class Taxonomy:
                     if self._lane_list[li].group != ENTRY_GROUP:
                         ev.setdefault(li, _Ev())
         emp_lane_set = set(emp_lanes)
+        hit_ids = set(title_hits).union(body_hits)
         terms = self._terms
         results: list[_LaneResult] = []
         vetoed: list[tuple[int, str]] = []
@@ -1113,7 +1155,8 @@ class Taxonomy:
             t_hits = self._distinct(e.title)
             phrases = self._distinct(e.phrase_title + e.phrase_desc)
             in_title = set(e.phrase_title)
-            ctx = self._distinct(e.context)
+            ctx_hits = self._lane_ctx[li] & hit_ids
+            ctx = self._distinct(sorted(ctx_hits), ctx_hits) if ctx_hits else []
             lane_prior = plausible and li in emp_lane_set and lane.group != ENTRY_GROUP
             group_prior = plausible and not lane_prior and lane.group in emp_groups
             own = bool(t_hits or phrases)

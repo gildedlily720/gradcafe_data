@@ -48,173 +48,59 @@ log = logging.getLogger("jobsweep.sources.import")
 # ---------------------------------------------------------------------------------------------------------
 # field aliases (normalised: lowercase, alphanumerics only)
 
-TITLE_KEYS = ("title", "jobtitle", "position", "positiontitle", "jobname", "postingtitle", "name")
-COMPANY_KEYS = (
-    "company",
-    "companyname",
-    "employer",
-    "employername",
-    "organization",
-    "organisation",
-    "organizationname",
-    "hiringorganization",
-    "companydisplayname",
-    "advertiser",
-)
-URL_KEYS = (
-    "url",
-    "joburl",
-    "viewjoburl",
-    "link",
-    "joblink",
-    "applyurl",
-    "applylink",
-    "applicationurl",
-    "redirecturl",
-    "jobposturl",
-    "postingurl",
-    "joburldirect",
-    "finalurl",
-    "portalurl",
-    "sourceurl",
-    "href",
-)
-ID_KEYS = ("id", "jobid", "jobkey", "key", "jk", "uid", "postingid", "requisitionid", "reqid", "externalid")
-LOCATION_KEYS = (
-    "location",
-    "joblocation",
-    "formattedlocation",
-    "locationname",
-    "locations",
-    "shortlocation",
-    "longlocation",
-    "place",
-    "city",
-)
-DESCRIPTION_KEYS = (
-    "description",
-    "jobdescription",
-    "descriptiontext",
-    "descriptionmarkdown",
-    "fulldescription",
-    "descriptionhtml",
-    "snippet",
-    "summary",
-    "body",
-)
-BULLET_KEYS = ("highlights", "keyrequirements", "requirementssummary", "requirements", "responsibilities")
-POSTED_KEYS = (
-    "posted",
-    "postedat",
-    "dateposted",
-    "postedon",
-    "posteddate",
-    "postingdate",
-    "isodate",
-    "publishedat",
-    "published",
-    "publicationdate",
-    "datepublished",
-    "created",
-    "createdat",
-    "datecreated",
-    "listeddate",
-    "pubdate",
-    "date",
-)
-CLOSES_KEYS = (
-    "closesat",
-    "closingdate",
-    "closedate",
-    "deadline",
-    "applicationdeadline",
-    "applyby",
-    "validthrough",
-    "expiresat",
-    "expirationdate",
-)
-SALARY_KEYS = (
-    "salary",
-    "compensation",
-    "pay",
-    "salaryrange",
-    "salarystring",
-    "salarytext",
-    "payrange",
-    "basesalary",
-    "wage",
-)
-SALARY_MIN_KEYS = ("salarymin", "minsalary", "minamount", "salaryfrom", "minimumsalary", "payfrom", "paymin")
-SALARY_MAX_KEYS = ("salarymax", "maxsalary", "maxamount", "salaryto", "maximumsalary", "payto", "paymax")
-CURRENCY_KEYS = ("salarycurrency", "currency", "currencycode", "paycurrency")
-PERIOD_KEYS = ("salaryperiod", "salaryfrequency", "salaryinterval", "interval", "payperiod", "salaryunit")
-EMPLOYMENT_KEYS = (
-    "employmenttype",
-    "jobtype",
-    "jobtypes",
-    "contracttype",
-    "contracttime",
-    "commitment",
-    "commitmenttypes",
-    "employmentstatus",
-    "employmentstatuses",
-    "worktype",
-    "schedule",
-    "type",
-)
-REMOTE_KEYS = (
-    "remote",
-    "isremote",
-    "workmode",
-    "workplacetype",
-    "workplace",
-    "remotetype",
-    "worksetting",
-    "workarrangement",
-    "workfromhometype",
-    "locationtype",
-)
-SENIORITY_KEYS = ("seniority", "senioritylevel", "joblevel", "experiencelevel", "careerlevel", "level")
-DEPARTMENT_KEYS = ("department", "jobcategory", "category", "jobfunction", "function", "team")
 
-NA_VALUES = {
-    "",
-    "n/a",
-    "na",
-    "n.a.",
-    "none",
-    "null",
-    "nil",
-    "nan",
-    "nat",
-    "undefined",
-    "-",
-    "--",
-    "—",
-    "–",
-    "not specified",
-    "not available",
-    "not disclosed",
-    "unknown",
-}
-_CONTAINER_KEYS = (
-    "jobs",
-    "items",
-    "results",
-    "data",
-    "topmatches",
-    "jobpostings",
-    "postings",
-    "listings",
-    "jobresults",
-    "hits",
-    "records",
-    "rows",
-    "matches",
-    "jobcards",
-    "elements",
-    "edges",
-    "nodes",
+def _keys(words: str) -> tuple[str, ...]:
+    return tuple(words.split())
+
+
+# order matters: the first non-empty alias wins
+TITLE_KEYS = _keys("title jobtitle position positiontitle jobname postingtitle name")
+COMPANY_KEYS = _keys(
+    "company companyname employer employername organization organisation organizationname "
+    "hiringorganization companydisplayname advertiser"
+)
+URL_KEYS = _keys(
+    "url joburl viewjoburl link joblink applyurl applylink applicationurl redirecturl jobposturl postingurl "
+    "joburldirect finalurl portalurl sourceurl href"
+)
+ID_KEYS = _keys("id jobid jobkey key jk uid postingid requisitionid reqid externalid")
+LOCATION_KEYS = _keys(
+    "location joblocation formattedlocation locationname locations shortlocation longlocation place city"
+)
+DESCRIPTION_KEYS = _keys(
+    "description jobdescription descriptiontext descriptionmarkdown fulldescription descriptionhtml "
+    "snippet summary body"
+)
+BULLET_KEYS = _keys("highlights keyrequirements requirementssummary requirements responsibilities")
+POSTED_KEYS = _keys(
+    "posted postedat dateposted postedon posteddate postingdate isodate publishedat published "
+    "publicationdate datepublished created createdat datecreated listeddate pubdate date"
+)
+CLOSES_KEYS = _keys(
+    "closesat closingdate closedate deadline applicationdeadline applyby validthrough expiresat expirationdate"
+)
+SALARY_KEYS = _keys("salary compensation pay salaryrange salarystring salarytext payrange basesalary wage")
+SALARY_MIN_KEYS = _keys("salarymin minsalary minamount salaryfrom minimumsalary payfrom paymin")
+SALARY_MAX_KEYS = _keys("salarymax maxsalary maxamount salaryto maximumsalary payto paymax")
+CURRENCY_KEYS = _keys("salarycurrency currency currencycode paycurrency")
+PERIOD_KEYS = _keys("salaryperiod salaryfrequency salaryinterval interval payperiod salaryunit")
+EMPLOYMENT_KEYS = _keys(
+    "employmenttype jobtype jobtypes contracttype contracttime commitment commitmenttypes "
+    "employmentstatus employmentstatuses worktype schedule type"
+)
+REMOTE_KEYS = _keys(
+    "remote isremote workmode workplacetype workplace remotetype worksetting workarrangement "
+    "workfromhometype locationtype"
+)
+SENIORITY_KEYS = _keys("seniority senioritylevel joblevel experiencelevel careerlevel level")
+DEPARTMENT_KEYS = _keys("department jobcategory category jobfunction function team")
+
+NA_VALUES = {"", "-", "--", "—", "–", "not specified", "not available", "not disclosed"} | set(
+    _keys("n/a na n.a. none null nil nan nat undefined unknown")
+)
+_CONTAINER_KEYS = _keys(
+    "jobs items results data topmatches jobpostings postings listings jobresults hits records rows matches "
+    "jobcards elements edges nodes"
 )
 _WRAPPER_KEYS = ("card", "job", "node", "posting", "item", "jobposting")
 
@@ -379,6 +265,8 @@ def normalize_employment_type(value: Any) -> str | None:
                 return got
         return None
     s = str(value)
+    if re.search(r"[,;/|]", s):  # "Full-time, Contract": first listed type wins
+        return normalize_employment_type([p for p in re.split(r"\s*[,;/|]\s*", s) if p])
     for name, rx in _EMPLOYMENT_PATTERNS:
         if rx.search(s):
             return name
@@ -873,12 +761,14 @@ def _records_from_jsonl(text: str) -> list[dict[str, Any]]:
 _FIELD_LINE = re.compile(
     r"^\s*(?:[-*•+]\s+|\d{1,3}[.)]\s+)?\*\*(?P<label>[^*\n]{1,48}?)(?::\*\*|\*\*\s*:)\s*(?P<value>.*?)\s*$"
 )
-_PLAIN_FIELD_LINE = re.compile(r"^\s*(?:[-*•+]\s+)?(?P<label>[A-Za-z][A-Za-z /_-]{1,30}):\s+(?P<value>\S.*?)\s*$")
-_LIST_PREFIX = re.compile(r"^\s*(?:(?P<num>\d{1,3})[.)]|(?P<bullet>[-*•+])|(?P<head>#{1,6}))\s+(?P<body>.+?)\s*$")
-_BOLD_LINE = re.compile(r"^\s*\*\*(?P<body>.+)\*\*\s*$")
-_TITLE_LINK = re.compile(
-    r"^\**\s*\[(?P<title>[^\]]+)\]\((?P<url><[^>]+>|[^)\s]+)(?:\s+\"[^\"]*\")?\)\s*\**"
+_PLAIN_FIELD_LINE = re.compile(
+    r"^\s*(?:[-*•+]\s+)?(?P<label>[A-Za-z][A-Za-z /_-]{1,30}):\s+(?P<value>\S.*?)\s*$"
 )
+_LIST_PREFIX = re.compile(
+    r"^\s*(?:(?P<num>\d{1,3})[.)]|(?P<bullet>[-*•+])|(?P<head>#{1,6}))\s+(?P<body>.+?)\s*$"
+)
+_BOLD_LINE = re.compile(r"^\s*\*\*(?P<body>.+)\*\*\s*$")
+_TITLE_LINK = re.compile(r"^\**\s*\[(?P<title>[^\]]+)\]\((?P<url><[^>]+>|[^)\s]+)(?:\s+\"[^\"]*\")?\)\s*\**")
 _TITLE_BOLD = re.compile(r"^\*\*(?P<title>[^*]+?)\*\*")
 _SEP_LEAD = re.compile(r"^\s*(?:[—–|·•:]|-(?=\s))\s*")
 _PART_SPLIT = re.compile(r"\s+[·•|]\s+|\s+[—–]\s+")
@@ -1017,7 +907,7 @@ def _records_from_markdown(text: str) -> list[dict[str, Any]]:
             i += 2
             while i < len(lines) and lines[i].strip().startswith("|"):
                 cells = _split_table_row(lines[i])
-                row = {h: c for h, c in zip(header, cells) if h}
+                row = {h: c for h, c in zip(header, cells, strict=False) if h}
                 if any(clean(v) for v in row.values()):
                     records.append(row)
                 i += 1
@@ -1136,7 +1026,9 @@ class ImportSource(Source):
         return detect_format(text)
 
     @classmethod
-    def parse_file(cls, path: str | Path, origin: str = "claude-connector", fmt: str | None = None) -> list[Job]:
+    def parse_file(
+        cls, path: str | Path, origin: str = "claude-connector", fmt: str | None = None
+    ) -> list[Job]:
         p = Path(path)
         if fmt is None:
             fmt = {".json": "json", ".jsonl": "jsonl", ".csv": "csv", ".tsv": "tsv", ".md": "md"}.get(

@@ -62,7 +62,9 @@ def country_for(query: SearchQuery) -> str:
     if cc:
         cc = {"uk": "gb"}.get(cc, cc)
         if cc not in CURRENCIES:
-            raise SourceError(f"adzuna: unsupported country {cc!r} (use one of {', '.join(sorted(CURRENCIES))})")
+            raise SourceError(
+                f"adzuna: unsupported country {cc!r} (use one of {', '.join(sorted(CURRENCIES))})"
+            )
         return cc
     if query.location and _UK.search(query.location):
         return "gb"
@@ -131,8 +133,10 @@ class AdzunaSource(Source):
                     seen.add(job.source_id)
                     jobs.append(job)
             count = data.get("count") if isinstance(data, dict) else None
-            if len(results) < per_page or len(jobs) >= limit or (
-                isinstance(count, int) and page * per_page >= count
+            if (
+                len(results) < per_page
+                or len(jobs) >= limit
+                or (isinstance(count, int) and page * per_page >= count)
             ):
                 break
         return jobs[:limit]
@@ -145,7 +149,9 @@ class AdzunaSource(Source):
         if not title:
             return None
         rid = str(r.get("id") or "").strip() or short_hash(url, title)
-        company = html_to_text(((r.get("company") or {}) if isinstance(r.get("company"), dict) else {}).get("display_name"))
+        company = html_to_text(
+            ((r.get("company") or {}) if isinstance(r.get("company"), dict) else {}).get("display_name")
+        )
         loc_obj = r.get("location") if isinstance(r.get("location"), dict) else {}
         location = (loc_obj.get("display_name") or "").strip()
         if not location and isinstance(loc_obj.get("area"), list):

@@ -131,7 +131,9 @@ def test_class_metadata() -> None:
     assert HasDataIndeedSource.metered and HasDataIndeedSource.max_queries == 10
     assert JobSpySource.requires_module == "jobspy" and JobSpySource.max_queries == 15
     assert not JobSpySource.metered
-    assert ApifySource.metered and ApifySource.requires_env == ("APIFY_TOKEN",) and ApifySource.max_queries == 5
+    assert (
+        ApifySource.metered and ApifySource.requires_env == ("APIFY_TOKEN",) and ApifySource.max_queries == 5
+    )
 
 
 def test_availability() -> None:
@@ -156,7 +158,9 @@ ADZUNA_US = re.compile(r"https://api\.adzuna\.com/v1/api/jobs/us/search/\d+")
 @respx.mock
 def test_adzuna_search_maps_results_and_params() -> None:
     route = respx.get(ADZUNA_US).respond(json=load("adzuna_us_search.json"))
-    q = SearchQuery(keywords="political risk analyst", location="New York, NY", posted_within_days=14, limit=20)
+    q = SearchQuery(
+        keywords="political risk analyst", location="New York, NY", posted_within_days=14, limit=20
+    )
     jobs = run(AdzunaSource, lambda s: s.search(q))
     check_contract(jobs, "adzuna")
     assert route.call_count == 1
@@ -173,9 +177,18 @@ def test_adzuna_search_maps_results_and_params() -> None:
     assert pr.title == "Political Risk Analyst"  # <strong> highlight tags stripped
     assert pr.company == "Marsh McLennan" and pr.location == "New York City, New York"
     assert pr.url.startswith("https://www.adzuna.com/land/ad/4921837765")
-    assert (pr.salary_min, pr.salary_max, pr.salary_currency, pr.salary_period) == (70000, 85000, "USD", "year")
+    assert (pr.salary_min, pr.salary_max, pr.salary_currency, pr.salary_period) == (
+        70000,
+        85000,
+        "USD",
+        "year",
+    )
     assert pr.employment_type == "full-time" and pr.department == "Consultancy Jobs"
-    assert pr.posted_at.startswith("2026-10-21") and "&amp;" not in pr.description and "<strong>" not in pr.description
+    assert (
+        pr.posted_at.startswith("2026-10-21")
+        and "&amp;" not in pr.description
+        and "<strong>" not in pr.description
+    )
     assert pr.remote is None
 
     sanc = by_id["4930011122"]
@@ -226,7 +239,14 @@ def test_adzuna_gb_remote_and_pagination() -> None:
 @respx.mock
 def test_adzuna_malformed_results_are_skipped() -> None:
     data = load("adzuna_us_search.json")
-    data["results"] = [None, "junk", {"id": 1}, {"title": None}, *data["results"][:1], {"title": 5, "company": "x"}]
+    data["results"] = [
+        None,
+        "junk",
+        {"id": 1},
+        {"title": None},
+        *data["results"][:1],
+        {"title": 5, "company": "x"},
+    ]
     respx.get(ADZUNA_US).respond(json=data)
     jobs = run(AdzunaSource, lambda s: s.search(SearchQuery(keywords="x")))
     assert [j.source_id for j in jobs][0] == "4921837765"
@@ -237,7 +257,12 @@ def test_adzuna_malformed_results_are_skipped() -> None:
 @respx.mock
 def test_adzuna_auth_failure_raises() -> None:
     respx.get(ADZUNA_US).respond(
-        401, json={"display": "Authorisation failed", "exception": "AUTH_FAIL", "doc": "https://api.adzuna.com/v1/doc"}
+        401,
+        json={
+            "display": "Authorisation failed",
+            "exception": "AUTH_FAIL",
+            "doc": "https://api.adzuna.com/v1/doc",
+        },
     )
     with pytest.raises(HTTPError) as err:
         run(AdzunaSource, lambda s: s.search(SearchQuery(keywords="x")))
@@ -251,7 +276,9 @@ TS_API = "https://api.theirstack.com/v1/jobs/search"
 @respx.mock
 def test_theirstack_search_body_and_mapping() -> None:
     route = respx.post(TS_API).respond(json=load("theirstack_search.json"))
-    q = SearchQuery(keywords="threat intelligence analyst", location="New York, NY", posted_within_days=14, limit=50)
+    q = SearchQuery(
+        keywords="threat intelligence analyst", location="New York, NY", posted_within_days=14, limit=50
+    )
     jobs = run(TheirStackSource, lambda s: s.search(q))
     check_contract(jobs, "theirstack")
     req = route.calls[0].request
@@ -266,7 +293,12 @@ def test_theirstack_search_body_and_mapping() -> None:
     assert dm.source_id == "186427765" and dm.company == "Dataminr"
     assert dm.url == "https://job-boards.greenhouse.io/dataminr/jobs/6123456"  # final_url preferred
     assert dm.location == "New York, NY" and dm.remote is False  # hybrid
-    assert (dm.salary_min, dm.salary_max, dm.salary_currency, dm.salary_period) == (75000, 95000, "USD", "year")
+    assert (dm.salary_min, dm.salary_max, dm.salary_currency, dm.salary_period) == (
+        75000,
+        95000,
+        "USD",
+        "year",
+    )
     assert dm.employment_type == "full-time" and dm.seniority == "junior" and dm.posted_at == "2026-10-22"
     assert dm.description.startswith("About the role") and "- Monitor open sources" in dm.description
 
@@ -319,7 +351,12 @@ def test_theirstack_is_never_retried_and_pages() -> None:
 @respx.mock
 def test_theirstack_malformed_rows() -> None:
     data = load("theirstack_search.json")
-    data["data"] = [None, {"id": 1}, {"job_title": "Bad", "company_object": "?", "locations": "x"}, data["data"][0]]
+    data["data"] = [
+        None,
+        {"id": 1},
+        {"job_title": "Bad", "company_object": "?", "locations": "x"},
+        data["data"][0],
+    ]
     respx.post(TS_API).respond(json=data)
     jobs = run(TheirStackSource, lambda s: s.search(SearchQuery(keywords="x")))
     assert [j.title for j in jobs] == ["Bad", "Threat Intelligence Analyst"]
@@ -339,12 +376,24 @@ def test_hasdata_listing_maps_jobs() -> None:
     req = route.calls[0].request
     assert req.headers["x-api-key"] == "hd-key"
     p = dict(req.url.params)
-    assert p == {"keyword": "geopolitical analyst", "location": "New York, NY", "sort": "date", "datePosted": "7"}
+    assert p == {
+        "keyword": "geopolitical analyst",
+        "location": "New York, NY",
+        "sort": "date",
+        "datePosted": "7",
+    }
     assert route.call_count == 1  # one paid call per query by default
 
     eg, cr, doi = jobs
-    assert eg.source_id == "9a1c3e5f7b2d4f60" and eg.url == "https://www.indeed.com/viewjob?jk=9a1c3e5f7b2d4f60"
-    assert (eg.salary_min, eg.salary_max, eg.salary_currency, eg.salary_period) == (70000, 80000, "USD", "year")
+    assert (
+        eg.source_id == "9a1c3e5f7b2d4f60" and eg.url == "https://www.indeed.com/viewjob?jk=9a1c3e5f7b2d4f60"
+    )
+    assert (eg.salary_min, eg.salary_max, eg.salary_currency, eg.salary_period) == (
+        70000,
+        80000,
+        "USD",
+        "year",
+    )
     assert eg.employment_type == "full-time" and eg.remote is False  # "Hybrid work"
     assert eg.posted_at.startswith("2026-10-22") and eg.extra["snippet"] is True
     assert cr.remote is True and cr.employment_type == "internship" and "internship" in cr.tags
@@ -388,7 +437,9 @@ def test_hasdata_enrich_uses_job_endpoint() -> None:
 
     jobs = run(HasDataIndeedSource, go)
     assert detail.call_count == 2
-    assert dict(detail.calls[0].request.url.params) == {"url": "https://www.indeed.com/viewjob?jk=9a1c3e5f7b2d4f60"}
+    assert dict(detail.calls[0].request.url.params) == {
+        "url": "https://www.indeed.com/viewjob?jk=9a1c3e5f7b2d4f60"
+    }
     eg = jobs[0]
     assert eg.extra["enriched"] is True and "snippet" not in eg.extra
     assert "political risk in emerging markets" in eg.description and "- Track elections" in eg.description
@@ -440,12 +491,18 @@ def _frame(rows: list[dict[str, Any]]) -> Any:
 
 
 def test_jobspy_scrape_kwargs() -> None:
-    kw = scrape_kwargs(SearchQuery(keywords="osint analyst", location="New York, NY", posted_within_days=7, limit=100))
+    kw = scrape_kwargs(
+        SearchQuery(keywords="osint analyst", location="New York, NY", posted_within_days=7, limit=100)
+    )
     assert kw["site_name"] == ["indeed", "linkedin"] and kw["search_term"] == "osint analyst"
     assert kw["results_wanted"] == 30 and kw["hours_old"] == 168 and kw["country_indeed"] == "USA"
     assert kw["description_format"] == "markdown" and kw["verbose"] == 0 and "is_remote" not in kw
     remote = scrape_kwargs(SearchQuery(keywords="x", location="Remote", limit=5, extra={"sites": "indeed"}))
-    assert remote["location"] == "United States" and remote["is_remote"] is True and remote["site_name"] == ["indeed"]
+    assert (
+        remote["location"] == "United States"
+        and remote["is_remote"] is True
+        and remote["site_name"] == ["indeed"]
+    )
     assert remote["results_wanted"] == 5
     uk = scrape_kwargs(SearchQuery(keywords="x", location="London", extra={"distance": 10, "bogus": 1}))
     assert uk["country_indeed"] == "UK" and uk["distance"] == 10 and "bogus" not in uk
@@ -477,13 +534,18 @@ def test_jobspy_search_maps_real_rows(monkeypatch: pytest.MonkeyPatch) -> None:
         return _frame([*rows, linkedin])
 
     monkeypatch.setattr(jobspy, "scrape_jobs", fake_scrape_jobs)
-    q = SearchQuery(keywords="geopolitical risk analyst", location="New York, NY", posted_within_days=30, limit=10)
+    q = SearchQuery(
+        keywords="geopolitical risk analyst", location="New York, NY", posted_within_days=30, limit=10
+    )
     jobs = run(JobSpySource, lambda s: s.search(q))
     check_contract(jobs, "jobspy")
     assert calls and calls[0]["results_wanted"] == 10 and calls[0]["hours_old"] == 720
 
     con_ed = jobs[0]
-    assert con_ed.source_id == "indeed-in-532540930a0e547e" and con_ed.title == "Protective Intelligence Sr Analyst"
+    assert (
+        con_ed.source_id == "indeed-in-532540930a0e547e"
+        and con_ed.title == "Protective Intelligence Sr Analyst"
+    )
     assert con_ed.url == "https://www.indeed.com/viewjob?jk=532540930a0e547e"
     assert con_ed.company == "Con Edison" and con_ed.location == "New York, NY, USA"
     assert con_ed.posted_at == "2026-10-23" and con_ed.employment_type == "full-time"
@@ -516,7 +578,10 @@ def test_jobspy_errors_and_empty(monkeypatch: pytest.MonkeyPatch) -> None:
 
     monkeypatch.setattr(jobspy, "scrape_jobs", lambda **kw: None)
     assert run(JobSpySource, lambda s: s.search(SearchQuery(keywords="x"))) == []
-    bad_rows = [{"title": None}, {"title": "No URL row", "site": "google", "id": None, "date_posted": math.nan}]
+    bad_rows = [
+        {"title": None},
+        {"title": "No URL row", "site": "google", "id": None, "date_posted": math.nan},
+    ]
     monkeypatch.setattr(jobspy, "scrape_jobs", lambda **kw: bad_rows)
     jobs = run(JobSpySource, lambda s: s.search(SearchQuery(keywords="x")))
     assert len(jobs) == 1 and jobs[0].source_id.startswith("google-") and jobs[0].posted_at is None
@@ -530,7 +595,9 @@ APIFY_JS = "https://api.apify.com/v2/acts/aakash19~jobspy/run-sync-get-dataset-i
 @respx.mock
 def test_apify_hiringcafe_run() -> None:
     route = respx.post(APIFY_HC).respond(json=load("apify_hiringcafe_items.json"))
-    q = SearchQuery(keywords="political risk analyst", location="New York, NY", posted_within_days=14, limit=20)
+    q = SearchQuery(
+        keywords="political risk analyst", location="New York, NY", posted_within_days=14, limit=20
+    )
     jobs = run(ApifySource, lambda s: s.search(q))
     check_contract(jobs, "apify")
     req = route.calls[0].request
@@ -538,17 +605,28 @@ def test_apify_hiringcafe_run() -> None:
     p = dict(req.url.params)
     assert p["maxItems"] == "20" and p["timeout"] == "240" and p["format"] == "json"
     body = json.loads(req.content)
-    assert body["query"] == "political risk analyst" and body["country"] == "US" and body["location"] == "New York"
+    assert (
+        body["query"] == "political risk analyst"
+        and body["country"] == "US"
+        and body["location"] == "New York"
+    )
     assert body["maxResults"] == 20 and body["postedWithinDays"] == 14 and body["includeDetails"] is True
     assert "workplaceTypes" not in body
 
     assert len(jobs) == 3  # the title-less item is dropped
     sf, chubb, discord = jobs
     assert sf.source_id.startswith("hiring-cafe:2c348e57") and sf.company == "State Farm"
-    assert sf.url.startswith("https://jobs.statefarm.com/jobs/43740") and sf.extra["portal_url"].startswith("https://hiring.cafe/")
+    assert sf.url.startswith("https://jobs.statefarm.com/jobs/43740") and sf.extra["portal_url"].startswith(
+        "https://hiring.cafe/"
+    )
     assert sf.remote is False and sf.employment_type == "full-time" and sf.seniority == "Mid Level"
     assert sf.posted_at.startswith("2026-03-16") and "<p" not in sf.description and sf.extra["ats"] == "icims"
-    assert (chubb.salary_min, chubb.salary_max, chubb.salary_currency, chubb.salary_period) == (75000, 90000, "USD", "year")
+    assert (chubb.salary_min, chubb.salary_max, chubb.salary_currency, chubb.salary_period) == (
+        75000,
+        90000,
+        "USD",
+        "year",
+    )
     assert chubb.department == "Insurance Underwriting" and chubb.extra["min_years_experience"] == 1
     assert "contract frustration" in chubb.description and "hiring-cafe" in chubb.tags
     assert discord.remote is True and discord.employment_type == "contract" and discord.description == ""
@@ -568,7 +646,11 @@ def test_apify_jobspy_actor_and_overrides() -> None:
     check_contract(jobs, "apify")
     body = json.loads(route.calls[0].request.content)
     assert body["search_terms"] == ["protective intelligence"] and body["locations"] == ["United States"]
-    assert body["job_boards"] == ["indeed", "google"] and body["days_posted"] == 60 and body["remote_only"] is True
+    assert (
+        body["job_boards"] == ["indeed", "google"]
+        and body["days_posted"] == 60
+        and body["remote_only"] is True
+    )
     assert dict(route.calls[0].request.url.params)["maxTotalChargeUsd"] == "0.5"
     j = jobs[0]
     assert j.source_id == "jobspy:in-532540930a0e547e" and j.tags == ["jobspy", "indeed"]
@@ -579,7 +661,9 @@ def test_apify_actor_ids_and_inputs() -> None:
     assert actor_id(None) == "blackfalcondata~hiringcafe-scraper"
     assert actor_id("hiring.cafe") == "blackfalcondata~hiringcafe-scraper"
     assert actor_id("someone/job-scraper") == "someone~job-scraper"
-    london = build_input("blackfalcondata~hiringcafe-scraper", SearchQuery(keywords="kyc", location="London, UK"), 5)
+    london = build_input(
+        "blackfalcondata~hiringcafe-scraper", SearchQuery(keywords="kyc", location="London, UK"), 5
+    )
     assert london["country"] == "GB" and london["location"] == "London" and london["postedWithinDays"] == 0
     remote = build_input("blackfalcondata~hiringcafe-scraper", SearchQuery(keywords="osint", remote=True), 5)
     assert remote["workplaceTypes"] == ["Remote"] and "location" not in remote
@@ -604,7 +688,9 @@ def test_apify_errors() -> None:
         with pytest.raises(SourceError):
             run(ApifySource, lambda s: s.search(q))
     with respx.mock() as mock:
-        mock.post(APIFY_HC).respond(json={"items": [{"title": "Wrapped", "url": "https://x.example/1", "id": 9}]})
+        mock.post(APIFY_HC).respond(
+            json={"items": [{"title": "Wrapped", "url": "https://x.example/1", "id": 9}]}
+        )
         jobs = run(ApifySource, lambda s: s.search(q))
         assert [j.source_id for j in jobs] == ["hiring-cafe:9"]
 
@@ -645,7 +731,9 @@ BAD_KEYS = {
 @pytest.mark.parametrize("cls", list(BAD_KEYS))
 def test_live_keyed_endpoint(cls: type) -> None:
     """Real search when the key is configured, otherwise prove the documented endpoint rejects a bad key."""
-    q = SearchQuery(keywords="political risk analyst", location="New York, NY", posted_within_days=30, limit=5)
+    q = SearchQuery(
+        keywords="political risk analyst", location="New York, NY", posted_within_days=30, limit=5
+    )
     if cls.availability(Settings.load())[0]:
         jobs = live(cls, q)
         if jobs:

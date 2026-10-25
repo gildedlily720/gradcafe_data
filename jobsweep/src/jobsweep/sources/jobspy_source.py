@@ -101,7 +101,11 @@ def scrape_kwargs(query: SearchQuery) -> dict[str, Any]:
 def _date(value: Any) -> str | None:
     value = clean(value)
     if isinstance(value, datetime):
-        return value.date().isoformat() if not (value.hour or value.minute or value.second) else value.isoformat()
+        return (
+            value.date().isoformat()
+            if not (value.hour or value.minute or value.second)
+            else value.isoformat()
+        )
     if isinstance(value, date):
         return value.isoformat()
     return parse_date(value)

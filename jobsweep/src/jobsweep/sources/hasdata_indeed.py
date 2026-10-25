@@ -85,7 +85,12 @@ def _salary(raw: Any) -> tuple[float | None, float | None, str | None, str | Non
         lo, hi = to_float(raw.get("min")), to_float(raw.get("max"))
         if lo is None and hi is None:
             return None, None, None, None
-        return lo, hi if hi is not None else lo, currency_code(raw.get("currency")), normalize_period(raw.get("type"))
+        return (
+            lo,
+            hi if hi is not None else lo,
+            currency_code(raw.get("currency")),
+            normalize_period(raw.get("type")),
+        )
     if raw:
         return salary_from_text(raw)
     return None, None, None, None

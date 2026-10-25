@@ -187,11 +187,21 @@ def test_json_aliases_and_containers() -> None:
             "type": "Fellowship",
         },
         {"title": None, "company": "Nobody"},
-        {"name": "Research Assistant", "employer": "Brookings", "url": "https://brookings.example/ra", "id": 12.0},
+        {
+            "name": "Research Assistant",
+            "employer": "Brookings",
+            "url": "https://brookings.example/ra",
+            "id": 12.0,
+        },
         "not a job",
         42,
     ]
-    for payload in (records, {"data": {"jobs": records}}, {"results": records}, json.dumps({"items": records})):
+    for payload in (
+        records,
+        {"data": {"jobs": records}},
+        {"results": records},
+        json.dumps({"items": records}),
+    ):
         jobs = ImportSource.parse(payload, origin="api")
         assert [j.title for j in jobs] == [
             "Due Diligence Analyst",
@@ -206,19 +216,24 @@ def test_json_aliases_and_containers() -> None:
     assert fellow.posted_at == "2026-10-02" and fellow.salary_min is None and fellow.remote is False
     assert fellow.employment_type == "fellowship" and "fellowship" in fellow.tags
     assert ra.source_id == "api:12" and ra.company == "Brookings"
-    single = ImportSource.parse({"title": "Policy Analyst", "company": "RAND", "url": "https://rand.example/1"})
+    single = ImportSource.parse(
+        {"title": "Policy Analyst", "company": "RAND", "url": "https://rand.example/1"}
+    )
     assert len(single) == 1 and single[0].company == "RAND"
 
 
 def test_jsonl_and_structured_content() -> None:
     lines = "\n".join(
-        json.dumps({"title": f"Analyst {i}", "company": "Acme", "url": f"https://acme.example/{i}"}) for i in range(3)
+        json.dumps({"title": f"Analyst {i}", "company": "Acme", "url": f"https://acme.example/{i}"})
+        for i in range(3)
     )
     assert [j.title for j in ImportSource.parse(lines)] == ["Analyst 0", "Analyst 1", "Analyst 2"]
     assert len(ImportSource.parse(lines, fmt="jsonl")) == 3
     mcp = {
         "content": [{"type": "text", "text": "ignored summary"}],
-        "structuredContent": {"jobs": [{"title": "OSINT Analyst", "company": "Dataminr", "url": "https://d.example/1"}]},
+        "structuredContent": {
+            "jobs": [{"title": "OSINT Analyst", "company": "Dataminr", "url": "https://d.example/1"}]
+        },
     }
     assert [j.title for j in ImportSource.parse(mcp)] == ["OSINT Analyst"]
 
@@ -266,7 +281,12 @@ def test_other_markdown_shapes() -> None:
     assert titles == ["Political Risk Analyst", "Geopolitical Intern", "Trust & Safety Analyst"]
     pr, intern, ts = jobs
     assert pr.company == "Marsh" and pr.url == "https://marsh.example/pr-1" and pr.location == "London, UK"
-    assert (pr.salary_min, pr.salary_max, pr.salary_currency, pr.salary_period) == (35000, 40000, "GBP", "year")
+    assert (pr.salary_min, pr.salary_max, pr.salary_currency, pr.salary_period) == (
+        35000,
+        40000,
+        "GBP",
+        "year",
+    )
     assert intern.company == "Council on Foreign Relations" and intern.location == "New York, NY"
     assert intern.employment_type == "internship" and "internship" in intern.tags
     assert (intern.salary_min, intern.salary_period) == (20, "hour")
@@ -315,7 +335,19 @@ def test_csv_export() -> None:
 # ----------------------------------------------------------------------------------------------- robustness
 @pytest.mark.parametrize(
     "payload",
-    [None, "", "   ", "{not json", "just some words, nothing else", 42, [], {}, [None, 1, "x"], b"\xff\xfe", {"a": 1}],
+    [
+        None,
+        "",
+        "   ",
+        "{not json",
+        "just some words, nothing else",
+        42,
+        [],
+        {},
+        [None, 1, "x"],
+        b"\xff\xfe",
+        {"a": 1},
+    ],
 )
 def test_garbage_payloads_yield_nothing(payload: object) -> None:
     assert ImportSource.parse(payload) == []
@@ -378,9 +410,7 @@ def test_small_normalisers() -> None:
     assert remote_from_value("Remote") is True and remote_from_value("Hybrid work") is False
     assert remote_from_value("On-site") is False and remote_from_value(False) is None
     assert remote_from_value(["Full-time", "Remote"]) is True and remote_from_value("") is None
-    assert salary_from_text("USD 60,000 - 70,000 per year")[:2] == (60000, 60000) or salary_from_text(
-        "USD 60,000 - 70,000 per year"
-    )[0] == 60000
+    assert salary_from_text("USD 60,000 - 70,000 per year") == (60000, 70000, "USD", "year")
     assert salary_from_text("$85,000.00 - $150,000.00") == (85000, 150000, "USD", "year")
     assert salary_from_text("US$120k to US$175k annually")[:3] == (120000, 175000, "USD")
     assert salary_from_text("Competitive") == (None, None, None, None)
