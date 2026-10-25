@@ -489,6 +489,13 @@ def test_off_domain_title_blocks_prior(tax: Taxonomy) -> None:
     assert job.score <= 15
 
 
+def test_generalist_bank_role_gets_no_prior_lanes(tax: Taxonomy) -> None:
+    bank = Employer(key="bank", name="Big Bank", lanes=["aml-kyc", "sanctions"], groups=["sanctions-fincrime"])
+    desc = "Execute M&A transactions. All staff comply with anti-money laundering and sanctions policies."
+    assert run(tax, "Investment Banking Analyst", desc, bank).lanes == []
+    assert run(tax, "KYC Analyst", desc, bank).lanes[0] == "aml-kyc"
+
+
 def test_implausible_title_with_domain_description(tax: Taxonomy) -> None:
     desc = (
         "Help customers use intelligence assessments, the threat landscape and geopolitical threats data. "

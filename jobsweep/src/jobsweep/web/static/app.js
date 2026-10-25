@@ -2045,7 +2045,7 @@
     const days = h("select", { name: "days" }, [["7", "7 days"], ["14", "14 days"], ["30", "30 days"], ["60", "60 days"], ["", "any time"]]
       .map(([v, t]) => h("option", { value: v, text: t, selected: v === "30" })));
     const maxQ = h("input", { type: "number", name: "max_queries", min: "1", max: "500", value: "40" });
-    const submit = h("button", { class: "btn primary", type: "submit" }, icon("play", "sm"), "Run sweep");
+    const submit = h("button", { class: "btn primary", type: "submit", id: "sweep-submit", disabled: state.sweep.running }, icon("play", "sm"), "Run sweep");
     form.append(
       h("div", { class: "form-grid" },
         h("fieldset", { class: "field", style: { "grid-column": "1 / -1" } }, h("legend", { text: "Sources (none ticked = every available, non-metered source)" }), srcList),
@@ -2098,6 +2098,8 @@
     const wasRunning = state.sweep.running;
     state.sweep.running = Boolean(st.running);
     state.sweep.status = st;
+    const btn = $("sweep-submit");
+    if (btn) btn.disabled = state.sweep.running;
     renderProgress(st);
     renderLastSweep();
     if (st.running && poll !== false) {
