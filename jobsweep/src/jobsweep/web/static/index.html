@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="jobsweep: lane-based job board for specialty insurance, intelligence, investigations, geopolitical risk, sanctions, trust and safety, policy and government roles.">
+  <title>jobsweep</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f56d9'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='white' stroke-width='2.4'/%3E%3Cpath d='M16 16l6-6' stroke='white' stroke-width='2.4' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    /* apply the saved theme before first paint */
+    try { var t = localStorage.getItem("jobsweep:theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+  </script>
+  <script src="config.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body data-view="jobs">
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-logo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 12l5-5"/><circle cx="12" cy="12" r="1.6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a6.6 6.6 0 0 0 9.7 9.7z"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6.5 3.5h11v17l-5.5-3.8-5.5 3.8z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+    <symbol id="i-archive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8M10 12h4"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.2a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 5h16l-6 7.5V19l-4 2v-8.5z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5l12 7.5-12 7.5z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13h5l1.5 3h5l1.5-3h5"/><path d="M5.5 5h13L21 13v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#job-list">Skip to job list</a>
+  <div class="app">
+    <header class="topbar">
+      <button class="icon-btn only-mobile" id="menu-btn" type="button" aria-label="Open lanes and views" aria-controls="sidebar" aria-expanded="false">
+        <svg class="icon lg"><use href="#i-menu"/></svg>
+      </button>
+      <a class="brand" href="#/jobs" aria-label="jobsweep home">
+        <span class="logo" aria-hidden="true"><svg class="icon"><use href="#i-logo"/></svg></span>
+        <span class="word">jobsweep</span>
+      </a>
+      <nav class="views" id="views" aria-label="Views"></nav>
+      <label class="search" for="search">
+        <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+        <span class="sr-only">Search jobs</span>
+        <input id="search" type="search" placeholder="Search titles, companies, descriptions" autocomplete="off" spellcheck="false">
+        <kbd aria-hidden="true">/</kbd>
+      </label>
+      <div class="counts" id="counts" aria-label="Board counts"></div>
+      <div class="last-sweep" id="last-sweep" aria-live="polite"></div>
+      <button class="icon-btn" id="theme-btn" type="button" aria-label="Theme: system">
+        <svg class="icon"><use href="#i-monitor"/></svg>
+      </button>
+      <button class="icon-btn" id="help-btn" type="button" aria-label="Keyboard shortcuts (?)" aria-haspopup="dialog">
+        <svg class="icon"><use href="#i-help"/></svg>
+      </button>
+    </header>
+    <div class="banner" id="banner" hidden></div>
+
+    <div class="layout" id="layout">
+      <aside class="sidebar" id="sidebar" aria-label="Lanes and filters">
+        <nav class="side-views" id="side-views" aria-label="Views (mobile)"></nav>
+        <div class="side-overview" id="side-overview"></div>
+        <div id="lane-tree"></div>
+      </aside>
+      <div class="scrim" id="scrim" hidden></div>
+
+      <main class="main" id="main">
+        <!-- Jobs -->
+        <section class="view" id="view-jobs" aria-label="Jobs">
+          <div class="filterbar">
+            <div class="tabs-row">
+              <div class="tabs" id="status-tabs" role="tablist" aria-label="Status"></div>
+              <span class="result-count" id="result-count" aria-live="polite"></span>
+              <button class="btn sm filters-toggle" id="filters-toggle" type="button" aria-expanded="false" aria-controls="filters">
+                <svg class="icon sm"><use href="#i-filter"/></svg>Filters
+              </button>
+            </div>
+            <div class="filters" id="filters">
+              <label class="control switch" title="Hide postings classified as too senior">
+                <input type="checkbox" id="f-entry" checked>
+                <span class="track" aria-hidden="true"></span>
+                <span>Entry-level</span>
+              </label>
+              <label class="control range" for="f-min" title="Minimum match score">
+                <span class="lbl">Score ≥</span>
+                <input type="range" id="f-min" min="0" max="100" step="5" value="25">
+                <output id="f-min-out" for="f-min">25</output>
+              </label>
+              <details class="dropdown" id="f-sources">
+                <summary class="control" aria-label="Filter by source">
+                  <span class="lbl">Source</span><span id="f-sources-label">All</span>
+                </summary>
+                <div class="menu" id="f-sources-menu" role="group" aria-label="Sources"></div>
+              </details>
+              <label class="control" for="f-loc">
+                <span class="lbl">Location</span>
+                <input type="text" id="f-loc" placeholder="New York, London…" autocomplete="off" list="loc-suggest">
+              </label>
+              <datalist id="loc-suggest">
+                <option value="New York"></option>
+                <option value="Washington"></option>
+                <option value="London"></option>
+                <option value="Remote"></option>
+              </datalist>
+              <label class="control switch">
+                <input type="checkbox" id="f-remote">
+                <span class="track" aria-hidden="true"></span>
+                <span>Remote</span>
+              </label>
+              <label class="control" for="f-days">
+                <span class="lbl">New in</span>
+                <select id="f-days">
+                  <option value="">any time</option>
+                  <option value="1">last 24 hours</option>
+                  <option value="3">last 3 days</option>
+                  <option value="7">last 7 days</option>
+                  <option value="30">last 30 days</option>
+                </select>
+              </label>
+              <label class="control" for="f-sort">
+                <span class="lbl">Sort</span>
+                <select id="f-sort">
+                  <option value="score">Best match</option>
+                  <option value="newest">Newest</option>
+                  <option value="posted">Date posted</option>
+                  <option value="closing">Closing soon</option>
+                  <option value="company">Company</option>
+                </select>
+              </label>
+              <span class="active-chips" id="active-chips"></span>
+            </div>
+          </div>
+          <div class="list" id="job-list" tabindex="-1" aria-label="Job list">
+            <ul class="rows" id="rows" aria-label="Jobs"></ul>
+            <div class="list-foot" id="list-foot"></div>
+          </div>
+        </section>
+
+        <section class="view page" id="view-employers" aria-label="Employers" hidden></section>
+        <section class="view page" id="view-sources" aria-label="Sources" hidden></section>
+        <section class="view page" id="view-runs" aria-label="Runs" hidden></section>
+        <section class="view page" id="view-import" aria-label="Import" hidden></section>
+      </main>
+
+      <aside class="detail" id="detail" aria-label="Job details"></aside>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite" aria-atomic="false"></div>
+
+  <dialog class="help" id="help" aria-labelledby="help-title">
+    <div class="help-head">
+      <h2 id="help-title">Keyboard shortcuts</h2>
+      <button class="icon-btn" type="button" id="help-close" aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="help-body" id="help-body"></div>
+  </dialog>
+  <noscript><p style="padding:24px">jobsweep needs JavaScript to show the board. The raw data is in <a href="data/jobs.json">data/jobs.json</a>.</p></noscript>
+</body>
+</html>

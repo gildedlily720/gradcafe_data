@@ -346,7 +346,18 @@ def _plain_pattern(term: str, case_sensitive: bool) -> str:
 class Term:
     """One compiled lane term (plain phrase or ``/regex/``)."""
 
-    __slots__ = ("idx", "raw", "regex", "case_sensitive", "rx", "anchors", "subs", "canon", "token_only")
+    __slots__ = (
+        "idx",
+        "raw",
+        "regex",
+        "case_sensitive",
+        "rx",
+        "pattern",
+        "anchors",
+        "subs",
+        "canon",
+        "token_only",
+    )
 
     def __init__(self, raw: str, idx: int = 0):
         self.idx = idx
@@ -356,6 +367,7 @@ class Term:
         self.subs: tuple[str, ...] = ()
         self.token_only = False
         self.rx: re.Pattern[str] | None = None
+        self.pattern: str | None = None  # plain terms compile lazily (most never reach the regex stage)
         if self.regex:
             src = raw[1:-1]
             flags = _raw_flags(src)
@@ -378,7 +390,7 @@ class Term:
             self.token_only = True
             self.anchors = (tuple(f.encode() for f in _word_forms(words[0])),)
             return
-        self.rx = re.compile(_plain_pattern(raw, self.case_sensitive))
+        self.pattern = _plain_pattern(raw, self.case_sensitive)
         if re.search(r"(?i)\band\b|&", raw):
             words = [w for w in words if w != "and"]
         long_words = [w for w in words if len(w) >= 2]
@@ -400,7 +412,9 @@ class Term:
     def _regex_find(self, low: str, norm: str) -> str | None:
         rx = self.rx
         if rx is None:
-            return None
+            if self.pattern is None:
+                return None
+            rx = self.rx = re.compile(self.pattern)
         if self.regex:
             m = rx.search(norm)
             return m.group(0).strip() if m else None
@@ -770,7 +784,8 @@ class Taxonomy:
     @classmethod
     def load(cls, path: str | Path | None = None, profile: Profile | str | Path | None = None) -> Taxonomy:
         p = Path(path) if path else LANES_PATH
-        doc = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
+        loader = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
+        doc = yaml.load(p.read_text(encoding="utf-8"), Loader=loader) or {}  # noqa: S506 - safe loader
         return cls.from_dict(doc, profile=load_profile(profile), path=p)
 
     @classmethod
@@ -1039,11 +1054,14 @@ class Taxonomy:
         for li in sorted(ev):
             e = ev[li]
             lane = self._lane_list[li]
+            has_ev = bool(e.title or e.phrase_title or e.phrase_desc)
             if e.exclude is not None:
-                vetoed.append((li, "excluded: '" + title_hits.get(e.exclude, terms[e.exclude].raw) + "'"))
+                if has_ev:
+                    vetoed.append((li, "excluded: '" + title_hits.get(e.exclude, terms[e.exclude].raw) + "'"))
                 continue
             if cyber and li in self._cyber_lanes:
-                vetoed.append((li, "cyber posting"))
+                if has_ev:
+                    vetoed.append((li, "cyber posting"))
                 continue
             t_hits = self._distinct(e.title)
             phrases = self._distinct(e.phrase_title + e.phrase_desc)
@@ -1296,7 +1314,7 @@ class Taxonomy:
             out.append("no domain lane matched")
         for r in domain[:3]:
             out.append(r.reason)
-        if employer is not None:
+        if employer is not None and not any(x.startswith("employer prior:") for x in out):
             prior = next((r for r in results if r.prior), None)
             if prior is not None:
                 out.append(f"employer prior: {employer.name} → {self._lane_list[prior.li].id}")
@@ -1323,7 +1341,7 @@ class Taxonomy:
                 out.append(r.reason)
         for r in domain[3:]:
             out.append(r.reason)
-        for li, why in notes.get("vetoed") or []:
+        for li, why in (notes.get("vetoed") or [])[:2]:
             out.append(f"{why} → not {self._lane_list[li].id}")
         return list(dict.fromkeys(out))[:MAX_REASONS]
 
