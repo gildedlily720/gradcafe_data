@@ -44,7 +44,10 @@ def test_month_of_daily_searches_stays_below_5000_and_rotates(monkeypatch):
             keywords.add(query["keywords"])
             assert query["extra"] == {"pages": 1}
         assert len(plan["sources"]["theirstack"]["queries"]) == 1
-        assert plan["sources"]["apify"]["queries"][0]["extra"]["max_charge_usd"] == 0.08
+        apify_query = plan["sources"]["apify"]["queries"][0]
+        assert apify_query["limit"] == 20
+        assert apify_query["extra"]["timeout_secs"] == 240
+        assert apify_query["extra"]["max_charge_usd"] == 0.08
     totals = {s: sum(r["units"] for r in state["reservations"] if r["source"] == s) for s in daily.SOURCES}
     assert totals == {"theirstack": 186, "hasdata_indeed": 3100, "apify": 248}
     assert len(keywords) == 40
