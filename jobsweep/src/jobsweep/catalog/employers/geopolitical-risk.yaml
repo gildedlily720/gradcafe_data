@@ -771,7 +771,7 @@ employers:
     careers_url: https://www.alpha-sense.com/careers/
     hq: New York, NY
     locations: [New York, NY, London, UK, Remote US]
-    title_filter: '(?i)(research|expert|directed content|content|sector|insight|survey|primary|channel|transcript|\banalyst\b|associate, client|\bintern\b|internship|graduate)'
+    title_filter: '(?i)(research|expert|directed content|content|sector (lead|specialist|project|analyst)|insight|survey|primary|channel|transcript|\banalyst\b|associate, client|\bintern\b|internship|graduate)'
     verified: "2026-10-25"
     open_jobs: 212
     notes: "Tegus expert-call library merged in; Directed Content sector leads, Client Research associates, Expert Network compliance analysts. Filter drops most sales/engineering."

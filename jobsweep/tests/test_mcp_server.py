@@ -378,6 +378,11 @@ def test_search_jobs_filters(board) -> None:
     assert [i["uid"] for i in data["items"]] == ["adzuna:4"]
     assert ok(call("search_jobs", {"remote": True}))["total"] == 1
     assert ok(call("search_jobs", {"location": "New York"}))["total"] == 2
+    assert ok(call("search_jobs", {"location": "Washington, DC", "entry_level_only": False}))["total"] == 1
+    assert (
+        ok(call("search_jobs", {"location": ["Remote", "Washington"], "entry_level_only": False}))["total"]
+        == 2
+    )
     assert ok(call("search_jobs", {"sources": ["usajobs"]}))["total"] == 1
     page = ok(call("search_jobs", {"limit": 1}))
     assert page["returned"] == 1 and page["next_offset"] == 1
@@ -424,7 +429,14 @@ def test_list_lanes_counts(board) -> None:
     lanes = {lane["id"]: lane for g in data["groups"] for lane in g["lanes"]}
     assert lanes["political-risk"]["count"] == 1
     assert lanes["sanctions"]["count"] == 2  # active jobs, any seniority
-    assert lanes["political-risk"]["queries"] == ["political-risk analyst"]
+    assert "queries" not in lanes["political-risk"]
+    board.tax.lanes["sanctions"].queries = ["q1", "q2", "q3", "q4"]
+    some = ok(
+        call("list_lanes", {"groups": ["sanctions-fincrime"], "include_queries": True, "max_queries": 2})
+    )
+    assert [g["id"] for g in some["groups"]] == ["sanctions-fincrime"]
+    assert some["groups"][0]["lanes"][0]["queries"] == ["q1", "q2"]
+    assert "unknown" in err(call("list_lanes", {"groups": ["nope"]}))
     full = ok(call("list_lanes", {"include_inactive": True, "include_queries": False}))
     assert "earlier-lanes" in {g["id"] for g in full["groups"]}
     assert all("queries" not in lane for g in full["groups"] for lane in g["lanes"])

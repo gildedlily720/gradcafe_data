@@ -1020,7 +1020,11 @@ def search_jobs(
         "entry_only": bool(entry_level_only),
         "include_unknown_entry": True,
         "min_score": min_score,
-        "location": _as_list(location) or None,
+        # one string = one location ("New York, NY" must not split into "New York" + "NY")
+        "location": [
+            x.strip() for x in ([location] if isinstance(location, str) else location or []) if x.strip()
+        ]
+        or None,
         "remote": remote,
         "since": new_within_days if new_within_days else None,
     }
@@ -1150,7 +1154,7 @@ def list_lanes(
                 for gid, lanes in LANE_GROUPS.items()
             ]
         }
-    groups = []
+    out_groups = []
     for g in doc.get("groups", []):
         if only_groups and g.get("id") not in only_groups:
             continue
@@ -1175,9 +1179,9 @@ def list_lanes(
         }
         if include_inactive:
             entry["active"] = g.get("active", True)
-        groups.append(entry)
+        out_groups.append(entry)
     out: dict[str, Any] = {
-        "groups": groups,
+        "groups": out_groups,
         "active_jobs": stats.get("active"),
         "new_7d": stats.get("new_7d"),
     }
