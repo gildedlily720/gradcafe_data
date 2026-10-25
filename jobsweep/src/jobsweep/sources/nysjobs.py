@@ -96,6 +96,8 @@ def company_name(agency: str) -> tuple[str, str | None]:
         head, tail = main.rsplit(",", 1)
         main = f"{tail.strip()} {head.strip()}".strip()
     main = re.sub(r"^(NYS|New York State|State)\s+", "", main).strip()
+    if re.search(r"\b(SUNY|CUNY|University|College)\b", main):
+        return main, (sub.strip() or None)
     return f"NYS {main}", (sub.strip() or None)
 
 

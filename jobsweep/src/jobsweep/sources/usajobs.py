@@ -88,7 +88,8 @@ _INTERNAL_PATHS = {
 }
 # locations kept first when an announcement lists more than MAX_LOCATIONS duty stations
 _PRIORITY_LOC = re.compile(
-    r"new york|district of columbia|washington, dc|anywhere|remote|negotiable|london|arlington, virginia",
+    r"new york, new york|district of columbia|washington, dc|anywhere|remote|negotiable|"
+    r"united kingdom|arlington, virginia",
     re.I,
 )
 
