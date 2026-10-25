@@ -180,9 +180,7 @@ def _employment_type(schedule: list[str], offering: list[str], title: str) -> st
     return sched
 
 
-def _tags(
-    paths: list[str], offering: list[str], title: str, summary: str, telework: Any, remote: bool | None
-) -> list[str]:
+def _tags(paths: list[str], offering: list[str], title: str, summary: str, telework: Any) -> list[str]:
     tags: list[str] = []
     text = f"{title}\n{summary}"
     if "graduates" in paths or "15326" in offering:
@@ -210,8 +208,6 @@ def _tags(
         tags.append("internal")
     if telework is True or _s(telework).lower() == "true":
         tags.append("telework")
-    if remote:
-        tags.append("remote")
     return list(dict.fromkeys(tags))
 
 
@@ -310,7 +306,7 @@ def map_item(item: dict[str, Any], via: str = "direct") -> Job | None:
         department=department,
         grade=format_grade(_codes(desc.get("JobGrade")), details.get("LowGrade"), details.get("HighGrade")),
         series=_codes(desc.get("JobCategory")),
-        tags=_tags(paths, offering, title, summary, details.get("TeleworkEligible"), remote),
+        tags=_tags(paths, offering, title, summary, details.get("TeleworkEligible")),
         extra={k: v for k, v in extra.items() if v not in (None, [], "")},
     )
 
