@@ -6,7 +6,8 @@
 # user); use --scope local to make the keyed variants win inside this checkout only.
 #
 # Idempotent: a server that already exists in the chosen scope is left alone (--force replaces it).
-# Keys come from the environment first, then from jobsweep/.env (never overriding the environment).
+# Keys come from the environment first, then from .env files (never overriding the environment):
+# --env-file PATH, $JOBSWEEP_HOME/.env, jobsweep/.env, ~/.config/jobsweep/.env (same files as jobsweep).
 # Servers whose keys are missing are skipped and listed at the end. Secrets are masked in all output.
 #
 # Usage: jobsweep/integrations/claude_code_setup.sh [options]
@@ -15,7 +16,8 @@
 #   --force                   remove and re-add servers that already exist in that scope
 #   --oauth                   add apify / theirstack / hasdata-indeed without a key; sign in later with /mcp
 #   --only a,b,c              only these server names
-#   --no-env-file             do not read jobsweep/.env
+#   --env-file PATH           read keys from PATH first (repeatable)
+#   --no-env-file             skip the default .env files (--env-file files are still read)
 #   --print-desktop-config    print integrations/claude_desktop_config.json with this checkout's path, then exit
 #   -h, --help
 #
@@ -35,13 +37,16 @@ EXA_URL='https://mcp.exa.ai/mcp'
 ADZUNA_SRC='git+https://github.com/folathecoder/adzuna-job-search-mcp@e00a5956bc07524a6bddadb1d79db731ce107461'
 DESKTOP_PLACEHOLDER='/ABSOLUTE/PATH/TO/gradcafe_data'
 
-# Values masked in every line this script prints.
-SECRET_VARS="USAJOBS_API_KEY USAJOBS_EMAIL PIPEWORX_API_KEY ADZUNA_APP_ID ADZUNA_APP_KEY THEIRSTACK_API_KEY HASDATA_API_KEY APIFY_TOKEN SOCRATA_APP_TOKEN BRAVE_API_KEY DREAMWORK_API_KEY"
+KNOWN_SERVERS="jobsweep pipeworx-usajobs exa jobspy ats-jobs playwright apify theirstack hasdata-indeed adzuna federal-compass brave-search"
+# Values masked in every line this script prints (a value containing another, e.g. the Pipeworx key
+# "<key>:<email>", must come before it).
+SECRET_VARS="PIPEWORX_API_KEY USAJOBS_API_KEY ADZUNA_APP_ID ADZUNA_APP_KEY THEIRSTACK_API_KEY HASDATA_API_KEY APIFY_TOKEN SOCRATA_APP_TOKEN BRAVE_API_KEY DREAMWORK_API_KEY USAJOBS_EMAIL"
 
 DRY_RUN=0
 FORCE=0
 OAUTH=0
 USE_ENV_FILE=1
+ENV_FILES=()
 SCOPE=user
 ONLY=""
 ADDED=()
@@ -49,7 +54,7 @@ EXISTING=()
 SKIPPED=()
 FAILED=()
 
-usage() { sed -n '2,23p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
+usage() { sed -n '2,24p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -57,6 +62,12 @@ while [ $# -gt 0 ]; do
     --force) FORCE=1 ;;
     --oauth) OAUTH=1 ;;
     --no-env-file) USE_ENV_FILE=0 ;;
+    --env-file)
+      [ $# -ge 2 ] || { echo "--env-file needs a value" >&2; exit 2; }
+      ENV_FILES+=("$2")
+      shift
+      ;;
+    --env-file=*) ENV_FILES+=("${1#--env-file=}") ;;
     --scope)
       [ $# -ge 2 ] || { echo "--scope needs a value" >&2; exit 2; }
       SCOPE=$2
@@ -207,9 +218,24 @@ node_major() {
 
 # ---- environment --------------------------------------------------------------------------------------
 
+for f in ${ENV_FILES[@]+"${ENV_FILES[@]}"}; do
+  [ -f "$f" ] || echo "warning: env file not found: $f" >&2
+  load_env_file "$f"
+done
 if [ "$USE_ENV_FILE" = 1 ]; then
+  if [ -n "$JOBSWEEP_HOME" ]; then
+    load_env_file "${JOBSWEEP_HOME%/}/.env"
+  fi
   load_env_file "$JOBSWEEP_DIR/.env"
+  load_env_file "$HOME/.config/jobsweep/.env"
 fi
+
+for name in $(printf '%s' "$ONLY" | tr ',' ' '); do
+  case " $KNOWN_SERVERS " in
+    *" $name "*) ;;
+    *) echo "warning: unknown server name in --only: $name (known: $KNOWN_SERVERS)" >&2 ;;
+  esac
+done
 
 if [ "$DRY_RUN" = 0 ] && ! have claude; then
   echo "claude (Claude Code CLI) not found on PATH. Install it, or run with --dry-run to see the commands." >&2
