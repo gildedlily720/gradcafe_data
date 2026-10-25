@@ -201,7 +201,10 @@ class GreenhouseSource(Source):
             self.ctx.log.warning("greenhouse enrich %s failed: %s", job.uid, exc)
             return job
         if isinstance(j, dict):
-            job.description = html_to_text(j.get("content")) or job.description
-            if job.salary_min is None:
-                job.salary_min, job.salary_max, job.salary_currency, job.salary_period = _salary(j)
+            try:
+                job.description = html_to_text(j.get("content")) or job.description
+                if job.salary_min is None:
+                    job.salary_min, job.salary_max, job.salary_currency, job.salary_period = _salary(j)
+            except Exception as exc:  # noqa: BLE001 - a malformed detail payload must not lose the job
+                self.ctx.log.warning("greenhouse enrich %s: malformed detail (%s)", job.uid, exc)
         return job

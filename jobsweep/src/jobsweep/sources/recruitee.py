@@ -78,7 +78,7 @@ class RecruiteeSource(Source):
     name = "recruitee"
     kind = "board"
     label = "Recruitee career sites"
-    docs_url = "https://docs.recruitee.com/reference/offers"
+    docs_url = "https://docs.recruitee.com/"
 
     async def fetch_board(self, employer: Employer) -> list[Job]:
         board = (employer.board or "").strip().lower()

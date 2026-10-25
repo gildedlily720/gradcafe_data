@@ -633,7 +633,10 @@ def parse_import(payload: Any, origin: str, fmt: str | None, settings: Settings 
     for name in ("fmt", "format"):
         if name in params and fmt:
             kwargs[name] = fmt
-    result = parse(payload, origin, **kwargs)
+    if "origin" in params:
+        result = parse(payload, origin=origin, **kwargs)
+    else:
+        result = parse(payload, origin, **kwargs)
     if inspect.isawaitable(result):
         result = asyncio.run(result)  # type: ignore[arg-type]
     jobs = []

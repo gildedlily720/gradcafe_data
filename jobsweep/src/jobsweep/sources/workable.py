@@ -88,7 +88,7 @@ class WorkableSource(Source):
     name = "workable"
     kind = "board"
     label = "Workable career pages"
-    docs_url = "https://help.workable.com/hc/en-us/articles/115012771647"
+    docs_url = "https://help.workable.com/"
     #: seconds between two calls to apply.workable.com on one client (tests set 0)
     min_interval: float = 1.0
     #: seconds to stop calling apply.workable.com after an HTTP 429
@@ -196,13 +196,16 @@ class WorkableSource(Source):
             return job
         if not isinstance(d, dict):
             return job
-        job.description = _description(d) or job.description
-        if d.get("type") and not job.employment_type:
-            job.employment_type = normalize_employment_type(d.get("type"))
-        location = _locations(d)
-        if location:
-            job.location = location
-        job.extra["enriched"] = True
+        try:
+            job.description = _description(d) or job.description
+            if d.get("type") and not job.employment_type:
+                job.employment_type = normalize_employment_type(d.get("type"))
+            location = _locations(d)
+            if location:
+                job.location = location
+            job.extra["enriched"] = True
+        except Exception as exc:  # noqa: BLE001 - a malformed detail payload must not lose the job
+            self.ctx.log.warning("workable enrich %s: malformed detail (%s)", job.uid, exc)
         return job
 
 

@@ -79,7 +79,7 @@ class WorkdaySource(Source):
     name = "workday"
     kind = "board"
     label = "Workday career sites"
-    docs_url = "https://www.myworkday.com/"
+    docs_url = "https://www.workday.com/"
 
     async def fetch_board(self, employer: Employer) -> list[Job]:
         board = employer.board or ""
@@ -188,9 +188,17 @@ class WorkdaySource(Source):
         except Exception as exc:  # noqa: BLE001 - enrichment is best effort
             self.ctx.log.warning("workday enrich %s failed: %s", job.uid, exc)
             return job
-        info = (data or {}).get("jobPostingInfo") if isinstance(data, dict) else None
+        try:
+            self._apply_detail(job, data)
+        except Exception as exc:  # noqa: BLE001 - a malformed detail payload must not lose the job
+            self.ctx.log.warning("workday enrich %s: malformed detail (%s)", job.uid, exc)
+        return job
+
+    @staticmethod
+    def _apply_detail(job: Job, data: Any) -> None:
+        info = data.get("jobPostingInfo") if isinstance(data, dict) else None
         if not isinstance(info, dict):
-            return job
+            return
         job.description = html_to_text(info.get("jobDescription")) or job.description
         extra_locs = info.get("additionalLocations") or []
         location = join_locations(
@@ -221,4 +229,3 @@ class WorkdaySource(Source):
                 job.extra[key] = value
         job.tags = list(dict.fromkeys([*job.tags, *structured_tags(time_type)]))
         job.extra["enriched"] = True
-        return job

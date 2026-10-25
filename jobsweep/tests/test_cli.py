@@ -507,3 +507,79 @@ def test_detect_url_without_network(env, capsys) -> None:
     assert {"ats": "greenhouse", "board": "dataminr"}.items() <= data["boards"][0].items()
     code, data = run_json(capsys, "detect", "Acme", "--no-probe", "--json")
     assert data["kind"] == "name" and data["registry_matches"][0]["key"] == "acme"
+
+
+# ---- serve / mcp wiring (real modules are written by other components) ------------------------------
+
+
+def test_serve_and_mcp_wiring(env, capsys, monkeypatch) -> None:
+    import sys
+
+    import uvicorn
+
+    calls: list[tuple] = []
+    monkeypatch.setattr(uvicorn, "run", lambda app, **kw: calls.append((app, kw)))
+    fake_app = SimpleNamespace(create_app=lambda settings=None: ("APP", str(settings.db_path)))
+    monkeypatch.setitem(sys.modules, "jobsweep.web.app", fake_app)
+    assert run(capsys, "serve", "--port", "9999")[0] == 0
+    assert calls[-1] == (("APP", str(env.db)), {"host": "127.0.0.1", "port": 9999})
+    assert run(capsys, "serve", "--reload")[0] == 0
+    assert calls[-1][0] == "jobsweep.web.app:create_app" and calls[-1][1]["factory"] is True
+
+    started = []
+    monkeypatch.setitem(sys.modules, "jobsweep.mcp_server", SimpleNamespace(main=lambda: started.append(1)))
+    other = env.tmp / "mcp.db"
+    assert run(capsys, "--db", str(other), "mcp")[0] == 0
+    assert started == [1]
+    import os
+
+    assert os.environ["JOBSWEEP_DB"] == str(other)
+
+
+@pytest.mark.parametrize("shape", ["static", "classmethod", "instance", "async-fmt"])
+def test_parse_import_adapts_to_parser_shape(monkeypatch, shape) -> None:
+    import sys
+
+    got: dict = {}
+
+    def body(payload, origin, fmt=None):
+        got.update(payload=payload, origin=origin, fmt=fmt)
+        return [{"source": "import", "source_id": f"{origin}:1", "title": "T", "company": "C", "url": "u"}]
+
+    if shape == "static":
+
+        class ImportSource:
+            @staticmethod
+            def parse(payload, origin="manual"):
+                return body(payload, origin)
+
+    elif shape == "classmethod":
+
+        class ImportSource:  # type: ignore[no-redef]
+            @classmethod
+            def parse(cls, payload, origin="manual", fmt=None):
+                return body(payload, origin, fmt)
+
+    elif shape == "instance":
+
+        class ImportSource(Source):  # type: ignore[no-redef]
+            name = "import"
+
+            def parse(self, payload, *, origin="manual", format=None):  # noqa: A002
+                assert self.ctx.settings is not None
+                return body(payload, origin, format)
+
+    else:
+
+        class ImportSource:  # type: ignore[no-redef]
+            @staticmethod
+            async def parse(payload, origin, fmt=None):
+                return [Job.from_dict(j) for j in body(payload, origin, fmt)]
+
+    monkeypatch.setitem(
+        sys.modules, "jobsweep.sources.manual_import", SimpleNamespace(ImportSource=ImportSource)
+    )
+    jobs = cli.parse_import("raw text", "indeed-connector", "md")
+    assert [j.uid for j in jobs] == ["import:indeed-connector:1"]
+    assert got["payload"] == "raw text" and got["origin"] == "indeed-connector"
+    assert got["fmt"] == (None if shape == "static" else "md")

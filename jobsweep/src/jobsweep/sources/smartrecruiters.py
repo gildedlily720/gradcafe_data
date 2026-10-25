@@ -166,8 +166,16 @@ class SmartRecruitersSource(Source):
         except Exception as exc:  # noqa: BLE001 - enrichment is best effort
             self.ctx.log.warning("smartrecruiters enrich %s failed: %s", job.uid, exc)
             return job
+        try:
+            self._apply_detail(job, d)
+        except Exception as exc:  # noqa: BLE001 - a malformed detail payload must not lose the job
+            self.ctx.log.warning("smartrecruiters enrich %s: malformed detail (%s)", job.uid, exc)
+        return job
+
+    @staticmethod
+    def _apply_detail(job: Job, d: Any) -> None:
         if not isinstance(d, dict):
-            return job
+            return
         sections = ((d.get("jobAd") or {}).get("sections") or {}) if isinstance(d.get("jobAd"), dict) else {}
         chunks: list[str] = []
         names = [n for n in SECTION_ORDER if n in sections] + [n for n in sections if n not in SECTION_ORDER]
@@ -183,4 +191,3 @@ class SmartRecruitersSource(Source):
             if d.get(field):
                 job.extra[key] = d[field]
         job.extra["enriched"] = True
-        return job

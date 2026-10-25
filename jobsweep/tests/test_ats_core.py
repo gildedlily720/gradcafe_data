@@ -388,6 +388,11 @@ def test_workday_enrich_failure_keeps_job_and_bad_board() -> None:
         router.get(f"{FRS}/job/X/T_R-1").mock(return_value=httpx.Response(404, json={"errorCode": "S21"}))
         out = run(WorkdaySource, lambda s: s.enrich(job))
     assert out is job and out.description == ""
+    malformed = {"jobPostingInfo": {"jobDescription": "<p>Body</p>", "country": "US", "additionalLocations": "x"}}
+    with respx.mock() as router:
+        router.get(f"{FRS}/job/X/T_R-1").mock(return_value=httpx.Response(200, json=malformed))
+        out = run(WorkdaySource, lambda s: s.enrich(job))
+    assert out is job and out.description == "Body"  # applied up to the malformed field, no exception
     with pytest.raises(SourceError):
         parse_board("rb/FRS")
     assert parse_board("RB/WD5/FRS") == ("rb", "wd5", "FRS")
@@ -563,6 +568,123 @@ def test_recruitee_salary_and_part_time() -> None:
     assert (paid.salary_min, paid.salary_max) == (float(sal["min"]), float(sal["max"]))
     assert paid.salary_currency == "EUR" and paid.salary_period == "month"
     assert "student" in student.tags
+
+
+# ----------------------------------------------------------------------------------------------- robustness
+GARBAGE: list[Any] = [
+    None,
+    7,
+    "posting",
+    {},
+    {"id": "x"},
+    {
+        # every field present but with the wrong type
+        "id": 99,
+        "title": "Garbage Analyst",
+        "text": "Garbage Analyst",
+        "name": "Garbage Analyst",
+        "shortcode": "GARBAGE01",
+        "externalPath": "/job/Nowhere/Garbage-Analyst_R-99",
+        "location": 5,
+        "locations": "bad",
+        "locationsText": 3,
+        "categories": "bad",
+        "compensation": "bad",
+        "salary": "bad",
+        "salaryRange": "bad",
+        "secondaryLocations": "bad",
+        "metadata": "bad",
+        "departments": "bad",
+        "offices": "bad",
+        "typeOfEmployment": "bad",
+        "experienceLevel": "bad",
+        "department": 7,
+        "bulletFields": "bad",
+        "lists": "bad",
+        "pay_input_ranges": "bad",
+        "postedOn": 12,
+        "published_at": 12,
+        "createdAt": "not a date",
+    },
+]
+
+
+@pytest.mark.parametrize(
+    ("cls", "ats", "board", "method", "url", "fixture", "key"),
+    [
+        (
+            GreenhouseSource,
+            "greenhouse",
+            "anthropic",
+            "GET",
+            f"{GH}/anthropic/jobs",
+            "greenhouse_anthropic.json",
+            "jobs",
+        ),
+        (
+            LeverSource,
+            "lever",
+            "palantir",
+            "GET",
+            "https://api.lever.co/v0/postings/palantir",
+            "lever_palantir.json",
+            None,
+        ),
+        (AshbySource, "ashby", "openai", "GET", f"{ASHBY}/openai", "ashby_openai.json", "jobs"),
+        (
+            WorkdaySource,
+            "workday",
+            "aig/wd1/aig",
+            "POST",
+            f"{AIG}/jobs",
+            "workday_aig_political_risk.json",
+            "jobPostings",
+        ),
+        (
+            SmartRecruitersSource,
+            "smartrecruiters",
+            "Securitas",
+            "GET",
+            f"{SR}/Securitas/postings",
+            "smartrecruiters_securitas_intelligence.json",
+            "content",
+        ),
+        (
+            RecruiteeSource,
+            "recruitee",
+            "crisisgroup",
+            "GET",
+            "https://crisisgroup.recruitee.com/api/offers/",
+            "recruitee_crisisgroup.json",
+            "offers",
+        ),
+    ],
+)
+def test_malformed_postings_never_crash_a_board(
+    cls: type, ats: str, board: str, method: str, url: str, fixture: str, key: str | None
+) -> None:
+    data = load(fixture)
+    good = len(data if key is None else data[key])
+    if key is None:
+        data = data + GARBAGE
+    else:
+        data[key] = data[key] + GARBAGE
+    with respx.mock() as router:
+        router.route(method=method, url=url).mock(return_value=httpx.Response(200, json=data))
+        jobs = run(cls, lambda s: s.fetch_board(employer(ats, board)))
+    assert len(jobs) >= good
+    for j in jobs:
+        assert isinstance(j.title, str) and isinstance(j.location, str) and isinstance(j.description, str)
+        json.dumps(j.to_dict())
+
+
+def test_workable_malformed_results(fast_workable: None) -> None:
+    page = load("workable_wati_last.json")["response"]
+    page["results"] = page["results"] + GARBAGE
+    with respx.mock() as router:
+        router.post(WK).mock(return_value=httpx.Response(200, json=page))
+        jobs = run(WorkableSource, lambda s: s.fetch_board(employer("workable", "wati-dot-i-o")))
+    assert len(jobs) >= 2
 
 
 # ----------------------------------------------------------------------------------------------- live smoke
