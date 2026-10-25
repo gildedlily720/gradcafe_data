@@ -376,7 +376,7 @@ class Term:
         if single and not self.case_sensitive:
             # one plain word: the token set decides exactly, no regex needed
             self.token_only = True
-            self.anchors = (tuple(f.encode() for f in _word_forms(words[0]) if len(words[0]) >= 2) or (words[0].encode(),),)
+            self.anchors = (tuple(f.encode() for f in _word_forms(words[0])),)
             return
         self.rx = re.compile(_plain_pattern(raw, self.case_sensitive))
         if re.search(r"(?i)\band\b|&", raw):
@@ -578,8 +578,9 @@ _YEARS_PRE_OK_RE = re.compile(
     r"|experience)\b"
 )
 _YEARS_PRE_BAD_RE = re.compile(
-    r"\b(?:within|founded|since|established|celebrat\w*|history|legacy|our|we|we've|company|firm|team\s+has"
-    r"|in\s+business|for\s+(?:over|more\s+than)|last|past|next|first|every|per)\b"
+    r"\b(?:within|founded|since|established|celebrat\w*|history|legacy|combined|in\s+business|last|past|next"
+    r"|first|every|per|we've|we\s+have\s+been|our\s+(?:team|firm|company|founders?|experts?|professionals"
+    r"|consultants|people|staff|organi[sz]ation))\b"
 )
 _MAX_YEARS = 25
 
@@ -598,17 +599,15 @@ _CYBER_TOKENS = frozenset(
         "malware",
         "firewall",
         "firewalls",
-        "ids",
-        "ips",
         "phishing",
         "crowdstrike",
         "sentinelone",
         "qradar",
         "wireshark",
         "ransomware",
-        "vulnerability",
-        "vulnerabilities",
         "tcp",
+        "nmap",
+        "metasploit",
         "cybersecurity",
         "infosec",
         "pentest",
@@ -617,8 +616,9 @@ _CYBER_TOKENS = frozenset(
 )
 _CYBER_PHRASES = (
     "threat hunting",
-    "incident response",
     "penetration testing",
+    "vulnerability management",
+    "vulnerability scanning",
     "endpoint detection",
     "intrusion detection",
     "network security",
@@ -892,7 +892,6 @@ class Taxonomy:
                     if cat == "X" and self._terms[tid].canon in (("cyber",), ("cybersecurity",)):
                         cyber_lanes.add(li)
         self._cyber_lanes = frozenset(cyber_lanes)
-        self._lane_role_cache = None
 
         # inverted index on each term's most distinctive anchor word
         self._title_index: dict[bytes, list[int]] = {}
@@ -1087,8 +1086,8 @@ class Taxonomy:
                 reason = f"employer prior: {employer.name if employer else '?'} → {lane.id}"
             results.append(_LaneResult(li, rel, own, bool(t_hits), lane_prior, reason))
 
-        # prior-only lanes: only when nothing has title evidence, at most PRIOR_ONLY_MAX, employer order
-        if any(r.title_hit for r in results):
+        # prior-only lanes: only when no domain lane has title evidence; at most PRIOR_ONLY_MAX
+        if any(r.title_hit and self._lane_list[r.li].group != ENTRY_GROUP for r in results):
             results = [r for r in results if r.own]
         else:
             prior_only = [r for r in results if not r.own]
@@ -1152,7 +1151,7 @@ class Taxonomy:
         if years is not None and years > prof.max_years_experience:
             return False, years, [f"requires {years}+ years (max {prof.max_years_experience})"]
         if re.search(r"\b(?:director|executive|vp|vice president|c-level)\b", seniority) or re.search(
-            r"\bmanager\b", level.lower()
+            r"(?<!non-)(?<!non )\bmanager\b", level.lower()
         ):
             return False, years, [f"senior: level '{level or job.seniority}'"]
 
@@ -1550,7 +1549,7 @@ def parse_years_required(text: str | None, *, lowered: bool = False) -> int | No
         if _YEARS_AFTER_BAD_RE.match(after):
             continue
         pre = low[max(0, s - 48 - 40) : s - len(nm.group(0))]
-        pre_tail = pre[-45:]
+        pre_tail = pre[-32:]
         if _YEARS_PRE_BAD_RE.search(pre_tail):
             continue
         if not (_YEARS_AFTER_OK_RE.match(after) or _YEARS_PRE_OK_RE.search(pre_tail)):

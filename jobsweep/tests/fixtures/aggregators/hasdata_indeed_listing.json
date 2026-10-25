@@ -1,0 +1,47 @@
+{
+  "requestMetadata": {
+    "id": "4f1d2a7e-0c3b-4a51-9a52-2d1b7f0c9e11",
+    "status": "ok",
+    "url": "https://www.indeed.com/jobs?q=geopolitical+analyst&l=New+York%2C+NY&sort=date"
+  },
+  "searchInformation": {"title": "Geopolitical analyst jobs in New York, NY", "totalResults": "47"},
+  "jobs": [
+    {
+      "title": "Geopolitical Risk Analyst",
+      "company": "Eurasia Group",
+      "location": "New York, NY",
+      "description": "Support the Global Macro practice with research on political risk, sanctions and elections. 0-2 years of experience…",
+      "salary": {"min": 70000, "max": 80000, "type": "YEARLY", "currency": "USD"},
+      "details": ["Full-time", "Hybrid work"],
+      "benefits": ["Health insurance", "401(k)"],
+      "sponsored": false,
+      "date": "3 days ago",
+      "isoDate": "2026-10-22T13:05:41.120Z",
+      "url": "https://www.indeed.com/m/viewjob?jk=9a1c3e5f7b2d4f60&from=serp&tk=1k5ert022g2vc801&xkcb=SoDo67M2du_704y4mR0CbzkdCdPP"
+    },
+    {
+      "title": "Research Assistant, Intelligence Practice",
+      "company": "Control Risks",
+      "location": "Remote",
+      "description": "Assist investigators with open-source research and due diligence reports.",
+      "details": ["Internship"],
+      "sponsored": true,
+      "date": "Just posted",
+      "isoDate": "2026-10-25T08:30:00.000Z",
+      "url": "https://www.indeed.com/m/viewjob?jk=0b2d4f6a8c1e3a57&from=serp&tk=1k5ert022g2vc801&xkcb=SoB167M2du_704y4mR0BbzkdCdPP"
+    },
+    {
+      "title": "Investigative Analyst",
+      "company": "NYC Department of Investigation",
+      "location": "New York, NY 10007",
+      "description": "Conduct background investigations and analyse records.",
+      "salary": {"min": 28.5, "max": 32.75, "type": "HOURLY", "currency": "USD"},
+      "details": [],
+      "sponsored": false,
+      "date": "30+ days ago",
+      "isoDate": "2026-09-18T04:27:57.508Z",
+      "url": "https://www.indeed.com/m/viewjob?jk=77aa55cc33ee11ff&from=serp"
+    }
+  ],
+  "pagination": {"nextPage": "https://www.indeed.com/m/jobs?q=geopolitical+analyst&l=New+York%2C+NY&sort=date&start=10"}
+}
