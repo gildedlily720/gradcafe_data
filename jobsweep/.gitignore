@@ -1,0 +1,2 @@
+# The repo root ignores *.html (gradcafe scrapes); the job board UI needs its HTML.
+!*.html
