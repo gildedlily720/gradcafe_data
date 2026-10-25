@@ -9,7 +9,7 @@ from __future__ import annotations
 import dataclasses
 import importlib.util
 import re
-from functools import lru_cache
+from functools import cache, lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -93,7 +93,17 @@ KNOWN_NYC_AGENCIES = {
     "POLICE DEPARTMENT",
     "PUBLIC ADVOCATE",
 }
-KNOWN_HIRING_PATHS = {"public", "fed", "graduates", "student", "vet", "mspouse", "disability", "native", "peace"}
+KNOWN_HIRING_PATHS = {
+    "public",
+    "fed",
+    "graduates",
+    "student",
+    "vet",
+    "mspouse",
+    "disability",
+    "native",
+    "peace",
+}
 
 
 # ---------------------------------------------------------------------------------------------------
@@ -120,7 +130,7 @@ def is_regex(term: str) -> bool:
     return len(term) > 2 and term.startswith("/") and term.endswith("/")
 
 
-@lru_cache(maxsize=None)
+@cache
 def compile_term(term: str) -> re.Pattern[str]:
     """Case-insensitive whole-word/phrase pattern; '/.../' terms are raw regexes."""
     if is_regex(term):
@@ -184,7 +194,10 @@ def test_document_shape_and_names() -> None:
         assert isinstance(lane["active"], bool)
     assert lane_by_id("political-risk")["name"] == "Political risk (incl. credit and political risk)"
     assert lane_by_id("fine-art-specie")["name"] == "Fine art, specie and jewelers block"
-    assert lane_by_id("nyc-mayors-office")["name"] == "NYC Mayor's Office and City Hall policy and research roles"
+    assert (
+        lane_by_id("nyc-mayors-office")["name"]
+        == "NYC Mayor's Office and City Hall policy and research roles"
+    )
     assert lane_by_id("real-estate")["name"] == "Real estate (Marx Realty internship pursuit, July 2026)"
 
 
@@ -280,7 +293,14 @@ def test_usajobs_mappings() -> None:
             continue
         with_usajobs += 1
         where = lane["id"]
-        assert set(mapping) <= {"keywords", "series", "hiring_path", "grade_low", "grade_high", "organization"}, where
+        assert set(mapping) <= {
+            "keywords",
+            "series",
+            "hiring_path",
+            "grade_low",
+            "grade_high",
+            "organization",
+        }, where
         assert mapping.get("keywords") and all(isinstance(k, str) and k for k in mapping["keywords"]), where
         for code in mapping.get("series") or []:
             assert isinstance(code, str) and re.fullmatch(r"\d{4}", code), f"{where}: series {code!r}"
@@ -313,7 +333,13 @@ def test_nycjobs_mappings_use_real_agency_strings() -> None:
         assert set(mapping) <= {"keywords", "agencies", "career_level"}, lane["id"]
         unknown = set(mapping.get("agencies") or []) - KNOWN_NYC_AGENCIES
         assert not unknown, f"{lane['id']}: unknown NYC agencies {unknown}"
-    for lane_id in ("district-attorney", "nyc-integrity", "nyc-mayors-office", "nys-agencies", "emergency-management"):
+    for lane_id in (
+        "district-attorney",
+        "nyc-integrity",
+        "nyc-mayors-office",
+        "nys-agencies",
+        "emergency-management",
+    ):
         assert lane_by_id(lane_id).get("nycjobs", {}).get("agencies"), lane_id
     assert "OFFICE OF EMERGENCY MANAGEMENT" in lane_by_id("emergency-management")["nycjobs"]["agencies"]
     assert "DEPARTMENT OF INVESTIGATION" in lane_by_id("nyc-integrity")["nycjobs"]["agencies"]

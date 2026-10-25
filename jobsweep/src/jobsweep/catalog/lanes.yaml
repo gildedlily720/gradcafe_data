@@ -46,11 +46,11 @@ groups:
                 "political and credit risk", "political & credit risk", "CPRI", "PRI underwriter",
                 "PRI underwriting", "PRI broker"]
         phrases: ["political risk insurance", "political risk cover", "contract frustration", "expropriation",
-                  "confiscation, expropriation", "CEND", "inconvertibility", "transfer restriction",
-                  "non-honouring", "non-honoring", "wrongful calling", "sovereign obligors",
-                  "non-payment insurance", "structured credit insurance", "export credit agency",
-                  "export credit agencies", "MIGA", "Berne Union", "licence cancellation",
-                  "license cancellation", "forced abandonment"]
+                  "confiscation, expropriation", "CEND", "inconvertibility", "non-honouring", "non-honoring",
+                  "wrongful calling", "sovereign obligors", "non-payment insurance",
+                  "structured credit insurance", "export credit agency", "export credit agencies", "MIGA",
+                  "Berne Union", "licence cancellation", "license cancellation", "forced abandonment",
+                  "currency transfer restriction"]
         context: ["underwriter", "underwriting", "broker", "broking", "Lloyd's", "London market", "syndicate",
                   "MGA", "insurer", "reinsurer", "trade finance", "project finance"]
         exclude: ["political campaign"]
@@ -84,10 +84,10 @@ groups:
                 "war and political risk", "war & political risks", "war and political risks", "hull war",
                 "marine war", "aviation war", "cargo war", "war underwriter", "war underwriting"]
         phrases: ["war risk insurance", "war risks insurance", "Joint War Committee", "JWC listed areas",
-                  "listed areas", "breach of trading warranties", "blocking and trapping", "blocking & trapping",
+                  "breach of trading warranties", "blocking and trapping", "blocking & trapping",
                   "war exclusion", "Institute War Clauses", "war and strikes", "war & strikes", "AVN48",
-                  "AVN 48B", "AVN52", "war, hijacking and other perils", "aviation war risks", "marine war risks",
-                  "hull war risks", "war risk P&I", "confiscation and deprivation"]
+                  "AVN 48B", "AVN52", "war, hijacking and other perils", "aviation war risks",
+                  "marine war risks", "hull war risks", "war risk P&I", "confiscation and deprivation"]
         context: ["Lloyd's", "syndicate", "hull", "cargo", "marine", "aviation", "London market", "underwriter",
                   "underwriting", "reinsurance", "shipping", "Red Sea", "Black Sea"]
         exclude: ["warehouse"]
@@ -101,11 +101,12 @@ groups:
                 "crisis management underwriter", "crisis management underwriting", "special crime", "extortion",
                 "hostage", "kidnap response", "crisis response consultant", "response consultant"]
         phrases: ["kidnap and ransom insurance", "kidnap & ransom insurance", "K&R insurance",
-                  "kidnap, ransom and extortion", "kidnap, ransom & extortion", "KR&E", "crisis management insurance",
-                  "wrongful detention", "express kidnap", "express kidnapping", "virtual kidnap",
-                  "virtual kidnapping", "illegal detention", "hijack", "ransom negotiation", "hostage negotiation",
-                  "hostage negotiator", "kidnap prevention", "extortion threats", "product extortion",
-                  "malicious product tampering", "crisis response consultancy", "special crime insurance"]
+                  "kidnap, ransom and extortion", "kidnap, ransom & extortion", "KR&E",
+                  "crisis management insurance", "wrongful detention", "express kidnap", "express kidnapping",
+                  "virtual kidnap", "virtual kidnapping", "illegal detention", "ransom negotiation",
+                  "hostage negotiation", "hostage negotiator", "kidnap prevention", "extortion threats",
+                  "product extortion", "malicious product tampering", "crisis response consultancy",
+                  "special crime insurance"]
         context: ["underwriter", "underwriting", "broker", "Lloyd's", "syndicate", "crisis management",
                   "security consultancy", "personal accident", "duty of care", "travel security", "MGA"]
         exclude: ["cyber", "ransomware", "incident response"]
@@ -121,11 +122,11 @@ groups:
                 "event cancellation", "event cancelation", "prize indemnity", "bloodstock", "personal accident",
                 "entertainment underwriter", "livestock underwriter", "accident & health underwriter",
                 "accident and health underwriter"]
-        phrases: ["contingency insurance", "event cancellation insurance", "non-appearance", "adverse weather",
+        phrases: ["contingency insurance", "event cancellation insurance", "non-appearance",
                   "weather contingency", "prize indemnity insurance", "hole-in-one", "over-redemption",
                   "death and disgrace", "death & disgrace", "film production insurance", "cast insurance",
-                  "sports disability", "career-ending disability", "bloodstock insurance", "livestock insurance",
-                  "equine insurance", "specialty accident", "special risks underwriting"]
+                  "sports disability", "career-ending disability", "bloodstock insurance",
+                  "livestock insurance", "equine insurance", "specialty accident", "special risks underwriting"]
         context: ["underwriter", "underwriting", "broker", "Lloyd's", "syndicate", "MGA", "coverholder", "binder",
                   "London market", "specialty"]
         exclude: ["special education", "special needs"]
@@ -143,9 +144,8 @@ groups:
                   "buyer risk", "accounts receivable insurance", "receivables insurance", "protracted default",
                   "surety bonds", "surety bond", "contract surety", "commercial surety", "performance bonds",
                   "bid bonds", "payment bonds", "bonding capacity", "Miller Act", "ship mortgage",
-                  "vessel valuations", "vessel finance", "shipowners", "ship financing", "credit memos",
-                  "credit memorandum", "financial statement analysis", "Allianz Trade", "Euler Hermes", "Coface",
-                  "Atradius"]
+                  "vessel valuations", "vessel finance", "shipowners", "ship financing", "credit memorandum",
+                  "financial statement analysis", "Allianz Trade", "Euler Hermes", "Coface", "Atradius"]
         context: ["underwriter", "underwriting", "financial statements", "credit risk", "broker", "insurer",
                   "portfolio", "trade finance", "receivables", "maritime", "shipping", "vessels", "counterparty"]
         exclude: ["mortgage", "consumer lending", "consumer credit", "credit card", "collections", "collector",
@@ -164,12 +164,11 @@ groups:
                 "reps and warranties", '/\bRWI\b/', '/\bR&W\b/', "M&A insurance", "tax insurance",
                 "contingent risk", "contingent risks", "transaction solutions"]
         phrases: ["representations and warranties insurance", "representations & warranties insurance",
-                  "R&W insurance", "RWI policy", "RWI policies", "W&I insurance", "warranty and indemnity insurance",
-                  "warranty & indemnity insurance", "buy-side policy", "buy-side policies", "sell-side policy",
-                  "tax liability insurance", "contingent liability insurance", "judgment preservation insurance",
-                  "litigation insurance", "transactional insurance", "transaction insurance", "deal insurance",
-                  "share purchase agreement", "sale and purchase agreement", "disclosure letter",
-                  "underwriting call"]
+                  "R&W insurance", "RWI policy", "RWI policies", "W&I insurance",
+                  "warranty and indemnity insurance", "warranty & indemnity insurance", "buy-side policy",
+                  "buy-side policies", "sell-side policy", "tax liability insurance",
+                  "contingent liability insurance", "judgment preservation insurance", "litigation insurance",
+                  "transactional insurance", "transaction insurance", "deal insurance", "underwriting call"]
         context: ["underwriter", "underwriting", "broker", "M&A", "private equity", "due diligence", "attorney",
                   "counsel", "Lloyd's", "deal", "transactions"]
         exclude: []
@@ -206,11 +205,11 @@ groups:
         title: ["fine art underwriter", "fine art underwriting", "fine art broker", "fine art & specie",
                 "fine art and specie", "specie", "art underwriter", "art & private client", "art and private client",
                 "jewellers block underwriter", "jewelers block underwriter", "cash in transit underwriter"]
-        phrases: ["fine art insurance", "specie insurance", "jewellers block", "jewelers block", "jeweller's block",
-                  "jeweler's block", "jewellers' block", "jewelers' block", "cash in transit", "cash-in-transit",
-                  "general specie", "vault risk", "vault risks", "precious metals storage", "nail-to-nail",
-                  "wall-to-wall cover", "fine art and collectibles", "collectibles insurance",
-                  "digital asset custody", "armored car", "armoured car", "loan exhibitions"]
+        phrases: ["fine art insurance", "specie insurance", "jewellers block", "jewelers block",
+                  "jeweller's block", "jeweler's block", "jewellers' block", "jewelers' block",
+                  "cash in transit", "cash-in-transit", "general specie", "vault risk", "vault risks",
+                  "precious metals storage", "nail-to-nail", "wall-to-wall cover", "fine art and collectibles",
+                  "collectibles insurance"]
         context: ["underwriter", "underwriting", "broker", "Lloyd's", "syndicate", "London market",
                   "high net worth", "private client", "bullion", "museums", "galleries", "vaults", "collectors"]
         exclude: ["teacher", "instructor", "professor", "handler", "installer", "photographer"]
@@ -259,11 +258,11 @@ groups:
                 '/\bP&I\b/', "protection & indemnity", "protection and indemnity", "marine liability",
                 "marine broker", "marine broking", "ocean marine", "inland marine", "marine claims",
                 "maritime analyst", "maritime intelligence"]
-        phrases: ["marine insurance", "cargo insurance", "P&I club", "P&I clubs", "International Group of P&I Clubs",
-                  "stock throughput", "freight forwarders liability", "charterers liability",
-                  "charterer's liability", "Institute Cargo Clauses", "marine surveyor", "vessel tracking",
-                  "dark fleet", "ship-to-ship transfers", "AIS data", "maritime domain awareness", "offshore energy",
-                  "yacht insurance", "Lloyd's List", "maritime security"]
+        phrases: ["marine insurance", "cargo insurance", "P&I club", "P&I clubs",
+                  "International Group of P&I Clubs", "stock throughput", "freight forwarders liability",
+                  "charterers liability", "charterer's liability", "Institute Cargo Clauses", "marine surveyor",
+                  "vessel tracking", "dark fleet", "ship-to-ship transfers", "AIS data",
+                  "maritime domain awareness", "yacht insurance", "Lloyd's List", "maritime security"]
         context: ["underwriter", "underwriting", "broker", "Lloyd's", "syndicate", "London market", "shipping",
                   "vessels", "ports", "freight", "logistics", "MGA", "claims"]
         exclude: ["marine biologist", "marine corps", "marine scientist", "marine mechanic", "deckhand",
@@ -280,10 +279,10 @@ groups:
                 "treaty underwriter", "treaty underwriting", "specialty broker", "specialty broking",
                 "wholesale broker", "wholesale broking", "Lloyd's broker", "London market broker",
                 "broking assistant", "broking technician", "placing broker"]
-        phrases: ["treaty reinsurance", "facultative reinsurance", "reinsurance placements", "reinsurance programmes",
-                  "reinsurance programs", "retrocession", "excess of loss", "quota share", "cedants", "cedent",
-                  "ceding companies", "reinsurance market", "reinsurers", "Lloyd's market", "market submissions",
-                  "MRC slip", "binding authorities", "delegated authority", "coverholders"]
+        phrases: ["treaty reinsurance", "facultative reinsurance", "reinsurance placements",
+                  "reinsurance programmes", "reinsurance programs", "retrocession", "excess of loss",
+                  "quota share", "cedants", "cedent", "ceding companies", "reinsurance market", "reinsurers",
+                  "Lloyd's market", "market submissions", "MRC slip", "binding authorities", "coverholders"]
         context: ["Lloyd's", "London market", "broker", "underwriter", "placement", "clients", "insurers",
                   "catastrophe modelling", "catastrophe modeling", "actuarial", "renewals", "analytics"]
         exclude: ["accountant", "accounting", "mortgage", "real estate", "freight"]
@@ -323,14 +322,14 @@ groups:
                 "intelligence specialist", "intelligence officer", "intelligence research",
                 "intelligence and analysis", "intelligence & analysis", "all-source analyst", "all source analyst",
                 "intelligence coordinator"]
-        phrases: ["all-source intelligence", "all-source analysis", "intelligence cycle", "intelligence requirements",
-                  "intelligence products", "intelligence assessments", "intelligence briefings",
-                  "analytic tradecraft", "structured analytic techniques", "estimative language",
-                  "indicators and warnings", "indications and warning", "strategic intelligence assessments",
-                  "intelligence collection", "collection requirements", "horizon scanning", "early warning",
-                  "risk intelligence platform", "Intelligence Community", "ICD 203", "analytic standards",
-                  "bottom line up front", "BLUF", "Analysis of Competing Hypotheses", "key judgments",
-                  "key judgements"]
+        phrases: ["all-source intelligence", "all-source analysis", "intelligence cycle",
+                  "intelligence requirements", "intelligence products", "intelligence assessments",
+                  "intelligence briefings", "analytic tradecraft", "structured analytic techniques",
+                  "estimative language", "indicators and warnings", "indications and warning",
+                  "strategic intelligence assessments", "intelligence collection", "collection requirements",
+                  "horizon scanning", "risk intelligence platform", "Intelligence Community", "ICD 203",
+                  "analytic standards", "bottom line up front", "BLUF", "Analysis of Competing Hypotheses",
+                  "key judgments", "key judgements"]
         context: ["geopolitical", "security", "risk", "briefings", "assessments", "clearance", "TS/SCI", "crisis",
                   "travel", "foreign language", "regional expertise", "open source", "reporting"]
         exclude: ["business intelligence", "BI analyst", "BI developer", "sales intelligence", "revenue intelligence",
@@ -356,7 +355,7 @@ groups:
                   "behavioral threat assessment and management", "BTAM", "concerning behavior",
                   "threat intelligence platform", "threat intelligence reports", "MITRE ATT&CK",
                   "indicators of compromise", "dark web", "deep and dark web", "adversary tactics", "TTPs",
-                  "nation-state actors", "physical threats", "online threats", "threats of violence", "threat vectors",
+                  "nation-state actors", "physical threats", "online threats", "threat vectors",
                   "threat analyses"]
         context: ["OSINT", "cyber", "physical security", "geopolitical", "executives", "social media", "extremism",
                   "investigations", "briefings", "monitoring", "alerts"]
@@ -376,11 +375,10 @@ groups:
                 "EP operations", "protective analyst", "protective detail"]
         phrases: ["protective intelligence program", "protective intelligence investigations",
                   "executive protection program", "executive protection team", "principals and their families",
-                  "security advances", "advance planning", "residential security", "motorcade",
-                  "close protection officers", "protectees", "protectee", "travel advances",
-                  "concerning communications", "inappropriate communications", "fixated persons",
-                  "fixated individuals", "public figures", "pathway to violence", "UHNW principals",
-                  "family office security"]
+                  "security advances", "residential security", "motorcade", "close protection officers",
+                  "protectees", "protectee", "travel advances", "concerning communications",
+                  "inappropriate communications", "fixated persons", "fixated individuals",
+                  "pathway to violence", "UHNW principals", "family office security"]
         context: ["threat assessment", "travel", "executives", "security operations", "OSINT",
                   "social media monitoring", "family office", "events", "risk"]
         exclude: ["child protective", "adult protective", "protective services worker", "caseworker", "case worker",
@@ -422,11 +420,10 @@ groups:
                 "operations center analyst", "operations centre analyst", "operations center specialist",
                 "fusion center", "fusion centre", "command center", "command centre", "intelligence watch"]
         phrases: ["global security operations center", "global security operations centre", "GSOC operator",
-                  "watch officers", "24/7 monitoring", "24/7/365", "24x7 operations", "real-time monitoring",
-                  "incident monitoring", "alarm monitoring", "access control monitoring", "CCTV",
-                  "video management system", "emergency notifications", "mass notification", "Everbridge",
-                  "Dataminr", "situational awareness", "flash alerts", "incident escalation", "rotating shifts",
-                  "overnight shifts", "physical security information management", "PSIM", "Genetec", "Lenel"]
+                  "watch officers", "24/7 monitoring", "24x7 operations", "incident monitoring",
+                  "alarm monitoring", "access control monitoring", "video management system",
+                  "emergency notifications", "mass notification", "Everbridge", "Dataminr", "flash alerts",
+                  "physical security information management", "PSIM", "Genetec", "Lenel"]
         context: ["security operations", "physical security", "monitoring", "incidents", "alerts", "shifts",
                   "travel", "executives", "crisis", "dispatch", "escalation"]
         exclude: ["cyber", "cybersecurity", '/\bSOC\b/', "information security", "infosec", "security engineer",
@@ -447,12 +444,12 @@ groups:
                 "insider risk", "security investigations", "security program analyst", "security planning"]
         phrases: ["security risk assessments", "security risk assessment", "physical security assessments",
                   "site security assessments", "crime prevention through environmental design", '/\bCPTED\b/',
-                  "access control systems", "enterprise security risk management", '/\bESRM\b/',
-                  "workplace violence prevention", "workplace violence", "NISPOM", "32 CFR Part 117",
-                  "personnel security investigations", "insider risk program", "insider threat program",
-                  "business continuity planning", "crisis and continuity", "resilience planning",
-                  "security incident reporting", "ASIS International", "Certified Protection Professional",
-                  "Physical Security Professional", "site security"]
+                  "access control systems", "enterprise security risk management", '/\bESRM\b/', "NISPOM",
+                  "32 CFR Part 117", "personnel security investigations", "insider risk program",
+                  "insider threat program", "business continuity planning", "crisis and continuity",
+                  "resilience planning", "security incident reporting", "ASIS International",
+                  "Certified Protection Professional", "Physical Security Professional", "site security",
+                  "workplace violence prevention program"]
         context: ["security operations", "risk assessment", "crisis management", "investigations", "executives",
                   "facilities", "travel", "compliance", "incident", "vendors", "guard force"]
         exclude: ["cyber", "cybersecurity", "information security", "infosec", "security engineer", "penetration",
@@ -475,9 +472,8 @@ groups:
         phrases: ["open source intelligence", "open-source intelligence", "open source investigations",
                   "open-source investigations", "open source research", "open-source research",
                   "publicly available information", "social media monitoring", "social media investigations",
-                  "social media intelligence", "SOCMINT", "geolocation", "chronolocation", "user-generated content",
-                  "satellite imagery", "Bellingcat", "Maltego", "digital footprint", "online footprint",
-                  "image verification", "video verification", "Telegram channels"]
+                  "social media intelligence", "SOCMINT", "geolocation", "chronolocation", "satellite imagery",
+                  "Bellingcat", "Maltego", "image verification", "video verification", "Telegram channels"]
         context: ["investigations", "social media", "verification", "journalism", "human rights", "research",
                   "languages", "reporting", "due diligence", "threat"]
         exclude: ["software", "engineer", "developer", "open source software", "OSPO", "license compliance"]
@@ -544,9 +540,10 @@ groups:
                   "electro-optical imagery", "RF geolocation", "radio frequency data", "signals data",
                   "defense industrial base", "national security customers", "intelligence community customers",
                   "defense technology", "defence technology", "dual-use", "DoD and IC", "IC and DoD",
-                  "mission partners", "warfighter", "warfighters", "battlespace", "C4ISR", '/\bISR\b/',
-                  "intelligence, surveillance and reconnaissance", "intelligence, surveillance, and reconnaissance",
-                  "Janes", "order of battle", "foreign military"]
+                  "warfighter", "warfighters", "battlespace", "C4ISR", '/\bISR\b/',
+                  "intelligence, surveillance and reconnaissance",
+                  "intelligence, surveillance, and reconnaissance", "Janes", "order of battle",
+                  "foreign military"]
         context: ["defense", "defence", "national security", "clearance", "DoD", "government", "data", "analytics",
                   "geospatial", "satellite", "intelligence community"]
         exclude: ["software engineer", "hardware engineer", "firmware", "mechanical engineer", "electrical engineer",
@@ -597,8 +594,8 @@ groups:
                   "pre-deal due diligence", "adverse media", "negative news", "adverse media screening",
                   "litigation searches", "regulatory records", "know your counterparty", "vendor due diligence",
                   "supplier due diligence", "partner due diligence", "anti-corruption due diligence",
-                  "FCPA due diligence", "FCPA", "UK Bribery Act", "anti-bribery and corruption", "ABAC",
-                  "World-Check", "Orbis", "Factiva", "LexisNexis Diligence", "Dow Jones Risk & Compliance"]
+                  "FCPA due diligence", "FCPA", "UK Bribery Act", "anti-bribery and corruption", "World-Check",
+                  "Orbis", "Factiva", "LexisNexis Diligence", "Dow Jones Risk & Compliance"]
         context: ["research", "reports", "compliance", "clients", "public records", "foreign language",
                   "corporate records", "litigation", "sanctions", "reputational"]
         exclude: ["cyber", "information security", "vendor security", "software"]
@@ -701,10 +698,9 @@ groups:
                 "trial assistant", "discovery specialist", "eDiscovery analyst", "e-discovery analyst",
                 "document review", "legal case analyst"]
         phrases: ["litigation support", "document productions", "document production", "privilege logs",
-                  "privilege review", "depositions", "trial preparation", "case files", "case management system",
-                  "court filings", "e-filing", "Relativity", "Bates numbering", "exhibit preparation",
-                  "trial exhibits", "discovery requests", "class action", "complex litigation", "mass torts",
-                  "multidistrict litigation", "subpoenas"]
+                  "privilege review", "depositions", "trial preparation", "court filings", "Relativity",
+                  "Bates numbering", "exhibit preparation", "trial exhibits", "discovery requests",
+                  "class action", "complex litigation", "mass torts", "multidistrict litigation", "subpoenas"]
         context: ["law firm", "attorneys", "litigation", "discovery", "court", "legal", "cases", "deadlines",
                   "Westlaw", "LexisNexis", "PACER"]
         exclude: ["attorney", "counsel", "partner", "nurse", "medical", "utilization", "clinical", "benefits"]
@@ -724,10 +720,11 @@ groups:
                 "mitigation investigator", "capital mitigation", "sentencing mitigation", "sentencing advocate",
                 "post-conviction", "wrongful conviction", "innocence", "public defense"]
         phrases: ["public defender", "public defender's office", "indigent defense", "criminal defense",
-                  "defense team", "holistic defense", "mitigation investigation", "mitigation investigations",
+                  "holistic defense", "mitigation investigation", "mitigation investigations",
                   "witness interviews", "interviewing witnesses", "locate witnesses", "serve subpoenas",
-                  "Legal Aid Society", "Bronx Defenders", "Brooklyn Defender Services", "Neighborhood Defender Service",
-                  "New York County Defender Services", "Federal Defenders", "Innocence Project", "Queens Defenders"]
+                  "Legal Aid Society", "Bronx Defenders", "Brooklyn Defender Services",
+                  "Neighborhood Defender Service", "New York County Defender Services", "Federal Defenders",
+                  "Innocence Project", "Queens Defenders"]
         context: ["investigation", "clients", "criminal", "court", "interviews", "records", "trial", "attorneys",
                   "Spanish", "community"]
         exclude: ["attorney", "staff attorney", "lawyer", "counsel"]
@@ -783,12 +780,12 @@ groups:
         active: true
         title: ["geopolitical", "geopolitics", "geostrategic", "geostrategy", "global risk", "international risk",
                 "global affairs", "world affairs", "strategic risk analyst", "global issues"]
-        phrases: ["geopolitical risk", "geopolitical analysis", "geopolitical developments", "geopolitical events",
-                  "geopolitical trends", "geopolitical landscape", "geopolitical intelligence", "global risk analysis",
-                  "global risks", "strategic foresight", "political and security developments",
-                  "regional security developments", "conflict analysis", "conflict monitoring", "conflict trends",
-                  "armed conflict", "great power competition", "geopolitical consulting", "security environment",
-                  "risk briefings", "client briefings"]
+        phrases: ["geopolitical risk", "geopolitical analysis", "geopolitical developments",
+                  "geopolitical events", "geopolitical trends", "geopolitical landscape",
+                  "geopolitical intelligence", "global risk analysis", "global risks", "strategic foresight",
+                  "political and security developments", "regional security developments", "conflict analysis",
+                  "conflict monitoring", "conflict trends", "armed conflict", "great power competition",
+                  "geopolitical consulting", "risk briefings"]
         context: ["international affairs", "foreign policy", "elections", "conflict", "security", "regional",
                   "clients", "writing", "briefings", "research", "forecasts"]
         exclude: ["credit risk", "market risk", "model risk", "operational risk", "liquidity risk", "counterparty risk",
@@ -805,12 +802,12 @@ groups:
                 "political intelligence", "political scientist", "political forecasting", "forecasting research",
                 "forecasting researcher", "forecaster", "superforecaster", "election analyst", "elections analyst",
                 "polling analyst", "public opinion research", "Washington research", "Washington policy analyst"]
-        phrases: ["forecasting questions", "probabilistic forecasts", "probabilistic forecasting", "forecasting platform",
-                  "prediction markets", "prediction market", "Good Judgment", "Metaculus", "superforecasters",
-                  "Brier score", "election forecasts", "election forecasting", "election modeling", "polling data",
-                  "public opinion polling", "survey research", "legislative outlook", "policy outlook",
-                  "political outlook", "Washington policy research", "base rates", "scenario forecasting",
-                  "geopolitical forecasting"]
+        phrases: ["forecasting questions", "probabilistic forecasts", "probabilistic forecasting",
+                  "forecasting platform", "prediction markets", "prediction market", "Good Judgment",
+                  "Metaculus", "superforecasters", "Brier score", "election forecasts", "election forecasting",
+                  "election modeling", "polling data", "public opinion polling", "survey research",
+                  "legislative outlook", "policy outlook", "political outlook", "Washington policy research",
+                  "scenario forecasting", "geopolitical forecasting"]
         context: ["elections", "Congress", "legislation", "campaigns", "public opinion", "investors", "clients", "data",
                   "statistics", "writing"]
         exclude: ["weather", "meteorologist", "meteorology", "demand", "sales", "inventory", "supply chain", "FP&A",
@@ -828,10 +825,9 @@ groups:
                 "economic research assistant"]
         phrases: ["geoeconomics", "geoeconomic", "economic statecraft", "economic coercion", "economic warfare",
                   "financial statecraft", "investment screening", "inbound investment screening",
-                  "outbound investment", "CFIUS", "industrial policy", "friend-shoring", "friendshoring", "reshoring",
-                  "nearshoring", "de-risking", "decoupling", "trade war", "trade wars", "critical minerals",
-                  "Belt and Road", "dollar dominance", "de-dollarization", "economic interdependence",
-                  "global trade flows"]
+                  "outbound investment", "CFIUS", "industrial policy", "friend-shoring", "friendshoring",
+                  "reshoring", "de-risking", "trade war", "trade wars", "critical minerals", "Belt and Road",
+                  "dollar dominance", "de-dollarization", "economic interdependence", "global trade flows"]
         context: ["tariffs", "China", "trade", "macroeconomics", "investment", "sanctions", "supply chains", "policy",
                   "think tank", "data"]
         exclude: ["trader", "trading", "customs broker", "freight", "logistics"]
@@ -869,9 +865,9 @@ groups:
                 "supply chain transparency", "supply chain mapping", "supplier risk", "responsible sourcing",
                 "ethical sourcing", "social compliance", "supply chain compliance", "labor rights", "labour rights",
                 "human rights due diligence"]
-        phrases: ["forced labor", "forced labour", "modern slavery", "Uyghur Forced Labor Prevention Act", "UFLPA",
-                  "Withhold Release Order", "withhold release orders", "Section 307", "human trafficking",
-                  "child labor", "child labour", "Xinjiang", "supplier audits", "social audits", "traceability",
+        phrases: ["forced labor", "forced labour", "modern slavery", "Uyghur Forced Labor Prevention Act",
+                  "UFLPA", "Withhold Release Order", "withhold release orders", "Section 307",
+                  "human trafficking", "child labor", "child labour", "Xinjiang", "social audits",
                   "sub-tier suppliers", "Corporate Sustainability Due Diligence Directive", '/\bCSDDD\b/',
                   "German Supply Chain Act", "LkSG", "OECD Due Diligence Guidance", "UN Guiding Principles",
                   "conflict minerals", "EU Deforestation Regulation", "Modern Slavery Act"]
@@ -907,11 +903,11 @@ groups:
         active: true
         title: ["expert network", "expert networks", "custom research", "primary research analyst",
                 "primary research associate", "client service associate", "expert sourcing", "expert recruitment"]
-        phrases: ["expert network firm", "expert calls", "expert consultations", "industry experts", "primary research",
-                  "custom research projects", "investment professionals", "private equity and hedge fund clients",
+        phrases: ["expert network firm", "expert calls", "expert consultations", "primary research",
+                  "custom research projects", "private equity and hedge fund clients",
                   "consulting firms and investors", "AlphaSights", "GLG", "Guidepoint", "Third Bridge", "Tegus",
                   "Coleman Research", "Dialectica", "Atheneum", "Capvision", "Arbolus", "NewtonX",
-                  "qualitative research", "in-depth interviews", "channel checks"]
+                  "channel checks"]
         context: ["clients", "investors", "consulting", "private equity", "hedge funds", "research", "sourcing",
                   "outreach", "fast-paced"]
         exclude: ["clinical research", "lab", "laboratory", "scientist"]
@@ -995,12 +991,13 @@ groups:
         title: ['/\bAML\b/', '/\bKYC\b/', '/\bBSA\b/', '/\bCDD\b/', "client onboarding", "transaction monitoring",
                 "financial crimes investigator", "financial crime investigator", "financial crimes analyst",
                 "financial crime analyst", "periodic review analyst"]
-        phrases: ["money laundering", "know your customer", "customer due diligence", "suspicious activity reports",
-                  "suspicious activity report", "suspicious activity", "SAR filings", "SAR filing", "SAR narratives",
-                  "Bank Secrecy Act", "BSA/AML", "transaction monitoring alerts", "alert review", "source of funds",
-                  "source of wealth", "politically exposed persons", "PEP screening", "FinCEN", "USA PATRIOT Act",
+        phrases: ["money laundering", "know your customer", "customer due diligence",
+                  "suspicious activity reports", "suspicious activity report", "suspicious activity",
+                  "SAR filings", "SAR filing", "SAR narratives", "Bank Secrecy Act", "BSA/AML",
+                  "transaction monitoring alerts", "source of funds", "source of wealth",
+                  "politically exposed persons", "PEP screening", "FinCEN", "USA PATRIOT Act",
                   '/\b(?-i:CAMS)\b/', "ACAMS", "correspondent banking", "trade-based money laundering",
-                  "money mules", "periodic reviews", "KYC refresh"]
+                  "money mules", "KYC refresh"]
         context: ["banking", "compliance", "investigations", "financial institutions", "transactions", "risk",
                   "sanctions", "fraud", "regulatory", "case management", "Actimize"]
         exclude: ["leukemia", "oncology", "clinical", "HR onboarding", "employee onboarding", "nurse"]
@@ -1016,12 +1013,13 @@ groups:
         title: ["financial intelligence", '/\bFIU\b/', "financial crime risk", "financial crimes risk",
                 "financial crime intelligence", "financial crimes intelligence", "fincrime", "financial crime",
                 "financial crimes", "economic crime"]
-        phrases: ["financial crime risk assessment", "financial crime risk assessments", "enterprise-wide risk assessment",
-                  "typologies", "financial crime typologies", "red flag indicators", "network analysis",
-                  "link analysis", "intelligence-led", "proactive investigations", "law enforcement requests",
-                  "314(b) information sharing", "public-private partnership", "Egmont Group", "FATF",
-                  "Financial Action Task Force", "mutual evaluation", "national risk assessment", "FinCEN advisories",
-                  "financial intelligence units", "Joint Money Laundering Intelligence Taskforce", '/\bJMLIT\b/']
+        phrases: ["financial crime risk assessment", "financial crime risk assessments",
+                  "enterprise-wide risk assessment", "typologies", "financial crime typologies",
+                  "red flag indicators", "link analysis", "intelligence-led", "proactive investigations",
+                  "law enforcement requests", "314(b) information sharing", "Egmont Group", "FATF",
+                  "Financial Action Task Force", "mutual evaluation", "national risk assessment",
+                  "FinCEN advisories", "financial intelligence units",
+                  "Joint Money Laundering Intelligence Taskforce", '/\bJMLIT\b/']
         context: ["AML", "sanctions", "fraud", "data analytics", "SQL", "law enforcement", "banking", "regulators",
                   "compliance", "reporting"]
         exclude: ["leukemia", "clinical"]
@@ -1063,12 +1061,13 @@ groups:
                 "cryptocurrency investigations", "crypto compliance", "crypto intelligence",
                 "digital asset investigations", "digital asset compliance", "on-chain analyst", "on-chain investigator",
                 "onchain analyst", "virtual asset"]
-        phrases: ["blockchain analytics", "on-chain analysis", "on-chain data", "onchain data", "cryptocurrency tracing",
-                  "crypto tracing", "blockchain forensics", "crypto forensics", "virtual asset service providers",
-                  '/\bVASPs?\b/', "darknet markets", "darknet market", "crypto mixers", "ransomware payments",
-                  "pig butchering", "crypto scams", "crypto fraud", "illicit crypto", "Chainalysis Reactor",
-                  "Chainalysis", "TRM Labs", "Elliptic", "Crystal Blockchain", "Merkle Science", "wallet attribution",
-                  "address attribution", "Lazarus Group", "Travel Rule", "DeFi exploits"]
+        phrases: ["blockchain analytics", "on-chain analysis", "on-chain data", "onchain data",
+                  "cryptocurrency tracing", "crypto tracing", "blockchain forensics", "crypto forensics",
+                  "virtual asset service providers", '/\bVASPs?\b/', "darknet markets", "darknet market",
+                  "crypto mixers", "ransomware payments", "pig butchering", "crypto scams", "crypto fraud",
+                  "illicit crypto", "Chainalysis Reactor", "Chainalysis", "TRM Labs", "Crystal Blockchain",
+                  "Merkle Science", "wallet attribution", "address attribution", "Lazarus Group", "Travel Rule",
+                  "DeFi exploits"]
         context: ["Bitcoin", "Ethereum", "stablecoins", "DeFi", "wallets", "exchanges", "law enforcement", "AML",
                   "sanctions", "cybercrime", "compliance"]
         exclude: ["software engineer", "developer", "smart contract engineer", "trader", "trading", "marketing",
@@ -1087,10 +1086,10 @@ groups:
                 "regulatory investigations", "investigations & compliance", "investigative compliance",
                 "anti-bribery"]
         phrases: ["compliance investigations", "internal investigations team", "allegations of misconduct",
-                  "misconduct allegations", "whistleblower complaints", "whistleblower reports", "ethics hotline",
-                  "speak-up reports", "code of conduct violations", "investigative interviews",
-                  "anti-bribery and corruption", "FCPA compliance", "gifts and entertainment", "regulatory inquiries",
-                  "investigation reports", "conflicts of interest"]
+                  "misconduct allegations", "whistleblower complaints", "whistleblower reports",
+                  "ethics hotline", "speak-up reports", "code of conduct violations",
+                  "investigative interviews", "anti-bribery and corruption", "FCPA compliance",
+                  "gifts and entertainment", "regulatory inquiries", "investigation reports"]
         context: ["compliance", "investigations", "ethics", "interviews", "legal", "policies", "risk", "regulators",
                   "reporting", "data analysis"]
         exclude: ["HIPAA", "healthcare compliance", "IT compliance", "SOX", "environmental", "EHS", "OSHA", "quality",
@@ -1108,12 +1107,12 @@ groups:
                 "surveillance analyst", "surveillance associate", "trading surveillance", "market regulation",
                 "market integrity", "market abuse", "insider trading", "securities enforcement", "associate examiner",
                 "securities examiner", "regulatory examiner", "market oversight"]
-        phrases: ["market manipulation", "spoofing", "layering", "wash trading", "front running", "front-running",
-                  "insider dealing", "surveillance alerts", "Consolidated Audit Trail", "FINRA rules",
+        phrases: ["market manipulation", "wash trading", "front running", "front-running", "insider dealing",
+                  "surveillance alerts", "Consolidated Audit Trail", "FINRA rules",
                   "SEC Division of Enforcement", "Division of Enforcement", "self-regulatory organization",
                   "Securities Exchange Act", "Rule 10b-5", "Regulation SHO", "best execution",
                   "electronic communications surveillance", "Commodity Exchange Act", "market conduct",
-                  "market abuse regulation"]
+                  "market abuse regulation", "spoofing and layering"]
         context: ["FINRA", "SEC", "CFTC", "broker-dealers", "equities", "options", "futures", "trading", "compliance",
                   "regulatory", "investigations"]
         exclude: ["epidemiologist", "epidemiology", "public health", "disease", "infection", "casino", "nurse", "video"]
@@ -1137,12 +1136,12 @@ groups:
                 "content reviewer", "platform integrity", "integrity analyst", "integrity operations",
                 "integrity specialist", "site integrity", "community standards", "user safety", "online safety",
                 "platform policy", "product policy", "safety policy"]
-        phrases: ["content moderation", "community guidelines", "harmful content", "child sexual abuse material",
-                  '/\bCSAM\b/', "child safety", "hate speech", "harassment and bullying", "self-harm",
-                  "graphic violence", "platform manipulation", "inauthentic behavior", "Digital Services Act",
-                  "Online Safety Act", "Ofcom", "eSafety", "transparency reports", "content policies",
-                  "integrity teams", "TSPA", "Trust & Safety Professional Association", "harm types", "online harms",
-                  "policy escalations"]
+        phrases: ["content moderation", "community guidelines", "harmful content",
+                  "child sexual abuse material", '/\bCSAM\b/', "hate speech", "graphic violence",
+                  "platform manipulation", "inauthentic behavior", "Digital Services Act", "Online Safety Act",
+                  "Ofcom", "eSafety", "transparency reports", "content policies", "integrity teams", "TSPA",
+                  "Trust & Safety Professional Association", "harm types", "online harms", "policy escalations",
+                  "online child safety"]
         context: ["policy", "enforcement", "escalations", "operations", "investigations", "data analysis", "SQL",
                   "platform", "users", "safety", "moderation"]
         exclude: ["software engineer", "engineer", "account executive", "sales", "recruiter", "data engineer",
@@ -1160,11 +1159,11 @@ groups:
                 "enforcement operations", "abuse analyst", "abuse investigator", "abuse investigations", "anti-abuse",
                 "abuse operations", "abuse prevention", "AI safety", "model safety", "misuse", "account integrity",
                 "scaled abuse", "safety operations"]
-        phrases: ["usage policies", "usage policy", "acceptable use policy", "acceptable use policies", "abuse patterns",
-                  "abuse detection", "misuse of AI", "AI misuse", "model misuse", "harmful use",
-                  "dangerous capabilities", "CBRN", "jailbreaks", "jailbreak", "red teaming", "red-teaming",
-                  "enforcement actions", "account suspensions", "abuse reports", "scaled enforcement",
-                  "coordinated abuse", "malicious actors", "policy violations", "frontier AI", "responsible scaling",
+        phrases: ["usage policies", "usage policy", "acceptable use policy", "acceptable use policies",
+                  "abuse patterns", "abuse detection", "misuse of AI", "AI misuse", "model misuse",
+                  "harmful use", "dangerous capabilities", "CBRN", "jailbreaks", "jailbreak", "red teaming",
+                  "red-teaming", "account suspensions", "abuse reports", "scaled enforcement",
+                  "coordinated abuse", "malicious actors", "frontier AI", "responsible scaling",
                   "safety evaluations"]
         context: ["AI", "LLM", "machine learning", "classifiers", "policy", "investigations", "SQL", "Python",
                   "trust and safety", "escalation", "operations"]
@@ -1281,10 +1280,10 @@ groups:
                 "defense strategy", "defence strategy", "international security", "security studies", "space policy",
                 "deterrence", "intelligence policy"]
         phrases: ["national security policy", "foreign and defense policy", "defense and foreign policy",
-                  "U.S. national security", "US national security", "Department of Defense", "Department of War",
-                  "Pentagon", "National Security Council", "nuclear deterrence", "Indo-Pacific security",
-                  "transatlantic security", "NATO", "defense budget", "force posture", "military strategy",
-                  "wargaming", "wargames", "national security community", "Congressional Research Service"]
+                  "U.S. national security", "US national security", "Pentagon", "National Security Council",
+                  "nuclear deterrence", "Indo-Pacific security", "transatlantic security", "NATO",
+                  "defense budget", "force posture", "military strategy", "wargaming", "wargames",
+                  "national security community", "Congressional Research Service"]
         context: ["think tank", "research", "Congress", "defense", "foreign policy", "clearance", "writing", "events",
                   "fellowship", "China", "Russia", "Middle East"]
         exclude: ["sales", "account executive", "account manager", "account director", "business development",
@@ -1324,13 +1323,13 @@ groups:
         title: ["research associate", "research assistant", "research fellow", "junior fellow", "research coordinator",
                 "program associate", "research analyst", "policy associate", "policy fellow",
                 "research and program assistant"]
-        phrases: ["think tank", "think-tank", "nonpartisan research", "non-partisan research", "public policy research",
-                  "policy briefs", "policy papers", "white papers", "op-eds", "senior fellows", "convenings",
-                  "roundtables", "Brookings", "Center for Strategic and International Studies", "CSIS",
-                  "Carnegie Endowment", "RAND Corporation", "Atlantic Council", "Wilson Center", "Hudson Institute",
-                  "American Enterprise Institute", "Center for a New American Security", "Stimson Center",
-                  "Chatham House", "International Institute for Strategic Studies", "Royal United Services Institute",
-                  "RUSI", "Peterson Institute", "German Marshall Fund"]
+        phrases: ["think tank", "think-tank", "nonpartisan research", "non-partisan research",
+                  "public policy research", "policy briefs", "policy papers", "op-eds", "senior fellows",
+                  "convenings", "roundtables", "Brookings", "Center for Strategic and International Studies",
+                  "CSIS", "Carnegie Endowment", "RAND Corporation", "Atlantic Council", "Wilson Center",
+                  "Hudson Institute", "American Enterprise Institute", "Center for a New American Security",
+                  "Stimson Center", "Chatham House", "International Institute for Strategic Studies",
+                  "Royal United Services Institute", "RUSI", "Peterson Institute", "German Marshall Fund"]
         context: ["policy", "research", "writing", "editing", "events", "publications", "literature reviews",
                   "data analysis", "Washington", "scholars"]
         exclude: ["clinical", "laboratory", "lab", "biology", "chemistry", "biochemistry", "molecular", "medical",
@@ -1348,12 +1347,12 @@ groups:
                 "associate expert", "associate programme officer", "programme officer", "UN programme officer",
                 "programme management officer", "humanitarian affairs officer", "human rights officer",
                 "political affairs officer", "UN volunteer", '/\bUNV\b/', "programme analyst", "programme associate"]
-        phrases: ["United Nations", "UN agencies", "UN system", "multilateral organizations", "multilateral organisations",
-                  "international organizations", "international organisations", "intergovernmental organization",
-                  "intergovernmental organisation", "OSCE", "OECD",
-                  "World Bank", "International Monetary Fund", "UNDP", "UNHCR", "UNICEF", "UN Security Council",
-                  "General Assembly", "UN Secretariat", "Inspira", "International Committee of the Red Cross",
-                  '/\bICRC\b/', "International Crisis Group", "Human Rights Watch", "Amnesty International",
+        phrases: ["United Nations", "UN agencies", "UN system", "multilateral organizations",
+                  "multilateral organisations", "international organizations", "international organisations",
+                  "intergovernmental organization", "intergovernmental organisation", "OSCE", "World Bank",
+                  "International Monetary Fund", "UNDP", "UNHCR", "UNICEF", "UN Security Council",
+                  "UN Secretariat", "Inspira", "International Committee of the Red Cross", '/\bICRC\b/',
+                  "International Crisis Group", "Human Rights Watch", "Amnesty International",
                   "international NGO", "INGO", "Interpol", "Europol", "UNODC"]
         context: ["international", "multilateral", "development", "humanitarian", "policy", "field", "languages",
                   "French", "Spanish", "Arabic", "missions", "member states"]
@@ -1396,13 +1395,14 @@ groups:
                 "telecommunications policy", "regulatory policy", "financial regulation", "financial services policy",
                 "fintech policy", "crypto policy", "digital assets policy", "cyber policy", "cybersecurity policy",
                 "privacy policy", "data policy", "competition policy", "antitrust", "public policy", "regulatory affairs"]
-        phrases: ["digital regulation", "tech regulation", "platform regulation", "AI regulation", "Digital Markets Act",
-                  "Digital Services Act", "data protection regulation", '/\bGDPR\b/', "privacy legislation",
-                  "net neutrality", "spectrum policy", "broadband policy", "Section 230", "competition law",
+        phrases: ["digital regulation", "tech regulation", "platform regulation", "AI regulation",
+                  "Digital Markets Act", "Digital Services Act", "privacy legislation", "net neutrality",
+                  "spectrum policy", "broadband policy", "Section 230", "competition law",
                   "antitrust enforcement", "Federal Trade Commission", "Federal Communications Commission",
                   "financial regulatory reform", "Dodd-Frank", "Basel III", "capital requirements",
-                  "prudential regulation", "payments regulation", "stablecoin legislation", "digital asset regulation",
-                  "consumer financial protection", "CFPB", "rulemaking", "comment letters", "regulatory developments"]
+                  "prudential regulation", "payments regulation", "stablecoin legislation",
+                  "digital asset regulation", "consumer financial protection", "CFPB", "rulemaking",
+                  "comment letters", "regulatory developments"]
         context: ["technology", "regulation", "Congress", "regulators", "privacy", "AI", "fintech", "banking", "payments",
                   "telecom", "Brussels"]
         exclude: ["pharma", "pharmaceutical", "clinical", "FDA", "medical device", "drug", "biologics", "CMC", "nurse",
@@ -1494,10 +1494,10 @@ groups:
                 "research editor", "reporter", "news assistant", "news researcher", "editorial researcher",
                 "writer-researcher"]
         phrases: ["fact-checking", "fact checking", "copy editing", "copyediting", "line editing", "AP style",
-                  "Chicago Manual of Style", "editorial calendar", "long-form", "longform", "investigative journalism",
-                  "investigative reporting", "newsroom", "constituent correspondence", "correspondence unit",
-                  "executive correspondence", "draft responses", "op-eds", "research and writing", "writing sample",
-                  "writing samples"]
+                  "Chicago Manual of Style", "editorial calendar", "long-form", "longform",
+                  "investigative journalism", "investigative reporting", "newsroom",
+                  "constituent correspondence", "correspondence unit", "executive correspondence", "op-eds",
+                  "research and writing"]
         context: ["writing", "editing", "research", "journalism", "publications", "deadlines", "editorial",
                   "interviews", "sources", "accuracy"]
         exclude: ["technical writer", "copywriter", "UX writer", "content writer", "grant writer", "medical writer",
@@ -1523,13 +1523,14 @@ groups:
                 "communications assistant", "communications specialist", "communications consultant",
                 "communications research", "corporate communications", "public relations", "PR associate",
                 "PR coordinator", "comms associate", "internal communications", "communications officer"]
-        phrases: ["strategic communications firm", "strategic communications consultancy", "strategic advisory firm",
-                  "stakeholder communications", "corporate reputation", "message development", "messaging strategy",
-                  "narrative development", "communications strategy", "communications strategies",
-                  "executive positioning", "thought leadership", "media training", "press releases", "talking points",
-                  "op-ed placement", "M&A communications", "financial communications", "investor communications",
-                  "shareholder activism", "Teneo", "FGS Global", "Brunswick Group", "Edelman", "Kekst CNC",
-                  "APCO Worldwide", "Joele Frank", "Finsbury", "Sard Verbinnen", "Weber Shandwick"]
+        phrases: ["strategic communications firm", "strategic communications consultancy",
+                  "strategic advisory firm", "stakeholder communications", "corporate reputation",
+                  "message development", "messaging strategy", "narrative development",
+                  "communications strategy", "communications strategies", "executive positioning",
+                  "media training", "press releases", "talking points", "op-ed placement", "M&A communications",
+                  "financial communications", "investor communications", "shareholder activism", "Teneo",
+                  "FGS Global", "Brunswick Group", "Edelman", "Kekst CNC", "APCO Worldwide", "Joele Frank",
+                  "Finsbury", "Sard Verbinnen", "Weber Shandwick"]
         context: ["clients", "media", "research", "writing", "messaging", "reputation", "stakeholders", "press",
                   "campaigns", "social media", "agency"]
         exclude: ["telecommunications", "communications engineer", "communications technician", "radio", "dispatcher",
@@ -1548,11 +1549,10 @@ groups:
                 "issues & crisis", "issues and crisis", "crisis & issues", "crisis and issues", "rapid response",
                 "litigation communications", "crisis PR", "crisis & reputation", "crisis and reputation",
                 "risk communications", "risk communication", "emergency communications"]
-        phrases: ["crisis preparedness", "crisis simulations", "crisis simulation", "tabletop exercises",
-                  "holding statements", "reactive statements", "reputational crises", "reputational crisis",
-                  "high-stakes situations", "special situations", "media inquiries", "cyber incident communications",
-                  "data breach response", "rapid response communications", "incident communications",
-                  "escalation protocols", "crisis communications planning", "crisis communications plans"]
+        phrases: ["crisis preparedness", "crisis simulations", "crisis simulation", "holding statements",
+                  "reactive statements", "reputational crises", "reputational crisis", "high-stakes situations",
+                  "media inquiries", "cyber incident communications", "rapid response communications",
+                  "crisis communications planning", "crisis communications plans"]
         context: ["media", "reputation", "stakeholders", "press", "legal", "executives", "social media", "clients",
                   "monitoring", "response"]
         exclude: ["911", "dispatcher", "telecommunicator", "radio", "nurse", "crisis counselor", "mental health",
@@ -1569,11 +1569,11 @@ groups:
                 "intergovernmental affairs", "external affairs", "community affairs", "corporate affairs", "lobbyist",
                 "lobbying", "federal affairs", "state affairs", "community relations", "stakeholder engagement",
                 "public engagement", "legislative affairs"]
-        phrases: ["government affairs team", "government relations firm", "lobbying firm", "lobbying disclosure",
-                  "Lobbying Disclosure Act", "registered lobbyist", "elected officials", "public officials",
-                  "legislative and regulatory", "stakeholder outreach", "issue advocacy", "public affairs campaigns",
-                  "public affairs firm", "grassroots and grasstops", "grasstops", "policymakers", "state legislators",
-                  "federal agencies", "political action committee"]
+        phrases: ["government affairs team", "government relations firm", "lobbying firm",
+                  "lobbying disclosure", "Lobbying Disclosure Act", "registered lobbyist", "elected officials",
+                  "public officials", "legislative and regulatory", "stakeholder outreach", "issue advocacy",
+                  "public affairs campaigns", "public affairs firm", "grassroots and grasstops", "grasstops",
+                  "policymakers", "state legislators", "political action committee"]
         context: ["Congress", "legislation", "policy", "advocacy", "stakeholders", "regulators", "Washington",
                   "communications", "events", "coalition"]
         exclude: ["sales", "account executive"]
@@ -1592,12 +1592,12 @@ groups:
                 "reputation analyst", "reputation research", "reputation management", "reputation intelligence",
                 "stakeholder analysis", "stakeholder research", "stakeholder mapping", "stakeholder intelligence",
                 "sentiment analyst", "perception research", "opposition research", "opposition researcher"]
-        phrases: ["media coverage analysis", "coverage analysis", "share of voice", "sentiment analysis", "earned media",
+        phrases: ["media coverage analysis", "coverage analysis", "share of voice", "earned media",
                   "reputational analysis", "reputation tracking", "reputation audits", "reputation audit",
                   "stakeholder perceptions", "stakeholder maps", "perception audits", "perception surveys",
-                  "narrative analysis", "media landscape", "media audits", "message testing", "opinion research",
-                  "public perception", "Meltwater", "Cision", "Signal AI", "Talkwalker", "Brandwatch", "NewsWhip",
-                  "Factiva"]
+                  "narrative analysis", "media landscape", "media audits", "message testing",
+                  "opinion research", "Meltwater", "Cision", "Signal AI", "Talkwalker", "Brandwatch",
+                  "NewsWhip", "Factiva"]
         context: ["communications", "reputation", "media", "stakeholders", "research", "data analysis", "reports",
                   "clients", "social media", "executives"]
         exclude: ["paid media", "media buyer", "media planner", "social media manager", "media sales", "programmatic",
@@ -1615,10 +1615,9 @@ groups:
                 "audience insights", "digital insights", "policy monitoring", "legislative monitoring",
                 "regulatory monitoring"]
         phrases: ["daily briefings", "morning briefings", "news briefings", "news summaries", "clips reports",
-                  "press clips", "monitoring reports", "social media listening", "listening tools", "trend analysis",
-                  "emerging issues", "issue tracking", "policy tracking", "regulatory tracking",
-                  "monitoring and analysis", "insights reports", "Meltwater", "Brandwatch", "Sprinklr", "Dataminr",
-                  "Muck Rack", "Quorum", "FiscalNote", "Politico Pro"]
+                  "press clips", "monitoring reports", "social media listening", "listening tools",
+                  "policy tracking", "regulatory tracking", "insights reports", "Meltwater", "Brandwatch",
+                  "Sprinklr", "Dataminr", "Muck Rack", "FiscalNote", "Politico Pro"]
         context: ["news", "media", "social media", "research", "reports", "clients", "communications", "data",
                   "alerts", "policy"]
         exclude: ["transaction monitoring", "network monitoring", "IT monitoring", "systems monitoring",
@@ -1734,12 +1733,13 @@ groups:
         title: ["Federal Reserve", "New York Fed", "NY Fed", "FRBNY", "bank supervision", "supervision analyst",
                 "supervisory analyst", "financial institution supervision", "bank examiner trainee",
                 "supervision associate", "Fed research analyst"]
-        phrases: ["Federal Reserve Bank of New York", "Federal Reserve System", "monetary policy implementation",
-                  "open market operations", "Markets Group", "Supervision Group", "Research and Statistics Group",
+        phrases: ["Federal Reserve Bank of New York", "Federal Reserve System",
+                  "monetary policy implementation", "open market operations", "Markets Group",
+                  "Supervision Group", "Research and Statistics Group",
                   "Financial Institution Supervision Group", "Liberty Street Economics",
-                  "Federal Open Market Committee", '/\bFOMC\b/', "prudential supervision", "systemically important",
-                  "bank holding companies", "large financial institutions", "payments policy",
-                  "Research Analyst Program", "financial stability"]
+                  "Federal Open Market Committee", '/\bFOMC\b/', "prudential supervision",
+                  "systemically important", "bank holding companies", "large financial institutions",
+                  "payments policy", "Research Analyst Program"]
         context: ["economics", "banking", "supervision", "regulation", "monetary policy", "markets", "data",
                   "research", "finance", "policy"]
         exclude: ["police officer", "custodian"]
@@ -1786,8 +1786,7 @@ groups:
                 '/\bGS-?0?[579]\b/', "recent grad"]
         phrases: ["Recent Graduates Program", "Pathways Recent Graduates", "recent graduate appointment",
                   "Presidential Management Fellows", '/\bPMF\b/', "Schedule D", "excepted service appointment",
-                  "Participant Agreement", "Individual Development Plan", "non-competitive conversion",
-                  "noncompetitive conversion", "full performance level", "promotion potential", "GS-0130",
+                  "Participant Agreement", "non-competitive conversion", "noncompetitive conversion", "GS-0130",
                   "GS-0131", "GS-0132", "GS-0301", "GS-0343", "GS-1801", "within the previous two years"]
         context: ["federal", "USAJOBS", "U.S. citizenship", "security clearance", "agency", "OPM",
                   "competitive service", "veterans' preference", "program management"]
@@ -1859,11 +1858,10 @@ groups:
                 "development program", "development programme", "leadership development", "analyst development",
                 "analyst class", "analyst training", "associate training", "trainee program", "trainee programme",
                 "management trainee", '/\bLDP\b/', "accelerated development"]
-        phrases: ["two-year analyst program", "2-year analyst program", "incoming analyst class", "analyst cohort",
-                  "associate cohort", "structured development program", "leadership development program",
-                  "development program participants", "formal training", "classroom training", "on-the-job training",
-                  "mentorship program", "promotion to associate", "full-time analyst program",
-                  "analyst and associate programs"]
+        phrases: ["two-year analyst program", "2-year analyst program", "incoming analyst class",
+                  "analyst cohort", "associate cohort", "structured development program",
+                  "leadership development program", "development program participants",
+                  "promotion to associate", "full-time analyst program", "analyst and associate programs"]
         context: ["training", "mentorship", "cohort", "rotations", "networking", "career development", "coaching",
                   "analysts", "associates"]
         exclude: ["software development", "business development", "product development", "fund development",
@@ -1907,7 +1905,7 @@ groups:
         context: ["training", "mentorship", "bachelor's degree", "learning", "supervision", "growth", "team support",
                   "recent graduate"]
         exclude: ["nurse", "clinical", "dental", "pharmacy", "psychologist", "engineer", "technician", "developer",
-                  "designer"]
+                  "designer", "scientist"]
         queries: ["junior analyst", "entry level analyst risk", "associate analyst intelligence", "analyst I research",
                   "entry level research analyst", "junior research analyst", "trainee analyst"]
 
@@ -1924,9 +1922,9 @@ groups:
                 "monitoring and evaluation", "monitoring & evaluation", '/\bM&E\b/', '/\b(?-i:MEL)\b/',
                 "impact evaluation", "civic analytics", "civic data", "civic tech", "performance management analyst",
                 "data and evaluation", "research and evaluation", "evidence and learning"]
-        phrases: ["evaluation design", "impact evaluations", "randomized controlled trials", "randomized evaluations",
-                  "quasi-experimental", "theory of change", "logic models", "logic model", "performance metrics",
-                  "performance management", "Mayor's Management Report", "civic technology", "open data",
+        phrases: ["evaluation design", "impact evaluations", "randomized controlled trials",
+                  "randomized evaluations", "quasi-experimental", "theory of change", "logic models",
+                  "logic model", "Mayor's Management Report", "civic technology", "open data",
                   "government performance", "evidence-based policymaking", "evidence-based policy",
                   "Results for America", "J-PAL", "MDRC", "Urban Institute", "Mathematica"]
         context: ["data analysis", "Stata", "Python", "SQL", "surveys", "metrics", "government", "nonprofit",
