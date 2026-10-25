@@ -2003,8 +2003,13 @@
     } else {
       inner.append(h("div", { class: "notice" }, "Static snapshot: running sweeps and importing are available when you run the board locally with ", h("code", { text: "jobsweep serve" }), "."));
     }
-    const hist = h("div", null, h("div", { class: "skeleton" }, h("div"), h("div")));
-    inner.append(h("h2", { text: "History" }), hist);
+    inner.append(h("h2", { text: "History" }), h("div", { id: "run-history" }, h("div", { class: "skeleton" }, h("div"), h("div"))));
+    await renderRunHistory();
+  }
+
+  async function renderRunHistory() {
+    const hist = $("run-history");
+    if (!hist) return;
     try {
       const runs = await data.runs();
       hist.replaceChildren(runs.length ? h("div", { class: "table-wrap" }, h("table", { class: "data" },
@@ -2105,7 +2110,7 @@
       refreshStats();
       refreshLaneCounts();
       if (state.view === "jobs") loadJobs(true);
-      if (state.view === "runs") renderRuns();
+      if (state.view === "runs") renderRunHistory();
     }
   }
 
@@ -2119,6 +2124,20 @@
       return;
     }
     const pct = p.total ? clamp((p.done / p.total) * 100, 0, 100) : 0;
+    const dry = Boolean((rep && rep.dry_run) || (p.options && p.options.dry_run));
+    if (dry && !st.running && rep) {
+      const c = (rep.plan && rep.plan.counts) || {};
+      const skipped = ((rep.plan && rep.plan.skipped_sources) || []).length;
+      box.replaceChildren(h("div", { class: "card card-pad", style: { "margin-top": "14px" } },
+        h("h2", null, "Dry run: sweep plan", h("span", { class: "n", text: "(nothing fetched)" })),
+        h("div", { class: "stat-row" },
+          h("div", { class: "stat" }, h("b", { text: fmtNum(c.boards) }), h("span", { text: "board targets" })),
+          h("div", { class: "stat" }, h("b", { text: fmtNum(c.searches) }), h("span", { text: "keyword searches" })),
+          h("div", { class: "stat" }, h("b", { text: fmtNum(((rep.plan || {}).sources || []).length) }), h("span", { text: "sources" })),
+          h("div", { class: "stat" }, h("b", { text: fmtNum(skipped) }), h("span", { text: "sources skipped" }))),
+        rep.summary ? h("pre", { class: "summary", text: rep.summary }) : null));
+      return;
+    }
     const parts = [
       h("h2", null, st.running ? "Sweep in progress" : "Last sweep from this session",
         h("span", { class: "n", text: p.phase ? "(" + p.phase + ")" : "" })),
@@ -2237,6 +2256,18 @@
         search.blur();
         if (state.items.length) select(0);
       }
+    });
+
+    // ARIA tabs pattern: arrow keys move between status tabs.
+    $("status-tabs").addEventListener("keydown", (e) => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft" && e.key !== "Home" && e.key !== "End") return;
+      e.preventDefault();
+      const i = TABS.findIndex((t) => t.id === state.f.tab);
+      const next = e.key === "Home" ? 0 : e.key === "End" ? TABS.length - 1 : (i + (e.key === "ArrowRight" ? 1 : -1) + TABS.length) % TABS.length;
+      state.f.tab = TABS[next].id;
+      applyFilters();
+      const btn = $("tab-" + state.f.tab);
+      if (btn) btn.focus();
     });
 
     for (const el of document.querySelectorAll("#filters .control")) el.dataset.title = el.getAttribute("title") || "";

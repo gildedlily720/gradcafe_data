@@ -583,6 +583,8 @@ _OFF_DOMAIN_RE = re.compile(
       |teacher|tutor|teaching\s+assistant|receptionist|administrative\s+assistant|executive\s+assistant
       |office\s+manager|office\s+assistant|front\s+desk|mailroom|data\s+entry|security\s+guard
       |security\s+officer|fundrais\w*|donor|development\s+(?:associate|officer|coordinator|assistant)
+      |investment\s+banking|private\s+banking|wealth\s+management|relationship\s+manager|loan\s+officer
+      |mortgage|teller|traders?|portfolio\s+manager|quant\w*
     )\b""",
     re.I | re.X,
 )
