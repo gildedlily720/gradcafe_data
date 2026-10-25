@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 log = logging.getLogger("jobsweep.export")
 
 #: description length kept in the static site's jobs.json
-SITE_DESCRIPTION_CHARS = 1500
+SITE_DESCRIPTION_CHARS = 500  # the posting link has the full text; keeps the board light on phones
 
 CSV_COLUMNS = [
     "uid", "title", "company", "location", "remote", "score", "entry_level", "lanes", "groups", "status",
@@ -95,6 +95,8 @@ def site_rows(store: Store, *, min_score: float, days: int | None = None) -> lis
     for r in by_uid.values():
         r = dict(r)
         r["description"] = truncate(r.get("description") or "", SITE_DESCRIPTION_CHARS)
+        r.pop("extra", None)  # adapter internals; not shown by the board
+        r["match_reasons"] = (r.get("match_reasons") or [])[:6]
         out.append(r)
     out.sort(key=lambda r: (-(r.get("score") or 0), r.get("uid") or ""))
     return out

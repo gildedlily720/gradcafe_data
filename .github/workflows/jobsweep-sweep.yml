@@ -23,7 +23,7 @@ on:
         type: boolean
         default: false
       publish_pages:
-        description: "Publish the board to GitHub Pages"
+        description: "Publish the board to GitHub Pages (gh-pages branch)"
         type: boolean
         default: true
       open_issue:
@@ -33,8 +33,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
   issues: write
 
 concurrency:
@@ -116,28 +114,40 @@ jobs:
 
       - name: Save state to the state branch
         run: |
+          jobsweep state prune --days 120 || true
           jobsweep state export "$RUNNER_TEMP/state.json.gz" --max-description 4000
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           wt="$RUNNER_TEMP/state-wt"
-          if git ls-remote --exit-code --heads origin "$STATE_BRANCH" >/dev/null; then
-            git fetch --depth=1 origin "$STATE_BRANCH"
-            git worktree add "$wt" "origin/$STATE_BRANCH"
-            git -C "$wt" checkout -B "$STATE_BRANCH"
-          else
-            git worktree add --detach "$wt"
-            git -C "$wt" checkout --orphan "$STATE_BRANCH"
-            git -C "$wt" rm -rf --quiet . || true
+          mkdir -p "$wt/history"
+          # Carry the earlier daily digests forward; the branch keeps a single commit so the repo never grows.
+          if git fetch --depth=1 origin "$STATE_BRANCH" 2>/dev/null; then
+            git archive "origin/$STATE_BRANCH" history 2>/dev/null | tar -x -C "$wt" || true
           fi
           day=$(date -u +%F)
-          mkdir -p "$wt/history"
           cp "$RUNNER_TEMP/state.json.gz" "$wt/state.json.gz"
           cp "$RUNNER_TEMP/digest.md" "$wt/digest.md"
           cp "$RUNNER_TEMP/digest.md" "$wt/history/$day.md"
           printf '# jobsweep state\n\nMachine-written by the daily sweep. `state.json.gz` is the database snapshot;\n`history/` holds one digest per day.\n' > "$wt/README.md"
-          git -C "$wt" add -A
-          git -C "$wt" commit -q -m "jobsweep state $day" || echo "No state change."
-          git -C "$wt" push -q origin "HEAD:$STATE_BRANCH"
+          cd "$wt"
+          git init -q -b "$STATE_BRANCH"
+          git add -A
+          git commit -q -m "jobsweep state $day"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$STATE_BRANCH"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Publish the board to the gh-pages branch
+        if: ${{ github.event_name == 'schedule' || inputs.publish_pages }}
+        run: |
+          cd "$RUNNER_TEMP/site"
+          touch .nojekyll
+          git init -q -b gh-pages
+          git add -A
+          git commit -q -m "jobsweep board $(date -u +%F)"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Upload digest and report
         uses: actions/upload-artifact@v7
@@ -149,25 +159,8 @@ jobs:
             ${{ runner.temp }}/sweep-report.json
           retention-days: 30
 
-      - name: Upload Pages artifact
-        if: ${{ github.event_name == 'schedule' || inputs.publish_pages }}
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: ${{ runner.temp }}/site
-
       - name: Open or update the digest issue
         if: ${{ (github.event_name == 'schedule' || inputs.open_issue) && steps.digest.outputs.new_count != '0' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: bash jobsweep/scripts/gh_digest_issue.sh "$RUNNER_TEMP/digest.md" "$(date -u +%F)"
-
-  deploy-pages:
-    needs: sweep
-    if: ${{ github.event_name == 'schedule' || inputs.publish_pages }}
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v5

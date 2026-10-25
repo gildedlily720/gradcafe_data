@@ -142,7 +142,10 @@ def test_availability() -> None:
         ok, reason = cls.availability(empty)
         assert not ok and "missing env" in reason
         assert cls.availability(Settings(env=KEYS)) == (True, "ok")
-    assert JobSpySource.availability(empty) == (True, "ok")  # python-jobspy is installed in the dev env
+    import importlib.util
+
+    jobspy_installed = importlib.util.find_spec("jobspy") is not None
+    assert JobSpySource.availability(empty)[0] is jobspy_installed
 
 
 @pytest.mark.parametrize("cls", [AdzunaSource, TheirStackSource, HasDataIndeedSource, ApifySource])
