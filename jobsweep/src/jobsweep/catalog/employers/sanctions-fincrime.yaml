@@ -791,7 +791,7 @@ employers:
     max_jobs: 800
     title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
     verified: "2026-10-25"
-    open_jobs: 7242
+    open_jobs: 7240
     notes: "Global Financial Crimes Compliance (GFCC), Central Screening Utility, Wholesale KYC Operations, trade surveillance."
 
   - key: citi
