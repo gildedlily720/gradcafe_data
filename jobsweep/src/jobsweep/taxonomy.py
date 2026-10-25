@@ -207,14 +207,6 @@ def _canon_tokens(term: str) -> tuple[str, ...]:
     return tuple(out)
 
 
-def _is_sub(a: tuple[str, ...], b: tuple[str, ...]) -> bool:
-    """True when ``a`` is a strict contiguous sub-sequence of ``b``."""
-    n = len(a)
-    if not n or n >= len(b):
-        return False
-    return any(b[i : i + n] == a for i in range(len(b) - n + 1))
-
-
 # =====================================================================================================
 # term compilation
 # =====================================================================================================
@@ -378,13 +370,11 @@ class Term:
         "rx",
         "pattern",
         "anchors",
-        "forms",
         "subs",
         "canon",
         "token_only",
         "prefix",
         "pairs",
-        "need_forms",
     )
 
     def __init__(self, raw: str, idx: int = 0):
@@ -393,13 +383,10 @@ class Term:
         self.regex = len(raw) > 2 and raw.startswith("/") and raw.endswith("/")
         # Prefilters (all necessary conditions for a match):
         #   anchors - every frozenset needs one member in the text's token set
-        #   forms   - one of these b" word word" strings must occur in the canonical token string
+        #   pairs   - per token-sequence variant, the adjacent word pairs it needs (alternatives per slot)
         #   subs    - lower-case substrings that must occur in the text
         self.anchors: tuple[frozenset[bytes], ...] = ()
-        self.forms: tuple[bytes, ...] = ()
-        #   pairs   - per token-sequence variant, the adjacent word pairs it needs (alternatives per slot)
         self.pairs: tuple[tuple[frozenset[tuple[bytes, bytes]], ...], ...] = ()
-        self.need_forms = False
         self.subs: tuple[str, ...] = ()
         self.token_only = False
         self.rx: re.Pattern[str] | None = None
@@ -432,12 +419,6 @@ class Term:
         variants, last_forms = _canonical_variants(raw)
         if variants and all(len(v) >= 2 for v in variants):
             last_b = [f.encode() for f in last_forms]
-            stem = last_forms[0]
-            while stem and not all(f.startswith(stem) for f in last_forms):
-                stem = stem[:-1]
-            self.forms = tuple(
-                dict.fromkeys((" " + " ".join([*v[:-1], stem or v[-1]])).encode() for v in variants)
-            )
             pv = []
             for v in variants:
                 vb = [w.encode() for w in v]
@@ -445,7 +426,6 @@ class Term:
                 reqs.append(frozenset((vb[-2], f) for f in last_b))
                 pv.append(tuple(reqs))
             self.pairs = tuple(pv)
-            self.need_forms = any(len(v) >= 3 for v in variants)
         if re.search(r"(?i)\band\b|&", raw):
             words = [w for w in words if w != "and"]
         long_words = [w for w in words if len(w) >= 2]
@@ -462,10 +442,6 @@ class Term:
                     break
             else:
                 return None
-            if self.need_forms:
-                canon = text.canon
-                if not any(f in canon for f in self.forms):
-                    return None
         else:
             toks = text.toks
             for alt in self.anchors:
@@ -560,25 +536,16 @@ def compile_term(raw: str) -> Term:
 
 
 class _Text:
-    """A normalised text: lower-case form, token set, adjacent-token pairs, canonical token string."""
+    """A normalised text: lower-case form, ASCII token set and adjacent-token pairs."""
 
-    __slots__ = ("norm", "low", "toks", "pairs", "_words", "_canon")
+    __slots__ = ("norm", "low", "toks", "pairs")
 
     def __init__(self, text: str | None):
         self.norm = normalize_text(text)
         self.low = self.norm.lower()
         words = self.low.encode("ascii", "replace").translate(_TOKEN_TABLE).split()
-        self._words = words
-        self._canon: bytes | None = None
         self.toks = set(words)
-        self.pairs = set(zip(words, words[1:]))
-
-    @property
-    def canon(self) -> bytes:
-        """b" w1 w2 ... " (built on first use; only terms of 3+ words need it)."""
-        if self._canon is None:
-            self._canon = b" " + b" ".join(self._words) + b" "
-        return self._canon
+        self.pairs = set(zip(words, words[1:], strict=False))
 
 
 # =====================================================================================================
@@ -1033,7 +1000,12 @@ class Taxonomy:
             return term.idx
 
         for li, lane in enumerate(self._lane_list):
-            for cat, terms in (("T", lane.title), ("P", lane.phrases), ("C", lane.context), ("X", lane.exclude)):
+            for cat, terms in (
+                ("T", lane.title),
+                ("P", lane.phrases),
+                ("C", lane.context),
+                ("X", lane.exclude),
+            ):
                 for raw in terms:
                     tid = term_id(raw)
                     if tid is None:
@@ -1043,7 +1015,6 @@ class Taxonomy:
                     if cat == "X" and self._terms[tid].canon in (("cyber",), ("cybersecurity",)):
                         cyber_lanes.add(li)
         self._cyber_lanes = frozenset(cyber_lanes)
-        self._raw = [t.raw for t in self._terms]
         # T/P/X roles per term (context is counted per lane by set intersection) and per-lane context sets
         self._roles_tpx: list[list[tuple[int, str]]] = [
             [(li, cat) for li, cat in roles if cat != "C"] for roles in self._roles
@@ -1061,8 +1032,8 @@ class Taxonomy:
 
         # inverted indexes: single-word terms by every form (a hit is a match), others by their
         # most distinctive anchor word (a hit makes them a candidate for the slower checks)
-        self._title_tok: dict[bytes, list[int]] = {}
-        self._body_tok: dict[bytes, list[int]] = {}
+        self._title_tok: dict[bytes, dict[int, str]] = {}
+        self._body_tok: dict[bytes, dict[int, str]] = {}
         self._title_index: dict[bytes, list[int]] = {}
         self._body_index: dict[bytes, list[int]] = {}
         self._title_pair: dict[tuple[bytes, bytes], list[int]] = {}
@@ -1088,9 +1059,9 @@ class Taxonomy:
             body_role = any(cat in ("P", "C") for _, cat in self._roles[term.idx])
             if term.token_only:
                 for v in term.anchors[0]:
-                    self._title_tok.setdefault(v, []).append(term.idx)
+                    self._title_tok.setdefault(v, {})[term.idx] = term.raw
                     if body_role:
-                        self._body_tok.setdefault(v, []).append(term.idx)
+                        self._body_tok.setdefault(v, {})[term.idx] = term.raw
             elif term.pairs:
                 for variant in term.pairs:
                     req = min(variant, key=lambda r: pair_rank(r, variant.index(r)))
@@ -1162,10 +1133,8 @@ class Taxonomy:
             index, keys, always = self._body_index, self._body_keys, self._body_always
             pair, pair_keys = self._body_pair, self._body_pair_keys
         out: dict[int, str] = {}
-        raw = self._raw
         for v in text.toks & tok_keys:
-            for tid in tok[v]:
-                out[tid] = raw[tid]
+            out.update(tok[v])
         cands: set[int] = set(always)
         for v in text.toks & keys:
             cands.update(index[v])
@@ -1487,7 +1456,9 @@ class Taxonomy:
 
         lane_ids = [self._lane_list[r.li].id for r in results]
         domain = [r for r in results if self._lane_list[r.li].group != ENTRY_GROUP]
-        entry_lanes = [self._lane_list[r.li].id for r in results if self._lane_list[r.li].group == ENTRY_GROUP]
+        entry_lanes = [
+            self._lane_list[r.li].id for r in results if self._lane_list[r.li].group == ENTRY_GROUP
+        ]
 
         entry_level, years, entry_reasons = self._entry(job, title, body.low, entry_lanes)
         loc_pts, loc_reason = self._location(job)
@@ -1581,7 +1552,7 @@ class Taxonomy:
                     ctx.add(self._terms[tid].canon)
                 else:
                     per_lane.setdefault(li, [0, 0])[0 if cat == "T" else 1] += 1
-        for li, (n_title, n_phrase) in per_lane.items():
+        for li, (n_title, _n_phrase) in per_lane.items():
             if li in excluded:
                 continue
             if n_title:
@@ -1617,7 +1588,10 @@ class Taxonomy:
         if source in FEED_SOURCES:
             return [
                 SearchQuery(
-                    keywords="*", extra={"feed": True}, limit=FEED_LIMIT, posted_within_days=posted_within_days
+                    keywords="*",
+                    extra={"feed": True},
+                    limit=FEED_LIMIT,
+                    posted_within_days=posted_within_days,
                 )
             ]
         if lane_ids:

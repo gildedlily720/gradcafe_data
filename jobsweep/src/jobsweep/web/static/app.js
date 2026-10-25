@@ -333,6 +333,7 @@
   };
   const isTriageTab = (id) => TRIAGE_TABS.has(id);
   const isWide = () => window.matchMedia(WIDE_QUERY).matches;
+  const isNarrow = () => window.matchMedia("(max-width: 600px)").matches;
 
   // ---- data layer: API mode ------------------------------------------------------------------------
   async function getJSON(url, opts) {
@@ -1227,7 +1228,7 @@
           it.location ? [sep(), h("span", { class: "loc", title: it.location, text: it.location })] : null,
           it.remote === true ? h("span", { class: "badge remote", text: "Remote" }) : null,
           salary ? [sep(), h("span", { class: "salary", text: salary })] : null),
-        h("div", { class: "row-chips" }, laneChips(it, 3), tagBadges(it, 1), h("span", { class: "badge src", title: "Source", text: it.source }))),
+        h("div", { class: "row-chips" }, laneChips(it, isNarrow() ? 2 : 3), tagBadges(it, 1), h("span", { class: "badge src", title: "Source", text: it.source }))),
       h("div", { class: "row-side" },
         h("div", { class: "dates" },
           posted
@@ -1467,18 +1468,23 @@
       box.append(h("p", { class: "muted", text: "No description captured for this posting. Open the posting for details." }));
       return box;
     }
+    // A short line without closing punctuation that introduces more text or a list reads as a heading.
+    const isHeading = (line) => line.length <= 70 && !/[.,;!?]$/.test(line) && /^[A-Z0-9]/.test(line) && line.split(" ").length <= 9;
     const blocks = String(text).replace(/\r\n?/g, "\n").split(/\n{2,}/);
     for (const block of blocks) {
       let para = [];
       let ul = null;
-      const flush = () => {
+      const flush = (beforeList) => {
+        if (para.length && isHeading(para[0]) && (para.length > 1 || beforeList)) {
+          box.append(h("h4", { text: para.shift().replace(/:$/, "") }));
+        }
         if (para.length) box.append(h("p", { text: para.join("\n") }));
         para = [];
       };
       for (const line of block.split("\n")) {
         const m = /^\s*(?:[-*•▪◦·‣]|\d{1,2}[.)])\s+(.*)$/.exec(line);
         if (m) {
-          flush();
+          flush(true);
           if (!ul) {
             ul = h("ul");
             box.append(ul);
@@ -1856,7 +1862,7 @@
               !(e.lanes || []).length ? (e.groups || []).slice(0, 2).map(groupChip) : null)),
             h("td", { class: "num", text: e.open_jobs != null ? fmtNum(e.open_jobs) : "–" }),
             h("td", { class: "muted", text: e.verified ? fmtDate(e.verified) : "unverified" }),
-            h("td", null, h("a", { href: "#/jobs?tab=all&entry=0&min=0&emp=" + encodeURIComponent(e.key), text: "Jobs" }),
+            h("td", { class: "nowrap" }, h("a", { href: "#/jobs?tab=all&entry=0&min=0&emp=" + encodeURIComponent(e.key), text: "Jobs" }),
               e.careers_url ? [" · ", h("a", { href: e.careers_url, target: "_blank", rel: "noopener noreferrer", text: "Careers" })] : null))))))
           : h("p", { class: "muted", text: "No sweepable boards match." }));
       }
