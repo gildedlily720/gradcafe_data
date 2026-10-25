@@ -614,7 +614,7 @@ _NUM_WORDS = {
     "twenty": 20,
 }
 _NUM = r"(?:\d{1,2}|" + "|".join(_NUM_WORDS) + r")"
-_YEAR_WORD_RE = re.compile(r"\b(?:years?|yrs?)\b")
+_YEAR_WORD_RE = re.compile(r"y(?:ears?|rs?)\b")
 _YEARS_BEFORE_RE = re.compile(
     r"(?<![\w.,/])(?P<a>" + _NUM + r")(?:\s*\(\s*\d{1,2}\s*\))?\s*(?:\+|plus)?\s*"
     r"(?:(?:-|to|or)\s*(?P<b>" + _NUM + r")(?:\s*\(\s*\d{1,2}\s*\))?\s*\+?\s*)?"
@@ -642,6 +642,25 @@ _MAX_YEARS = 25
 
 # ---- federal grades -------------------------------------------------------------------------------
 _GRADE_PLAN_RE = re.compile(r"\b(?:GS|GG|GL|GM)\b", re.I)
+
+# ---- index keys: words too common in job descriptions to be good inverted-index keys ---------------
+_COMMON_WORDS = frozenset(
+    w.encode()
+    for w in (
+        "and the of to in for with on at by an or as is are be will our we you your this that from all"
+        " experience team work working support management manager skills ability years including related"
+        " business role responsibilities information data analysis analyst development services service"
+        " research strong knowledge provide ensure required requirements preferred degree bachelor other new"
+        " across within global international office client clients project projects program programs policy"
+        " policies security risk risks compliance operations communication communications written verbal"
+        " environment company organization process processes reporting report reports time high level"
+        " senior junior key plan planning opportunity equal employer benefits health insurance financial"
+        " finance market markets public government federal national legal law technology systems tools"
+        " quality performance review assessment assessments monitoring investigations intelligence"
+        " teams people community communities training learning global world us united states new york"
+        " london washington remote office hybrid role position candidate candidates customer customers"
+    ).split()
+)
 
 # ---- cyber postings (veto lanes that exclude cyber) ----------------------------------------------------
 _CYBER_TOKENS = frozenset(
@@ -972,6 +991,16 @@ class Taxonomy:
         self._body_index: dict[bytes, list[int]] = {}
         self._title_always: list[int] = []
         self._body_always: list[int] = []
+        df: dict[bytes, int] = {}  # how many terms use a word: common words make poor index keys
+        for term in self._terms:
+            for alt in term.anchors:
+                base = min(alt, key=len)
+                df[base] = df.get(base, 0) + 1
+
+        def key_rank(alt: frozenset[bytes], pos: int) -> tuple[int, int, int, int]:
+            base = min(alt, key=len)
+            return (base in _COMMON_WORDS, df.get(base, 0), -len(base), pos)
+
         for term in self._terms:
             body_role = any(cat in ("P", "C") for _, cat in self._roles[term.idx])
             if term.token_only:
@@ -980,8 +1009,7 @@ class Taxonomy:
                     if body_role:
                         self._body_tok.setdefault(v, []).append(term.idx)
             elif term.anchors:
-                order = list(term.anchors)
-                key = max(order, key=lambda alt: (min(len(v) for v in alt), -order.index(alt)))
+                key = min(term.anchors, key=lambda alt: key_rank(alt, term.anchors.index(alt)))
                 for v in key:
                     self._title_index.setdefault(v, []).append(term.idx)
                     if body_role:
@@ -1646,6 +1674,8 @@ def parse_years_required(text: str | None, *, lowered: bool = False) -> int | No
     found: list[int] = []
     for m in _YEAR_WORD_RE.finditer(low):
         s, e = m.start(), m.end()
+        if s and low[s - 1] in _ASCII_ALNUM:
+            continue
         before = low[max(0, s - 48) : s]
         nm = _YEARS_BEFORE_RE.search(before)
         if not nm:
