@@ -5,7 +5,7 @@
 # Coverage (researched 2026-10-25; every non-"other" board was hit through its public API this session):
 #   * Risk-intelligence / alerting vendors: Dataminr, Recorded Future, Flashpoint, ZeroFox, Sibylline, Dragonfly
 #     (now Dow Jones "Global Risk Insights"), Everbridge, Ontic, Samdesk, Factal, LifeRaft, Intel 471, Janes,
-#     Babel Street, Strider, Sayari, Base Operations, Seerist/RANE/Riskline (manual).
+#     Babel Street, Strider, Sayari, Seerist/RANE/Riskline (manual).
 #   * Security & risk consultancies / protective firms: Control Risks, S-RM, Concentric, Gavin de Becker,
 #     Valens Global, Securitas (EU + USA boards), Crisis24/GardaWorld, International SOS, Pinkerton,
 #     Allied Universal (incl. Brosnan Risk Consultants), Global Guardian, Global Rescue, Healix (manual where
@@ -14,8 +14,8 @@
 #     Tech Against Terrorism, Soufan Center, START (UMD), GIFCT, Bellingcat.
 #   * Corporate security / GSOC / protective-intelligence teams (NYC/DC/London heavy): JPMorgan Chase, Goldman
 #     Sachs, Morgan Stanley, Citi, Bank of America, BlackRock, Blackstone, American Express, NBCUniversal,
-#     Disney, NYT, MSG Entertainment, NFL, MLB, Pfizer, J&J, Salesforce, Airbnb, Snap, OpenAI, Anthropic,
-#     CrowdStrike; manual: Meta, Google, Amazon, Microsoft, Apple, Netflix, Uber, Bloomberg, Paramount, NBA,
+#     Disney, NYT, MSG Entertainment, NFL, MLB, Pfizer, J&J, Salesforce, Airbnb, OpenAI, Anthropic;
+#     manual: Meta, Google, Amazon, Microsoft, Apple, Netflix, Uber, Bloomberg, Paramount, NBA,
 #     Columbia, NYU.
 #   Big generalist boards carry search_terms (server-side, Workday/Oracle/SmartRecruiters) + a title_filter.
 #
@@ -233,18 +233,6 @@ employers:
     verified: "2026-10-25"
     open_jobs: 20
     notes: "Field Intelligence Analyst roles (corporate-records OSINT)."
-
-  - key: base-operations
-    name: Base Operations
-    lanes: [gsoc-watch, corporate-security, travel-risk-crisis]
-    ats: ashby
-    board: base-operations
-    careers_url: https://jobs.ashbyhq.com/base-operations
-    hq: Washington, DC
-    locations: [Washington, DC]
-    verified: "2026-10-25"
-    open_jobs: 1
-    notes: "Security-intelligence (street-level risk) platform; small team."
 
   - key: seerist
     name: Seerist
@@ -865,19 +853,6 @@ employers:
     open_jobs: 191
     notes: "Global Security / Crisis Management & Safety teams."
 
-  - key: snap
-    name: Snap Inc.
-    lanes: [protective-intelligence, corporate-security]
-    ats: workday
-    board: snapchat/wd1/snap
-    careers_url: https://careers.snap.com/
-    hq: Santa Monica, CA
-    locations: [Los Angeles, CA, New York, NY, London, UK]
-    title_filter: '(?i)((?<!artificial )(?<!business )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations|global security|corporate security|physical security|\binvestigat|\bcrisis\b|\bOSINT\b)'
-    verified: "2026-10-25"
-    open_jobs: 208
-    notes: "Executive protection / global security."
-
   - key: openai
     name: OpenAI
     lanes: [threat-intelligence, osint, corporate-security]
@@ -905,20 +880,6 @@ employers:
     verified: "2026-10-25"
     open_jobs: 682
     notes: "Safeguards threat-intelligence (CBRN, fraud, model exploitation) and corporate/physical security."
-
-  - key: crowdstrike
-    name: CrowdStrike
-    lanes: [threat-intelligence]
-    ats: workday
-    board: crowdstrike/wd5/crowdstrikecareers
-    careers_url: https://www.crowdstrike.com/careers/
-    hq: Austin, TX
-    locations: [Remote US, Washington, DC, New York, NY, London, UK]
-    title_filter: '(?i)((?<!artificial )(?<!business )\bintelligence\b|\bthreat|adversary|\bOSINT\b|counter[- ]?(terror|intel)|intelligence analyst)'
-    search_terms: [intelligence analyst, threat intelligence, counter adversary operations]
-    verified: "2026-10-25"
-    open_jobs: 390
-    notes: "Counter Adversary Operations intelligence analysts (cyber-leaning threat intelligence)."
 
   # ------------------------------------------------------------------ manual (unsupported ATS) corporate security teams
   - key: meta

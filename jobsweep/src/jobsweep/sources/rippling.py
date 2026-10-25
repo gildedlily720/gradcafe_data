@@ -122,7 +122,13 @@ class RipplingSource(Source):
             job.description = truncate("\n\n".join(p for p in parts if p)) or job.description
         elif isinstance(desc, str):
             job.description = html_to_text(desc)
-        locations = [str(x) for x in d.get("workLocations") or [] if x]
+        raw_locs = d.get("workLocations") if isinstance(d.get("workLocations"), list) else []
+        locations = [
+            str(x.get("label") or x.get("name") or "") if isinstance(x, dict) else str(x)
+            for x in raw_locs
+            if x
+        ]
+        locations = [loc for loc in locations if loc]
         if locations:
             job.location = join_locations(locations)
             job.remote = _remote(locations)

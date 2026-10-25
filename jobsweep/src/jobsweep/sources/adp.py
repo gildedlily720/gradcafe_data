@@ -121,7 +121,8 @@ class ADPSource(Source):
             if not isinstance(data, dict):
                 raise SourceError(f"adp {cid}: unexpected payload {type(data).__name__}")
             reqs = [r for r in data.get("jobRequisitions") or [] if isinstance(r, dict)]
-            total = (data.get("meta") or {}).get("totalNumber", total)
+            meta = data.get("meta") if isinstance(data.get("meta"), dict) else {}
+            total = meta.get("totalNumber", total)
             new = 0
             for r in reqs:
                 key = str(r.get("itemID") or "")

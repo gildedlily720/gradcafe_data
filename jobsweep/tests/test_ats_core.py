@@ -734,6 +734,6 @@ def test_live_workable() -> None:
         jobs = live(WorkableSource, employer("workable", "wati-dot-i-o"), enrich=True)
     except (HTTPError, SourceError) as exc:
         if "429" in str(exc) or "rate limited" in str(exc):
-            pytest.skip(f"apply.workable.com rate limited this egress: {exc}")
+            pytest.skip(f"apply.workable.com rate limited this egress: {str(exc)[:80]}")
         raise
     check_contract(jobs, "workable")
