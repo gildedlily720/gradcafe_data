@@ -354,6 +354,7 @@ class Term:
         "rx",
         "pattern",
         "anchors",
+        "forms",
         "subs",
         "canon",
         "token_only",
@@ -363,7 +364,12 @@ class Term:
         self.idx = idx
         self.raw = raw
         self.regex = len(raw) > 2 and raw.startswith("/") and raw.endswith("/")
-        self.anchors: tuple[tuple[bytes, ...], ...] = ()
+        # Prefilters (all necessary conditions for a match):
+        #   anchors - every frozenset needs one member in the text's token set
+        #   forms   - one of these b" word word" strings must occur in the canonical token string
+        #   subs    - lower-case substrings that must occur in the text
+        self.anchors: tuple[frozenset[bytes], ...] = ()
+        self.forms: tuple[bytes, ...] = ()
         self.subs: tuple[str, ...] = ()
         self.token_only = False
         self.rx: re.Pattern[str] | None = None
@@ -375,7 +381,7 @@ class Term:
             self.rx = re.compile(src, flags)
             words, subs = _regex_requirements(src, flags)
             self.anchors = tuple(
-                tuple(f.encode() for f in (_word_forms(w) if plural else [w])) for w, plural in words
+                frozenset(f.encode() for f in (_word_forms(w) if plural else [w])) for w, plural in words
             )
             self.subs = tuple(dict.fromkeys(subs))
             self.canon: tuple[str, ...] = ("re:" + src,)
@@ -388,26 +394,34 @@ class Term:
         if single and not self.case_sensitive:
             # one plain word: the token set decides exactly, no regex needed
             self.token_only = True
-            self.anchors = (tuple(f.encode() for f in _word_forms(words[0])),)
+            self.anchors = (frozenset(f.encode() for f in _word_forms(words[0])),)
             return
         self.pattern = _plain_pattern(raw, self.case_sensitive)
+        self.forms = _canonical_forms(raw)
         if re.search(r"(?i)\band\b|&", raw):
             words = [w for w in words if w != "and"]
         long_words = [w for w in words if len(w) >= 2]
         chosen = list(dict.fromkeys(long_words or words))
-        self.anchors = tuple(tuple(f.encode() for f in dict.fromkeys(_word_forms(w))) for w in chosen)
+        self.anchors = tuple(frozenset(f.encode() for f in _word_forms(w)) for w in chosen)
 
     # -- matching ----------------------------------------------------------------------------------
-    def find(self, low: str, norm: str, toks: set[bytes]) -> str | None:
-        """Matched text (or the term itself) when the term occurs; prefilter included."""
+    def find(self, text: _Text) -> str | None:
+        """Matched text (or the term itself) when the term occurs in ``text``."""
+        toks = text.toks
         for alt in self.anchors:
-            if not any(v in toks for v in alt):
+            if alt.isdisjoint(toks):
                 return None
-        if self.subs and not all(s in low for s in self.subs):
-            return None
         if self.token_only:
             return self.raw
-        return self._regex_find(low, norm)
+        if self.forms:
+            canon = text.canon
+            if not any(f in canon for f in self.forms):
+                return None
+        if self.subs:
+            low = text.low
+            if not all(s in low for s in self.subs):
+                return None
+        return self._regex_find(text.low, text.norm)
 
     def _regex_find(self, low: str, norm: str) -> str | None:
         rx = self.rx
@@ -427,16 +441,14 @@ class Term:
 
     def search(self, text: str) -> str | None:
         """Convenience matcher for one text (tests, debugging)."""
-        norm = normalize_text(text)
-        low = norm.lower()
-        return self.find(low, norm, _tokens(low))
+        return self.find(_Text(text))
 
     def search_slow(self, text: str) -> str | None:
-        """Same as ``search`` without the token prefilter (tests check both agree)."""
+        """Same as ``search`` without any prefilter (tests check both agree)."""
         norm = normalize_text(text)
         low = norm.lower()
         if self.token_only:
-            word = self.anchors[0][0].decode()
+            word = re.sub(r"\s+", "", self.raw).lower()
             rx = re.compile(_plain_pattern(word, False))
             for m in rx.finditer(low):
                 if m.start() == 0 or low[m.start() - 1] not in _ASCII_ALNUM:
@@ -448,18 +460,53 @@ class Term:
         return f"Term({self.raw!r})"
 
 
+def _canonical_forms(term: str) -> tuple[bytes, ...]:
+    """b" w1 w2 ..." strings one of which occurs in the canonical token string whenever the term matches.
+
+    Empty when the term holds characters whose optional/literal handling breaks that guarantee
+    (apostrophes and dots are optional in the pattern, other punctuation is literal).
+    """
+    s = re.sub(r"\s+", " ", term.strip()).lower()
+    if re.search(r"[^a-z0-9 &,/-]", s):
+        return ()
+    s = re.sub(r"\s*&\s*", " \x00 ", s)
+    s = re.sub(r"(?<=[a-z0-9]) and (?=[a-z0-9])", " \x00 ", s)
+    words = re.findall(r"[a-z0-9]+|\x00", s)
+    while words and words[-1] == "\x00":
+        words.pop()
+    if not words:
+        return ()
+    last = words[-1]
+    forms = _word_forms(last)
+    stem = last
+    while stem and not all(f.startswith(stem) for f in forms):
+        stem = stem[:-1]
+    words[-1] = stem or last
+    variants: list[list[str]] = [[]]
+    for w in words:
+        if w == "\x00":
+            variants = [v + ["and"] for v in variants] + [list(v) for v in variants]
+        else:
+            variants = [v + [w] for v in variants]
+    return tuple(dict.fromkeys((" " + " ".join(v)).encode() for v in variants if v))
+
+
 def compile_term(raw: str) -> Term:
     """Compile one lanes.yaml term (exposed for tests and debugging)."""
     return Term(str(raw))
 
 
 class _Text:
-    __slots__ = ("norm", "low", "toks")
+    """A normalised text with its lower-case form, token set and canonical token string."""
+
+    __slots__ = ("norm", "low", "toks", "canon")
 
     def __init__(self, text: str | None):
         self.norm = normalize_text(text)
         self.low = self.norm.lower()
-        self.toks = _tokens(self.low)
+        words = self.low.encode("ascii", "replace").translate(_TOKEN_TABLE).split()
+        self.toks = set(words)
+        self.canon = b" " + b" ".join(words) + b" "
 
 
 # =====================================================================================================
