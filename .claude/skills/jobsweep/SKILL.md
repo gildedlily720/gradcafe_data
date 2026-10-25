@@ -38,13 +38,14 @@ The project `.mcp.json` registers the `jobsweep` server. Its tools are `mcp__job
 | Tool | Use |
 |---|---|
 | `list_sources()` | which sources are available, and why any are missing (keys, metered) |
-| `run_sweep(sources=None, lanes=None, groups=None, employers=None, include_metered=False, searches=True, boards=True)` | full or targeted sweep; takes minutes; returns a report |
+| `run_sweep(sources=None, lanes=None, groups=None, employers=None, include_metered=False, searches=True, boards=True)` | full or targeted sweep. It runs in the background and returns status "finished" (counts, errors, `top_new`) or "running" |
+| `sweep_status(wait_seconds=45)` | poll until a running sweep finishes |
 | `search_jobs(query=None, lanes=None, groups=None, sources=None, statuses=None, entry_level_only=True, location=None, remote=None, new_within_days=None, min_score=None, sort="score", limit=25)` | query the store |
 | `get_job(uid)` | full posting, including description and match reasons |
 | `digest(days=1)` | new matches grouped by group, then lane (markdown) |
 | `live_search(keywords, location=None, sources=None, limit=25)` | ad hoc search across the API sources (stored) |
 | `check_employer(name_or_url)` | find and snapshot one employer's ATS board |
-| `list_lanes(include_inactive=False)`, `list_employers(group=None, manual_only=False)` | taxonomy and registry; `manual_only=True` lists "check by hand" career sites |
+| `list_lanes(include_inactive=False)`, `list_employers(group=None, manual_only=False)` | taxonomy (add `include_queries=True` for the query plan) and registry; `manual_only=True` lists "check by hand" career sites |
 | `import_jobs(jobs=None, text=None, origin="claude-connector")` | load connector output (step 3) |
 | `set_job_status(uid, status, note=None)` | statuses: new, saved, applied, interviewing, offer, rejected, dismissed |
 
@@ -53,7 +54,12 @@ Typical calls:
 1. `list_sources()`, then `run_sweep()`. The default sweep covers every non-metered source, all active
    lanes and the employer boards. For a narrower sweep, use something like
    `run_sweep(groups=["specialty-insurance"])` or `run_sweep(sources=["usajobs","nycjobs"], boards=False)`.
+   - A full sweep takes several minutes. While the status is "running", call `sweep_status(wait_seconds=45)`.
+   - Meanwhile you can run the connector searches (step 2).
 2. `search_jobs(new_within_days=1, entry_level_only=True, limit=50)` and `digest(days=1)`.
+
+The server also offers the MCP prompts `daily_sweep` and `triage_inbox`, which give the same workflow
+in short form.
 
 **CLI fallback.** If the MCP server isn't connected, run the CLI from the repo root. Use `uv run --directory
 jobsweep jobsweep ...`, or `.venv/bin/jobsweep ...` when the repo venv exists:

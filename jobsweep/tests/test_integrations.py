@@ -38,7 +38,15 @@ NO_SECRET_SERVERS = {"jobsweep", "pipeworx-usajobs", "exa", "jobspy", "ats-jobs"
 # OAuth/metered or key-requiring servers: present in .mcp.json but left for the user to approve.
 NEEDS_AUTH_SERVERS = {"apify", "theirstack", "hasdata-indeed", "adzuna", "federal-compass"}
 # Read-only jobsweep MCP tools (ARCHITECTURE.md section 10) that may be pre-allowed.
-READ_ONLY_JOBSWEEP_TOOLS = {"list_lanes", "list_sources", "list_employers", "search_jobs", "get_job", "digest"}
+READ_ONLY_JOBSWEEP_TOOLS = {
+    "list_lanes",
+    "list_sources",
+    "list_employers",
+    "search_jobs",
+    "get_job",
+    "digest",
+    "sweep_status",
+}
 ALL_JOBSWEEP_TOOLS = READ_ONLY_JOBSWEEP_TOOLS | {
     "set_job_status",
     "run_sweep",
@@ -353,7 +361,9 @@ def test_setup_runs_claude_and_is_idempotent(tmp_path: Path) -> None:
         {"FAKE_CLAUDE_LOG": str(log), "FAKE_EXISTING": "exa", "HASDATA_API_KEY": "from-env-wins"},
         path_prefix=bindir,
     )
-    res = _run_setup(["--no-env-file", "--env-file", str(env_file), "--only", "exa,adzuna,hasdata-indeed"], env)
+    res = _run_setup(
+        ["--no-env-file", "--env-file", str(env_file), "--only", "exa,adzuna,hasdata-indeed"], env
+    )
     assert res.returncode == 0, res.stdout + res.stderr
     assert "exists   exa" in res.stdout
     calls = {_added_name(c): c for c in _logged_calls(log) if c[:2] == ["mcp", "add"]}

@@ -15,7 +15,8 @@
       "mcp__jobsweep__list_employers",
       "mcp__jobsweep__search_jobs",
       "mcp__jobsweep__get_job",
-      "mcp__jobsweep__digest"
+      "mcp__jobsweep__digest",
+      "mcp__jobsweep__sweep_status"
     ]
   }
 }
