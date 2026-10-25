@@ -486,11 +486,11 @@ employers:
     careers_url: https://guidehouse.com/careers
     hq: McLean, VA
     locations: [Washington, DC, McLean, VA, New York, NY, London, UK]
-    title_filter: '(?<!artificial )(?<!business )intelligence|all[- ]?source|OSINT|open[- ]source|\btarget|foreign|linguist|language|regional (analyst|research|specialist)|geospatial|threat|counter[- ]?(terror|intel|prolif|threat)|national security|watch ?(floor|list)|research analyst|sanction|financial crime|\bAML\b|\bBSA\b|fraud|investigat|forensic|due diligence|export control'
-    search_terms: [intelligence analyst, all-source, OSINT, national security, open-source research, threat, sanctions]
+    title_filter: '(?i)((?<!business )(?<!artificial )intelligence|all[- ]?source|OSINT|open[- ]source|\btarget|foreign|linguist|language|regional (analyst|research|specialist)|geospatial|threat|counter[- ]?(terror|intel|prolif|threat)|national security|watch ?(floor|list)|research analyst|\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bfcrc\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|screening|\bofac\b|illicit|compliance|financial services consult|forensic)'
+    search_terms: [intelligence analyst, all-source, OSINT, national security, financial crime, sanctions, AML, KYC, investigations]
     verified: "2026-10-25"
     open_jobs: 767
-    notes: "National Security segment: Intelligence Analyst, All-Source, OSINT, Open-Source Research Analyst (China/Mandarin); filter also keeps sanctions / financial-crime / investigations titles for other groups."
+    notes: "National Security segment: Intelligence Analyst, All-Source, OSINT, Open-Source Research Analyst (China/Mandarin). Also listed in sanctions-fincrime.yaml; this file loads first, so title_filter/search_terms here are the union of both groups' (registry keeps the first entry's filter)."
 
   - key: amentum
     name: Amentum
