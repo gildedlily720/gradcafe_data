@@ -87,9 +87,10 @@ employers:
     careers_url: https://scale.com/careers
     hq: San Francisco, CA
     locations: [New York, NY, Washington, DC, London, UK]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat|preparedness|governance|national security|forecast|geopolit|model behavio|responsible|societal|alignment|frontier risk|deployment strategist|public sector|\bdefen[cs]e\b|intelligence|mission|government|\bDoD\b|army|navy|air force|space force|fellow)'
     verified: "2026-10-25"
     open_jobs: 171
-    notes: "Public Sector (Deployment Strategist - DoD/DHS/IC) out of DC; Human Frontier Collective fellowships."
+    notes: "Public Sector (Deployment Strategist - DoD/DHS/IC) out of DC; Human Frontier Collective fellowships. Also in trust-safety.yaml; this file loads first, so the title_filter here is the union of both groups' filters."
 
   - key: saronic
     name: Saronic Technologies
