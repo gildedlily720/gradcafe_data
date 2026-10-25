@@ -43,7 +43,7 @@ Files in this repo:
 
 | Connector / tool | Covers | Auth / cost | How linked here | Verified 2026-10-25 | Most useful lanes |
 |---|---|---|---|---|---|
-| **jobsweep** (local MCP, `jobsweep-mcp`) | the swept store: search, sweep, digest, triage, import | none (reads `jobsweep/.env`) | .mcp.json ✓, setup.sh, Desktop | entry point `jobsweep-mcp` installed in the repo venv; server module owned by the mcp component | all |
+| **jobsweep** (local MCP, `jobsweep-mcp`) | the swept store: search, sweep, digest, triage, import | none (reads `jobsweep/.env`) | .mcp.json ✓, setup.sh, Desktop | `jobsweep-mcp` entry point installed. The FastMCP server lists 12 tools (`search_jobs`, `get_job`, `set_job_status`, `list_lanes`, `run_sweep`, `sweep_status`, `live_search`, `check_employer`, `import_jobs`, `list_sources`, `digest`, `list_employers`) and the prompts `daily_sweep` and `triage_inbox` | all |
 | **Indeed** connector (beta) | Indeed jobs: Job Search, Job Detail, Get Company Data, Get Resume | sign in with Indeed; free | claude.ai (directory). It's a remote Streamable HTTP server "available only for Claude Connector", with no URL for config files | tools live in this account's sessions (`mcp__Indeed__search_jobs`, `get_job_details`, `get_company_data`, `get_resume`). A real output sample parses via `import_jobs` (`tests/fixtures/import/indeed_connector_search.md`) | all; best for specialty insurance, intel and security, investigations, sanctions, T&S, comms; London via `country_code` GB |
 | **Jobs and Careers** connector | US jobs index with a hard `seniority` filter (ENTRY) | account connector; free | claude.ai | tool live (`mcp__Jobs_and_Careers__job-search`); real output sample parses. **The tool can also apply, so only use it to search** | US entry-level: intel and security, sanctions and fincrime, investigations, comms |
 | **Workopia** connector | jobs in 90+ countries, search/refine, detail cards | account connector; save needs OAuth | claude.ai | tools live (`mcp__Workopia__job_tool`, `job_detail_tool`); real output sample parses | London plus US: policy, comms, risk; use `workMode` remote for remote roles |
@@ -137,6 +137,10 @@ Full steps are in [`integrations/claude_ai_connectors.md`](../integrations/claud
    - Starting `claude` at the repo root loads `.mcp.json`. `.claude/settings.json` pre-approves the
      servers that need no secrets: `jobsweep`, `pipeworx-usajobs`, `exa`, `jobspy`, `ats-jobs` and
      `playwright`.
+   - The approval only applies after you accept the folder-trust prompt the first time `claude` starts
+     here. Until then, `claude mcp get <name>` shows "Pending approval".
+   - On 2026-10-25, `claude mcp get` (Claude Code 2.1.310) read the file without errors. Checked:
+     `pipeworx-usajobs`, `exa` and `adzuna`.
    - The rest stay pending until you approve them. Approve them in `/mcp`, or list them in your personal
      `.claude/settings.local.json` under `enabledMcpjsonServers`:
      - `apify`, `theirstack` and `hasdata-indeed` (OAuth, metered)
@@ -220,10 +224,10 @@ details are in `docs/GITHUB.md`.
 
 | Symptom | Fix |
 |---|---|
-| Claude Code shows a project server as "Pending approval" | Approve it in `/mcp`, or add it to `enabledMcpjsonServers` in `.claude/settings.local.json` |
+| Claude Code shows a project server as "Pending approval" | Start `claude` in the repo and accept the folder-trust prompt (this applies the pre-approvals). For the other servers, approve them in `/mcp`, or add them to `enabledMcpjsonServers` in `.claude/settings.local.json` |
 | A keyed server starts but every call fails | The key wasn't in the shell that launched `claude`. `${VAR:-}` expands to empty, so run `set -a; . jobsweep/.env; set +a` and restart |
 | `apify` / `theirstack` / `hasdata-indeed` say "needs authentication" | Run `/mcp`, choose the server, then Authenticate (OAuth). Or rerun the setup script with the key set, which adds a header-based variant. Inside the repo, use `--scope local` |
-| `jobsweep` server fails to start in Claude Code | `uv` isn't on PATH, or this is the first run (uv creates `jobsweep/.venv`). Run `uv run --directory jobsweep jobsweep doctor` once in a terminal. Without uv, point `command` at `.venv/bin/jobsweep-mcp` |
+| `jobsweep` server fails to start in Claude Code | `uv` isn't on PATH, or this is the first run (uv creates `jobsweep/.venv`, plus `jobsweep/uv.lock` if there isn't one). Run `uv run --directory jobsweep jobsweep doctor` once in a terminal. Without uv, point `command` at `.venv/bin/jobsweep-mcp` |
 | Claude Desktop: "spawn uv ENOENT" / "spawn npx ENOENT" | Desktop doesn't use your shell PATH. Put absolute paths in `command` (`which uv`, `which npx`) |
 | `uvx adzuna-mcp` fails with "not found" | The package isn't on PyPI. Use the `--from git+https://github.com/folathecoder/adzuna-job-search-mcp@<commit>` form used here |
 | ats-jobs installs the wrong server | Use `github:benkrasin/ats-jobs-mcp`, never the bare npm name `ats-jobs-mcp` |
