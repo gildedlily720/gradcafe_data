@@ -110,6 +110,17 @@ jobs:
 
       - name: Export static board
         working-directory: jobsweep
+        # Export only needs credential presence, never the secret values.
+        env:
+          USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY != '' && 'configured' || '' }}
+          USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL != '' && 'configured' || '' }}
+          PIPEWORX_API_KEY: ${{ secrets.PIPEWORX_API_KEY != '' && 'configured' || '' }}
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID != '' && 'configured' || '' }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY != '' && 'configured' || '' }}
+          THEIRSTACK_API_KEY: ${{ secrets.THEIRSTACK_API_KEY != '' && 'configured' || '' }}
+          HASDATA_API_KEY: ${{ secrets.HASDATA_API_KEY != '' && 'configured' || '' }}
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN != '' && 'configured' || '' }}
+          SOCRATA_APP_TOKEN: ${{ secrets.SOCRATA_APP_TOKEN != '' && 'configured' || '' }}
         run: jobsweep export --out "$RUNNER_TEMP/site"
 
       - name: Save state to the state branch
