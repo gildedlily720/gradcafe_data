@@ -195,6 +195,19 @@ def export_site(
 # ---- digest ---------------------------------------------------------------------------------------
 
 
+_AUTO: Any = object()
+
+
+def _try_load_taxonomy() -> Any:
+    try:
+        from .taxonomy import Taxonomy
+
+        return Taxonomy.load(profile=Settings.load().profile_path)
+    except Exception as exc:  # noqa: BLE001 - names are cosmetic; fall back to ids
+        log.debug("taxonomy unavailable for digest: %s", exc)
+        return None
+
+
 def _names(taxonomy: Any) -> tuple[dict[str, str], dict[str, str], list[str]]:
     """(group id -> name, lane id -> name, group order) from the taxonomy when available."""
     group_names: dict[str, str] = {}
@@ -249,13 +262,19 @@ def digest(
     min_score: float | None = None,
     fmt: str = "md",
     *,
-    taxonomy: Any = None,
+    taxonomy: Any = _AUTO,
     limit_per_lane: int | None = None,
 ) -> str:
     """New active matches (first seen within ``days``) grouped by best group -> best lane.
 
-    Entry-level jobs come first in each lane. ``fmt`` is "md" (markdown) or "json".
+    Entry-level jobs come first in each lane. ``fmt`` is "md" (markdown) or "json". ``taxonomy`` supplies
+    group/lane names, their order and the default ``min_score`` (loaded lazily when omitted; pass
+    ``None`` to use plain ids).
     """
+    if fmt not in ("md", "markdown", "json"):
+        raise ValueError(f"unknown digest format {fmt!r} (expected md or json)")
+    if taxonomy is _AUTO:
+        taxonomy = _try_load_taxonomy()
     threshold = _default_min_score(taxonomy) if min_score is None else float(min_score)
     rows = store.query(since=days, min_score=threshold, limit=None)
     group_names, lane_names, order = _names(taxonomy)
@@ -302,9 +321,6 @@ def digest(
             ],
         }
         return json.dumps(payload, ensure_ascii=False, indent=2, default=str)
-    if fmt not in ("md", "markdown"):
-        raise ValueError(f"unknown digest format {fmt!r} (expected md or json)")
-
     lines = [f"# jobsweep digest — {generated[:10]}", ""]
     if not rows:
         lines.append(f"No new matches in the last {span} (min score {threshold:g}).")

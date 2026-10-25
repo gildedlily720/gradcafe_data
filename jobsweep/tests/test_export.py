@@ -246,7 +246,7 @@ def test_digest_filters_and_empty(store) -> None:
     assert "**3** new matches" in md and "Risk Intern" not in md
     empty = digest(store, days=1, min_score=99)
     assert "No new matches in the last 1 day" in empty
-    md7 = digest(store, days=7, min_score=60)  # no taxonomy: ids as headings
+    md7 = digest(store, days=7, min_score=60, taxonomy=None)  # no taxonomy: ids as headings
     assert "## specialty-insurance (3)" in md7 and "Political Risk Underwriter" in md7
     with pytest.raises(ValueError):
         digest(store, fmt="xml")

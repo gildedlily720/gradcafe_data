@@ -49,7 +49,7 @@ def _req_id(posting: dict, path: str) -> str:
     tail = path.rsplit("_", 1)[-1] if "_" in path else ""
     for b in posting.get("bulletFields") or []:
         b = str(b).strip()
-        if b and _ID_LIKE.match(b) and any(ch.isdigit() for ch in b) and (b in path or not path):
+        if b and _ID_LIKE.match(b) and any(ch.isdigit() for ch in b) and b in path:
             return b
     if tail and any(ch.isdigit() for ch in tail):
         return re.sub(r"-\d{1,2}$", "", tail) if re.search(r"\d-\d{1,2}$", tail) else tail

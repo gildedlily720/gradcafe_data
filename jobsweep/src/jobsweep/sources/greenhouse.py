@@ -49,6 +49,22 @@ def _meta_text(value: Any) -> str:
     return str(value)
 
 
+_BLURB_PERIODS = (
+    ("hour", re.compile(r"\b(per hour|hourly|an hour|/ ?h(ou)?r)\b", re.I)),
+    ("month", re.compile(r"\b(per month|monthly|a month)\b", re.I)),
+    ("year", re.compile(r"\b(per year|per annum|annual|annually|yearly|a year)\b", re.I)),
+)
+
+
+def _blurb_period(blurb: str | None) -> str | None:
+    """Explicit pay-period phrases only (blurbs also say things like "years of experience")."""
+    text = html_to_text(blurb, limit=0) if blurb else ""
+    for name, pat in _BLURB_PERIODS:
+        if pat.search(text):
+            return name
+    return None
+
+
 def _salary(job: dict) -> tuple[float | None, float | None, str | None, str | None]:
     """Pay ranges (cents) -> (min, max, currency, period); falls back to currency_range metadata."""
     ranges = [r for r in job.get("pay_input_ranges") or [] if isinstance(r, dict)]
@@ -63,7 +79,7 @@ def _salary(job: dict) -> tuple[float | None, float | None, str | None, str | No
             lows.append(lo / 100.0)
         if hi is not None:
             highs.append(hi / 100.0)
-        period = period or normalize_period(r.get("title")) or normalize_period(html_to_text(r.get("blurb")))
+        period = period or normalize_period(r.get("title")) or _blurb_period(r.get("blurb"))
     if not lows and not highs:
         for _, value in _meta_values(job):
             if isinstance(value, dict) and ("min_value" in value or "max_value" in value):

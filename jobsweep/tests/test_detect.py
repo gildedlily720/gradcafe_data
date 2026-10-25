@@ -308,6 +308,34 @@ def test_probe_company_offline() -> None:
     ]
 
 
+def test_probe_company_workable_and_rate_limit(monkeypatch: pytest.MonkeyPatch) -> None:
+    from jobsweep.sources.workable import WorkableSource
+
+    monkeypatch.setattr(WorkableSource, "min_interval", 0.0)
+    page = json.loads((FIX / "workable_wati_p1.json").read_text(encoding="utf-8"))["response"]
+    base = "https://apply.workable.com/api/v3/accounts"
+    with respx.mock(assert_all_called=False) as router:
+        router.post(f"{base}/wati-dot-i-o/jobs").mock(return_value=httpx.Response(200, json=page))
+        limited = router.post(f"{base}/wati/jobs").mock(
+            return_value=httpx.Response(429, text="error code: 1015", headers={"Retry-After": "0"})
+        )
+        later = router.post(f"{base}/watidotio/jobs").mock(return_value=httpx.Response(200, json=page))
+        hits = run(
+            lambda ctx: probe_company(
+                ctx, "Wati", slugs=["wati-dot-i-o", "wati", "watidotio"], ats=["workable"]
+            )
+        )
+    assert hits == [
+        {
+            "ats": "workable",
+            "board": "wati-dot-i-o",
+            "open_jobs": page["total"],
+            "titles": [r["title"] for r in page["results"][:3]],
+        }
+    ]
+    assert limited.call_count == 2 and not later.called  # breaker stops probing after a 429
+
+
 # ----------------------------------------------------------------------------------------------- live
 def live_client() -> httpx.AsyncClient:
     from jobsweep.http import make_client

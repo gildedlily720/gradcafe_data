@@ -22,7 +22,7 @@ from urllib.parse import parse_qs, unquote, urljoin, urlsplit
 from ..http import HTTPError, fetch_json, request
 from ..models import Job
 from ..text import MAX_DESCRIPTION_CHARS
-from .base import SourceContext
+from .base import SourceContext, SourceError
 
 log = logging.getLogger("jobsweep.sources.detect")
 
@@ -574,14 +574,10 @@ async def _probe_one(ctx: SourceContext, ats: str, slug: str) -> dict | None:
                 "titles": [j.get("name") for j in d.get("content") or []],
             }
         if ats == "workable":
-            d = await fetch_json(
-                ctx.client,
-                f"https://apply.workable.com/api/v3/accounts/{slug}/jobs",
-                method="POST",
-                json_body={"query": "", "location": [], "department": [], "worktype": [], "remote": []},
-                limiter=ctx.limiter,
-                retries=0,
-            )
+            # Through the adapter so probes share its pacing and 429 circuit breaker (lazy: avoids a cycle).
+            from .workable import EMPTY_QUERY, LIST_URL, WorkableSource
+
+            d = await WorkableSource(ctx)._call("POST", LIST_URL.format(board=slug), dict(EMPTY_QUERY))
             results = d.get("results") or []
             total = d.get("total") or len(results)
             if not total:
@@ -604,6 +600,9 @@ async def _probe_one(ctx: SourceContext, ats: str, slug: str) -> dict | None:
     except HTTPError as exc:
         if exc.status not in (0, 404, 410):
             log.debug("probe %s %s: %s", ats, slug, exc)
+        return None
+    except SourceError as exc:  # workable circuit breaker open
+        log.debug("probe %s %s: %s", ats, slug, exc)
         return None
     except (ValueError, TypeError, AttributeError) as exc:
         log.debug("probe %s %s: unexpected payload (%s)", ats, slug, exc)
