@@ -922,12 +922,12 @@ IdList = list[str] | str | None
 @_tool(title="Search stored jobs", read_only=True)
 def search_jobs(
     query: Annotated[
-        str | None,
+        str,
         Field(
             description='Full-text search over title, company, location and description. Words are '
             'prefix-matched and ANDed; "quoted phrases" and OR work. Example: "political risk" OR "credit risk".'
         ),
-    ] = None,
+    ] = "",
     lanes: Annotated[IdList, Field(description="Lane ids (match any), e.g. ['kidnap-ransom', 'war-risk'].")] = None,
     groups: Annotated[
         IdList, Field(description="Group ids (match any), e.g. ['sanctions-fincrime', 'government'].")
@@ -1066,8 +1066,8 @@ def set_job_status(
     uid: Annotated[str, Field(description="Job uid, e.g. 'lever:abc-123'.")],
     status: Annotated[str, Field(description="One of: new, saved, applied, interviewing, offer, rejected, dismissed.")],
     note: Annotated[
-        str | None, Field(description="Optional note stored with the job (omit to keep the existing note).")
-    ] = None,
+        str, Field(description="Optional note stored with the job (omit to keep the existing note).")
+    ] = "",
 ) -> dict[str, Any]:
     """
     Triage a stored job by recording the user's decision or progress. Statuses: {STATUSES}.
@@ -1081,7 +1081,7 @@ def set_job_status(
         raise ToolError(f"unknown status {status!r}; valid: {', '.join(JOB_STATUSES)}")
     key = (uid or "").strip()
     try:
-        row = get_store().set_status(key, value, note)
+        row = get_store().set_status(key, value, note.strip() or None if note else None)
     except ValueError as exc:
         raise ToolError(str(exc)) from exc
     if row is None:
@@ -1575,12 +1575,12 @@ def import_jobs(
         ),
     ] = None,
     text: Annotated[
-        str | None,
+        str,
         Field(
             description="Raw, unmodified output of a job connector tool (Indeed search_jobs / get_job_details "
             "markdown, numbered [Title](url) lists, markdown tables, CSV or JSON)."
         ),
-    ] = None,
+    ] = "",
     origin: Annotated[
         str,
         Field(
