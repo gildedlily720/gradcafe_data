@@ -612,7 +612,7 @@ employers:
     careers_url: https://careers.jpmorgan.com/
     hq: New York, NY
     locations: [New York, NY, Washington, DC, London, UK, Jersey City, NJ]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|(business|firm) resilien)'
     search_terms: [Global Security, intelligence analyst, threat, crisis, GSOC, executive protection, investigator]
     max_jobs: 600
     verified: "2026-10-25"
@@ -627,7 +627,7 @@ employers:
     careers_url: https://higher.gs.com/
     hq: New York, NY
     locations: [New York, NY, London, UK, Jersey City, NJ]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|(business|firm) resilien)'
     search_terms: [Global Security, intelligence, threat, crisis, executive protection, investigations]
     verified: "2026-10-25"
     open_jobs: 902
@@ -641,7 +641,7 @@ employers:
     careers_url: https://www.morganstanley.com/people-opportunities
     hq: New York, NY
     locations: [New York, NY, London, UK, Baltimore, MD]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat|director)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|(business|firm) resilien)'
     search_terms: [corporate security, intelligence, threat, security operations center, executive protection, crisis management, investigations]
     verified: "2026-10-25"
     open_jobs: 1261
@@ -655,7 +655,7 @@ employers:
     careers_url: https://jobs.citi.com/
     hq: New York, NY
     locations: [New York, NY, Tampa, FL, London, UK, Washington, DC]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|(business|firm) resilien)'
     search_terms: [intelligence analyst, protective intelligence, security and investigative services, threat, executive protection, crisis management, investigations]
     verified: "2026-10-25"
     open_jobs: 2000
@@ -669,7 +669,7 @@ employers:
     careers_url: https://careers.bankofamerica.com/
     hq: Charlotte, NC
     locations: [New York, NY, Charlotte, NC, Washington, DC]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|(business|firm) resilien)'
     search_terms: [global security, intelligence analyst, threat, executive protection, crisis management, investigations]
     verified: "2026-10-25"
     open_jobs: 1952
@@ -683,7 +683,7 @@ employers:
     careers_url: https://careers.blackrock.com/
     hq: New York, NY
     locations: [New York, NY, London, UK, Princeton, NJ]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|(business|firm) resilien)'
     search_terms: [corporate security, intelligence, threat, executive protection, crisis management]
     verified: "2026-10-25"
     open_jobs: 291
@@ -697,7 +697,7 @@ employers:
     careers_url: https://www.blackstone.com/careers/
     hq: New York, NY
     locations: [New York, NY, London, UK]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|(business|firm) resilien)'
     verified: "2026-10-25"
     open_jobs: 146
     notes: "Blackstone Physical Security (Security Intelligence) and Security Operations threat-intelligence associates in NYC."
@@ -710,7 +710,7 @@ employers:
     careers_url: https://www.americanexpress.com/en-us/careers/
     hq: New York, NY
     locations: [New York, NY, Phoenix, AZ, London, UK]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|(business|firm) resilien)'
     search_terms: [Global Security, intelligence, threat, special agent, crisis]
     verified: "2026-10-25"
     open_jobs: 387
@@ -725,7 +725,7 @@ employers:
     careers_url: https://www.nbcunicareers.com/find-a-job
     hq: New York, NY
     locations: [New York, NY, Universal City, CA, London, UK]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|\bGRIC\b|security operations|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat|manager|director)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|social media analyst|open[- ]source|counter[- ]?terror|insider (risk|threat))'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|\bGRIC\b|security operations|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|social media analyst|open[- ]source|counter[- ]?terror|insider (risk|threat))'
     search_terms: [global security, intelligence, threat, protective, investigations, social media analyst]
     verified: "2026-10-25"
     open_jobs: 449
@@ -739,7 +739,7 @@ employers:
     careers_url: https://jobs.disneycareers.com/
     hq: Burbank, CA
     locations: [New York, NY, Burbank, CA, Orlando, FL, London, UK]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|asset protection|insider (risk|threat))'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|asset protection|insider (risk|threat))'
     search_terms: [global security, intelligence, threat, protective, crisis, investigations]
     verified: "2026-10-25"
     open_jobs: 377
@@ -766,7 +766,7 @@ employers:
     careers_url: https://www.msgentertainment.com/jobs/
     hq: New York, NY
     locations: [New York, NY]
-    title_filter: '(?i)((?<!artificial )(?<!business )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator)|\binvestigat|\bcrisis\b|\bOSINT\b)'
+    title_filter: '(?i)((?<!artificial )(?<!business )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|intelligence)|\binvestigat|\bcrisis\b|\bOSINT\b)'
     verified: "2026-10-25"
     open_jobs: 89
     notes: "Security Intelligence analysts/investigators, SOC operators, executive protection at MSG / Radio City. Greenhouse token found in the site embed."
@@ -806,7 +806,7 @@ employers:
     careers_url: https://www.pfizer.com/about/careers
     hq: New York, NY
     locations: [New York, NY, Collegeville, PA, Sandwich, UK]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|counter[- ]?terror|brand protection|insider (risk|threat))'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\bcrisis\b|travel (risk|security)|\bOSINT\b|counter[- ]?terror|brand protection|insider (risk|threat))'
     search_terms: [global security, intelligence, threat, crisis management, investigations, brand protection]
     verified: "2026-10-25"
     open_jobs: 540
@@ -820,7 +820,7 @@ employers:
     careers_url: https://www.careers.jnj.com/
     hq: New Brunswick, NJ
     locations: [New Brunswick, NJ, New York, NY, Raritan, NJ]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|counter[- ]?terror|brand protection|insider (risk|threat))'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\bcrisis\b|travel (risk|security)|\bOSINT\b|counter[- ]?terror|brand protection|insider (risk|threat))'
     search_terms: [global security, intelligence, threat, crisis management, investigations, brand protection]
     verified: "2026-10-25"
     open_jobs: 1894
@@ -834,7 +834,7 @@ employers:
     careers_url: https://careers.salesforce.com/
     hq: San Francisco, CA
     locations: [New York, NY, San Francisco, CA, London, UK]
-    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|counter[- ]?terror|insider (risk|threat))'
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\bcrisis\b|travel (risk|security)|\bOSINT\b|counter[- ]?terror|brand protection|insider (risk|threat))'
     search_terms: [global security, protective intelligence, threat, security operations center, executive protection, crisis management]
     verified: "2026-10-25"
     open_jobs: 1573
@@ -862,7 +862,7 @@ employers:
     careers_url: https://openai.com/careers/
     hq: San Francisco, CA
     locations: [San Francisco, CA, New York, NY, Washington, DC, London, UK]
-    title_filter: '(?i)(\bthreat|(?<!artificial )(?<!business )(?<!customer )\bintelligence\b|\binvestigat|physical security|global security|corporate security|security (operations|risk|intelligence)|\bprotective\b|executive protection|\bcrisis\b|\bOSINT\b)'
+    title_filter: '(?i)(\bthreat|\binvestigat|\bintel(ligence)? (analyst|&|and investigat)|national security|physical security|global security|corporate security|\bsecurity (operations|risk|intelligence)|\bprotective\b|executive protection|\bcrisis\b|\bOSINT\b)'
     verified: "2026-10-25"
     open_jobs: 793
     notes: "Intelligence & Investigations (threat investigators), physical/corporate security."
@@ -876,7 +876,7 @@ employers:
     careers_url: https://www.anthropic.com/careers
     hq: San Francisco, CA
     locations: [San Francisco, CA, New York, NY, Washington, DC, London, UK]
-    title_filter: '(?i)(\bthreat|(?<!artificial )(?<!business )(?<!customer )\bintelligence\b|\binvestigat|physical security|global security|corporate security|security (operations|risk|intelligence)|\bprotective\b|executive protection|\bcrisis\b|\bOSINT\b)'
+    title_filter: '(?i)(\bthreat|\binvestigat|\bintel(ligence)? (analyst|&|and investigat)|national security|physical security|global security|corporate security|\bsecurity (operations|risk|intelligence)|\bprotective\b|executive protection|\bcrisis\b|\bOSINT\b)'
     verified: "2026-10-25"
     open_jobs: 682
     notes: "Safeguards threat-intelligence (CBRN, fraud, model exploitation) and corporate/physical security."
