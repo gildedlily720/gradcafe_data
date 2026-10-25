@@ -623,7 +623,7 @@ employers:
     name: Goldman Sachs
     lanes: [corporate-security, gsoc-watch, protective-intelligence, threat-intelligence]
     ats: oracle
-    board: hdpc.fa.us2.oraclecloud.com/LateralHiring
+    board: hdpc.fa.us2.oraclecloud.com/CX_3002
     careers_url: https://higher.gs.com/
     hq: New York, NY
     locations: [New York, NY, London, UK, Jersey City, NJ]

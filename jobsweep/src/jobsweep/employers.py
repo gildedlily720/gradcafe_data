@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from collections.abc import Iterable
 from pathlib import Path
 
@@ -21,14 +22,41 @@ class EmployerRegistry:
         self._by_key: dict[str, Employer] = {}
         for emp in employers:
             if emp.key in self._by_key:
-                # Same employer listed under two groups: merge groups/lanes, keep first board.
-                cur = self._by_key[emp.key]
-                cur.groups = list(dict.fromkeys(cur.groups + emp.groups))
-                cur.lanes = list(dict.fromkeys(cur.lanes + emp.lanes))
-                if not cur.board and emp.board:
-                    cur.ats, cur.board = emp.ats, emp.board
+                self._merge(self._by_key[emp.key], emp)
                 continue
             self._by_key[emp.key] = emp
+
+    @staticmethod
+    def _merge(cur: Employer, other: Employer) -> None:
+        """Same employer listed under two groups: union groups/lanes and widen the sweep settings.
+
+        The first sweepable board wins. When both entries point at that board, their title filters are
+        OR-ed (no filter on either side means keep every title), search terms are unioned and the larger
+        max_jobs is kept, so each group's searches (e.g. security *and* AML at a bank) both run.
+        """
+        cur.groups = list(dict.fromkeys(cur.groups + other.groups))
+        cur.lanes = list(dict.fromkeys(cur.lanes + other.lanes))
+        if not cur.sweepable and other.sweepable:
+            cur.ats, cur.board = other.ats, other.board
+            cur.title_filter, cur.search_terms, cur.max_jobs = (
+                other.title_filter,
+                other.search_terms,
+                other.max_jobs,
+            )
+            cur.verified, cur.open_jobs = other.verified, other.open_jobs
+        elif (cur.ats, cur.board) == (other.ats, other.board) and cur.board:
+            if cur.title_filter and other.title_filter and cur.title_filter != other.title_filter:
+                # Leading global flags like (?i) are only legal at the very start of a pattern.
+                a, b = (re.sub(r"^\(\?i\)", "", f) for f in (cur.title_filter, other.title_filter))
+                cur.title_filter = f"(?i)(?:{a})|(?:{b})"
+            elif not cur.title_filter or not other.title_filter:
+                cur.title_filter = None
+            if cur.search_terms and other.search_terms:
+                cur.search_terms = list(dict.fromkeys(cur.search_terms + other.search_terms))
+            if other.max_jobs and (not cur.max_jobs or other.max_jobs > cur.max_jobs):
+                cur.max_jobs = other.max_jobs
+        cur.careers_url = cur.careers_url or other.careers_url
+        cur.locations = list(dict.fromkeys(cur.locations + other.locations))
 
     @classmethod
     def load(cls, directory: str | Path | None = None) -> EmployerRegistry:
