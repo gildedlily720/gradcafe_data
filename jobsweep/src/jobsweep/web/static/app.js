@@ -32,7 +32,7 @@
     { id: "dismissed", label: "Dismissed", statuses: ["dismissed", "rejected"] },
     { id: "all", label: "All", statuses: [] },
   ];
-  // Triage tabs list everything the user filed there: score / entry-level / recency filters do not apply.
+  // Triage tabs ignore score / entry-level filters. Explicit static-board recency filters still apply.
   const TRIAGE_TABS = new Set(["saved", "applied", "interviewing", "dismissed"]);
   const SORTS = ["score", "newest", "posted", "closing", "company"];
   const DAYS = ["1", "3", "7", "30"];
@@ -320,7 +320,7 @@
   function defaultFilters() {
     return {
       q: "", tab: "inbox", lanes: [], groups: [], sources: [], employers: [], entry: true,
-      min: state.defaultMin, loc: "", remote: false, days: "", sort: "score",
+      min: state.defaultMin, loc: "", remote: false, days: "", postedDays: "", sort: "score",
     };
   }
   state.f = defaultFilters();
@@ -473,6 +473,8 @@
       it.groups = it.groups || [];
       const fs = parseDate(it.first_seen);
       it._first = fs ? fs.getTime() : 0;
+      const posted = parseDate(it.posted_at);
+      it._posted = posted ? posted.getTime() : null;
       const laneNames = it.lanes.map((l) => (state.laneIndex[l] || {}).name || l).join(" ");
       it._hay = [it.title, it.company, it.location, laneNames, it.department, it.grade, it.description]
         .filter(Boolean).join(" \u0001 ").toLowerCase();
@@ -500,7 +502,14 @@
       if (!isTriageTab(f.tab)) {
         if (f.entry && it.entry_level === false) return false;
         if (f.min > 0 && (Number(it.score) || 0) < f.min) return false;
-        if (f.days && it._first < state.generatedAt - Number(f.days) * DAY) return false;
+      }
+      const now = opts.now == null ? Date.now() : opts.now;
+      if (f.days && (!it._first || it._first < now - Number(f.days) * DAY || it._first > now)) return false;
+      if (f.postedDays) {
+        // Date-only sources cannot support minute-level precision. Use calendar days for them.
+        const cutoff = new Date(now - Number(f.postedDays) * DAY);
+        if (isDateOnly(it.posted_at)) cutoff.setHours(0, 0, 0, 0);
+        if (it._posted == null || it._posted < cutoff.getTime() || it._posted > now) return false;
       }
       if (f.loc) {
         const want = f.loc.toLowerCase();
@@ -517,15 +526,16 @@
     },
 
     sorted(f) {
-      const key = JSON.stringify([f, this.items.length]);
+      const now = Date.now();
+      const key = JSON.stringify([f, this.items.length, (f.days || f.postedDays) ? now : null]);
       if (this.filtered && this.filteredKey === key) return this.filtered;
       const tokens = this.tokens(f.q);
-      const out = this.items.filter((it) => this.match(it, f, { tokens }));
+      const out = this.items.filter((it) => this.match(it, f, { tokens, now }));
       const day = (s) => (s ? String(s).slice(0, 10) : "");
       const by = {
         score: (a, b) => (b.score || 0) - (a.score || 0) || b._first - a._first || (a.uid < b.uid ? -1 : 1),
         newest: (a, b) => b._first - a._first || (b.score || 0) - (a.score || 0),
-        posted: (a, b) => (!a.posted_at) - (!b.posted_at) || day(b.posted_at).localeCompare(day(a.posted_at)) || (b.score || 0) - (a.score || 0),
+        posted: (a, b) => (a._posted == null) - (b._posted == null) || (b._posted || 0) - (a._posted || 0) || b._first - a._first || String(a.uid).localeCompare(String(b.uid)),
         closing: (a, b) => (!a.closes_at) - (!b.closes_at) || day(a.closes_at).localeCompare(day(b.closes_at)) || (b.score || 0) - (a.score || 0),
         company: (a, b) => String(a.company || "").localeCompare(String(b.company || ""), "en", { sensitivity: "base" }) || (b.score || 0) - (a.score || 0),
       };
@@ -662,6 +672,7 @@
     if (f.loc) p.set("loc", f.loc);
     if (f.remote) p.set("remote", "1");
     if (f.days) p.set("days", f.days);
+    if (f.postedDays) p.set("posted_days", f.postedDays);
     if (f.sort !== "score") p.set("sort", f.sort);
     if (state.selUid) p.set("job", state.selUid);
     const qs = p.toString();
@@ -694,6 +705,7 @@
     f.loc = p.get("loc") || "";
     f.remote = p.get("remote") === "1";
     f.days = DAYS.includes(p.get("days")) ? p.get("days") : "";
+    f.postedDays = state.mode === "static" && DAYS.includes(p.get("posted_days")) ? p.get("posted_days") : "";
     f.sort = SORTS.includes(p.get("sort")) ? p.get("sort") : "score";
     return { view, f, job: p.get("job") };
   }
@@ -1053,8 +1065,9 @@
     $("f-remote").checked = f.remote;
     $("f-days").value = f.days;
     $("f-sort").value = f.sort;
+    if ($("f-posted-days")) $("f-posted-days").value = f.postedDays;
     const triage = isTriageTab(f.tab);
-    for (const id of ["f-entry", "f-min", "f-days"]) {
+    for (const id of (state.mode === "static" ? ["f-entry", "f-min"] : ["f-entry", "f-min", "f-days"])) {
       const ctl = $(id).closest(".control");
       ctl.style.opacity = triage ? "0.5" : "";
       ctl.title = triage ? "Not applied on triage tabs: everything you filed is listed" : ctl.dataset.title || "";
@@ -1151,9 +1164,9 @@
   }
 
   function isNew(it) {
-    const ref = state.mode === "static" ? state.generatedAt : Date.now();
+    const ref = Date.now();
     const t = it._first || (parseDate(it.first_seen) || { getTime: () => 0 }).getTime();
-    return t > 0 && ref - t < DAY;
+    return t > 0 && t <= ref && ref - t < DAY;
   }
 
   function entryBadge(it) {
@@ -1232,7 +1245,7 @@
       h("div", { class: "row-side" },
         h("div", { class: "dates" },
           posted
-            ? h("span", { title: "Posted " + fmtDate(it.posted_at), text: posted })
+            ? h("span", { title: "Posted " + fmtDate(it.posted_at, true), text: posted })
             : it.first_seen ? h("span", { title: "First seen " + fmtDate(it.first_seen, true), text: "seen " + relTime(it.first_seen) }) : null,
           close ? h("span", { class: "closing" + (close.soon ? " soon" : "") + (close.past ? " past" : ""), title: "Closes " + fmtDate(it.closes_at), text: close.label }) : null),
         h("div", { class: "row-actions" },
@@ -1592,7 +1605,7 @@
 
     const facts = h("dl", { class: "facts" },
       fact("Salary", fmtSalary(it)),
-      fact("Posted", it.posted_at ? fmtDate(it.posted_at) + " · " + relTime(it.posted_at) : null),
+      fact("Posted", it.posted_at ? fmtDate(it.posted_at, true) + " · " + relTime(it.posted_at) : "Unknown"),
       fact("Closes", it.closes_at ? fmtDate(it.closes_at) + (close ? " · " + close.label : "") : null, close && close.soon ? "soon" : null),
       fact("First seen", it.first_seen ? fmtDate(it.first_seen, true) : null),
       fact("Last seen", it.last_seen ? relTime(it.last_seen) : null),
@@ -2420,11 +2433,34 @@
     return "static";
   }
 
+  function setupDateControls() {
+    const added = $("f-days").closest(".control");
+    added.querySelector(".lbl").textContent = "Added to board";
+    added.title = "When JobSweep first discovered the job, regardless of its posting date";
+    added.dataset.title = added.title;
+    $("f-sort").querySelector('[value="posted"]').textContent = "Date posted (newest first)";
+    $("f-sort").querySelector('[value="newest"]').textContent = "Added to board (newest first)";
+    if (state.mode !== "static") return;
+    const select = h("select", { id: "f-posted-days" },
+      [["", "any time"], ["1", "last 24 hours"], ["3", "last 3 days"], ["7", "last 7 days"], ["30", "last 30 days"]]
+        .map(([value, text]) => h("option", { value, text })));
+    const posted = h("label", { class: "control", for: "f-posted-days",
+      title: "Employer posting date. Unknown dates are excluded; date-only postings use calendar days." },
+      h("span", { class: "lbl", text: "Posted within" }), select);
+    added.before(posted);
+    select.addEventListener("change", (e) => {
+      state.f.postedDays = e.target.value;
+      if (state.f.postedDays) state.f.sort = "posted";
+      applyFilters();
+    });
+  }
+
   async function init() {
     applyTheme(currentTheme());
     bindEvents();
     renderHelp();
     state.mode = await detectMode();
+    setupDateControls();
     document.body.dataset.mode = state.mode;
     data = state.mode === "static" ? StaticData : ApiData;
     renderSkeleton();
