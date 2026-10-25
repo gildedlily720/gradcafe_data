@@ -654,8 +654,10 @@ _JS_REDIRECT = re.compile(
     r"(?:window\.|document\.)?location(?:\.href)?\s*=\s*[\"'](https?://[^\"']+)[\"']", re.I
 )
 _LINK = re.compile(r"<a\b[^>]*?\bhref\s*=\s*[\"']([^\"'#]+)[\"'][^>]*>(.*?)</a>", re.I | re.S)
-_STRONG = re.compile(r"job|opening|vacanc|position|requisition|search|apply", re.I)
-_JOBBY = re.compile(r"career|opportunit|join|hiring|work-with-us|work-for-us", re.I)
+_STRONG = re.compile(
+    r"\bjobs?\b|jobs?[-_]|[-_]jobs?|jobsearch|openings?\b|vacanc|\bpositions?\b|requisition|\bapply\b", re.I
+)
+_JOBBY = re.compile(r"career|opportunit|\bjoin\b|join[-_]us|hiring|employment|work-with-us|work-for-us", re.I)
 
 _HTML_HEADERS = {"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"}
 

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import copy
+import os
 from types import SimpleNamespace
 
 import pytest
@@ -438,3 +439,63 @@ def test_integration_dry_run_with_real_modules(tmp_path) -> None:
     rep = run_sweep_sync(settings, tax, reg, None, SweepOptions(dry_run=True))
     assert rep.dry_run and "counts" in rep.plan
     assert all(s["source"] != "import" for s in rep.plan["searches"])
+
+
+def test_interleave_and_per_source_cap(fake_sources, settings) -> None:
+    from jobsweep.sweep import _interleave, _Target
+
+    ts = [_Target("search", "a", query=SearchQuery(str(i))) for i in range(3)]
+    ts += [_Target("search", "b", query=SearchQuery("b0"))]
+    assert [(t.source, t.label) for t in _interleave(ts)] == [("a", "0"), ("b", "b0"), ("a", "1"), ("a", "2")]
+
+    state = {"now": 0, "peak": 0}
+
+    class SlowSearch(FakeSearch):
+        name = "slow"
+        max_queries = None
+
+        async def search(self, query: SearchQuery) -> list[Job]:
+            state["now"] += 1
+            state["peak"] = max(state["peak"], state["now"])
+            await asyncio.sleep(0.01)
+            state["now"] -= 1
+            return []
+
+    sources_mod._cache["slow"] = SlowSearch
+    opts = SweepOptions(sources=["slow"], concurrency=8, boards=False)
+    rep = asyncio.run(run_sweep(settings, FakeTaxonomy(), None, None, opts))
+    assert rep.per_source["slow"]["ok"] == 10
+    assert state["peak"] == 4  # concurrency // 2
+
+
+# ---- live (real adapters + network): run with -m live or JOBSWEEP_LIVE=1 ------------------------------
+
+
+@pytest.fixture(autouse=True)
+def _live_gate(request: pytest.FixtureRequest) -> None:
+    if request.node.get_closest_marker("live"):
+        expr = (request.config.getoption("markexpr", "") or "").replace("not live", "")
+        if "live" not in expr and os.environ.get("JOBSWEEP_LIVE") != "1":
+            pytest.skip("live test: run with -m live")
+
+
+@pytest.mark.live
+def test_live_sweep_real_boards(tmp_path) -> None:
+    if sources_mod.get_source_class("greenhouse") is None or sources_mod.get_source_class("workday") is None:
+        pytest.skip("board adapters not available")
+    reg = EmployerRegistry(
+        [
+            Employer(key="anthropic", name="Anthropic", ats="greenhouse", board="anthropic"),
+            Employer(key="frbny", name="Federal Reserve Bank of New York", ats="workday", board="rb/wd5/FRS",
+                     max_jobs=40),
+        ]
+    )  # fmt: skip
+    store = Store(tmp_path / "live.db")
+    settings = Settings.load()
+    rep = run_sweep_sync(
+        settings, FakeTaxonomy(), reg, store, SweepOptions(searches=False, store_unmatched=True)
+    )
+    assert not rep.errors, rep.errors
+    assert rep.per_source["greenhouse"]["jobs"] > 0 and rep.per_source["workday"]["jobs"] > 0
+    assert store.count(min_score=0, include_inactive_lanes=True) == rep.total_jobs > 0
+    store.close()
