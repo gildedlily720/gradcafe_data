@@ -21,7 +21,7 @@
 #     Accelerator, Interos (Paycor), Verite, Transparentem (HireHive).
 #   * Expert networks / primary research: GLG, AlphaSights, Guidepoint, Third Bridge, AlphaSense (Tegus),
 #     Coleman, Atheneum, Arbolus, NewtonX, Capvision; manual: Dialectica & proSapient (Workable), Inex One.
-#   * Investment research / DD: Bridgewater, Point72, Schonfeld, Viking, Marshall Wace, Blackstone, KKR,
+#   * Investment research / DD: Bridgewater, Point72, Schonfeld, Viking, Blackstone, KKR,
 #     Carlyle, Apollo, TPG, Warburg Pincus, General Atlantic, Bain Capital; manual: Citadel, Two Sigma,
 #     D. E. Shaw, Millennium, Balyasny, Brevan Howard.
 #
@@ -480,7 +480,7 @@ employers:
     groups: [entry-routes]
     ats: workday
     board: mmc/wd1/MMC
-    careers_url: https://careers.marshmclennan.com/global/en/oliver-wyman
+    careers_url: https://careers.marsh.com/global/en/oliver-wyman
     hq: New York, NY
     locations: [New York, NY, Washington, DC, London, UK]
     search_terms: [Oliver Wyman]
@@ -536,7 +536,7 @@ employers:
     groups: [intelligence-security, sanctions-fincrime]
     ats: ashby
     board: strider-technologies
-    careers_url: https://striderintel.com/careers
+    careers_url: https://striderintel.com/company/careers/
     hq: Salt Lake City, UT
     locations: [Arlington, VA, Washington, DC, London, UK]
     verified: "2026-10-25"
@@ -598,7 +598,7 @@ employers:
   - key: interos
     name: Interos
     lanes: [supply-chain-forced-labor, economic-security]
-    groups: [defense-intel-contractors]
+    groups: [intelligence-security]
     ats: other
     ats_vendor: paycor
     careers_url: https://recruitingbypaycor.com/career/CareerHome.action?clientId=8a7883d0848832f201848c7dbf79011a
@@ -622,7 +622,7 @@ employers:
     lanes: [supply-chain-forced-labor]
     ats: lever
     board: resilinc
-    careers_url: https://www.resilinc.com/careers/
+    careers_url: https://jobs.lever.co/resilinc
     hq: Milpitas, CA
     locations: [Remote US]
     verified: "2026-10-25"
@@ -634,7 +634,7 @@ employers:
     lanes: [economic-security, supply-chain-forced-labor]
     ats: recruitee
     board: datenna
-    careers_url: https://datenna.recruitee.com/
+    careers_url: https://jobs.datenna.com/
     hq: Eindhoven, NL
     locations: [Eindhoven, NL, Remote]
     verified: "2026-10-25"
@@ -668,7 +668,7 @@ employers:
   - key: c4ads
     name: C4ADS
     lanes: [supply-chain-forced-labor, economic-security]
-    groups: [sanctions-fincrime, defense-intel-contractors]
+    groups: [sanctions-fincrime, intelligence-security]
     ats: greenhouse
     board: c4ads
     careers_url: https://c4ads.org/careers/
@@ -730,7 +730,7 @@ employers:
     groups: [entry-routes]
     ats: greenhouse
     board: alphasights
-    careers_url: https://www.alphasights.com/careers/
+    careers_url: https://www.alphasights.com/careers/open-roles
     hq: New York, NY
     locations: [New York, NY, London, UK]
     verified: "2026-10-25"
@@ -743,7 +743,7 @@ employers:
     groups: [entry-routes]
     ats: greenhouse
     board: guidepoint
-    careers_url: https://www.guidepoint.com/careers/
+    careers_url: https://www.guidepoint.com/company/careers/
     hq: New York, NY
     locations: [New York, NY, London, UK]
     verified: "2026-10-25"
@@ -756,7 +756,7 @@ employers:
     groups: [entry-routes]
     ats: greenhouse
     board: thirdbridge
-    careers_url: https://www.thirdbridge.com/careers
+    careers_url: https://www.thirdbridge.com/en-us/careers
     hq: London, UK
     locations: [London, UK, New York, NY]
     verified: "2026-10-25"
@@ -793,7 +793,7 @@ employers:
     lanes: [primary-research-expert-networks]
     ats: recruitee
     board: atheneum
-    careers_url: https://atheneum.recruitee.com/
+    careers_url: https://www.atheneum.ai/careers
     hq: Berlin, DE
     locations: [New York, NY, London, UK, Berlin, DE]
     verified: "2026-10-25"
@@ -817,7 +817,7 @@ employers:
     lanes: [primary-research-expert-networks]
     ats: ashby
     board: newtonx
-    careers_url: https://www.newtonx.com/careers
+    careers_url: https://jobs.ashbyhq.com/newtonx
     hq: New York, NY
     locations: [New York, NY]
     verified: "2026-10-25"
@@ -917,17 +917,6 @@ employers:
     open_jobs: 7
     notes: "Fundamental long/short; opportunistic investment-team roles."
 
-  - key: marshall-wace
-    name: Marshall Wace
-    lanes: [investment-research-dd]
-    ats: greenhouse
-    board: marshallwace
-    careers_url: https://www.mwam.com/careers
-    hq: London, UK
-    locations: [London, UK, New York, NY]
-    verified: "2026-10-25"
-    open_jobs: 1
-    notes: "Small public board (mostly internships)."
 
   - key: blackstone
     name: Blackstone

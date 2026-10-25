@@ -1111,16 +1111,24 @@ def list_lanes(
     include_queries: Annotated[
         bool,
         Field(
-            description="Include each lane's keyword queries (used for searches and the Indeed connector)."
+            description="Include each lane's keyword search queries (for the Indeed / other job connectors)."
         ),
-    ] = True,
+    ] = False,
+    groups: Annotated[IdList, Field(description="Only these group ids (default: all).")] = None,
+    max_queries: Annotated[
+        int,
+        Field(description="With include_queries: at most this many queries per lane, best first (0 = all)."),
+    ] = 3,
 ) -> dict[str, Any]:
     """
-    The candidate's lane taxonomy: groups -> lanes with ids, names, the number of active stored jobs in each,
-    and (include_queries) the keyword queries jobsweep searches with. Use it to map a request to lane/group
-    ids for search_jobs / run_sweep, to pick queries for the Indeed connector (daily_sweep), or to show which
-    areas currently have openings. Group ids: {GROUP_IDS}.
+    The candidate's lane taxonomy: groups -> lanes with ids, names and the number of active stored jobs in each;
+    with include_queries=true also the keyword queries jobsweep searches with (best first). Use it to map a
+    request to lane/group ids for search_jobs / run_sweep, to pick search queries for the Indeed connector
+    (daily_sweep: include_queries=true, max_queries=2), or to show which areas currently have openings.
+    Group ids: {GROUP_IDS}.
     """
+    _, only_groups = _resolve_ids(None, groups)
+    cap = _clamp(max_queries, 0, 50, 3)
     tax = _taxonomy_or_none()
     try:
         stats = get_store().stats()
@@ -1144,17 +1152,20 @@ def list_lanes(
         }
     groups = []
     for g in doc.get("groups", []):
-        if not include_inactive and not g.get("active", True):
+        if only_groups and g.get("id") not in only_groups:
+            continue
+        if not include_inactive and not g.get("active", True) and not only_groups:
             continue
         lanes = []
         for lane in g.get("lanes", []):
-            if not include_inactive and not lane.get("active", True):
+            if not include_inactive and not lane.get("active", True) and not only_groups:
                 continue
             item = {"id": lane.get("id"), "name": lane.get("name"), "count": by_lane.get(lane.get("id"), 0)}
             if include_inactive:
                 item["active"] = lane.get("active", True)
             if include_queries:
-                item["queries"] = list(lane.get("queries") or [])
+                queries = list(lane.get("queries") or [])
+                item["queries"] = queries[:cap] if cap else queries
             lanes.append(item)
         entry = {
             "id": g.get("id"),
@@ -1858,7 +1869,7 @@ plus graduate / analyst / fellowship programmes. Locations: New York, Washington
    a focus). If it returns status "running", call sweep_status(wait_seconds=45) until it is "finished" or
    "error". Note any failing sources briefly; do not retry them.
 
-2. Connector pass. Call list_lanes() and, for each active lane group (or only the focus lanes), take the
+2. Connector pass. Call list_lanes(include_queries=true, max_queries=2) and, for each active lane group (or only the focus lanes), take the
    1-2 most relevant lane queries, preferring entry-level phrasing (analyst, associate, assistant, coordinator,
    graduate, fellow). For each query call the Indeed connector's search_jobs tool (in Claude Code:
    mcp__Indeed__search_jobs) with search=<query>, location in {_INDEED_LOCATIONS}; for
@@ -1922,7 +1933,9 @@ def triage_inbox(focus: str = "", limit: int = 20) -> str:
     mime_type="application/json",
 )
 def lanes_resource() -> str:
-    return json.dumps(list_lanes(include_inactive=True, include_queries=True), ensure_ascii=False)
+    return json.dumps(
+        list_lanes(include_inactive=True, include_queries=True, max_queries=0), ensure_ascii=False
+    )
 
 
 @mcp.resource(
