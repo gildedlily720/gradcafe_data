@@ -336,7 +336,8 @@ groups:
         exclude: ["business intelligence", "BI analyst", "BI developer", "sales intelligence", "revenue intelligence",
                   "market intelligence", "competitive intelligence", "customer intelligence",
                   "artificial intelligence", "pricing intelligence", "conversation intelligence",
-                  "software engineer", "data engineer", "intelligence engineer"]
+                  "software engineer", "data engineer", "intelligence engineer", "account director", "account executive",
+                  "account manager", "sales"]
         queries: ["intelligence analyst entry level", "strategic intelligence analyst", "risk intelligence analyst",
                   "security intelligence analyst", "global intelligence analyst", "junior intelligence analyst",
                   "intelligence associate", "all source intelligence analyst"]
@@ -457,7 +458,7 @@ groups:
         exclude: ["cyber", "cybersecurity", "information security", "infosec", "security engineer", "penetration",
                   "application security", "cloud security", "network security", '/\bSOC\b/', "IT security",
                   "security architect", "SIEM", "devsecops", "security guard", "unarmed", "armed security", "patrol",
-                  "concierge"]
+                  "concierge", "engineer", "GRC", "risk engineering"]
         queries: ["corporate security analyst", "security risk analyst", "physical security analyst",
                   "global security analyst", "security risk management associate", "corporate security coordinator",
                   "business continuity analyst"]
@@ -512,7 +513,8 @@ groups:
       - id: regional-research-specialist
         name: "Regional research specialist roles at government research contractors"
         active: true
-        title: ["regional research specialist", "regional research", "regional analyst", "regional specialist",
+        title: ["regional research specialist", "regional research analyst", "regional researcher",
+                "regional analyst", "regional specialist",
                 "country analyst", "country specialist", "area specialist", "foreign area", "sociocultural",
                 "socio-cultural", "cultural analyst", "language analyst", "foreign media analyst",
                 '/\b(?:Middle East|MENA|Africa|Sub-Saharan Africa|Sahel|Russia|Eurasia|China|East Asia|South Asia|Latin America|Iran|Levant|Indo-Pacific|Asia-Pacific)n? (?:Analyst|Researcher|Research Analyst|Research Specialist|Specialist)\b/']
@@ -579,7 +581,8 @@ groups:
         exclude: ["clinical", "principal investigator", "co-investigator", "sub-investigator", "child protective",
                   "Title IX", "EEO", "equal employment", "human resources", "HR investigator", "employee relations",
                   "workplace investigations", "fire investigator", "death investigator", "medicolegal",
-                  "business intelligence", "competitive intelligence", "crime scene"]
+                  "business intelligence", "competitive intelligence", "crime scene", "case investigator",
+                  "communicable", "disease"]
         queries: ["investigative research analyst", "corporate investigations analyst", "investigations associate",
                   "corporate intelligence analyst", "investigative analyst entry level", "junior investigator research",
                   "investigations analyst"]
@@ -930,7 +933,7 @@ groups:
         context: ["hedge fund", "private equity", "financial modeling", "valuation", "Excel", "investors",
                   "sectors", "companies", "markets", "portfolio", "sell-side"]
         exclude: ["sales", "account executive", "software engineer", "fund accountant", "fund accounting", "tax",
-                  "engineer"]
+                  "engineer", "counsel", "attorney", "accounting", "integration"]
         queries: ["investment research analyst", "commercial due diligence analyst",
                   "fundamental research analyst program", "hedge fund research analyst entry level",
                   "private equity research associate", "M&A analyst", "alternative data research analyst"]
@@ -1165,8 +1168,8 @@ groups:
                   "safety evaluations"]
         context: ["AI", "LLM", "machine learning", "classifiers", "policy", "investigations", "SQL", "Python",
                   "trust and safety", "escalation", "operations"]
-        exclude: ["nuclear", "IAEA", "research scientist", "research engineer", "software engineer",
-                  "machine learning engineer", "code enforcement", "law enforcement", "parking enforcement",
+        exclude: ["nuclear", "IAEA", "research scientist", "engineer", "engineering manager", "designer",
+                  "data scientist", "code enforcement", "law enforcement", "parking enforcement",
                   "child support enforcement", "environmental enforcement"]
         queries: ["policy enforcement analyst", "AI safeguards analyst", "abuse investigator",
                   "safeguards enforcement analyst", "trust and safety enforcement associate", "anti-abuse analyst",
@@ -1188,7 +1191,7 @@ groups:
         context: ["AI", "machine learning", "LLMs", "governance", "regulation", "forecasting", "research", "think tank",
                   "Washington", "Brussels"]
         exclude: ["software engineer", "machine learning engineer", "research engineer", "account executive", "sales",
-                  "data engineer"]
+                  "data engineer", "counsel"]
         queries: ["AI policy research assistant", "AI governance researcher", "AI policy analyst", "AI policy fellow",
                   "model policy analyst", "forecasting research associate", "AI governance research associate"]
         usajobs: {keywords: ["artificial intelligence policy", "AI governance"], series: ["0301", "0343", "0101", "0130"]}
@@ -1256,7 +1259,7 @@ groups:
                   "International Criminal Court", "OHCHR", "Office of the High Commissioner for Human Rights"]
         context: ["advocacy", "research", "documentation", "NGO", "nonprofit", "international law", "interviews",
                   "reports", "languages", "accountability"]
-        exclude: ["attorney", "staff attorney"]
+        exclude: ["attorney", "staff attorney", "engineer"]
         queries: ["human rights research assistant", "human rights program associate",
                   "human rights researcher entry level", "atrocity prevention fellow", "business and human rights analyst",
                   "human rights investigator", "civil rights investigator"]
@@ -1285,7 +1288,8 @@ groups:
         context: ["think tank", "research", "Congress", "defense", "foreign policy", "clearance", "writing", "events",
                   "fellowship", "China", "Russia", "Middle East"]
         exclude: ["sales", "account executive", "account manager", "account director", "business development",
-                  "software engineer", "engineer", "recruiter", "architect", "information security"]
+                  "software engineer", "engineer", "recruiter", "architect", "information security", "customer success",
+                  "partnerships"]
         queries: ["national security research assistant", "national security program assistant",
                   "defense policy research associate", "national security analyst entry level",
                   "arms control research assistant", "international security program coordinator",
@@ -1318,7 +1322,7 @@ groups:
         name: "Think tank research associate, research assistant and program associate roles"
         active: true
         title: ["research associate", "research assistant", "research fellow", "junior fellow", "research coordinator",
-                "program associate", "program coordinator", "research analyst", "policy associate", "policy fellow",
+                "program associate", "research analyst", "policy associate", "policy fellow",
                 "research and program assistant"]
         phrases: ["think tank", "think-tank", "nonpartisan research", "non-partisan research", "public policy research",
                   "policy briefs", "policy papers", "white papers", "op-eds", "senior fellows", "convenings",
@@ -1331,7 +1335,7 @@ groups:
                   "data analysis", "Washington", "scholars"]
         exclude: ["clinical", "laboratory", "lab", "biology", "chemistry", "biochemistry", "molecular", "medical",
                   "medicine", "hospital", "neuroscience", "psychiatry", "pharmacology", "oncology", "genomics",
-                  "physics", "veterinary"]
+                  "physics", "veterinary", "disease", "epidemiology", "epidemiologist"]
         queries: ["think tank research assistant", "think tank research associate", "policy research assistant",
                   "think tank program assistant", "junior fellow think tank",
                   "research associate foreign policy think tank", "program coordinator think tank"]
@@ -1341,11 +1345,12 @@ groups:
         name: "International organizations and human rights groups"
         active: true
         title: ["junior professional officer", '/\bJPO\b/', "young professionals programme", "young professional",
-                "associate expert", "associate programme officer", "programme officer", "program officer",
+                "associate expert", "associate programme officer", "programme officer", "UN programme officer",
                 "programme management officer", "humanitarian affairs officer", "human rights officer",
                 "political affairs officer", "UN volunteer", '/\bUNV\b/', "programme analyst", "programme associate"]
         phrases: ["United Nations", "UN agencies", "UN system", "multilateral organizations", "multilateral organisations",
-                  "international organizations", "international organisations", "intergovernmental", "OSCE", "OECD",
+                  "international organizations", "international organisations", "intergovernmental organization",
+                  "intergovernmental organisation", "OSCE", "OECD",
                   "World Bank", "International Monetary Fund", "UNDP", "UNHCR", "UNICEF", "UN Security Council",
                   "General Assembly", "UN Secretariat", "Inspira", "International Committee of the Red Cross",
                   '/\bICRC\b/', "International Crisis Group", "Human Rights Watch", "Amnesty International",
@@ -1374,7 +1379,7 @@ groups:
         context: ["Congress", "legislation", "policy", "research", "writing", "government", "stakeholders", "briefings",
                   "data analysis", "Albany", "City Hall"]
         exclude: ["insurance policy", "policy services", "policy servicing", "policy processor", "policy processing",
-                  "information security", "cybersecurity"]
+                  "information security", "cybersecurity", "account director", "account executive", "sales"]
         queries: ["policy analyst entry level", "legislative analyst", "legislative assistant",
                   "legislative correspondent", "policy associate", "junior policy analyst", "staff assistant congress",
                   "legislative fellow"]
@@ -1425,7 +1430,8 @@ groups:
         context: ["courts", "corrections", "data analysis", "research", "reform", "evaluation", "policy", "community",
                   "prosecution", "victims"]
         exclude: ["police officer", "correction officer", "corrections officer", "probation officer", "parole officer",
-                  "sergeant", "deputy sheriff", "security guard", "nurse", "case manager", "counselor", "therapist"]
+                  "sergeant", "deputy sheriff", "security guard", "nurse", "case manager", "counselor", "therapist",
+                  "attorney", '/\bADA\b/']
         queries: ["criminal justice research assistant", "criminal justice policy analyst", "crime analyst entry level",
                   "justice policy research associate", "criminal justice program associate",
                   "public safety policy analyst", "criminal legal reform research"]
@@ -1443,13 +1449,13 @@ groups:
                 "immigration policy", "racial justice", "racial equity", "social justice", "public interest"]
         phrases: ["nonprofit advocacy", "policy advocacy", "advocacy campaigns", "advocacy organizations",
                   "coalition building", "coalition partners", "grassroots advocacy", "community organizing",
-                  "social safety net", "safety net programs", "affordable housing", "tenant protections", "child care",
+                  "social safety net", "safety net programs", "affordable housing", "tenant protections", "universal child care",
                   "minimum wage", "paid leave", "guaranteed income", "economic mobility", "income inequality",
                   "public benefits", "immigrant rights", "low-income communities"]
         context: ["nonprofit", "coalition", "community", "legislation", "campaigns", "research", "policy",
                   "communications", "equity", "outreach"]
         exclude: ["patient advocacy", "patient advocate", "victim advocate", "customer advocacy", "customer advocate",
-                  "brand advocacy", "employee advocacy", "medical", "nurse"]
+                  "brand advocacy", "employee advocacy", "medical", "nurse", "inspector", "registrar"]
         queries: ["policy and advocacy associate", "advocacy coordinator nonprofit", "social policy research assistant",
                   "housing policy analyst", "policy associate nonprofit", "advocacy associate",
                   "economic justice research associate"]
@@ -1495,7 +1501,8 @@ groups:
         context: ["writing", "editing", "research", "journalism", "publications", "deadlines", "editorial",
                   "interviews", "sources", "accuracy"]
         exclude: ["technical writer", "copywriter", "UX writer", "content writer", "grant writer", "medical writer",
-                  "proposal writer", "marketing", "SEO", "court reporter", "stenographer", "grand jury reporter"]
+                  "proposal writer", "marketing", "SEO", "court reporter", "stenographer", "grand jury reporter",
+                  "solicitation", "procurement"]
         queries: ["research writer", "fact checker", "editorial assistant", "news assistant", "correspondence analyst",
                   "staff writer policy", "research and writing associate"]
         usajobs: {keywords: ["writer-editor", "correspondence analyst", "editorial assistant", "writer editor"],
@@ -1632,8 +1639,8 @@ groups:
         active: true
         title: ["district attorney", "investigative analyst", "crime strategies", "crime strategy", "hate crimes",
                 "hate crime", "rackets investigator", "cell site analyst", "economic crimes", "conviction integrity",
-                "trial preparation", "forensic sciences", "forensic science", "counter terrorism analyst",
-                "counterterrorism analyst", "special narcotics", "crime analyst", "intelligence analyst"]
+                "trial preparation", "forensic sciences", "forensic science", "special narcotics", "DA's Office",
+                "special victims"]
         phrases: ["District Attorney's Office", "District Attorney’s Office", "Manhattan District Attorney",
                   "Bronx District Attorney", "Brooklyn District Attorney", "Kings County District Attorney",
                   "Queens District Attorney", "Richmond County District Attorney", "Staten Island District Attorney",
@@ -1680,7 +1687,7 @@ groups:
         name: "NYC Mayor's Office and City Hall policy and research roles"
         active: true
         title: ["Mayor's Office", "Mayor’s Office", "City Hall", "mayoral", "Urban Fellow", "Urban Fellows",
-                "special assistant", "advance associate", "mayoral fellow", "Mayor's Graduate Scholar"]
+                "advance associate", "mayoral fellow", "Mayor's Graduate Scholar"]
         phrases: ["Office of the Mayor", "Mayor's Office of Operations", "Mayor's Office of Criminal Justice",
                   '/\bMOCJ\b/', "Mayor's Office of Contract Services", "Mayor's Management Report", "Deputy Mayor for",
                   "mayoral administration", "Mayor's Office of Data Analytics", "citywide policy",
@@ -1760,7 +1767,7 @@ groups:
                   "logistics", "community", "hazards"]
         exclude: ["IT disaster recovery", "data center", "backup", "cyber", "information technology", "nurse", "EMT",
                   "paramedic", "emergency medicine", "emergency department", "emergency room", "physician",
-                  "veterinarian", "engineer"]
+                  "veterinarian", "engineer", "epidemiology", "scientist"]
         queries: ["emergency management specialist", "FEMA reservist", "FEMA CORE",
                   "emergency management program analyst", "emergency preparedness coordinator",
                   "NYC Emergency Management", "hazard mitigation specialist", "resiliency planner"]
@@ -1798,7 +1805,7 @@ groups:
                 "criminal investigator", "special agent", "investigative specialist", "general investigator",
                 "wage and hour investigator", "wage-hour investigator", "investigative assistant",
                 '/\bInvestigator \((?:General|Criminal|Fraud|Compliance)\)/', "federal investigator",
-                "industry operations investigator", "background investigator"]
+                "industry operations investigator", "OIG investigator"]
         phrases: ["Employee Benefits Security Administration", '/\bEBSA\b/', "ERISA",
                   "Employee Retirement Income Security Act", "Wage and Hour Division", "Office of Inspector General",
                   "Federal Bureau of Investigation", "Homeland Security Investigations", "Diplomatic Security Service",
@@ -1839,7 +1846,8 @@ groups:
         context: ["training", "mentorship", "cohort", "rotations", "development", "university", "recruitment",
                   "analysts", "associates"]
         exclude: ["graduate research assistant", "graduate teaching assistant", "graduate assistant", "graduate nurse",
-                  "nurse", "teaching", "postdoctoral", "graduate student", "graduate admissions", "graduate school"]
+                  "nurse", "teaching", "postdoctoral", "graduate student", "graduate admissions", "graduate school",
+                  "software engineer", "engineer", "designer", "developer"]
         queries: ["graduate programme insurance", "graduate underwriter specialty", "rotational program analyst",
                   "early careers program risk", "graduate scheme intelligence", "new grad analyst program",
                   "early careers insurance broking", "2027 graduate program"]
@@ -1860,7 +1868,7 @@ groups:
                   "analysts", "associates"]
         exclude: ["software development", "business development", "product development", "fund development",
                   "development officer", "development director", "development associate", "child development",
-                  "real estate development", "web development", "software"]
+                  "real estate development", "web development", "software", "engineer"]
         queries: ["analyst program", "associate program risk", "development program analyst",
                   "leadership development program", "analyst development program insurance", "trainee programme",
                   "full time analyst program"]
@@ -1898,7 +1906,8 @@ groups:
                   "junior-level", "less than two years of experience"]
         context: ["training", "mentorship", "bachelor's degree", "learning", "supervision", "growth", "team support",
                   "recent graduate"]
-        exclude: ["nurse", "clinical", "dental", "pharmacy"]
+        exclude: ["nurse", "clinical", "dental", "pharmacy", "psychologist", "engineer", "technician", "developer",
+                  "designer"]
         queries: ["junior analyst", "entry level analyst risk", "associate analyst intelligence", "analyst I research",
                   "entry level research analyst", "junior research analyst", "trainee analyst"]
 
@@ -2012,6 +2021,7 @@ groups:
                   "Marx Realty", "Class A office", "placemaking", '/\bREITs?\b/']
         context: ["Excel", "financial modeling", "properties", "tenants", "investments", "New York City", "Manhattan",
                   "brokers", "market research", "valuations", "landlord"]
-        exclude: ["real estate agent", "realtor", "mortgage loan officer", "maintenance", "porter", "superintendent"]
+        exclude: ["real estate agent", "realtor", "mortgage loan officer", "maintenance", "porter", "superintendent",
+                  "counsel", "attorney", "construction"]
         queries: ["real estate analyst", "commercial real estate analyst entry level", "real estate acquisitions analyst",
                   "real estate asset management analyst", "Marx Realty"]

@@ -649,7 +649,7 @@ employers:
     lanes: [aml-kyc, sanctions, fincrime-intelligence]
     ats: oracle
     board: egug.fa.us2.oraclecloud.com/CX_1
-    careers_url: https://aexp.eightfold.ai/careers
+    careers_url: https://www.americanexpress.com/en-us/careers/
     hq: New York, NY
     locations: [New York, NY, Phoenix, AZ, London, UK]
     search_terms: [sanctions, anti-money laundering, AML, KYC, financial crimes, investigations, surveillance]
@@ -958,7 +958,7 @@ employers:
     lanes: [aml-kyc, sanctions, market-surveillance]
     ats: other
     ats_vendor: custom
-    careers_url: https://www.ubs.com/global/en/careers/search-jobs.html
+    careers_url: https://www.ubs.com/global/en/careers.html
     hq: Zurich, Switzerland
     locations: [New York, NY, Weehawken, NJ, London, UK]
     notes: "Financial Crime Prevention, KYC and surveillance in NY/Weehawken and London; no public API board found."

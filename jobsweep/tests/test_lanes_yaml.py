@@ -459,6 +459,36 @@ SANITY_NEGATIVES = [
 ]
 
 
+GENERIC_TITLES = [
+    "Software Engineer",
+    "Account Executive",
+    "Registered Nurse",
+    "Data Analyst",
+    "Financial Analyst",
+    "Marketing Coordinator",
+    "Customer Service Representative",
+    "Security Guard",
+    "Accountant",
+    "HR Generalist",
+    "Product Manager",
+    "Sales Development Representative",
+    "Special Assistant, First Deputy Commissioner",
+    "Program Coordinator, Bureau of Queens Neighborhood Health",
+    "Child Care Inspector, Bureau of Childcare",
+    "Corporate Counsel, M&A",
+    "Data Scientist, Safeguards",
+    "Network Intelligence Analyst",
+]
+
+
+@pytest.mark.parametrize("title", GENERIC_TITLES)
+def test_generic_titles_hit_no_domain_lane(title: str) -> None:
+    modifiers = {"graduate-programs", "analyst-programs", "fellowships", "entry-level-analyst"}
+    domain = lanes_for_title(title) - modifiers
+    allowed = {"Network Intelligence Analyst": {"strategic-intelligence"}}.get(title, set())
+    assert domain <= allowed, f"{title!r} hit {sorted(domain - allowed)}"
+
+
 def test_sanity_table_covers_every_active_lane() -> None:
     covered = {lane_id for _, lane_id in SANITY_TITLES}
     active = {lane["id"] for group, lane in all_lanes() if group["active"] and lane["active"]}
