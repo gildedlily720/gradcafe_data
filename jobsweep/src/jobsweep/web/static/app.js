@@ -808,8 +808,8 @@
     const bs = (s && s.by_status) || {};
     return [
       { key: "active", n: s.active, label: "active", href: "#/jobs?tab=all" },
-      { key: "new_24h", n: s.new_24h, label: "new 24h", href: "#/jobs?days=1&sort=newest", accent: true },
-      { key: "new_7d", n: s.new_7d, label: "new 7d", href: "#/jobs?days=7&sort=newest" },
+      { key: "new_24h", n: s.new_24h, label: "added 24h", href: "#/jobs?days=1&sort=newest", accent: true },
+      { key: "new_7d", n: s.new_7d, label: "added 7d", href: "#/jobs?days=7&sort=newest" },
       { key: "saved", n: bs.saved || 0, label: "saved", href: "#/jobs?tab=saved" },
       { key: "applied", n: (bs.applied || 0) + (bs.interviewing || 0) + (bs.offer || 0), label: "applied", href: "#/jobs?tab=applied" },
     ];
@@ -865,7 +865,7 @@
     }
     const jobs = StaticData.base.jobs || {};
     const gen = jobs.generated_at;
-    b.replaceChildren(
+    b.replaceChildren(...[
       icon("refresh", "sm"),
       h("span", null, "Snapshot generated ", h("b", { text: relTime(gen, Date.now()) || "recently" }),
         gen ? " (" + fmtDate(gen, true) + ")" : "", " · ", fmtNum(jobs.total || (jobs.items || []).length),
@@ -877,7 +877,7 @@
         ? h("button", {class:"btn sm", type:"button", onclick:reviewSyncConflicts, text:"Review conflicts"}) : null,
       h("button", {class:"btn sm", type:"button", onclick:importTriage, text:"Import statuses"}),
       h("button", { class: "btn sm", type: "button", onclick: exportTriage }, icon("download", "sm"), "Export my statuses"),
-    );
+    ].filter(Boolean));
     b.hidden = false;
   }
 
