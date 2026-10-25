@@ -203,6 +203,7 @@ def _is_sub(a: tuple[str, ...], b: tuple[str, ...]) -> bool:
 # =====================================================================================================
 
 _BRK = "<brk>"
+_ZW = "<zero-width>"  # \b, ^, $: a token break that consumes nothing
 _WILD = "<wild>"
 _PLURAL = "<plural>"
 
@@ -229,7 +230,7 @@ def _flatten_regex(items: Any, seq: list[str]) -> None:
         if op is _sre_c.LITERAL:
             seq.append(chr(av))
         elif op is _sre_c.AT:
-            seq.append(_WILD if av is _sre_c.AT_NON_BOUNDARY else _BRK)
+            seq.append(_WILD if av is _sre_c.AT_NON_BOUNDARY else _ZW)
         elif op is _sre_c.SUBPATTERN:
             _flatten_regex(av[-1], seq)
         elif op in (_sre_c.MAX_REPEAT, _sre_c.MIN_REPEAT):
@@ -255,14 +256,25 @@ def _flatten_regex(items: Any, seq: list[str]) -> None:
             seq.append(_WILD)
 
 
-def _regex_requirements(src: str, flags: int) -> tuple[list[tuple[str, bool]], list[str]]:
-    """(whole words, substrings) that every match of a raw regex must contain (lower-case)."""
+def _regex_requirements(src: str, flags: int) -> tuple[list[tuple[str, bool]], list[str], str]:
+    """(whole words, substrings, literal prefix) every match of a raw regex must contain (lower-case).
+
+    The prefix is the literal text every match starts with (only zero-width assertions before it).
+    """
     try:
         tree = _sre_p.parse(src, flags)
         seq: list[str] = []
         _flatten_regex(tree, seq)
     except Exception:  # noqa: BLE001
-        return [], []
+        return [], [], ""
+    prefix = ""
+    for x in seq:
+        if x is _ZW and not prefix:
+            continue
+        if len(x) == 1 and x.isascii() and x.isalnum():
+            prefix += x.lower()
+            continue
+        break
     words: list[tuple[str, bool]] = []
     subs: list[str] = []
     run, plural, left_brk, prev_brk = "", False, False, False
@@ -279,14 +291,14 @@ def _regex_requirements(src: str, flags: int) -> tuple[list[tuple[str, bool]], l
         if x is _PLURAL and run:
             plural = True
             continue
-        is_brk = x is _BRK or len(x) == 1  # a non-alnum literal also splits tokens
+        is_brk = x is _BRK or x is _ZW or len(x) == 1  # a non-alnum literal also splits tokens
         if run:
             if left_brk and is_brk:
                 words.append((run, plural))
             elif len(run) >= 3:
                 subs.append(run)
         run, plural, prev_brk = "", False, is_brk
-    return words, subs
+    return words, subs, prefix
 
 
 def _raw_flags(src: str) -> int:
@@ -353,6 +365,7 @@ class Term:
         "subs",
         "canon",
         "token_only",
+        "prefix",
     )
 
     def __init__(self, raw: str, idx: int = 0):
@@ -369,12 +382,14 @@ class Term:
         self.token_only = False
         self.rx: re.Pattern[str] | None = None
         self.pattern: str | None = None  # plain terms compile lazily (most never reach the regex stage)
+        self.prefix = ""  # raw regexes: literal start of every match (lets us try only those positions)
         if self.regex:
             src = raw[1:-1]
             flags = _raw_flags(src)
             self.case_sensitive = not flags and not src.startswith("(?i)")
             self.rx = re.compile(src, flags)
-            words, subs = _regex_requirements(src, flags)
+            words, subs, prefix = _regex_requirements(src, flags)
+            self.prefix = prefix if len(prefix) >= 3 else ""
             self.anchors = tuple(
                 frozenset(f.encode() for f in (_word_forms(w) if plural else [w])) for w, plural in words
             )
@@ -425,6 +440,15 @@ class Term:
                 return None
             rx = self.rx = re.compile(self.pattern)
         if self.regex:
+            if self.prefix and len(low) == len(norm):
+                # IGNORECASE scans are slow; only try where the literal prefix occurs
+                prefix, i = self.prefix, low.find(self.prefix)
+                while i >= 0:
+                    m = rx.match(norm, i)
+                    if m:
+                        return m.group(0).strip()
+                    i = low.find(prefix, i + 1)
+                return None
             m = rx.search(norm)
             return m.group(0).strip() if m else None
         text = norm if self.case_sensitive else low
