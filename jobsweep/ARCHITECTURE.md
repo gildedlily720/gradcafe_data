@@ -50,6 +50,32 @@ Run from `jobsweep/`: `uv venv && uv pip install -e '.[dev]'` (or use the repo `
 
 Never edit a file you do not own; if a contract is wrong, note it in your final report.
 
+Research helpers: `scripts/probe_ats.py` (find/verify a board: `guess`, `check`, `url`) and
+`scripts/validate_catalog.py` (validates employer YAML + lanes.yaml ids).
+
+Employer YAML (`catalog/employers/<file>.yaml`):
+
+```yaml
+group: intelligence-security          # added to every employer's groups
+employers:
+  - key: dataminr                     # lowercase-hyphen canonical org slug (same key across files = same org)
+    name: Dataminr
+    lanes: [threat-intelligence, gsoc-watch, osint]
+    groups: []                        # optional extra groups
+    ats: greenhouse                   # see §3.1; "other" when unsupported
+    board: dataminr
+    careers_url: https://www.dataminr.com/careers
+    ats_vendor: null                  # e.g. icims / taleo / successfactors / avature when ats is other
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC]
+    title_filter: null                # regex on titles for big generalist boards
+    search_terms: []                  # server-side searches for huge boards
+    max_jobs: null
+    verified: "2026-10-25"            # date the board API returned data
+    open_jobs: 57
+    notes: ""
+```
+
 ## 2. Data model (src/jobsweep/models.py)
 
 `Job` source fields (adapters): `source, source_id, title, company, url, location, remote, description,
@@ -150,6 +176,10 @@ entry-routes: graduate-programs, analyst-programs, fellowships, entry-level-anal
 earlier-lanes (active: false): program-evaluation, philanthropy, digital-rights, economic-consulting,
   broadcast-journalism, real-estate
 ```
+
+Feed sources (`nycjobs`, `nysjobs`) are small enough to pull whole: for them `search_plan` returns a single
+`SearchQuery(keywords="*", extra={"feed": True}, limit=5000)` and the adapter returns every current posting;
+classification happens locally.
 
 `entry-routes` lanes are *modifiers*: they match programme/level vocabulary and boost entry-level fit; a job
 whose only match is an entry-route lane is kept but ranked below domain matches. `earlier-lanes` are
