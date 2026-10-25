@@ -23,7 +23,7 @@ on:
         type: boolean
         default: false
       include_metered:
-        description: "Also run metered sources (TheirStack, HasData, Apify) when their keys are set"
+        description: "Run today's budgeted metered searches too (always enabled on daily schedule)"
         type: boolean
         default: false
       publish_pages:
@@ -33,7 +33,7 @@ on:
       open_issue:
         description: "Open/update the daily digest issue when there are new matches"
         type: boolean
-        default: true
+        default: false
 
 permissions:
   contents: write
@@ -108,13 +108,15 @@ jobs:
 
       - name: Restore state from the state branch
         run: |
-          if git fetch --depth=1 origin "$STATE_BRANCH" 2>/dev/null; then
-            git show "origin/$STATE_BRANCH:state.json.gz" > "$RUNNER_TEMP/state.json.gz" 2>/dev/null \
-              && jobsweep state import "$RUNNER_TEMP/state.json.gz" \
-              || echo "No usable state snapshot yet."
-          else
-            echo "State branch $STATE_BRANCH does not exist yet; starting fresh."
-          fi
+          # This deployed board already has durable state. A read/import failure
+          # must stop the run, never publish an empty replacement over its history.
+          git fetch --depth=1 origin "$STATE_BRANCH"
+          git show "origin/$STATE_BRANCH:state.json.gz" > "$RUNNER_TEMP/state.json.gz"
+          jobsweep state import "$RUNNER_TEMP/state.json.gz"
+
+      - name: Refresh existing location, qualification, and posting-date assessments
+        working-directory: jobsweep
+        run: python scripts/reclassify_board.py
 
       - name: Sweep
         working-directory: jobsweep
@@ -124,22 +126,84 @@ jobs:
           PIPEWORX_API_KEY: ${{ secrets.PIPEWORX_API_KEY }}
           ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
           ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
-          THEIRSTACK_API_KEY: ${{ secrets.THEIRSTACK_API_KEY }}
-          HASDATA_API_KEY: ${{ secrets.HASDATA_API_KEY }}
-          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
           SOCRATA_APP_TOKEN: ${{ secrets.SOCRATA_APP_TOKEN }}
           IN_LANES: ${{ inputs.lanes }}
           IN_GROUPS: ${{ inputs.groups }}
           IN_SOURCES: ${{ inputs.sources }}
-          IN_METERED: ${{ inputs.include_metered }}
         run: |
           args=()
           [ -n "$IN_LANES" ] && args+=(--lanes "$IN_LANES")
           [ -n "$IN_GROUPS" ] && args+=(--groups "$IN_GROUPS")
           [ -n "$IN_SOURCES" ] && args+=(--sources "$IN_SOURCES")
-          [ "$IN_METERED" = "true" ] && args+=(--include-metered)
           # Partial source errors are normal (rate limits, a board moving); never fail the whole run on them.
           jobsweep sweep "${args[@]}" --json > "$RUNNER_TEMP/sweep-report.json" || echo "::warning::sweep reported errors"
+
+      - name: Reserve today's metered search budget
+        id: metered_budget
+        # Explicit source selections use the same budget path; there is no unbounded bypass.
+        if: ${{ github.event_name == 'schedule' || inputs.include_metered || contains(inputs.sources, 'theirstack') || contains(inputs.sources, 'hasdata_indeed') || contains(inputs.sources, 'apify') }}
+        continue-on-error: true
+        env:
+          THEIRSTACK_API_KEY: ${{ secrets.THEIRSTACK_API_KEY }}
+          HASDATA_API_KEY: ${{ secrets.HASDATA_API_KEY }}
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          IN_LANES: ${{ inputs.lanes }}
+          IN_SOURCES: ${{ inputs.sources }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Fail closed if durable spending history cannot be read or saved.
+          # Existing snapshots are retained unchanged until the normal save step.
+          git fetch --depth=1 origin "$STATE_BRANCH"
+          wt="$RUNNER_TEMP/metered-state-wt"
+          mkdir -p "$wt"
+          git archive "origin/$STATE_BRANCH" | tar -x -C "$wt"
+          if [ -f "$wt/metered-budget.json" ]; then
+            cp "$wt/metered-budget.json" "$RUNNER_TEMP/metered-budget.json"
+          fi
+          python -m jobsweep.metered_daily plan \
+            --ledger "$RUNNER_TEMP/metered-budget.json" \
+            --plan "$RUNNER_TEMP/metered-plan.json" \
+            --sources "$IN_SOURCES" --lanes "$IN_LANES" | tee "$RUNNER_TEMP/metered-budget-summary.txt"
+          cp "$RUNNER_TEMP/metered-budget.json" "$wt/metered-budget.json"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cd "$wt"
+          git init -q -b "$STATE_BRANCH"
+          git add -A
+          git commit -q -m "Reserve daily metered search budget $(date -u +%F)"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$STATE_BRANCH"
+          cat "$RUNNER_TEMP/metered-budget-summary.txt" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run budgeted daily metered searches
+        if: ${{ steps.metered_budget.outcome == 'success' }}
+        env:
+          THEIRSTACK_API_KEY: ${{ secrets.THEIRSTACK_API_KEY }}
+          HASDATA_API_KEY: ${{ secrets.HASDATA_API_KEY }}
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+        run: |
+          python -m jobsweep.metered_daily run \
+            --ledger "$RUNNER_TEMP/metered-budget.json" \
+            --plan "$RUNNER_TEMP/metered-plan.json" > "$RUNNER_TEMP/metered-report.json" \
+            || echo "::warning::metered searches reported an error; reserved budget will not be replayed"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path(os.environ['RUNNER_TEMP']) / 'metered-report.json'
+          if path.stat().st_size:
+              report = json.loads(path.read_text())
+              listings = sum(stats.get('jobs', 0) for stats in report.get('per_source', {}).values())
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+                  out.write(f"\nMetered results: {listings} listings; "
+                            f"{len(report.get('new_uids', []))} new jobs.\n")
+                  for error in report.get('errors', []):
+                      out.write(f"\n- {error.get('source')}: search failed; see metered report.\n")
+          PY
+
+      - name: Report metered budget failure
+        if: ${{ steps.metered_budget.outcome == 'failure' }}
+        run: |
+          echo "::warning::Paid searches skipped because their durable budget could not be verified or reserved."
+          echo "Paid searches skipped: budget reservation failed. Review the reservation step before rerunning." >> "$GITHUB_STEP_SUMMARY"
 
       - name: Digest
         id: digest
@@ -177,6 +241,14 @@ jobs:
           # Carry the earlier daily digests forward; the branch keeps a single commit so the repo never grows.
           if git fetch --depth=1 origin "$STATE_BRANCH" 2>/dev/null; then
             git archive "origin/$STATE_BRANCH" history 2>/dev/null | tar -x -C "$wt" || true
+            # Always preserve the durable ledger, including reservations from interrupted runs.
+            if git cat-file -e "origin/$STATE_BRANCH:metered-budget.json" 2>/dev/null; then
+              git show "origin/$STATE_BRANCH:metered-budget.json" > "$wt/metered-budget.json"
+            fi
+          else
+            # Never overwrite an unreadable branch and lose earlier spend reservations.
+            echo "::error::Cannot preserve state branch; refusing to replace it."
+            exit 1
           fi
           day=$(date -u +%F)
           cp "$RUNNER_TEMP/state.json.gz" "$wt/state.json.gz"
@@ -211,6 +283,8 @@ jobs:
             ${{ runner.temp }}/digest.md
             ${{ runner.temp }}/digest.json
             ${{ runner.temp }}/sweep-report.json
+            ${{ runner.temp }}/metered-report.json
+            ${{ runner.temp }}/metered-budget-summary.txt
           retention-days: 30
 
       - name: Open or update the digest issue
