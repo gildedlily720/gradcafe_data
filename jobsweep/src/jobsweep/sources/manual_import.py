@@ -471,6 +471,8 @@ def salary_from_text(text: Any) -> tuple[float | None, float | None, str | None,
     s = re.sub(r"\bGBP\s?(?=\d)", "£", s, flags=re.I)
     s = re.sub(r"\bEUR\s?(?=\d)", "€", s, flags=re.I)
     s = re.sub(r"(?<=\d)\s?(?:USD|GBP|EUR)\b", "", s, flags=re.I)
+    # text.parse_salary stops at cents after thousands ("$85,000.00 - $150,000.00" -> 85000 only)
+    s = re.sub(r"(\d{1,3}(?:,\d{3})+)\.\d{1,2}\b", r"\1", s)
     lo, hi, cur, period = parse_salary(s)
     if lo is None:
         return None, None, None, None
@@ -830,16 +832,15 @@ def _looks_markdown(s: str) -> bool:
 
 
 def _csv_delimiter(s: str) -> str | None:
+    """Delimiter whose header row names a title column (``title``, ``Job Title``, ``position``...)."""
     first = s.splitlines()[0] if s else ""
-    best = None
     for delim in (",", "\t", ";", "|"):
         if first.count(delim) < 1:
             continue
         header = next(csv.reader([first], delimiter=delim))
         if len(header) >= 2 and any(norm_key(h) in _TITLE_SET for h in header):
             return delim
-        best = best or (delim if len(header) >= 2 else None)
-    return best
+    return None
 
 
 def _records_from_csv(text: str, delimiter: str | None = None) -> list[dict[str, Any]]:
@@ -936,8 +937,11 @@ def _title_line(line: str) -> dict[str, Any] | None:
             rec["title"] = strip_md(body)
             rest = ""
         else:
-            parts = _PART_SPLIT.split(body, maxsplit=1)
+            # plain "Title — Company · ..." items; a bare " - " only counts in numbered lists
+            parts = re.split(r"\s+[—–]\s+", body, maxsplit=1)
             if len(parts) < 2:
+                parts = re.split(r"\s+[·•|]\s+", body, maxsplit=1)
+            if len(parts) < 2 and m is not None and m.group("num"):
                 parts = _DASH_SPLIT.split(body, maxsplit=1)
             if len(parts) < 2:
                 return None
@@ -1079,7 +1083,9 @@ def _records_from_text(text: str, fmt: str | None, depth: int = 0) -> list[dict[
     if detected == "jsonl":
         return _records_from_jsonl(s)
     if detected == "csv":
-        return _records_from_csv(s)
+        got = _records_from_csv(s)
+        if any(_looks_like_job(r) for r in got):
+            return got
     return _records_from_markdown(s)
 
 

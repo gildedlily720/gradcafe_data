@@ -181,7 +181,7 @@ def parse_detail(page: str) -> dict[str, dict[str, str]]:
     out: dict[str, dict[str, str]] = {}
     parts = _SECTION.split(page)
     # parts = [prefix, name1, body1, name2, body2, ...]
-    for name, body in zip(parts[1::2], parts[2::2]):
+    for name, body in zip(parts[1::2], parts[2::2], strict=True):
         fields: dict[str, str] = {}
         for label, value in _PAIR.findall(body):
             key = _cell_text(label)
@@ -289,7 +289,9 @@ class NYSJobsSource(Source):
         if isinstance(regions, (str, int)):
             regions = [regions]
         for r in regions or []:
-            code = r if isinstance(r, int) else REGIONS.get(_s(r).lower(), int(r) if _s(r).isdigit() else None)
+            code = (
+                r if isinstance(r, int) else REGIONS.get(_s(r).lower(), int(r) if _s(r).isdigit() else None)
+            )
             if code is not None:
                 params[f"region{code}"] = code
         for key, param in (("internship", "isInternship"), ("ny_helps", "isnyhelp")):
