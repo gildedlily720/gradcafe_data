@@ -389,7 +389,8 @@ employers:
     hq: McLean, VA
     locations: [Washington, DC, McLean, VA, Annapolis Junction, MD, Tampa, FL]
     title_filter: &contractor_filter '(?<!artificial )(?<!business )intelligence|\bintel\b|all[- ]?source|OSINT|\bPAI\b|open[- ]source|\btarget|regional (analyst|research|specialist|subject|SME|expert|advisor)|\bcountry (analyst|specialist|desk)|foreign|linguist|language|cultur|socio|human geog|GEOINT|geospatial|imagery|\bFMV\b|SIGINT|HUMINT|MASINT|FISINT|ELINT|COMINT|\bTDNA\b|signals? (analyst|intelligence)|counter[- ]?(terror|intel|prolif|narc|insur|threat|UAS|WMD)|\bCT\b|\bCI\b|threat|watch ?(floor|officer|analyst|list)|fusion|military analyst|irregular warfare|information (environment|operations)|\bOIE\b|PSYOP|psychological op|\bMISO\b|desk officer|research (analyst|associate|assistant|specialist)|political|insurgen|collection manag|reporting analyst|\bC[45]I(SR)?\b|\bISR\b|satellite analyst|mission analyst|exercise analyst|wargam|national security|\b(?!technician|clinician|librarian|mathematician|physician|statistician|politician|custodian|guardian|electrician|musician)[a-z]+(ian|ean|can|ese|ish|i) analyst\b'
-    search_terms: [intelligence analyst, all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, regional]
+    search_terms: [all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, regional, intelligence analyst]
+    max_jobs: 1000
     verified: "2026-10-25"
     open_jobs: 2000
     notes: "Largest IC/DoD analyst employer (all-source, OSINT, targeting, language-enabled, GEOINT, watchfloor). 'intelligence analyst' search alone returns ~1,100."
@@ -403,7 +404,8 @@ employers:
     hq: Reston, VA
     locations: [Reston, VA, Washington, DC, Tampa, FL]
     title_filter: *contractor_filter
-    search_terms: [intelligence analyst, all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, regional]
+    search_terms: [all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, regional, intelligence analyst]
+    max_jobs: 600
     verified: "2026-10-25"
     open_jobs: 1753
     notes: "All-source / OSINT / SIGINT / FMV analysts, cultural advisors, irregular-warfare & information-environment analysts."
@@ -417,7 +419,8 @@ employers:
     hq: Reston, VA
     locations: [Reston, VA, Washington, DC, Chantilly, VA]
     title_filter: *contractor_filter
-    search_terms: [intelligence analyst, all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, human geography]
+    search_terms: [all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, human geography, intelligence analyst]
+    max_jobs: 800
     verified: "2026-10-25"
     open_jobs: 2000
     notes: "Targeting officers, desk officers (language-enabled), human-geography analysts, signals analysts."
@@ -431,7 +434,8 @@ employers:
     hq: Falls Church, VA
     locations: [Falls Church, VA, Washington, DC, Tampa, FL]
     title_filter: *contractor_filter
-    search_terms: [intelligence analyst, all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, regional analyst]
+    search_terms: [all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, regional analyst, intelligence analyst]
+    max_jobs: 600
     verified: "2026-10-25"
     open_jobs: 1294
     notes: "All-source / OSINT-PAI targeting, Regional Analyst and country-focused social-media analysts (e.g. SOUTHCOM information-environment work)."
@@ -445,7 +449,8 @@ employers:
     hq: Houston, TX
     locations: [Washington, DC, Chantilly, VA, Dayton, OH, Huntsville, AL]
     title_filter: *contractor_filter
-    search_terms: [intelligence analyst, all-source, targeting, GEOINT, OSINT, counterintelligence]
+    search_terms: [all-source, targeting, GEOINT, OSINT, counterintelligence, intelligence analyst]
+    max_jobs: 500
     verified: "2026-10-25"
     open_jobs: 1860
     notes: "Absorbed Centauri; technical intelligence (space / counterspace / S&T) analysts, technical targeters, GEOINT analysts."
@@ -459,7 +464,8 @@ employers:
     hq: Chantilly, VA
     locations: [Chantilly, VA, Washington, DC, Tampa, FL]
     title_filter: *contractor_filter
-    search_terms: [intelligence analyst, all-source, targeting, OSINT, geospatial intelligence, counterterrorism, language enabled]
+    search_terms: [all-source, targeting, OSINT, geospatial intelligence, counterterrorism, language enabled, intelligence analyst]
+    max_jobs: 500
     verified: "2026-10-25"
     open_jobs: 1919
     notes: "Board is mostly infrastructure engineering; intel side has all-source, OSINT, TDNA, GEOINT, language-enabled OSINT collectors."
@@ -473,7 +479,7 @@ employers:
     hq: Falls Church, VA
     locations: [Falls Church, VA, McLean, VA, Annapolis Junction, MD]
     title_filter: *contractor_filter
-    search_terms: [intelligence analyst, all-source, OSINT, geospatial, targeting]
+    search_terms: [OSINT, geospatial, all-source, targeting, intelligence analyst]
     verified: "2026-10-25"
     open_jobs: 3767
     notes: "Prime; few analyst roles relative to board size (filter keeps intel analysts only)."
@@ -488,7 +494,8 @@ employers:
     hq: McLean, VA
     locations: [Washington, DC, McLean, VA, New York, NY, London, UK]
     title_filter: '(?i)((?<!business )(?<!artificial )intelligence|all[- ]?source|OSINT|open[- ]source|\btarget|foreign|linguist|language|regional (analyst|research|specialist)|geospatial|threat|counter[- ]?(terror|intel|prolif|threat)|national security|watch ?(floor|list)|research analyst|\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bfcrc\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|screening|\bofac\b|illicit|compliance|financial services consult|forensic)'
-    search_terms: [intelligence analyst, all-source, OSINT, national security, financial crime, sanctions, AML, KYC, investigations]
+    search_terms: [OSINT, all-source, national security, sanctions, AML, KYC, financial crime, investigations, intelligence analyst]
+    max_jobs: 500
     verified: "2026-10-25"
     open_jobs: 767
     notes: "National Security segment: Intelligence Analyst, All-Source, OSINT, Open-Source Research Analyst (China/Mandarin). Also listed in sanctions-fincrime.yaml; this file loads first, so title_filter/search_terms here are the union of both groups' (registry keeps the first entry's filter)."
@@ -502,7 +509,8 @@ employers:
     hq: Chantilly, VA
     locations: [Chantilly, VA, Washington, DC, Huntsville, AL]
     title_filter: *contractor_filter
-    search_terms: [intelligence analyst, all-source, OSINT, targeting, linguist, counterintelligence, geospatial, counterterrorism]
+    search_terms: [OSINT, all-source, targeting, linguist, counterintelligence, geospatial, counterterrorism, intelligence analyst]
+    max_jobs: 600
     verified: "2026-10-25"
     open_jobs: 2837
     notes: "Workday tenant is legacy 'pae'. Junior All Source / Junior GEOINT / Junior Targeting Analyst (CBP NTC), CT analysts, CAT II linguists."
