@@ -70,6 +70,14 @@ class Job:
     entry_level: bool | None = None  # True = entry/early-career fit, False = too senior, None = unclear
     years_required: int | None = None  # minimum years of experience parsed from the text
     match_reasons: list[str] = field(default_factory=list)  # short human readable explanations
+    # Suitability is a separate evidence screen; no_flags/eligible never means all hiring criteria met.
+    location_eligibility: str = "not_assessed"  # eligible | ineligible | review | not_assessed
+    location_reasons: list[str] = field(default_factory=list)
+    role_fit: str = "not_assessed"  # eligible | excluded | not_assessed
+    role_reasons: list[str] = field(default_factory=list)
+    qualification_status: str = "not_assessed"  # no_flags | review | not_assessed
+    qualification_checks: list[dict[str, str]] = field(default_factory=list)
+    suitability: str = "not_assessed"  # eligible | review | excluded | not_assessed
 
     @property
     def uid(self) -> str:
@@ -170,6 +178,13 @@ class Profile:
     include_unknown_seniority: bool = True
     min_score: float = 25.0  # jobs below this are stored but hidden by default
     countries: list[str] = field(default_factory=lambda: ["US", "GB"])
+
+    strict_nyc_location: bool = False
+    screen_qualifications: bool = False
+    excluded_role_patterns: list[str] = field(default_factory=list)
+    known_credentials: list[str] = field(default_factory=list)
+    languages: list[str] = field(default_factory=lambda: ["English"])
+    active_clearances: list[str] = field(default_factory=list)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> Profile:

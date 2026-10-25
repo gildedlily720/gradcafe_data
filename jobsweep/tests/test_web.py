@@ -257,6 +257,40 @@ def test_jobs_total_ignores_paging_and_inactive_lanes_flag(client: TestClient) -
     assert r.json()["total"] == 6 and len(r.json()["items"]) == 1
 
 
+def test_suitability_filters_page_totals_and_lane_counts(client: TestClient, store) -> None:
+    """Screening must happen before pagination and use the same criteria in the sidebar."""
+    for uid, suitability in (
+        ("greenhouse:1", "excluded"),
+        ("lever:abc/def", "eligible"),
+        ("usajobs:DHS-1", "review"),
+        ("greenhouse:2", "review"),
+    ):
+        row = store.get(uid)
+        row["suitability"] = suitability
+        store.upsert_jobs([Job.from_dict(row)])
+    response = client.get("/api/jobs?suitability=eligible&limit=1")
+    assert uids(response) == ["lever:abc/def"]
+    assert response.json()["total"] == 1
+    response = client.get("/api/jobs?suitability=review,not_assessed&limit=1&offset=1")
+    assert uids(response) == ["greenhouse:2"]
+    assert response.json()["total"] == 3
+    assert uids(client.get("/api/jobs?suitability=eligible&suitability=review")) == [
+        "lever:abc/def",
+        "usajobs:DHS-1",
+        "greenhouse:2",
+    ]
+    counts = client.get("/api/lanes?suitability=eligible").json()
+    assert counts["total"] == 1
+    groups = {group["id"]: group for group in counts["groups"]}
+    assert groups["sanctions-fincrime"]["count"] == 1
+    assert groups["specialty-insurance"]["count"] == 0
+    # The UI omits suitability on filed tabs; excluded applications stay accessible.
+    store.set_status("greenhouse:1", "applied")
+    assert uids(client.get("/api/jobs?status=applied")) == ["greenhouse:1"]
+    assert client.get("/api/jobs?suitability=qualified").status_code == 422
+    assert client.get("/api/lanes?suitability=qualified").status_code == 422
+
+
 def test_jobs_sorts(client: TestClient) -> None:
     companies = [r["company"] for r in client.get("/api/jobs?sort=company").json()["items"]]
     assert companies == sorted(companies, key=str.lower)

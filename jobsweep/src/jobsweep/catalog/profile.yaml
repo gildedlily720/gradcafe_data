@@ -1,28 +1,29 @@
-# Candidate profile used for scoring (models.Profile; ARCHITECTURE.md section 4.3).
-# Override with your own copy via JOBSWEEP_PROFILE=/path/to/profile.yaml. Unknown keys are ignored.
-
-# Location fit: a posting whose location mentions one of these (case-insensitive substring) earns the
-# location bonus. "Washington" covers Washington, DC; "Remote" matches postings labelled remote.
-preferred_locations: ["New York", "Washington", "Remote", "London"]
-
-# Treat fully remote postings (Job.remote == True) as a location match even when the stated location
-# is somewhere else.
+# Candidate preferences. Relevance scores and eligibility evidence are distinct.
+preferred_locations: ["New York"]
 remote_ok: true
-
-# Early-career ceiling: postings that require more than this many years of experience are marked
-# entry_level = false (they are stored, but ranked down and hidden by "entry only" views).
 max_years_experience: 3
-
-# Internships are not wanted right now: postings classified as internships are stored but hidden by default.
 include_internships: false
-
-# Keep postings whose seniority cannot be determined (entry_level = None) in entry-level views
-# instead of dropping them; many ATS titles carry no level at all.
 include_unknown_seniority: true
-
-# Default visibility threshold on the 0-100 score: lower-scoring postings are stored but hidden
-# by default in the board, CLI and MCP searches.
 min_score: 25
+countries: ["US"]
 
-# ISO 3166-1 alpha-2 countries searched by country-scoped sources (Adzuna, JobSpy, ...): US and UK.
-countries: ["US", "GB"]
+# NYC on-site/hybrid or remote explicitly permitting New York residence.
+# Generic 'remote' / 'US remote' without confirmed NY eligibility goes to Needs review.
+strict_nyc_location: true
+screen_qualifications: true
+# Do not assume specialist credentials, clearances or additional language fluency.
+known_credentials: []
+languages: ["English"]
+active_clearances: []
+
+# Title/function exclusions take precedence over employer/department keyword relevance.
+# Program/research/underwriting assistants remain available; generic admin jobs do not.
+excluded_role_patterns:
+  - '\b(?:software|data|machine learning|ai|platform|cloud|network|security|systems?|analytics)\s+(?:engineer|developer|architect)\b'
+  - '\b(?:engineer|developer|programmer|devops|sre|data scientist|machine learning engineer|quantitative|quant|actuary|actuarial)\b'
+  - '\b(?:information technology|it|systems?|applications?|infrastructure)\s+(?:analyst|administrator|specialist)\b'
+  - '\b(?:accountant|accounting|bookkeeper|bookkeeping|payroll|accounts payable|accounts receivable|controller|fund controllership)\b'
+  - '\b(?:executive assistant|administrative assistant|administrative coordinator|office assistant|office manager|receptionist|workplace experience|facilities|data entry)\b'
+  - '\b(?:research qa|quality assurance|data annotation|data annotator|research quality assurance)\b'
+  - '\b(?:recruiter|recruiting|talent acquisition|human resources|hris|customer service|customer support|help desk|service desk)\b'
+  - '\b(?:demand|supply|inventory|production)\s*(?:&|and)?\s*(?:demand|supply)?\s+planner\b'

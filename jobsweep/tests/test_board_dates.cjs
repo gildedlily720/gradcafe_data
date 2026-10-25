@@ -9,7 +9,7 @@ const ctx = vm.createContext({window:{},localStorage:{getItem:()=>null},Date:Clo
 vm.runInContext(source.replace('  init();\n})();', '  globalThis.boardTest = {StaticData, state, defaultFilters, hashFor, parseHash};\n})();'),ctx);
 const {StaticData:data,state,defaultFilters,hashFor,parseHash} = ctx.boardTest;
 state.mode='static'; state.generatedAt=now-10*86400000;
-const job=(uid,posted_at,score=50,first_seen='2026-10-25T20:59:00Z')=>data.prep({uid,posted_at,score,first_seen,title:uid,status:'new',active:true});
+const job=(uid,posted_at,score=50,first_seen='2026-10-25T20:59:00Z')=>data.prep({uid,posted_at,score,first_seen,title:uid,status:'new',active:true,suitability:'eligible'});
 const fixtures=[job('24h','2026-10-24T21:00:00Z',99),job('1h','2026-10-25T20:00:00Z',90),job('1m','2026-10-25T20:59:00Z',25),job('offset','2026-10-25T16:30:00-04:00'),job('old','2026-09-01'),job('unknown',null),job('invalid','not a date'),job('today','2026-10-25')];
 data.items=fixtures;
 let f={...defaultFilters(),entry:false,min:0,sort:'posted'};

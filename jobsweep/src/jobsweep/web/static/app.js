@@ -15,6 +15,8 @@
   const PAGE = 100;
   const DAY = 86400000;
   const TRIAGE_KEY = "jobsweep:triage:v1";
+  const SYNC_URL = "https://ian-jobsweep-tracker.quirkytoast11.chatgpt.site/board/index.html";
+  const CLOUD_SYNC = window.JOBSWEEP_CLOUD_SYNC === true;
   const THEME_KEY = "jobsweep:theme";
   const EXPANDED_KEY = "jobsweep:expanded:v1";
   const WIDE_QUERY = "(min-width: 1280px)";
@@ -32,7 +34,7 @@
     { id: "dismissed", label: "Dismissed", statuses: ["dismissed", "rejected"] },
     { id: "all", label: "All", statuses: [] },
   ];
-  // Triage tabs ignore score / entry-level filters. Explicit static-board recency filters still apply.
+  // Triage tabs ignore score, seniority, and suitability filters. Explicit recency filters still apply.
   const TRIAGE_TABS = new Set(["saved", "applied", "interviewing", "dismissed"]);
   const SORTS = ["score", "newest", "posted", "closing", "company"];
   const DAYS = ["1", "3", "7", "30"];
@@ -91,7 +93,7 @@
     {
       name: "TheirStack, HasData, Apify",
       kind: "metered APIs",
-      text: "Credit-based aggregators. Put the key in .env, then tick Include metered when you run a sweep.",
+      text: "Daily searches rotate through your active lanes with verified account balances and monthly spending caps. Reruns on the same day do not spend again. Manual sweeps can also include today’s budgeted searches.",
       how: "THEIRSTACK_API_KEY  HASDATA_API_KEY  APIFY_TOKEN",
     },
   ];
@@ -319,7 +321,7 @@
 
   function defaultFilters() {
     return {
-      q: "", tab: "inbox", lanes: [], groups: [], sources: [], employers: [], entry: true,
+      q: "", tab: "inbox", lanes: [], groups: [], sources: [], employers: [], entry: true, screening: "eligible",
       min: state.defaultMin, loc: "", remote: false, days: "", postedDays: "", sort: "score",
     };
   }
@@ -332,6 +334,13 @@
     return !sts.length || sts.includes(status || "new");
   };
   const isTriageTab = (id) => TRIAGE_TABS.has(id);
+  function passesScreening(it, f) {
+    if (isTriageTab(f.tab) || f.screening === "all") return true;
+    const suitability = it.suitability || "not_assessed";
+    return f.screening === "review"
+      ? suitability === "review" || suitability === "not_assessed"
+      : suitability === "eligible";
+  }
   const isWide = () => window.matchMedia(WIDE_QUERY).matches;
   const isNarrow = () => window.matchMedia("(max-width: 600px)").matches;
 
@@ -372,6 +381,7 @@
     f.sources.forEach((x) => p.append("source", x));
     f.employers.forEach((x) => p.append("employer", x));
     if (!isTriageTab(f.tab)) {
+      if (f.screening !== "all") p.set("suitability", f.screening === "review" ? "review,not_assessed" : "eligible");
       if (f.entry) p.set("entry", "1");
       if (f.min > 0) p.set("min_score", String(f.min));
       if (f.days) p.set("days", f.days);
@@ -426,6 +436,7 @@
     base: {},
     filtered: null,
     filteredKey: "",
+    cloud: null,
 
     async init() {
       const opt = (p) => getJSON(p).catch(() => null);
@@ -437,12 +448,46 @@
       const gen = parseDate(jobs && jobs.generated_at);
       state.generatedAt = gen ? gen.getTime() : Date.now();
       if (jobs && jobs.min_score != null) state.defaultMin = Number(jobs.min_score);
-      this.triage = ls.get(TRIAGE_KEY, {}) || {};
+      if (CLOUD_SYNC) {
+        this.cloud = new window.JobSweepTriageSync({storage:ls, fetcher:window.fetch.bind(window), changed:() => {
+          this.triage = this.cloud.view();
+          if (this.items.length) this.applyTriage();
+          if ($("banner")) renderBanner();
+        }});
+        await this.cloud.refresh();
+        this.triage = this.cloud.view();
+      } else this.triage = ls.get(TRIAGE_KEY, {}) || {};
       state.lanes = lanes && lanes.groups ? lanes : this.lanesFromItems(jobs.items || []);
       indexLanes();
       this.items = (jobs.items || []).map((it) => this.prep(it));
       this.byUid = new Map(this.items.map((it) => [it.uid, it]));
+      this.applyTriage();
       state.stats = this.stats();
+    },
+
+    applyTriage() {
+      for (const [uid, record] of Object.entries(this.triage)) {
+        let item = this.byUid.get(uid);
+        if (!item && record.job && record.job.title) {
+          item = this.prep({...record.job, uid, active:false, archived:true});
+          this.items.push(item);
+          this.byUid.set(uid,item);
+        }
+        if (item) {
+          item.status = record.status || "new";
+          item.note = record.note || "";
+          item.status_updated_at = record.updated_at || record.at;
+        }
+      }
+      this.filtered = null;
+    },
+
+    snapshot(it) {
+      const out = {};
+      for (const [key,value] of Object.entries(it)) {
+        if (!key.startsWith("_") && !["note","status","status_updated_at"].includes(key)) out[key]=value;
+      }
+      return out;
     },
 
     lanesFromItems(items) {
@@ -500,6 +545,7 @@
       if (f.sources.length && !f.sources.includes(it.source)) return false;
       if (f.employers.length && !f.employers.includes(it.employer_key)) return false;
       if (!isTriageTab(f.tab)) {
+        if (!passesScreening(it, f)) return false;
         if (f.entry && it.entry_level === false) return false;
         if (f.min > 0 && (Number(it.score) || 0) < f.min) return false;
       }
@@ -558,9 +604,16 @@
       it.status = status;
       if (note !== undefined && note !== null) it.note = note;
       it.status_updated_at = new Date().toISOString();
-      this.triage[uid] = { status: it.status, note: it.note || "", at: it.status_updated_at };
+      const job = this.snapshot(it);
+      if (this.cloud) {
+        this.cloud.stage(uid, it.status, it.note || "", job);
+        await this.cloud.refresh();
+      } else {
+        this.triage[uid] = { uid, status: it.status, note: it.note || "", at: it.status_updated_at, job };
+        if (!ls.set(TRIAGE_KEY, this.triage)) throw new Error("Could not save to this browser's storage");
+      }
       this.filtered = null;
-      if (!ls.set(TRIAGE_KEY, this.triage)) toast("Could not save to this browser's storage", { error: true });
+      renderBanner();
       return it;
     },
     async laneCounts(f) {
@@ -668,6 +721,7 @@
     if (f.sources.length) p.set("src", f.sources.join(","));
     if (f.employers.length) p.set("emp", f.employers.join(","));
     if (!f.entry) p.set("entry", "0");
+    if (f.screening !== "eligible") p.set("screening", f.screening);
     if (f.min !== state.defaultMin) p.set("min", String(f.min));
     if (f.loc) p.set("loc", f.loc);
     if (f.remote) p.set("remote", "1");
@@ -700,6 +754,7 @@
     f.sources = list(p.get("src"));
     f.employers = list(p.get("emp"));
     f.entry = p.get("entry") !== "0";
+    f.screening = ["eligible", "review", "all"].includes(p.get("screening")) ? p.get("screening") : "eligible";
     const min = Number(p.get("min"));
     f.min = p.has("min") && !isNaN(min) ? clamp(min, 0, 100) : state.defaultMin;
     f.loc = p.get("loc") || "";
@@ -814,15 +869,22 @@
       icon("refresh", "sm"),
       h("span", null, "Snapshot generated ", h("b", { text: relTime(gen, Date.now()) || "recently" }),
         gen ? " (" + fmtDate(gen, true) + ")" : "", " · ", fmtNum(jobs.total || (jobs.items || []).length),
-        " jobs with score ≥ " + (jobs.min_score != null ? jobs.min_score : state.defaultMin),
-        " · your statuses and notes are kept in this browser"),
+        " tracked listings · default score filter ≥ " + (jobs.min_score != null ? jobs.min_score : state.defaultMin),
+        " · ", StaticData.cloud ? StaticData.cloud.label() : "Local copy — open the synced board for cross-device tracking"),
+      !StaticData.cloud ? h("a", {class:"btn sm", href:SYNC_URL, text:"Open synced board"}) : null,
+      StaticData.cloud ? h("button", {class:"btn sm", type:"button", onclick:() => refreshCloud(), text:"Sync now"}) : null,
+      StaticData.cloud && Object.keys(StaticData.cloud.conflicts).length
+        ? h("button", {class:"btn sm", type:"button", onclick:reviewSyncConflicts, text:"Review conflicts"}) : null,
+      h("button", {class:"btn sm", type:"button", onclick:importTriage, text:"Import statuses"}),
       h("button", { class: "btn sm", type: "button", onclick: exportTriage }, icon("download", "sm"), "Export my statuses"),
     );
     b.hidden = false;
   }
 
   function exportTriage() {
-    const blob = new Blob([JSON.stringify(StaticData.triage, null, 1)], { type: "application/json" });
+    const records = Object.fromEntries(Object.entries(StaticData.triage).map(([uid,record]) => [uid,
+      {...record, job:StaticData.byUid.has(uid) ? StaticData.snapshot(StaticData.byUid.get(uid)) : record.job}]));
+    const blob = new Blob([JSON.stringify({format:"jobsweep-triage-v2",records}, null, 1)], { type: "application/json" });
     const a = h("a", { download: "jobsweep-statuses.json" });
     a.href = URL.createObjectURL(blob);
     document.body.append(a);
@@ -831,6 +893,100 @@
       URL.revokeObjectURL(a.href);
       a.remove();
     }, 500);
+  }
+
+  async function refreshCloud() {
+    if (!StaticData.cloud) return;
+    if (document.activeElement?.id === "note") return;
+    await StaticData.cloud.refresh();
+    // Do not replace a note textarea while the user is typing.
+    if (document.activeElement?.id !== "note") loadJobs(true);
+    renderCounts();
+    refreshLaneCountsSoon();
+  }
+
+  function reviewSyncConflicts() {
+    const cloud = StaticData.cloud;
+    const dialog = h("dialog", {class:"sync-conflicts"}, h("h2", {text:"Choose which edit to keep"}),
+      h("p", {text:"Another device changed these applications. Both versions are preserved until you choose."}));
+    for (const [uid, remote] of Object.entries(cloud.conflicts)) {
+      const local = cloud.pending[uid];
+      const row = h("section", null,
+        h("h3", {text:local?.job?.title || remote?.job?.title || uid}),
+        h("p", {text:"This device: " + (local?.status || "new") + " — " + (local?.note || "No note")}),
+        h("p", {text:"Cloud: " + (remote?.status || "new") + " — " + (remote?.note || "No note")}));
+      const resolve = async (keep) => {
+        await cloud.resolve(uid,keep);
+        dialog.close(); dialog.remove();
+        if (Object.keys(cloud.conflicts).length) reviewSyncConflicts();
+        await refreshCloud();
+      };
+      row.append(h("button", {class:"btn", onclick:() => resolve(false), text:"Keep cloud version"}),
+        h("button", {class:"btn", onclick:() => resolve(true), text:"Keep this device's version"}));
+      dialog.append(row);
+    }
+    dialog.append(h("button", {class:"btn", onclick:() => {dialog.close();dialog.remove();}, text:"Decide later"}));
+    document.body.append(dialog);
+    dialog.showModal();
+  }
+
+  function importTriage() {
+    const input = h("input", {type:"file", accept:"application/json,.json"});
+    input.addEventListener("change", async () => {
+      try {
+        const file = input.files?.[0];
+        if (!file) return;
+        if (file.size > 20000000) throw new Error("Backup is too large (maximum 20 MB)");
+        const parsed = JSON.parse(await file.text());
+        const records = parsed.format === "jobsweep-triage-v2" ? parsed.records : parsed;
+        if (!records || Array.isArray(records) || typeof records !== "object") throw new Error("Invalid backup format");
+        const entries = Object.entries(records);
+        if (entries.length > 10000) throw new Error("Backup has too many records");
+        // Validate the entire file before changing anything. Legacy v1 backups are supported.
+        for (const [uid, r] of entries) {
+          if (!uid || uid.length > 300 || ["__proto__","constructor","prototype"].includes(uid) ||
+              !r || !STATUSES.includes(r.status) || (r.note != null && typeof r.note !== "string") ||
+              (r.note || "").length > 20000) throw new Error("Invalid application record");
+        }
+        if (StaticData.cloud) await StaticData.cloud.refresh();
+        let imported = 0;
+        for (const [uid,r] of entries) {
+          // Existing cloud/local records win; importing a backup never silently overwrites newer work.
+          if (StaticData.triage[uid]) continue;
+          const item = StaticData.byUid.get(uid);
+          const job = item ? StaticData.snapshot(item) : cleanImportedSnapshot(uid,r.job);
+          if (StaticData.cloud) StaticData.cloud.stage(uid,r.status,r.note || "",job);
+          else StaticData.triage[uid] = {uid,status:r.status,note:r.note || "",job,at:r.at};
+          imported++;
+        }
+        if (StaticData.cloud) await StaticData.cloud.refresh();
+        else if (!ls.set(TRIAGE_KEY,StaticData.triage)) throw new Error("Device storage unavailable");
+        StaticData.applyTriage();
+        loadJobs(true); renderCounts(); renderBanner();
+        toast("Imported " + imported + " applications; existing records kept" + (StaticData.cloud ? ". " + StaticData.cloud.label() : ""));
+      } catch (err) { toast("Import failed: " + err.message, {error:true}); }
+    });
+    input.click();
+  }
+
+  function cleanImportedSnapshot(uid, raw) {
+    const job = {uid, title:uid, active:false};
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) return job;
+    for (const key of ["title","company","location","source","employer_key","url","apply_url","description",
+      "first_seen","last_seen","posted_at","closes_at","department","grade","employment_type","posted_at_source",
+      "source_updated_at","suitability","qualification_status","location_eligibility","role_fit"]) {
+      if (typeof raw[key] === "string") job[key] = raw[key].slice(0,key === "description" ? 10000 : 2000);
+    }
+    for (const key of ["lanes","groups","tags","location_reasons","role_reasons"]) {
+      if (Array.isArray(raw[key])) job[key] = raw[key].filter(v => typeof v === "string").slice(0,100);
+    }
+    for (const key of ["score","salary_min","salary_max"]) if (Number.isFinite(raw[key])) job[key] = raw[key];
+    for (const key of ["entry_level","remote"]) if (typeof raw[key] === "boolean") job[key] = raw[key];
+    if (Array.isArray(raw.qualification_checks)) job.qualification_checks = raw.qualification_checks
+      .filter(v => v && typeof v === "object" && !Array.isArray(v))
+      .map(v => Object.fromEntries(["kind","requirement","level","status","evidence"]
+        .map(key => [key,typeof v[key] === "string" ? v[key].slice(0,2000) : ""]))).slice(0,100);
+    return job;
   }
 
   // ---- theme ---------------------------------------------------------------------------------------
@@ -1059,6 +1215,7 @@
     const f = state.f;
     $("search").value = f.q;
     $("f-entry").checked = f.entry;
+    $("f-screening").value = f.screening;
     $("f-min").value = String(f.min);
     $("f-min-out").textContent = String(f.min);
     $("f-loc").value = f.loc;
@@ -1067,7 +1224,7 @@
     $("f-sort").value = f.sort;
     if ($("f-posted-days")) $("f-posted-days").value = f.postedDays;
     const triage = isTriageTab(f.tab);
-    for (const id of (state.mode === "static" ? ["f-entry", "f-min"] : ["f-entry", "f-min", "f-days"])) {
+    for (const id of (state.mode === "static" ? ["f-entry", "f-min", "f-screening"] : ["f-entry", "f-min", "f-days", "f-screening"])) {
       const ctl = $(id).closest(".control");
       ctl.style.opacity = triage ? "0.5" : "";
       ctl.title = triage ? "Not applied on triage tabs: everything you filed is listed" : ctl.dataset.title || "";
@@ -1170,12 +1327,47 @@
   }
 
   function entryBadge(it) {
-    if (it.entry_level === true) return h("span", { class: "badge entry", title: "Entry-level / early-career fit", text: "Entry" });
+    if (it.entry_level === true) return h("span", { class: "badge entry", title: "Seniority and experience fit only; see screening for other requirements", text: "Early career" });
     if (it.entry_level === false) {
       const why = (it.match_reasons || []).find((r) => /^senior|years/i.test(r));
       return h("span", { class: "badge senior", title: why || "Probably too senior", text: "Senior" });
     }
     return null;
+  }
+
+  function screeningBadge(it) {
+    const status = it.suitability || "not_assessed";
+    const labels = { eligible: "Screen passed", review: "Needs review", excluded: "Outside criteria", not_assessed: "Not assessed" };
+    const titles = {
+      eligible: "NYC location, role, and available qualification checks passed. Confirm all requirements in the posting.",
+      review: "Location or requirements need verification; open the screening details.",
+      excluded: "Location, role, or seniority falls outside the profile criteria.",
+      not_assessed: "Screening has not been completed for this listing.",
+    };
+    return h("span", { class: "badge " + (status === "eligible" ? "ok" : status === "excluded" ? "senior" : "warn"),
+      text: labels[status] || labels.not_assessed, title: titles[status] || titles.not_assessed });
+  }
+
+  function screeningDetails(it) {
+    const reasons = [];
+    for (const reason of it.location_reasons || []) reasons.push("Location: " + reason);
+    for (const reason of it.role_reasons || []) reasons.push("Role: " + reason);
+    const checks = (it.qualification_checks || []).map((check) => {
+      const level = { required: "Required", preferred: "Preferred", obtainable: "Can obtain after hiring" }[check.level] || check.level || "Requirement";
+      const result = { met: "Listed in your profile", review: "Not confirmed in your profile", info: "For your information" }[check.status] || "Needs checking";
+      return h("li", null, h("strong", { text: level + ": " + (check.requirement || check.kind || "Requirement") }),
+        h("span", { text: " — " + result }),
+        check.evidence ? h("p", { class: "screen-evidence", text: check.evidence }) : null);
+    });
+    const qualificationText = it.qualification_status === "no_flags"
+      ? "No unresolved specialist requirement was found in the available text. This does not establish that you meet every requirement."
+      : it.qualification_status === "review"
+        ? "Check the requirements below before applying. Required credentials, languages, or clearance are not assumed from an early-career title."
+        : "Qualification screening is incomplete because the source text or profile information is insufficient.";
+    return h("section", { class: "screening-details" }, h("h3", { text: "Screening" }),
+      h("p", { class: "muted", text: qualificationText }),
+      reasons.length ? h("ul", { class: "reasons" }, reasons.map((reason) => h("li", { text: reason }))) : null,
+      checks.length ? h("ul", { class: "qualification-checks" }, checks) : null);
   }
 
   function tagBadges(it, max) {
@@ -1235,6 +1427,7 @@
           isNew(it) ? h("span", { class: "new-dot", title: "New in the last 24 hours", role: "img", "aria-label": "New" }) : null,
           h("a", { class: "title", href: it.url, target: "_blank", rel: "noopener noreferrer", title: it.title, text: it.title || "(untitled)" }),
           entryBadge(it),
+          screeningBadge(it),
           showStatus ? statusTag(it) : null),
         h("div", { class: "row-meta" },
           h("span", { class: "company", title: it.company, text: it.company || "Unknown employer" }),
@@ -1288,7 +1481,7 @@
           ? (state.mode === "api" ? "Run a sweep from the Runs tab, or import results from a Claude connector." : "This snapshot has no jobs.")
           : tab.id === "inbox" && isDefaultFilters()
             ? "Every new match has been triaged. New postings arrive with the next sweep."
-            : "Try lowering the score threshold, turning off Entry-level, or clearing lane and source filters." }),
+            : "Try Needs review under Screening, lowering the score threshold, or clearing lane and source filters." }),
         emptyDb && state.mode === "api"
           ? h("a", { class: "btn primary", href: "#/runs" }, icon("play", "sm"), "Run a sweep")
           : !isDefaultFilters()
@@ -1562,7 +1755,7 @@
       }))
       : h("p", { class: "muted", text: (it.groups || []).length ? "Groups: " + it.groups.join(", ") : "No lane matched." });
 
-    const note = h("textarea", { id: "note", placeholder: "Contacts, deadlines, cover-letter angle…", "aria-describedby": "note-state" });
+    const note = h("textarea", { id: "note", maxlength: "20000", placeholder: "Contacts, deadlines, cover-letter angle…", "aria-describedby": "note-state" });
     note.value = it.note || "";
     const noteState = h("span", { id: "note-state", "aria-live": "polite" });
     const saveNote = async () => {
@@ -1572,7 +1765,7 @@
       try {
         const row = await data.setStatus(it.uid, it.status || "new", val);
         it.note = row && row.note !== undefined ? row.note : val;
-        noteState.textContent = "Saved";
+        noteState.textContent = StaticData.cloud ? StaticData.cloud.label() : "Saved on this device";
         const el = rowEl(it.uid);
         if (el) el.replaceWith(renderRow(it));
       } catch (err) {
@@ -1596,6 +1789,7 @@
 
     const badges = h("div", { class: "badges" },
       entryBadge(it),
+      screeningBadge(it),
       it.remote === true ? h("span", { class: "badge remote", text: "Remote" }) : it.remote === false ? h("span", { class: "badge", text: "On-site / hybrid" }) : null,
       it.employment_type ? h("span", { class: "badge", text: it.employment_type }) : null,
       tagBadges(it, 4),
@@ -1606,6 +1800,10 @@
     const facts = h("dl", { class: "facts" },
       fact("Salary", fmtSalary(it)),
       fact("Posted", it.posted_at ? fmtDate(it.posted_at, true) + " · " + relTime(it.posted_at) : "Unknown"),
+      fact("Posting date source", (it.posted_at_source || it.extra?.posted_at_source) === "greenhouse:first_published"
+        ? "Employer publication date (Greenhouse)" : it.posted_at ? "Source publication date" : "Unknown"),
+      fact("Employer updated", (it.source_updated_at || it.extra?.updated_at)
+        ? fmtDate(it.source_updated_at || it.extra.updated_at, true) + " · not a posting date" : null),
       fact("Closes", it.closes_at ? fmtDate(it.closes_at) + (close ? " · " + close.label : "") : null, close && close.soon ? "soon" : null),
       fact("First seen", it.first_seen ? fmtDate(it.first_seen, true) : null),
       fact("Last seen", it.last_seen ? relTime(it.last_seen) : null),
@@ -1624,10 +1822,11 @@
       sub, badges,
       h("section", null, h("h3", { text: "Status" }), seg),
       facts.childElementCount ? h("section", null, facts) : null,
+      screeningDetails(it),
       h("section", null, h("h3", { text: "Lanes" }), lanes),
       h("section", null, h("h3", { text: "Why it matched" }), reasons),
       h("section", { class: "note-box" }, h("h3", null, h("label", { for: "note", text: "Note" })), note,
-        h("div", { class: "note-foot" }, h("span", { text: state.mode === "static" ? "Saved in this browser" : "Saves automatically" }), noteState)),
+        h("div", { class: "note-foot" }, h("span", { text: StaticData.cloud ? "Private cloud sync · offline edits stay on this device" : state.mode === "static" ? "Saved on this device · use synced board for other devices" : "Saves automatically" }), noteState)),
       h("section", null, h("h3", { text: "Description" }), renderDescription(it.description),
         it.description_truncated ? h("p", { class: "muted", text: "Loading full description…" }) : null),
       h("div", { class: "detail-meta" },
@@ -2287,6 +2486,7 @@
 
     for (const el of document.querySelectorAll("#filters .control")) el.dataset.title = el.getAttribute("title") || "";
     $("f-entry").addEventListener("change", (e) => { state.f.entry = e.target.checked; applyFilters(); });
+    $("f-screening").addEventListener("change", (e) => { state.f.screening = e.target.value; applyFilters(); });
     $("f-remote").addEventListener("change", (e) => { state.f.remote = e.target.checked; applyFilters(); });
     const minChanged = debounce(() => applyFilters(), 250);
     $("f-min").addEventListener("input", (e) => {
@@ -2493,6 +2693,11 @@
       }
     } else {
       state.cache.employers = StaticData.base.employers || null;
+      if (StaticData.cloud) {
+        window.addEventListener("online", refreshCloud);
+        window.addEventListener("focus", refreshCloud);
+        setInterval(() => { if (!document.hidden) refreshCloud(); }, 30000);
+      }
     }
   }
 

@@ -157,7 +157,8 @@ class HasDataIndeedSource(Source):
         for page in range(pages):
             if page:
                 params["start"] = page * 10
-            data = await self.get_json(LISTING, params=params, headers=headers)
+            # A timeout may follow a charged response; never replay paid requests.
+            data = await self.get_json(LISTING, params=params, headers=headers, retries=0)
             rows = data.get("jobs") if isinstance(data, dict) else None
             if not isinstance(rows, list) or not rows:
                 break
@@ -221,7 +222,7 @@ class HasDataIndeedSource(Source):
         """Full description (+ job type / salary when missing) from the HasData job endpoint."""
         if job.extra.get("enriched") or not job.url:
             return job
-        data = await self.get_json(DETAIL, params={"url": job.url}, headers=self._headers())
+        data = await self.get_json(DETAIL, params={"url": job.url}, headers=self._headers(), retries=0)
         if not isinstance(data, dict):
             return job
         detail = data.get("job") if isinstance(data.get("job"), dict) else data

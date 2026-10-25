@@ -34,6 +34,8 @@ import yaml
 
 from .config import CATALOG_DIR, Settings
 from .models import Employer, Job, Profile, SearchQuery
+from .qualifications import assess_qualifications
+from .suitability import assess_location, assess_role
 
 try:  # Python >= 3.11
     from re import _constants as _sre_c  # type: ignore[attr-defined]
@@ -830,7 +832,23 @@ def load_profile(profile: Profile | str | Path | None = None) -> Profile:
             override = None
     if override is not None and override.resolve() != PROFILE_PATH.resolve():
         if override.exists():
-            data.update(_read_yaml_dict(override))
+            # New personal screening settings are opt-in for existing custom profiles.
+            override_data = _read_yaml_dict(override)
+            defaults = Profile().to_dict()
+            if data.get("strict_nyc_location") and not override_data.get("strict_nyc_location"):
+                # A pre-existing London/custom profile should not inherit this user's new US-only plan.
+                for key in ("preferred_locations", "countries"):
+                    data[key] = defaults[key]
+            for key in (
+                "strict_nyc_location",
+                "screen_qualifications",
+                "excluded_role_patterns",
+                "known_credentials",
+                "languages",
+                "active_clearances",
+            ):
+                data[key] = defaults[key]
+            data.update(override_data)
         else:
             log.warning("profile file %s not found; using defaults", override)
     if isinstance(data.get("preferred_locations"), str):
@@ -1344,7 +1362,16 @@ class Taxonomy:
                 return False, years, ["internship"]
             reasons.append("entry: internship")
 
-        senior = self._senior(title.norm)
+        # AVP is often a banking grade; use stated experience instead of assuming executive seniority.
+        bank_avp = self.profile.screen_qualifications and bool(
+            re.search(r"\b(?:avp|assistant vice president)\b", title.norm, re.I)
+        )
+        senior_title = (
+            re.sub(r"\b(?:avp|assistant vice president)\b", "", title.norm, flags=re.I)
+            if bank_avp
+            else title.norm
+        )
+        senior = self._senior(senior_title)
         if senior:
             return False, years, [f"senior: '{senior}' in title"]
         lawyer = _LAWYER_RE.search(title.norm)
@@ -1363,7 +1390,10 @@ class Taxonomy:
             return False, years, [f"senior: grade GS-{min(grades):02d}"]
         if years is not None and years > prof.max_years_experience:
             return False, years, [f"requires {years}+ years (max {prof.max_years_experience})"]
-        if re.search(r"\b(?:director|executive|vp|vice president|c-level)\b", seniority) or re.search(
+        checked_seniority = (
+            re.sub(r"\b(?:avp|assistant vice president)\b", "", seniority) if bank_avp else seniority
+        )
+        if re.search(r"\b(?:director|executive|vp|vice president|c-level)\b", checked_seniority) or re.search(
             r"(?<!non-)(?<!non )\bmanager\b", level.lower()
         ):
             return False, years, [f"senior: level '{level or job.seniority}'"]
@@ -1383,6 +1413,9 @@ class Taxonomy:
             reasons.append(f"entry: {entry_lanes[0]} lane")
         if years is not None:
             reasons.append(f"entry: {years} years required (max {prof.max_years_experience})")
+        if bank_avp and years is None:
+            reasons.append("bank AVP grade: experience requirements need review")
+            return None, years, reasons
         return (True if reasons else None), years, reasons
 
     # ---- location / recency -----------------------------------------------------------------------
@@ -1492,6 +1525,45 @@ class Taxonomy:
         job.entry_level = entry_level
         job.years_required = years
         job.match_reasons = self._reasons(results, employer, notes, entry_reasons, loc_reason, age)
+        job.location_eligibility, job.location_reasons = assess_location(job, self.profile)
+        job.role_fit, job.role_reasons = assess_role(job, self.profile)
+        job.qualification_status, job.qualification_checks = (
+            assess_qualifications(job, self.profile)
+            if self.profile.screen_qualifications
+            else ("not_assessed", [])
+        )
+        if self.profile.screen_qualifications and any("bank AVP grade" in r for r in entry_reasons):
+            job.qualification_checks.append(
+                {
+                    "kind": "experience",
+                    "requirement": "AVP experience requirements",
+                    "level": "required",
+                    "status": "review",
+                    "evidence": "Banking AVP title alone does not establish the experience requirement",
+                }
+            )
+            job.qualification_status = "review"
+        screening = (
+            self.profile.strict_nyc_location
+            or self.profile.screen_qualifications
+            or bool(self.profile.excluded_role_patterns)
+        )
+        if not screening:
+            job.suitability = "not_assessed"
+        elif (
+            job.location_eligibility == "ineligible" or job.role_fit == "excluded" or job.entry_level is False
+        ):
+            job.suitability = "excluded"
+        elif job.location_eligibility == "review" or (
+            self.profile.screen_qualifications and job.qualification_status in {"review", "not_assessed"}
+        ):
+            job.suitability = "review"
+        else:
+            job.suitability = "eligible"
+        if job.location_eligibility == "ineligible" or job.role_fit == "excluded":
+            job.score = 0.0
+            job.match_reasons = [*job.location_reasons, *job.role_reasons, *job.match_reasons]
+        # Review cases retain their relevance score, but consumers filter suitability explicitly.
         return job
 
     def _reasons(

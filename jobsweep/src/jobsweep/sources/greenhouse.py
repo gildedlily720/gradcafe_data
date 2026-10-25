@@ -166,6 +166,12 @@ class GreenhouseSource(Source):
             extra["offices"] = offices
         if j.get("updated_at"):
             extra["updated_at"] = j["updated_at"]
+        published = iso_date(j.get("first_published"))
+        # updated_at is the last edit, not evidence of when the vacancy was first published.
+        # Greenhouse's documented detail field is first_published (not first_published_at).
+        extra["posted_at_source"] = "greenhouse:first_published" if published else "unknown"
+        if published:
+            extra["first_published"] = j["first_published"]
         return Job(
             source=self.name,
             source_id=str(jid),
@@ -175,7 +181,7 @@ class GreenhouseSource(Source):
             location=location,
             remote=remote,
             description=html_to_text(j.get("content")),
-            posted_at=iso_date(j.get("first_published")) or iso_date(j.get("updated_at")),
+            posted_at=published,
             closes_at=iso_date(j.get("application_deadline")),
             salary_min=lo,
             salary_max=hi,
@@ -189,9 +195,9 @@ class GreenhouseSource(Source):
         )
 
     async def enrich(self, job: Job) -> Job:
-        """List calls already carry ``content``; fetch the single job only when it is missing."""
+        """Fetch missing content or the publication date from the documented detail endpoint."""
         board = (job.extra or {}).get("board")
-        if job.description or not board:
+        if not board or (job.description and job.posted_at):
             return job
         try:
             j = await self.get_json(
@@ -203,6 +209,13 @@ class GreenhouseSource(Source):
         if isinstance(j, dict):
             try:
                 job.description = html_to_text(j.get("content")) or job.description
+                published = iso_date(j.get("first_published"))
+                if published:
+                    job.posted_at = published
+                    job.extra["first_published"] = j["first_published"]
+                    job.extra["posted_at_source"] = "greenhouse:first_published"
+                if j.get("updated_at"):
+                    job.extra["updated_at"] = j["updated_at"]
                 if job.salary_min is None:
                     job.salary_min, job.salary_max, job.salary_currency, job.salary_period = _salary(j)
             except Exception as exc:  # noqa: BLE001 - a malformed detail payload must not lose the job

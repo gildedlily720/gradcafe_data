@@ -492,6 +492,9 @@ body:not([data-view="jobs"]) .detail { display: none; }
 .detail .sub { color: var(--text-2); font-size: 13.5px; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
 .detail .sub .company { color: var(--text); font-weight: 600; }
 .detail .badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.qualification-checks { padding-left: 18px; font-size: 12px; line-height: 1.5; }
+.qualification-checks li { margin: 9px 0; }
+.screen-evidence { color: var(--text-3); margin: 4px 0 0; overflow-wrap: anywhere; }
 .detail section { margin-top: 20px; }
 .detail h3 { margin: 0 0 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); font-weight: 650; }
 .facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); margin: 0;

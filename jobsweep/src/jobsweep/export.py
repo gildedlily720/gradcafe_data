@@ -84,17 +84,26 @@ def source_rows(settings: Settings | None = None) -> list[dict]:
 
 
 def site_rows(store: Store, *, min_score: float, days: int | None = None) -> list[dict]:
-    """Rows for the static board: active non-duplicates >= min_score (+ every triaged job), slimmed."""
+    """Static board rows, including low scores so browser-only tracking survives reclassification.
+
+    ``min_score`` is the UI's default filter, not a data-retention threshold. Retain every active
+    non-duplicate, plus all database-triaged rows including inactive jobs and duplicates.
+    """
     since = days if days else None
-    rows = store.query(min_score=min_score, since=since, include_inactive_lanes=True, limit=None)
+    rows = store.query(min_score=0, since=since, include_inactive_lanes=True, limit=None)
     by_uid = {r["uid"]: r for r in rows}
     triaged = [s for s in JOB_STATUSES if s != "new"]
-    for r in store.query(statuses=triaged, active_only=False, include_inactive_lanes=True, limit=None):
+    for r in store.query(
+        statuses=triaged, active_only=False, include_duplicates=True, include_inactive_lanes=True, limit=None
+    ):
         by_uid.setdefault(r["uid"], r)
     out = []
     for r in by_uid.values():
         r = dict(r)
         r["description"] = truncate(r.get("description") or "", SITE_DESCRIPTION_CHARS)
+        extra = r.get("extra") or {}
+        r["posted_at_source"] = extra.get("posted_at_source")
+        r["source_updated_at"] = extra.get("source_updated_at") or extra.get("updated_at")
         r.pop("extra", None)  # adapter internals; not shown by the board
         r["match_reasons"] = (r.get("match_reasons") or [])[:6]
         out.append(r)

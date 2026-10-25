@@ -154,12 +154,13 @@ def test_export_site(store, registry, tmp_path) -> None:
     jobs = json.loads((out / "data" / "jobs.json").read_text())
     assert set(jobs) >= {"generated_at", "total", "items"}
     got = [r["uid"] for r in jobs["items"]]
-    # >= min_score 25, active, non-duplicate (incl. earlier-lane job for the UI toggle) + every triaged job
+    # All active non-duplicates + every triaged job; the browser applies the default score filter.
     assert got == [
         "greenhouse:pr-sr", "greenhouse:pr", "greenhouse:old", "greenhouse:sanc", "greenhouse:eval",
-        "greenhouse:war", "greenhouse:ri", "greenhouse:unc", "greenhouse:saved-low",
+        "greenhouse:war", "greenhouse:ri", "greenhouse:unc", "greenhouse:saved-low", "greenhouse:low",
     ]  # fmt: skip
     assert jobs["total"] == len(got)
+    assert jobs["min_score"] == 25
     pr = next(r for r in jobs["items"] if r["uid"] == "greenhouse:pr")
     assert len(pr["description"]) <= 1502 and pr["description"].endswith("…")
     assert pr["match_reasons"] == ["title: Political Risk Analyst"]
@@ -195,13 +196,20 @@ def test_export_site_min_score_days_and_missing_static(store, registry, tmp_path
     out = export_site(store, FakeTaxonomy(), registry, tmp_path / "site", min_score=60, days=1,
                       static_dir=tmp_path / "nope", settings=Settings(env={}))  # fmt: skip
     assert "data/jobs.json" in (out / "index.html").read_text()  # placeholder page
-    items = json.loads((out / "data" / "jobs.json").read_text())["items"]
+    data = json.loads((out / "data" / "jobs.json").read_text())
+    items = data["items"]
+    assert data["min_score"] == 60  # exported as a default UI filter, not destructive retention
     # days=1 drops greenhouse:old (first seen 5 days ago); saved job always included
     assert {r["uid"] for r in items} == {
         "greenhouse:pr-sr",
         "greenhouse:pr",
         "greenhouse:sanc",
         "greenhouse:saved-low",
+        "greenhouse:war",
+        "greenhouse:ri",
+        "greenhouse:unc",
+        "greenhouse:eval",
+        "greenhouse:low",
     }
 
 

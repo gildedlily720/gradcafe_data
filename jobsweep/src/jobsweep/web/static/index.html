@@ -13,6 +13,7 @@
     try { var t = localStorage.getItem("jobsweep:theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}
   </script>
   <script src="config.js"></script>
+  <script src="triage-sync.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body data-view="jobs">
@@ -90,10 +91,18 @@
               </button>
             </div>
             <div class="filters" id="filters">
-              <label class="control switch" title="Hide postings classified as too senior">
+              <label class="control" for="f-screening" title="Screens NYC work eligibility, role relevance, and known requirements. A passed screen is not a guarantee of qualification.">
+                <span class="lbl">Screening</span>
+                <select id="f-screening">
+                  <option value="eligible">Screen passed</option>
+                  <option value="review">Needs review</option>
+                  <option value="all">All listings</option>
+                </select>
+              </label>
+              <label class="control switch" title="Seniority and experience only. Specialist credentials, languages, and clearance are checked separately under Screening.">
                 <input type="checkbox" id="f-entry" checked>
                 <span class="track" aria-hidden="true"></span>
-                <span>Entry-level</span>
+                <span>Early career</span>
               </label>
               <label class="control range" for="f-min" title="Minimum match score">
                 <span class="lbl">Score ≥</span>
@@ -112,8 +121,8 @@
               </label>
               <datalist id="loc-suggest">
                 <option value="New York"></option>
-                <option value="Washington"></option>
-                <option value="London"></option>
+                <option value="Brooklyn"></option>
+                <option value="Manhattan"></option>
                 <option value="Remote"></option>
               </datalist>
               <label class="control switch">

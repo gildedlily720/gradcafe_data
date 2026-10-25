@@ -367,8 +367,10 @@ def test_export_and_digest(env, capsys) -> None:
     (static / "index.html").write_text("<html></html>", encoding="utf-8")
     out_dir = env.tmp / "site"
     code, out, _ = run(capsys, "export", "--out", str(out_dir), "--static", str(static), "--min-score", "50")
-    assert code == 0 and "exported 3 jobs" in out
-    assert json.loads((out_dir / "data" / "jobs.json").read_text())["total"] == 3
+    assert code == 0 and "exported 4 jobs" in out
+    exported = json.loads((out_dir / "data" / "jobs.json").read_text())
+    assert exported["total"] == 4  # retain low-score IDs for existing browser-local tracking
+    assert exported["min_score"] == 50  # filtering still starts at the requested score
     assert (out_dir / "config.js").read_text().strip() == 'window.JOBSWEEP_MODE = "static";'
 
     code, data = run_json(capsys, "digest", "--format", "json")

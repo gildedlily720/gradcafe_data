@@ -542,13 +542,15 @@ def test_profile_yaml() -> None:
     names = {f.name for f in dataclasses.fields(Profile)}
     assert set(data) == names, f"profile.yaml keys differ from models.Profile: {set(data) ^ names}"
     profile = Profile.from_dict(data)
-    assert profile.preferred_locations == ["New York", "Washington", "Remote", "London"]
+    assert profile.preferred_locations == ["New York"]
     assert profile.remote_ok is True
     assert profile.max_years_experience == 3
     assert profile.include_internships is False
     assert profile.include_unknown_seniority is True
     assert profile.min_score == 25
-    assert profile.countries == ["US", "GB"]
+    assert profile.countries == ["US"]
+    assert profile.strict_nyc_location
+    assert profile.screen_qualifications
 
 
 # ---------------------------------------------------------------------------------------------------

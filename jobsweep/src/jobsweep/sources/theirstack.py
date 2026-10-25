@@ -94,13 +94,17 @@ class TheirStackSource(Source):
         headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
         jobs: list[Job] = []
         seen: set[str] = set()
+        returned = 0
         for page in range(MAX_PAGES):
-            body = build_body(query, page=page, limit=per_page)
+            request_limit = min(per_page, want - returned)
+            body = build_body(query, page=page, limit=request_limit)
             # retries=0: every returned job costs a credit, never replay a request that may have succeeded
             data = await self.post_json(API, body, headers=headers, retries=0)
             rows = data.get("data") if isinstance(data, dict) else None
             if not isinstance(rows, list):
                 break
+            # Credits are charged for raw rows, including duplicates/malformed jobs.
+            returned += len(rows)
             for raw in rows:
                 try:
                     job = self._job(raw)
@@ -110,7 +114,7 @@ class TheirStackSource(Source):
                 if job and job.source_id not in seen:
                     seen.add(job.source_id)
                     jobs.append(job)
-            if len(rows) < per_page or len(jobs) >= want:
+            if len(rows) < request_limit or returned >= want:
                 break
         return jobs[:want]
 

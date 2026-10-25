@@ -153,7 +153,7 @@ _FTS_SCHEMA = (
 _SORTS = {
     "score": "j.score DESC, j.first_seen DESC, j.uid",
     "newest": "j.first_seen DESC, j.score DESC, j.uid",
-    "posted": "(j.posted_at IS NULL), substr(j.posted_at, 1, 10) DESC, j.score DESC, j.uid",
+    "posted": "(julianday(j.posted_at) IS NULL), julianday(j.posted_at) DESC, j.first_seen DESC, j.uid",
     "closing": "(j.closes_at IS NULL), substr(j.closes_at, 1, 10) ASC, j.score DESC, j.uid",
     "company": "j.company COLLATE NOCASE ASC, j.score DESC, j.uid",
 }
@@ -161,7 +161,7 @@ _SORTS = {
 _QUERY_KEYS = {
     "q", "lanes", "groups", "sources", "statuses", "employers", "entry_only", "include_unknown_entry",
     "min_score", "location", "remote", "since", "active_only", "include_duplicates",
-    "include_inactive_lanes",
+    "include_inactive_lanes", "suitability",
 }  # fmt: skip
 
 
@@ -616,6 +616,7 @@ class Store:
         sources: Any = None,
         statuses: Any = None,
         employers: Any = None,
+        suitability: Any = None,
         entry_only: bool = False,
         include_unknown_entry: bool = True,
         min_score: float | None = None,
@@ -674,6 +675,16 @@ class Store:
         employers_l = _as_list(employers)
         if employers_l:
             conds.append(f"j.employer_key IN ({marks(employers_l)})")
+        suitability_l = _as_list(suitability)
+        if suitability_l:
+            allowed = {"eligible", "review", "excluded", "not_assessed"}
+            unknown_suitability = [value for value in suitability_l if value not in allowed]
+            if unknown_suitability:
+                raise ValueError(f"unknown suitability {unknown_suitability[0]!r}")
+            conds.append(
+                "COALESCE(NULLIF(json_extract(j.data, '$.suitability'), ''), 'not_assessed') "
+                f"IN ({marks(suitability_l)})"
+            )
         if entry_only:
             conds.append(
                 "(j.entry_level = 1 OR j.entry_level IS NULL)"

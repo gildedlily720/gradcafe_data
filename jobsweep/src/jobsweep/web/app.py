@@ -444,6 +444,9 @@ def job_filters(
     source: Annotated[list[str] | None, Query(description="source name(s)")] = None,
     status: Annotated[list[str] | None, Query(description="status(es) or 'all'")] = None,
     employer: Annotated[list[str] | None, Query(description="employer key(s)")] = None,
+    suitability: Annotated[
+        list[str] | None, Query(description="screen result(s); repeat or comma-separate")
+    ] = None,
     entry: str | None = Query(None, description="1 = entry-level (or unknown) only"),
     min_score: float | None = Query(None, ge=0, le=100),
     location: str | None = Query(None),
@@ -470,6 +473,15 @@ def job_filters(
                 422, f"unknown status {bad[0]!r}; expected one of {', '.join(JOB_STATUSES)} or 'all'"
             )
         f["statuses"] = statuses
+    screening = _split(suitability)
+    if screening:
+        allowed = {"eligible", "review", "excluded", "not_assessed"}
+        unknown = [value for value in screening if value not in allowed]
+        if unknown:
+            raise HTTPException(
+                422, f"unknown suitability {unknown[0]!r}; expected one of {', '.join(sorted(allowed))}"
+            )
+        f["suitability"] = screening
     if _flag(entry):
         f["entry_only"] = True
     if min_score is not None:
