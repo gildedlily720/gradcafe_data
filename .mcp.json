@@ -1,0 +1,72 @@
+{
+  "mcpServers": {
+    "jobsweep": {
+      "type": "stdio",
+      "command": "uv",
+      "args": ["run", "--directory", "jobsweep", "jobsweep-mcp"],
+      "env": {}
+    },
+    "pipeworx-usajobs": {
+      "type": "http",
+      "url": "https://gateway.pipeworx.io/usajobs/mcp"
+    },
+    "exa": {
+      "type": "http",
+      "url": "https://mcp.exa.ai/mcp"
+    },
+    "apify": {
+      "type": "http",
+      "url": "https://mcp.apify.com/?tools=fetch-actor-details,aakash19/jobspy,blackfalcondata/hiringcafe-scraper,digital_influx/job-search-mcp,piracema_labs/workday-jobs-monitor"
+    },
+    "theirstack": {
+      "type": "http",
+      "url": "https://api.theirstack.com/mcp"
+    },
+    "hasdata-indeed": {
+      "type": "http",
+      "url": "https://mcp.hasdata.com/mcp?apis=indeed"
+    },
+    "jobspy": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["mcp-jobspy@latest"],
+      "env": {}
+    },
+    "ats-jobs": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "github:benkrasin/ats-jobs-mcp", "mcp"],
+      "env": {
+        "APIFY_TOKEN": "${APIFY_TOKEN:-}"
+      }
+    },
+    "adzuna": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/folathecoder/adzuna-job-search-mcp@e00a5956bc07524a6bddadb1d79db731ce107461",
+        "adzuna-mcp"
+      ],
+      "env": {
+        "ADZUNA_APP_ID": "${ADZUNA_APP_ID:-}",
+        "ADZUNA_APP_KEY": "${ADZUNA_APP_KEY:-}"
+      }
+    },
+    "federal-compass": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "federal-compass-mcp@latest"],
+      "env": {
+        "USAJOBS_API_KEY": "${USAJOBS_API_KEY:-}",
+        "USAJOBS_EMAIL": "${USAJOBS_EMAIL:-}"
+      }
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "env": {}
+    }
+  }
+}
