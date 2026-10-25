@@ -233,9 +233,9 @@
     const diff = (ref || Date.now()) - d.getTime();
     const abs = Math.abs(diff);
     let out;
-    if (abs < 3600000) out = Math.max(1, Math.round(abs / 60000)) + "m";
-    else if (abs < DAY) out = Math.round(abs / 3600000) + "h";
-    else if (abs < 45 * DAY) out = Math.round(abs / DAY) + "d";
+    if (abs < 3600000) out = Math.max(1, Math.floor(abs / 60000)) + "m";
+    else if (abs < DAY) out = Math.floor(abs / 3600000) + "h";
+    else if (abs < 45 * DAY) out = Math.floor(abs / DAY) + "d";
     else return fmtDate(s);
     return diff >= 0 ? out + " ago" : "in " + out;
   }
