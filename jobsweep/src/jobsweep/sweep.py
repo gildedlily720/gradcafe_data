@@ -288,6 +288,20 @@ async def enrich_promising(
     return jobs, len(picks) - errors, errors
 
 
+def _interleave(targets: list[_Target]) -> list[_Target]:
+    """Round-robin targets by source so every host gets work early (keeps per-source order)."""
+    queues: dict[str, list[_Target]] = {}
+    for t in targets:
+        queues.setdefault(t.source, []).append(t)
+    out: list[_Target] = []
+    while queues:
+        for name in list(queues):
+            out.append(queues[name].pop(0))
+            if not queues[name]:
+                del queues[name]
+    return out
+
+
 def _classify(taxonomy: Any, job: Job, employer: Employer | None) -> Job:
     res = taxonomy.classify(job, employer)
     return res if isinstance(res, Job) else job
@@ -336,11 +350,9 @@ def build_plan(
                 continue
             cls = selected.get(ats)
             if cls is None or "board" not in cls.kind:
-                reason = reasons.get(ats)
-                if reason is None:
-                    reason = "no board adapter" if cls is not None else "unknown ats"
-                    if ats not in sources_mod.SOURCE_PATHS:
-                        reason = "unknown ats"
+                reason = reasons.get(ats) or (
+                    "no board adapter" if ats in sources_mod.SOURCE_PATHS else "unknown ats"
+                )
                 skipped_employers.append({"employer": emp.key, "ats": ats, "reason": reason})
                 continue
             targets.append(_Target("board", ats, employer=emp))
@@ -385,7 +397,7 @@ def build_plan(
     for t in targets:
         by_source[t.source] = by_source.get(t.source, 0) + 1
     plan = {
-        "sources": sorted({t.source for t in targets} | set(selected)),
+        "sources": sorted({t.source for t in targets}),
         "boards": [
             {
                 "source": t.source,
@@ -528,8 +540,9 @@ class _Runner:
         st["new"] += len(fresh)
         return {"jobs": len(raw), "kept": len(kept), "new": len(fresh)}
 
-    async def run_target(self, t: _Target, sem: asyncio.Semaphore) -> None:
-        async with sem:
+    async def run_target(self, t: _Target, sem: asyncio.Semaphore, source_sem: asyncio.Semaphore) -> None:
+        # Per-source cap first, so targets queued behind a slow/rate-limited source hold no global slot.
+        async with source_sem, sem:
             st = self._stats(t.source)
             st["targets"] += 1
             t0 = time.monotonic()
@@ -595,10 +608,13 @@ async def run_sweep(
                     runner.errors.append(
                         {"source": name, "target": "*", "error": f"init failed: {exc}"[:300]}
                     )
-            runnable = [t for t in targets if t.source in runner.instances]
+            runnable = _interleave([t for t in targets if t.source in runner.instances])
             runner.total = len(runnable)
-            sem = asyncio.Semaphore(max(int(options.concurrency), 1))
-            await asyncio.gather(*(runner.run_target(t, sem) for t in runnable))
+            concurrency = max(int(options.concurrency), 1)
+            sem = asyncio.Semaphore(concurrency)
+            per_source = max(concurrency // 2, 2)
+            source_sems = {name: asyncio.Semaphore(per_source) for name in runner.instances}
+            await asyncio.gather(*(runner.run_target(t, sem, source_sems[t.source]) for t in runnable))
     finally:
         if store is not None:
             try:

@@ -20,7 +20,7 @@ import re
 from typing import Any
 
 from ..models import Employer, Job
-from ..text import html_to_text, iso_date
+from ..text import html_to_text, iso_date, truncate
 from .base import Source, SourceError
 from .detect import join_locations, normalize_employment_type, remote_from_text, structured_tags, to_float
 
@@ -119,7 +119,7 @@ class RipplingSource(Source):
         desc = d.get("description")
         if isinstance(desc, dict):
             parts = [html_to_text(desc.get("role"), limit=0), html_to_text(desc.get("company"), limit=0)]
-            job.description = html_to_text("\n\n".join(p for p in parts if p).replace("\n", "<br>")) or job.description
+            job.description = truncate("\n\n".join(p for p in parts if p)) or job.description
         elif isinstance(desc, str):
             job.description = html_to_text(desc)
         locations = [str(x) for x in d.get("workLocations") or [] if x]
