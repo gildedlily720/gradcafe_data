@@ -2001,7 +2001,7 @@
       inner.append(h("div", { id: "sweep-progress" }));
       refreshSweepStatus(true);
     } else {
-      inner.append(h("div", { class: "notice", text: "Static snapshot: running sweeps and importing are available when you run the board locally with `jobsweep serve`." }));
+      inner.append(h("div", { class: "notice" }, "Static snapshot: running sweeps and importing are available when you run the board locally with ", h("code", { text: "jobsweep serve" }), "."));
     }
     const hist = h("div", null, h("div", { class: "skeleton" }, h("div"), h("div")));
     inner.append(h("h2", { text: "History" }), hist);
@@ -2154,7 +2154,7 @@
     const inner = pageShell("view-import", "Import",
       "Paste what a Claude connector returned (Indeed connector markdown, Workopia or Jobs and Careers JSON) or any JSON or CSV list of jobs. Imported postings are classified against your lanes and added to the board.");
     if (state.mode !== "api") {
-      inner.append(h("div", { class: "notice", text: "Import needs the local server (`jobsweep serve`)." }));
+      inner.append(h("div", { class: "notice" }, "Import needs the local server (", h("code", { text: "jobsweep serve" }), ")."));
       return;
     }
     const origin = h("input", { type: "text", name: "origin", value: "indeed-connector", list: "origin-suggest", required: true });

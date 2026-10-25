@@ -7,27 +7,33 @@
 # Every sweepable entry (ats != other) was verified live in this session via the board API (probe_ats.py check
 # or curl against the ARCHITECTURE.md 3.1 endpoint); open_jobs is the count seen on 2026-10-25.
 #
-# Big generalist boards carry search_terms (server-side; Workday search is relevance-ranked OR-matching, so the
-# narrow terms come first and max_jobs is raised where needed) plus a title_filter so that only lane-relevant
-# titles survive. SIU-only carriers (GEICO, USAA, Allstate, Sedgwick) are filtered to SIU / fraud / investigator
+# Big generalist boards carry search_terms (server-side; Workday/Oracle keyword search also matches description
+# boilerplate such as EEO text, so terms are distinctive single words and max_jobs -- an overall cap across terms
+# -- is raised where needed) plus a title_filter so that only lane-relevant titles survive. SIU-only carriers (GEICO, USAA, Allstate, Sedgwick) are filtered to SIU / fraud / investigator
 # titles regardless of board size.
 #
 # Notable gaps / notes:
 #   * Unsupported ATSs ("check by hand"): Beazley, Berkley, Aon, Gallagher, AXA XL (iCIMS); Lockton (Taleo);
-#     Swiss Re, Munich Re, Zurich, Aspen, OdysseyRe-style SuccessFactors sites; Allianz and QBE (Phenom -- QBE's
+#     Swiss Re, Munich Re, Zurich, Aspen, Clarksons (SuccessFactors); Allianz and QBE (Phenom -- QBE's
 #     Workday site qbe/wd3/QBE-Careers exists but its public listing API returns 0, jobs are only exposed through
 #     careers.qbe.com); Liberty Mutual / LSM (Avature); Alliant, Crisis24 (Dayforce); Brit (Salesforce).
 #   * Control Risks and Hamilton use Workable, which rate-limited this session (HTTP 429 / Cloudflare 1015);
 #     they are listed as manual here -- Control Risks' board (control-risks-6) is carried as sweepable by
 #     intelligence-security.yaml, which loads first and wins the merge.
-#   * Dropped / folded in: Ince (administration 2022, now Lawfront), Woodruff Sawyer (now Gallagher), Risk
-#     Strategies / DeWitt Stern (now Brown & Brown), TigerRisk (Howden Re), Willis Re (Gallagher Re), Navigators
+#   * Dropped / folded in: Ince (parent entered administration 2023; firm sold to Lawfront), Woodruff Sawyer
+#     (now Gallagher), Risk Strategies / DeWitt Stern (now Brown & Brown), TigerRisk (Howden Re), Willis Re (Gallagher Re), Navigators
 #     (The Hartford), Roanoke (Munich Re), NYA (Gallagher), Founder Shield (Baldwin Group), Talbot (AIG),
 #     Price Forbes (Ardonagh Specialty), Tokio Marine Kiln / SCR (Tokio Marine HCC), Fidelis Insurance Group
 #     (renamed Pelagos Insurance Capital, May 2026; underwriting sits with The Fidelis Partnership).
 #   * Not found / too small to list: Sovereign Risk Insurance, Texel, BPL Global, Pool Re, Equinox Global,
 #     Hostage US, Coalition Against Insurance Fraud (no careers pages or unreachable), Holborn, Inigo, Ki,
 #     Mosaic Insurance, Vantage Risk, Atrium, Ark (careers pages blocked bots / no ATS found).
+#   * Researched but left out to keep the list at 80 (add back if wanted): Coalition (greenhouse 'coalition',
+#     50 jobs, mostly cyber), PURE Insurance (workday pureinsurance/wd5/PURE, 37), NJM (workday njm/wd1/njm, 38),
+#     OdysseyRe / PartnerRe (SuccessFactors), State Farm (iCIMS) and Progressive (careers.progressive.com) SIU,
+#     Bowhead Specialty, BMS Group (no ATS found).
+#   * The registry merge keeps the first file's board/title_filter for a shared key (files load alphabetically),
+#     so for control-risks / s-rm / crisis24 the intelligence-security.yaml settings win; lanes are merged.
 group: specialty-insurance
 employers:
   # ================================================================== Lloyd's / London-market & Bermuda specialty carriers
@@ -152,7 +158,7 @@ employers:
     name: The Fidelis Partnership (Fidelis / Pelagos Insurance Capital)
     lanes: [political-risk, political-violence-terrorism, aviation, marine-cargo, trade-credit-surety]
     ats: other
-    ats_vendor: custom (Avencia-run Careers_Portal)
+    ats_vendor: custom
     careers_url: https://careersuk.fidelispartnership.com/
     hq: London, UK / Hamilton, Bermuda
     locations: [London, UK, Dublin, Ireland, Bermuda]
@@ -162,11 +168,11 @@ employers:
     name: Brit Insurance
     lanes: [political-violence-terrorism, political-risk, marine-cargo, financial-lines]
     ats: other
-    ats_vendor: salesforce (fRecruit)
+    ats_vendor: salesforce
     careers_url: https://britpeople.my.salesforce-sites.com/recruit/fRecruit__ApplyJobList?portal=Brit+Careers
     hq: London, UK
     locations: [London, UK, New York, NY, Bermuda]
-    notes: "Lloyd's Syndicate 2987; terror/PV underwriting, claims & underwriting assistant roles, graduate programme."
+    notes: "Salesforce fRecruit portal. Lloyd's Syndicate 2987; terror/PV underwriting, claims & underwriting assistant roles, graduate programme."
 
   - key: aspen-insurance
     name: Aspen Insurance
@@ -372,11 +378,11 @@ employers:
     board: nationwide/wd1/Nationwide_Career
     careers_url: https://www.nationwide.com/personal/about-us/careers/
     hq: Columbus, OH
-    locations: [New York, NY, Columbus, OH]
+    locations: [Columbus, OH, Scottsdale, AZ, Remote, US]
     title_filter: '(?i)(\bSIU\b|fraud|investigat|politic|\bcredit\b|surety|E&S|management liability|\bD&O\b|financial lines|executive (risk|liability))'
     verified: "2026-10-25"
     open_jobs: 153
-    notes: "SIU plus Nationwide E&S/Specialty: Credit & Political Risk (structured credit) team in New York, surety, management liability / D&O; E&S and surety underwriting summer internships."
+    notes: "SIU plus Nationwide E&S/Specialty: Credit & Political Risk (structured credit) team, surety, management liability / D&O; E&S and surety underwriting summer internships."
 
   - key: berkshire-hathaway-specialty-insurance
     name: Berkshire Hathaway Specialty Insurance
@@ -442,7 +448,7 @@ employers:
     name: QBE Insurance Group
     lanes: [political-risk, trade-credit-surety, financial-lines, marine-cargo]
     ats: other
-    ats_vendor: phenom (Workday apply)
+    ats_vendor: phenom
     careers_url: https://careers.qbe.com/gb/en/search-results
     hq: Sydney, Australia
     locations: [New York, NY, London, UK]
@@ -519,7 +525,7 @@ employers:
     name: Hamilton Insurance Group
     lanes: [reinsurance-broking, financial-lines, political-violence-terrorism]
     ats: other
-    ats_vendor: workable (embed account 729281)
+    ats_vendor: workable
     careers_url: https://www.hamiltongroup.com/careers/
     hq: Pembroke, Bermuda
     locations: [London, UK, Bermuda, New York, NY]
@@ -533,7 +539,7 @@ employers:
     board: Coface
     careers_url: https://www.coface.com/careers
     hq: Paris, France
-    locations: [New York, NY, Princeton, NJ, London, UK]
+    locations: [New York, NY, London, UK]
     verified: "2026-10-25"
     open_jobs: 239
     notes: "Trade credit underwriters, credit/risk analysts (business information), political risk."
@@ -584,7 +590,7 @@ employers:
     lanes: [political-risk]
     groups: [policy-research]
     ats: other
-    ats_vendor: cornerstone (World Bank Group)
+    ats_vendor: cornerstone
     careers_url: https://www.worldbank.org/ext/en/careers
     hq: Washington, DC
     locations: [Washington, DC]
@@ -620,11 +626,11 @@ employers:
     name: WTW (Willis Towers Watson)
     lanes: [political-risk, transactional-liability, financial-lines, aviation, marine-cargo]
     ats: other
-    ats_vendor: custom (careers.wtwco.com)
+    ats_vendor: custom
     careers_url: https://careers.wtwco.com/jobs/search
     hq: London, UK
     locations: [New York, NY, Arlington, VA, London, UK]
-    notes: "~659 jobs. Financial Solutions (credit & political risk), M&A, FINEX, aerospace, marine; graduate programmes in London."
+    notes: "Custom careers.wtwco.com site (~659 jobs, no public ATS API found). Financial Solutions (credit & political risk), M&A, FINEX, aerospace, marine; graduate programmes in London."
 
   - key: gallagher
     name: Gallagher (Arthur J. Gallagher, Gallagher Re, NYA)
@@ -794,7 +800,7 @@ employers:
     notes: "Aviation & aerospace underwriting pool; underwriting analyst / underwriting assistant postings on the WordPress careers page."
 
   - key: us-aviation-underwriters
-    name: USAU (United States Aircraft Insurance Group)
+    name: USAU (U.S. Aviation Underwriters / United States Aircraft Insurance Group)
     lanes: [aviation]
     ats: other
     ats_vendor: cornerstone
@@ -807,11 +813,11 @@ employers:
     name: Thomas Miller (UK War Risks, UK P&I, TT Club)
     lanes: [war-risk, marine-cargo]
     ats: other
-    ats_vendor: custom (email applications)
+    ats_vendor: custom
     careers_url: https://www.thomasmiller.com/careers/recruitment/
     hq: London, UK
     locations: [London, UK, New York, NY]
-    notes: "Manages the UK Defence Club / UK War Risks and UK P&I and TT Club mutuals; occasional graduate / claims executive hires."
+    notes: "Applications by email / recruitment page. Manages the UK Defence Club / UK War Risks and UK P&I and TT Club mutuals; occasional graduate / claims executive hires."
 
   # ================================================================== Crisis response (K&R), insurance law
   - key: control-risks
@@ -870,7 +876,7 @@ employers:
     board: geico/wd1/External
     careers_url: https://careers.geico.com
     hq: Chevy Chase, MD
-    locations: [Chevy Chase, MD, New York, NY]
+    locations: [Chevy Chase, MD, Woodbury, NY, Remote, US]
     title_filter: '(?i)(\bSIU\b|fraud|investigat|special investigations?)'
     verified: "2026-10-25"
     open_jobs: 279
