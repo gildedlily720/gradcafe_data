@@ -71,7 +71,9 @@ class TeamtailorSource(Source):
         return jobs[: employer.max_jobs] if employer.max_jobs else jobs
 
     async def _from_rss(self, employer: Employer, host: str) -> list[Job]:
-        raw = await self.get_text(f"https://{host}/jobs.rss", headers={"Accept": "application/rss+xml, text/xml"})
+        raw = await self.get_text(
+            f"https://{host}/jobs.rss", headers={"Accept": "application/rss+xml, text/xml"}
+        )
         try:
             root = ET.fromstring(raw.encode("utf-8"))
         except ET.ParseError as exc:
@@ -81,7 +83,11 @@ class TeamtailorSource(Source):
             raise SourceError(f"teamtailor {host}: not an RSS feed")
         items = [{"el": it} for it in channel.findall("item")]
         return safe_parse(
-            items, lambda it: self._parse_rss(it["el"], employer, host), source=self.name, board=host, logger=self.ctx.log
+            items,
+            lambda it: self._parse_rss(it["el"], employer, host),
+            source=self.name,
+            board=host,
+            logger=self.ctx.log,
         )
 
     def _parse_rss(self, it: ET.Element, employer: Employer, host: str) -> Job | None:
@@ -121,7 +127,11 @@ class TeamtailorSource(Source):
         if not isinstance(data, dict) or not isinstance(data.get("items"), list):
             raise SourceError(f"teamtailor {host}: neither jobs.rss nor jobs.json is available")
         return safe_parse(
-            data["items"], lambda i: self._parse_json(i, employer, host), source=self.name, board=host, logger=self.ctx.log
+            data["items"],
+            lambda i: self._parse_json(i, employer, host),
+            source=self.name,
+            board=host,
+            logger=self.ctx.log,
         )
 
     def _parse_json(self, i: dict, employer: Employer, host: str) -> Job | None:

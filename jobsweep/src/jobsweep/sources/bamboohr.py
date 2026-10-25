@@ -64,7 +64,11 @@ class BambooHRSource(Source):
         if not isinstance(data, dict) or not isinstance(data.get("result"), list):
             raise SourceError(f"bamboohr {board}: unexpected payload")
         jobs = safe_parse(
-            data["result"], lambda j: self._parse(j, employer, board), source=self.name, board=board, logger=self.ctx.log
+            data["result"],
+            lambda j: self._parse(j, employer, board),
+            source=self.name,
+            board=board,
+            logger=self.ctx.log,
         )
         return jobs[: employer.max_jobs] if employer.max_jobs else jobs
 

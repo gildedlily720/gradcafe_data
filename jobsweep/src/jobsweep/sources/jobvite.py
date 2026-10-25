@@ -94,7 +94,12 @@ def jsonld_salary(posting: dict[str, Any]) -> tuple[float | None, float | None, 
         lo = hi = to_float(sal.get("value")) if not isinstance(sal.get("value"), dict) else None
     if lo is None and hi is None:
         return None, None, None, None
-    return lo, hi if hi is not None else lo, sal.get("currency") or None, normalize_period(value.get("unitText"))
+    return (
+        lo,
+        hi if hi is not None else lo,
+        sal.get("currency") or None,
+        normalize_period(value.get("unitText")),
+    )
 
 
 # ---- list page parser ----------------------------------------------------------------------------
@@ -133,10 +138,8 @@ class _ListParser(HTMLParser):
         if tag == "a":
             m = self.href_re.search(a.get("href", ""))
             if m:
-                if self._cur is None or self._cur.get("id"):
-                    self._new()
-                assert self._cur is not None
-                self._cur["id"] = m.group(1)
+                cur = self._cur if self._cur is not None and not self._cur.get("id") else self._new()
+                cur["id"] = m.group(1)
         if self._field:
             return
         if tag == "h3" or (tag == "h2" and "h2" in classes):
@@ -148,9 +151,11 @@ class _ListParser(HTMLParser):
         elif "jv-job-list-location" in classes and self._cur is not None:
             self._begin("location")
 
-    def _new(self) -> None:
+    def _new(self) -> dict[str, str]:
+        # table template: the name cell opens a row before its link; list template: the link comes first
         self._cur = {"category": self.category}
         self.rows.append(self._cur)
+        return self._cur
 
     def handle_endtag(self, tag: str) -> None:
         if self._field and tag not in _VOID:
@@ -181,9 +186,12 @@ def _feed_rows(xml_text: str) -> list[dict[str, str]]:
     """Best-effort parse of the legacy ``CompanyJobs/Xml.aspx`` feed (``<job><id>…<title>…``)."""
     rows = []
     for block in re.findall(r"<job>(.*?)</job>", xml_text, re.S):
+
         def field(name: str, block: str = block) -> str:
             m = re.search(rf"<{name}>(.*?)</{name}>", block, re.S)
-            return unescape(re.sub(r"<!\[CDATA\[(.*?)\]\]>", r"\1", m.group(1), flags=re.S)).strip() if m else ""
+            return (
+                unescape(re.sub(r"<!\[CDATA\[(.*?)\]\]>", r"\1", m.group(1), flags=re.S)).strip() if m else ""
+            )
 
         if field("id") and field("title"):
             rows.append(
@@ -216,7 +224,9 @@ class JobviteSource(Source):
         rows = parse_job_list(html, board)
         if not rows and _COMPANY_ID.match(board):
             try:
-                rows = _feed_rows(await self.get_text(f"https://app.jobvite.com/CompanyJobs/Xml.aspx?c={board}"))
+                rows = _feed_rows(
+                    await self.get_text(f"https://app.jobvite.com/CompanyJobs/Xml.aspx?c={board}")
+                )
             except Exception as exc:  # noqa: BLE001 - legacy feed is optional
                 self.ctx.log.debug("jobvite feed %s failed: %s", board, exc)
         if not rows and "jv-" not in html and "jobvite" not in html.lower():

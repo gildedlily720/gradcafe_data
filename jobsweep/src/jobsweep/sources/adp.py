@@ -55,12 +55,19 @@ def parse_board(board: str) -> tuple[str, str]:
 
 def _fields(req: dict, kind: str) -> dict[str, Any]:
     out: dict[str, Any] = {}
-    for f in ((req.get("customFieldGroup") or {}).get(kind) or []) if isinstance(req, dict) else []:
+    group = req.get("customFieldGroup") if isinstance(req, dict) else None
+    rows = group.get(kind) if isinstance(group, dict) else None
+    for f in rows if isinstance(rows, list) else []:
         if not isinstance(f, dict):
             continue
-        code = (f.get("nameCode") or {}).get("codeValue") or (f.get("categoryCode") or {}).get("codeValue")
+        name, cat = f.get("nameCode"), f.get("categoryCode")
+        code = (name.get("codeValue") if isinstance(name, dict) else None) or (
+            cat.get("codeValue") if isinstance(cat, dict) else None
+        )
         if code:
-            out[code] = next((f[k] for k in ("stringValue", "indicatorValue", "dateValue", "numberValue") if k in f), None)
+            out[code] = next(
+                (f[k] for k in ("stringValue", "indicatorValue", "dateValue", "numberValue") if k in f), None
+            )
     return out
 
 
@@ -146,9 +153,15 @@ class ADPSource(Source):
             return None
         ext_id = _clean(strings.get("ExternalJobID"))
         locations = _locations(r)
-        level = (r.get("workLevelCode") or {}).get("shortName") if isinstance(r.get("workLevelCode"), dict) else None
+        level = (
+            (r.get("workLevelCode") or {}).get("shortName")
+            if isinstance(r.get("workLevelCode"), dict)
+            else None
+        )
         department = _clean(strings.get("HomeDepartment"))
-        url = PUBLIC + "?" + urlencode({"cid": cid, "ccId": ccid, "jobId": ext_id or item_id, "lang": "en_US"})
+        url = (
+            PUBLIC + "?" + urlencode({"cid": cid, "ccId": ccid, "jobId": ext_id or item_id, "lang": "en_US"})
+        )
         extra: dict[str, Any] = {"board": cid, "cc_id": ccid}
         if ext_id:
             extra["external_job_id"] = ext_id
@@ -178,14 +191,20 @@ class ADPSource(Source):
         if not cid or job.description:
             return job
         try:
-            r = await self.get_json(f"{API}/{job.source_id}", params={"cid": cid, "lang": "en_US", "locale": "en_US"})
+            r = await self.get_json(
+                f"{API}/{job.source_id}", params={"cid": cid, "lang": "en_US", "locale": "en_US"}
+            )
         except Exception as exc:  # noqa: BLE001 - enrichment is best effort
             self.ctx.log.warning("adp enrich %s failed: %s", job.uid, exc)
             return job
         if not isinstance(r, dict):
             return job
         job.description = html_to_text(r.get("requisitionDescription")) or job.description
-        level = (r.get("workLevelCode") or {}).get("shortName") if isinstance(r.get("workLevelCode"), dict) else None
+        level = (
+            (r.get("workLevelCode") or {}).get("shortName")
+            if isinstance(r.get("workLevelCode"), dict)
+            else None
+        )
         if level and not job.employment_type:
             job.employment_type = normalize_employment_type(level)
         if not job.department:

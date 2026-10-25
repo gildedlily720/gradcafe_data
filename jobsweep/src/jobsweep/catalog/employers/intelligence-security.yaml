@@ -1,0 +1,1047 @@
+# Employer registry -- group: intelligence-security
+# Risk / strategic intelligence, threat intelligence, protective intelligence, travel risk & crisis response,
+# GSOC / watch-officer, corporate (non-cyber) security, OSINT, counterterrorism & counter-extremism.
+#
+# Coverage (researched 2026-10-25; every non-"other" board was hit through its public API this session):
+#   * Risk-intelligence / alerting vendors: Dataminr, Recorded Future, Flashpoint, ZeroFox, Sibylline, Dragonfly
+#     (now Dow Jones "Global Risk Insights"), Everbridge, Ontic, Samdesk, Factal, LifeRaft, Intel 471, Janes,
+#     Babel Street, Strider, Sayari, Base Operations, Seerist/RANE/Riskline (manual).
+#   * Security & risk consultancies / protective firms: Control Risks, S-RM, Concentric, Gavin de Becker,
+#     Valens Global, Securitas (EU + USA boards), Crisis24/GardaWorld, International SOS, Pinkerton,
+#     Allied Universal (incl. Brosnan Risk Consultants), Global Guardian, Global Rescue, Healix (manual where
+#     the ATS is unsupported).
+#   * Counter-extremism / OSINT NGOs: ISD, Moonshot, CIR, SPLC, ACLED, Blackbird.AI, Graphika, ADL, CEP,
+#     Tech Against Terrorism, Soufan Center, START (UMD), GIFCT, Bellingcat.
+#   * Corporate security / GSOC / protective-intelligence teams (NYC/DC/London heavy): JPMorgan Chase, Goldman
+#     Sachs, Morgan Stanley, Citi, Bank of America, BlackRock, Blackstone, American Express, NBCUniversal,
+#     Disney, NYT, MSG Entertainment, NFL, MLB, Pfizer, J&J, Salesforce, Airbnb, Snap, OpenAI, Anthropic,
+#     CrowdStrike; manual: Meta, Google, Amazon, Microsoft, Apple, Netflix, Uber, Bloomberg, Paramount, NBA,
+#     Columbia, NYU.
+#   Big generalist boards carry search_terms (server-side, Workday/Oracle/SmartRecruiters) + a title_filter.
+#
+# Notable gaps / caveats:
+#   * Workable's API (Control Risks, LifeRaft, Moonshot, CIR, Blackbird.AI) was Cloudflare rate-limiting
+#     (HTTP 429 / "error code 1015") from this egress; boards were verified via the GET widget endpoint
+#     (apply.workable.com/api/v1/widget/accounts/<board>), whose counts are per-location entries.
+#   * Unsupported ATS (manual list): SuccessFactors (Crisis24/GardaWorld, International SOS, Paramount, NBA),
+#     iCIMS (Pinkerton, Allied Universal, ADL, NYU), JazzHR (Global Guardian), UKG Ready (Global Rescue),
+#     Factorial (Riskline), HRSmart (Prescient Edge), Avature (Bloomberg), Eightfold (Microsoft, Netflix),
+#     PageUp (Columbia), custom pages (Meta, Google, Amazon, Apple, Uber, Seerist, RANE, Healix, CEP, TAT ...).
+#   * Not found / dropped: Silobreaker (careers page 404), Topsail and Insite Risk (sites unreachable), Prosegur
+#     (no US/UK early-career intel presence), Halcyon (anti-ransomware vendor, not an intel employer),
+#     Network Contagion Research Institute (site blocks bots, no public board found), Brosnan (acquired by
+#     Allied Universal), Pyrra (acquired by AlertMedia), Hedayah (gov-adjacent, Abu Dhabi), WorldAware and
+#     OnSolve (folded into Crisis24).
+group: intelligence-security
+employers:
+
+  # ------------------------------------------------------------------ risk-intelligence / alerting vendors
+  - key: dataminr
+    name: Dataminr
+    lanes: [threat-intelligence, gsoc-watch, osint, strategic-intelligence]
+    ats: workday
+    board: dataminr/wd12/Dataminr
+    careers_url: https://www.dataminr.com/careers
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 25
+    notes: "Moved from Greenhouse to Workday. Domain-expert / SME and analyst roles for real-time event detection."
+
+  - key: recorded-future
+    name: Recorded Future
+    lanes: [threat-intelligence, strategic-intelligence, osint]
+    ats: greenhouse
+    board: recordedfuture
+    careers_url: https://www.recordedfuture.com/careers
+    hq: Somerville, MA
+    locations: [Washington, DC, London, UK, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 47
+    notes: "Mastercard-owned; Insikt Group threat-intelligence analysts."
+
+  - key: flashpoint
+    name: Flashpoint
+    lanes: [threat-intelligence, osint, counterterrorism, protective-intelligence]
+    ats: ashby
+    board: flashpoint.io
+    careers_url: https://flashpoint.io/about-us/careers/
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 4
+    notes: "Ashby board name includes the dot (flashpoint.io)."
+
+  - key: zerofox
+    name: ZeroFox
+    lanes: [threat-intelligence, protective-intelligence, osint]
+    ats: rippling
+    board: zerofox-careers
+    careers_url: https://www.zerofox.com/careers/
+    hq: Baltimore, MD
+    locations: [Baltimore, MD, Remote US, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "Careers page embeds Rippling (old Lever/Workable boards are gone). Intelligence analysts (physical + digital)."
+
+  - key: sibylline
+    name: Sibylline
+    lanes: [strategic-intelligence, threat-intelligence, gsoc-watch, protective-intelligence]
+    groups: [geopolitical-risk]
+    ats: smartrecruiters
+    board: SibyllineLtd
+    careers_url: https://www.sibylline.co.uk/careers/
+    hq: London, UK
+    locations: [London, UK, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 8
+    notes: "Threat-intelligence analysts, embedded analysts, GSOC operators."
+
+  - key: dow-jones
+    name: Dow Jones (Dragonfly / Global Risk Insights)
+    lanes: [strategic-intelligence, threat-intelligence, counterterrorism]
+    groups: [geopolitical-risk, sanctions-fincrime]
+    ats: workday
+    board: dowjones/wd1/Dow_Jones_Career
+    careers_url: https://dowjones.wd1.myworkdayjobs.com/Dow_Jones_Career
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    title_filter: '(?i)(dragonfly|global risk|\bGRI\b|security|(?<!artificial )(?<!business )\bintelligence\b|geopolit|political|threat|crisis|terror|risk analyst|associate analyst|country analyst)'
+    search_terms: [Dragonfly, Global Risk Insights, intelligence, security analyst, associate analyst]
+    verified: "2026-10-25"
+    open_jobs: 251
+    notes: "Dragonfly Intelligence was acquired by Dow Jones; its security-intelligence analysts now sit in Dow Jones Global Risk Insights (London/NYC/Dubai)."
+
+  - key: everbridge
+    name: Everbridge
+    lanes: [gsoc-watch, travel-risk-crisis, threat-intelligence]
+    ats: lever
+    board: everbridge
+    careers_url: https://www.everbridge.com/about/careers/
+    hq: Burlington, MA
+    locations: [Burlington, MA, London, UK, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 26
+    notes: "Critical-event management; risk-intelligence monitoring team hires analysts occasionally."
+
+  - key: ontic
+    name: Ontic
+    lanes: [protective-intelligence, corporate-security, threat-intelligence]
+    ats: ashby
+    board: ontic
+    careers_url: https://ontic.co/careers
+    hq: Austin, TX
+    locations: [Remote US]
+    verified: "2026-10-25"
+    open_jobs: 15
+    notes: "Protective-intelligence software platform."
+
+  - key: samdesk
+    name: Samdesk
+    lanes: [gsoc-watch, osint, travel-risk-crisis]
+    ats: bamboohr
+    board: samsters
+    careers_url: https://www.samdesk.io/careers
+    hq: Halifax, NS, Canada
+    locations: [Remote]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "Crisis-intelligence analysts (24/7 event detection)."
+
+  - key: factal
+    name: Factal
+    lanes: [gsoc-watch, osint, travel-risk-crisis]
+    ats: breezy
+    board: factal
+    careers_url: https://www.factal.com/jobs/
+    hq: Seattle, WA
+    locations: [Remote US]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Breaking-news / verification editors for a risk-alerting product. Board live but empty at verification."
+
+  - key: liferaft
+    name: LifeRaft
+    lanes: [protective-intelligence, osint, threat-intelligence]
+    ats: workable
+    board: liferaft
+    careers_url: https://apply.workable.com/liferaft/
+    hq: Halifax, NS, Canada
+    locations: [Remote]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Navigator OSINT/threat platform. Verified via Workable widget endpoint (4 location entries for 1 posting)."
+
+  - key: intel-471
+    name: Intel 471
+    lanes: [threat-intelligence, osint]
+    ats: bamboohr
+    board: intel471
+    careers_url: https://www.intel471.com/company/careers
+    hq: Wilmington, DE
+    locations: [Remote US, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: "Cyber-underground threat intelligence; vulnerability / threat-intel analysts, SkillBridge pool."
+
+  - key: janes
+    name: Janes
+    lanes: [strategic-intelligence, osint, counterterrorism]
+    ats: greenhouse
+    board: janes
+    careers_url: https://job-boards.greenhouse.io/janes
+    hq: London, UK
+    locations: [London, UK, Arlington, VA]
+    verified: "2026-10-25"
+    open_jobs: 9
+    notes: "Defence and country-intelligence analysts (also relevant to defense-intel-data)."
+
+  - key: babel-street
+    name: Babel Street
+    lanes: [osint, threat-intelligence]
+    ats: greenhouse
+    board: babelstreet
+    careers_url: https://www.babelstreet.com/careers
+    hq: Reston, VA
+    locations: [Reston, VA, Washington, DC, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 12
+    notes: "PAI/OSINT analytics vendor to the IC."
+
+  - key: strider
+    name: Strider Technologies
+    lanes: [strategic-intelligence, osint]
+    groups: [geopolitical-risk, sanctions-fincrime]
+    ats: ashby
+    board: strider-technologies
+    careers_url: https://striderintel.com/careers
+    hq: South Jordan, UT
+    locations: [Tysons Corner, VA, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 10
+    notes: "Strategic / economic-security intelligence; Data Intelligence Analyst I roles (China focus). Moved from Greenhouse to Ashby."
+
+  - key: sayari
+    name: Sayari
+    lanes: [osint]
+    groups: [sanctions-fincrime, investigations-dd]
+    ats: greenhouse
+    board: sayari
+    careers_url: https://sayari.com/careers/
+    hq: Washington, DC
+    locations: [Washington, DC, London, UK, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 20
+    notes: "Field Intelligence Analyst roles (corporate-records OSINT)."
+
+  - key: base-operations
+    name: Base Operations
+    lanes: [gsoc-watch, corporate-security, travel-risk-crisis]
+    ats: ashby
+    board: base-operations
+    careers_url: https://jobs.ashbyhq.com/base-operations
+    hq: Washington, DC
+    locations: [Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Security-intelligence (street-level risk) platform; small team."
+
+  - key: seerist
+    name: Seerist
+    lanes: [strategic-intelligence, osint, threat-intelligence]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://seerist.com/careers
+    hq: Reston, VA
+    locations: [Reston, VA, Washington, DC, London, UK]
+    notes: "Custom careers page (no ATS embed). Open-source investigations analyst and in-region analyst roles."
+
+  - key: rane
+    name: RANE (Stratfor)
+    lanes: [strategic-intelligence, threat-intelligence]
+    groups: [geopolitical-risk]
+    ats: other
+    ats_vendor: email
+    careers_url: https://www.ranenetwork.com/about/careers
+    hq: Austin, TX
+    locations: [Austin, TX, New York, NY, Remote US]
+    notes: "Applications by email to careers@ranenetwork.com; Core Intelligence team (risk briefs)."
+
+  - key: riskline
+    name: Riskline
+    lanes: [travel-risk-crisis, strategic-intelligence]
+    ats: other
+    ats_vendor: factorial
+    careers_url: https://riskline.com/company/careers/
+    hq: Copenhagen, Denmark
+    locations: [Remote, London, UK]
+    notes: "Factorial HR board (riskline.factorialhr.com); junior travel-risk analyst EOIs and research internships."
+
+  # ------------------------------------------------------------------ security & risk consultancies, protective firms
+  - key: control-risks
+    name: Control Risks
+    lanes: [strategic-intelligence, corporate-security, travel-risk-crisis, threat-intelligence, gsoc-watch]
+    groups: [geopolitical-risk, investigations-dd]
+    ats: workable
+    board: control-risks-6
+    careers_url: https://www.controlrisks.com/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 154
+    notes: "Verified via Workable widget endpoint (154 location entries). Embedded-consulting analyst talent pools in London/Washington."
+
+  - key: s-rm
+    name: S-RM
+    lanes: [strategic-intelligence, corporate-security, travel-risk-crisis]
+    groups: [investigations-dd, geopolitical-risk]
+    ats: greenhouse
+    board: srm
+    careers_url: https://job-boards.greenhouse.io/srm
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 17
+    notes: "Corporate intelligence, security risk and crisis/K&R response consultancy."
+
+  - key: concentric
+    name: Concentric (Concentric Advisors)
+    lanes: [protective-intelligence, gsoc-watch, corporate-security, osint]
+    ats: greenhouse
+    board: concentric
+    careers_url: https://concentric.io/careers/
+    hq: Seattle, WA
+    locations: [Remote US, Washington, DC, San Francisco, CA]
+    verified: "2026-10-25"
+    open_jobs: 25
+    notes: "Junior OSINT analyst, intelligence operations assistant, JSOC/GSOC roles. A second small board 'concentricadvisors' (1 job, Arlington VA) also exists."
+
+  - key: gavin-de-becker
+    name: Gavin de Becker & Associates
+    lanes: [protective-intelligence, gsoc-watch, corporate-security]
+    ats: greenhouse
+    board: gavindebeckerassociates
+    careers_url: https://gdba.com/careers/
+    hq: Los Angeles, CA
+    locations: [New York, NY, Washington, DC, Los Angeles, CA, San Antonio, TX]
+    verified: "2026-10-25"
+    open_jobs: 38
+    notes: "Protective Intelligence Analyst (San Antonio academy), protective specialists; entry-level friendly."
+
+  - key: valens-global
+    name: Valens Global
+    lanes: [counterterrorism, strategic-intelligence, osint]
+    groups: [policy-research]
+    ats: bamboohr
+    board: valensglobal
+    careers_url: https://www.valensglobal.com/careers
+    hq: Washington, DC
+    locations: [Washington, DC, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "CT / violent-extremism analysis firm; Analyst I and internship postings appear periodically."
+
+  - key: securitas
+    name: Securitas (Europe / UK)
+    lanes: [protective-intelligence, gsoc-watch, corporate-security]
+    ats: smartrecruiters
+    board: Securitas
+    careers_url: https://jobs.smartrecruiters.com/Securitas
+    hq: Stockholm, Sweden
+    locations: [London, UK, Milton Keynes, UK]
+    title_filter: '(?i)((?<!artificial )(?<!business )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|\bSOC\b|security operations cent|risk analyst|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|fusion|analyst)'
+    search_terms: [intelligence, protective intelligence, risk intelligence, GSOC, analyst]
+    verified: "2026-10-25"
+    open_jobs: 1269
+    notes: "Mostly guarding roles across Europe; the UK Risk Intelligence / Protective Intelligence team (Milton Keynes) posts here."
+
+  - key: securitas-usa
+    name: Securitas Security Services USA
+    lanes: [gsoc-watch, corporate-security, protective-intelligence]
+    ats: oracle
+    board: ekaw.fa.us2.oraclecloud.com/CX
+    careers_url: https://www.securitasinc.com/career/
+    hq: Parsippany, NJ
+    locations: [New York, NY, Washington, DC, Parsippany, NJ]
+    title_filter: '(?i)((?<!artificial )(?<!business )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|\bSOC\b|security operations cent|risk analyst|\binvestigat|\bcrisis\b|\bOSINT\b|fusion|analyst)'
+    search_terms: [Global Security Operations Center, intelligence, threat, analyst, executive protection, investigator]
+    verified: "2026-10-25"
+    open_jobs: 1316
+    notes: "Client-site GSOC operators / threat-monitoring specialists; most postings are guard roles, so the filter is strict."
+
+  - key: crisis24
+    name: Crisis24 (GardaWorld)
+    lanes: [travel-risk-crisis, gsoc-watch, strategic-intelligence, protective-intelligence]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://jobs.garda.com/search/?q=intelligence
+    hq: Montreal, QC, Canada
+    locations: [New York, NY, Boston, MA, Annapolis, MD, London, UK]
+    notes: "GardaWorld SuccessFactors site carries Crisis24 Intelligence Analyst I/II/III, GSOC and EIS roles (OnSolve and WorldAware folded in)."
+
+  - key: international-sos
+    name: International SOS
+    lanes: [travel-risk-crisis, gsoc-watch, strategic-intelligence]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://careers.internationalsos.com/search/?q=security
+    hq: London, UK / Singapore
+    locations: [London, UK, Trevose, PA, Washington, DC]
+    notes: "Security Specialist (Information & Analysis), regional security analysts. Medical subsidiary Iqarus is on SmartRecruiters (not relevant)."
+
+  - key: pinkerton
+    name: Pinkerton
+    lanes: [protective-intelligence, corporate-security, gsoc-watch, strategic-intelligence]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://www.pinkerton.com/careers/current-openings
+    hq: Ann Arbor, MI
+    locations: [New York, NY, Washington, DC, London, UK]
+    notes: "Securitas subsidiary; iCIMS portals (uscareers-pinkerton.icims.com). Intelligence analysts, GSOC, EP."
+
+  - key: allied-universal
+    name: Allied Universal
+    lanes: [gsoc-watch, corporate-security, protective-intelligence]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://jobs.aus.com/
+    hq: Santa Ana, CA / Conshohocken, PA
+    locations: [New York, NY, Washington, DC]
+    notes: "iCIMS (securitycareers-aus.icims.com). Includes the former Brosnan Risk Consultants (brosnanrisk.com/careers redirects here) and G4S; client GSOC / intelligence analyst roles."
+
+  - key: global-guardian
+    name: Global Guardian
+    lanes: [protective-intelligence, travel-risk-crisis, gsoc-watch]
+    ats: other
+    ats_vendor: jazzhr
+    careers_url: https://globalguardian.applytojob.com/
+    hq: McLean, VA
+    locations: [McLean, VA, Washington, DC]
+    notes: "JazzHR (applytojob.com) board; GSOC operators and intelligence analysts."
+
+  - key: global-rescue
+    name: Global Rescue
+    lanes: [travel-risk-crisis, gsoc-watch]
+    ats: other
+    ats_vendor: ukg-ready
+    careers_url: https://secure7.saashr.com/ta/6210167.careers?CareersSearch=&lang=en-US
+    hq: Lebanon, NH
+    locations: [Boston, MA, Lebanon, NH]
+    notes: "UKG Ready (saashr.com) board; intelligence analysts and security operations staff."
+
+  - key: healix
+    name: Healix International
+    lanes: [travel-risk-crisis, gsoc-watch]
+    ats: other
+    ats_vendor: seemehired
+    careers_url: https://seemehired.com/opportunities/healix/
+    hq: Esher, UK
+    locations: [London, UK]
+    notes: "Travel security / medical assistance; security analyst roles in the UK."
+
+  - key: prescient-edge
+    name: Prescient Edge
+    lanes: [strategic-intelligence, counterterrorism, osint]
+    ats: other
+    ats_vendor: hrsmart
+    careers_url: https://prescientedge.hua.hrsmart.com/hr/ats/JobSearch/viewAll
+    hq: McLean, VA
+    locations: [Washington, DC, McLean, VA]
+    notes: "Intelligence-community contractor (all-source / OSINT / CT analysts; most roles need clearance)."
+
+  # ------------------------------------------------------------------ counter-extremism, OSINT & research NGOs
+  - key: institute-for-strategic-dialogue
+    name: Institute for Strategic Dialogue (ISD)
+    lanes: [counterterrorism, osint]
+    groups: [trust-safety, policy-research]
+    ats: recruitee
+    board: isdglobal
+    careers_url: https://isdglobal.recruitee.com/
+    hq: London, UK
+    locations: [London, UK, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Recruitee board live but empty at verification."
+
+  - key: moonshot
+    name: Moonshot
+    lanes: [counterterrorism, osint]
+    groups: [trust-safety]
+    ats: workable
+    board: moonshot
+    careers_url: https://moonshotteam.com/careers/
+    hq: London, UK
+    locations: [London, UK, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 11
+    notes: "Verified via Workable widget (24 location entries / ~11 postings): OSINT Analyst, safeguarding analysts. Greenhouse/Ashby 'moonshot' boards are unrelated companies."
+
+  - key: centre-for-information-resilience
+    name: Centre for Information Resilience (CIR)
+    lanes: [osint, counterterrorism]
+    groups: [trust-safety]
+    ats: workable
+    board: centre-for-information-resilience
+    careers_url: https://www.info-res.org/careers/current-openings
+    hq: London, UK
+    locations: [London, UK, Remote]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "Open-source investigators / verification analysts (Eyes on Russia, Sudan Witness, Myanmar Witness). Workable account id 632993."
+
+  - key: blackbird-ai
+    name: Blackbird.AI
+    lanes: [osint, threat-intelligence]
+    groups: [trust-safety]
+    ats: workable
+    board: blackbirdai
+    careers_url: https://blackbird.ai/careers/
+    hq: New York, NY
+    locations: [New York, NY, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Narrative-intelligence vendor; Workable board live but empty at verification."
+
+  - key: southern-poverty-law-center
+    name: Southern Poverty Law Center
+    lanes: [counterterrorism, osint]
+    groups: [policy-research]
+    ats: greenhouse
+    board: southernpovertylawcenter
+    careers_url: https://www.splcenter.org/about/careers/jobs/
+    hq: Montgomery, AL
+    locations: [Washington, DC, Atlanta, GA, Montgomery, AL]
+    verified: "2026-10-25"
+    open_jobs: 14
+    notes: "Intelligence Project (extremism research analysts) posts here alongside legal/advocacy roles."
+
+  - key: acled
+    name: ACLED (Armed Conflict Location & Event Data)
+    lanes: [strategic-intelligence, osint]
+    groups: [geopolitical-risk, policy-research]
+    ats: bamboohr
+    board: acleddata
+    careers_url: https://acleddata.bamboohr.com/careers
+    hq: Remote-first (US nonprofit)
+    locations: [Remote, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "Conflict-data researchers (regional, language-based) -- good early-career entry point."
+
+  - key: graphika
+    name: Graphika
+    lanes: [osint]
+    groups: [trust-safety]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.graphika.com/careers
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC]
+    notes: "No ATS; careers page lists openings or asks for email to careers@graphika.com (none open at verification)."
+
+  - key: adl
+    name: ADL (Anti-Defamation League)
+    lanes: [counterterrorism, osint]
+    groups: [policy-research, trust-safety]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-adl.icims.com/jobs/search?ss=1
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC]
+    notes: "Center on Extremism investigative researchers / analysts."
+
+  - key: counter-extremism-project
+    name: Counter Extremism Project
+    lanes: [counterterrorism, osint]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.counterextremism.com/content/careers
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    notes: "Research analyst and internship postings on its own site."
+
+  - key: tech-against-terrorism
+    name: Tech Against Terrorism
+    lanes: [counterterrorism, osint]
+    groups: [trust-safety]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://techagainstterrorism.org/careers
+    hq: London, UK
+    locations: [London, UK]
+    notes: "HubSpot-built careers table (no openings at verification)."
+
+  - key: soufan-center
+    name: The Soufan Center
+    lanes: [counterterrorism, strategic-intelligence]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://thesoufancenter.org/about-us/careers/
+    hq: New York, NY
+    locations: [New York, NY]
+    notes: "No vacancies at verification; research fellowships appear occasionally."
+
+  - key: start-umd
+    name: START (National Consortium for the Study of Terrorism and Responses to Terrorism, UMD)
+    lanes: [counterterrorism]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: umd-jobs
+    careers_url: https://www.start.umd.edu/careers/jobs-start
+    hq: College Park, MD
+    locations: [College Park, MD, Washington, DC]
+    notes: "Research assistant / GTD roles via jobs.umd.edu; many require US citizenship."
+
+  - key: gifct
+    name: GIFCT (Global Internet Forum to Counter Terrorism)
+    lanes: [counterterrorism]
+    groups: [trust-safety]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://gifct.org/opportunities
+    hq: Washington, DC
+    locations: [Washington, DC, Remote US]
+    notes: "Programme associates / hash-sharing T&S associates posted on its site and Idealist."
+
+  - key: bellingcat
+    name: Bellingcat
+    lanes: [osint]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.bellingcat.com/about/careers/
+    hq: Amsterdam, Netherlands
+    locations: [Remote, Amsterdam, Netherlands]
+    notes: "Occasional OSINT investigator / trainer contracts (application form on site)."
+
+  # ------------------------------------------------------------------ corporate security / GSOC / protective intel: finance
+  - key: jpmorgan-chase
+    name: JPMorgan Chase
+    lanes: [corporate-security, gsoc-watch, protective-intelligence, threat-intelligence]
+    ats: oracle
+    board: jpmc.fa.oraclecloud.com/CX_1001
+    careers_url: https://careers.jpmorgan.com/
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK, Jersey City, NJ]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    search_terms: [Global Security, intelligence analyst, threat, crisis, GSOC, executive protection, investigator]
+    max_jobs: 600
+    verified: "2026-10-25"
+    open_jobs: 7242
+    notes: "Global Security & Investigations (GSOC specialist, intelligence, EP). Oracle keyword search is fuzzy (security~securities), hence the strict title_filter."
+
+  - key: goldman-sachs
+    name: Goldman Sachs
+    lanes: [corporate-security, gsoc-watch, protective-intelligence, threat-intelligence]
+    ats: oracle
+    board: hdpc.fa.us2.oraclecloud.com/LateralHiring
+    careers_url: https://higher.gs.com/
+    hq: New York, NY
+    locations: [New York, NY, London, UK, Jersey City, NJ]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    search_terms: [Global Security, intelligence, threat, crisis, executive protection, investigations]
+    verified: "2026-10-25"
+    open_jobs: 902
+    notes: "Lateral-hiring Oracle site (campus programmes live on higher.gs.com). Corporate Security / Global Security Operations Center in NYC."
+
+  - key: morgan-stanley
+    name: Morgan Stanley
+    lanes: [corporate-security, gsoc-watch, protective-intelligence, threat-intelligence]
+    ats: workday
+    board: ms/wd5/External
+    careers_url: https://www.morganstanley.com/people-opportunities
+    hq: New York, NY
+    locations: [New York, NY, London, UK, Baltimore, MD]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat|director)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    search_terms: [corporate security, intelligence, threat, security operations center, executive protection, crisis management, investigations]
+    verified: "2026-10-25"
+    open_jobs: 1261
+    notes: "Firm Resilience / Corporate Security (Regional Security Operations Center in NYC)."
+
+  - key: citi
+    name: Citi
+    lanes: [threat-intelligence, protective-intelligence, corporate-security, gsoc-watch]
+    ats: workday
+    board: citi/wd5/2
+    careers_url: https://jobs.citi.com/
+    hq: New York, NY
+    locations: [New York, NY, Tampa, FL, London, UK, Washington, DC]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    search_terms: [intelligence analyst, protective intelligence, security and investigative services, threat, executive protection, crisis management, investigations]
+    verified: "2026-10-25"
+    open_jobs: 2000
+    notes: "Citi Security & Investigative Services (CSIS): Intelligence (Intermediate/Senior) Analyst, Protective Intelligence, OSINT."
+
+  - key: bank-of-america
+    name: Bank of America
+    lanes: [corporate-security, gsoc-watch, protective-intelligence, threat-intelligence]
+    ats: workday
+    board: ghr/wd1/Lateral-US
+    careers_url: https://careers.bankofamerica.com/
+    hq: Charlotte, NC
+    locations: [New York, NY, Charlotte, NC, Washington, DC]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    search_terms: [global security, intelligence analyst, threat, executive protection, crisis management, investigations]
+    verified: "2026-10-25"
+    open_jobs: 1952
+    notes: "Workday tenant 'ghr', US lateral site. Global Corporate Security / Global Security Operations."
+
+  - key: blackrock
+    name: BlackRock
+    lanes: [corporate-security, gsoc-watch, protective-intelligence]
+    ats: workday
+    board: blackrock/wd1/BlackRock_Professional
+    careers_url: https://careers.blackrock.com/
+    hq: New York, NY
+    locations: [New York, NY, London, UK, Princeton, NJ]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    search_terms: [corporate security, intelligence, threat, executive protection, crisis management]
+    verified: "2026-10-25"
+    open_jobs: 291
+    notes: "Corporate Security & Business Resiliency team."
+
+  - key: blackstone
+    name: Blackstone
+    lanes: [threat-intelligence, corporate-security, protective-intelligence]
+    ats: workday
+    board: blackstone/wd1/Blackstone_Careers
+    careers_url: https://www.blackstone.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    verified: "2026-10-25"
+    open_jobs: 146
+    notes: "Blackstone Physical Security (Security Intelligence) and Security Operations threat-intelligence associates in NYC."
+
+  - key: american-express
+    name: American Express
+    lanes: [corporate-security, protective-intelligence, gsoc-watch]
+    ats: oracle
+    board: egug.fa.us2.oraclecloud.com/CX_1
+    careers_url: https://www.americanexpress.com/en-us/careers/
+    hq: New York, NY
+    locations: [New York, NY, Phoenix, AZ, London, UK]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|resilien)'
+    search_terms: [Global Security, intelligence, threat, special agent, crisis]
+    verified: "2026-10-25"
+    open_jobs: 387
+    notes: "Front end is Eightfold (aexp.eightfold.ai); the underlying Oracle CE site answers on CX_1. Global Security special agents / intelligence."
+
+  # ------------------------------------------------------------------ corporate security: media, sports, entertainment
+  - key: nbcuniversal
+    name: NBCUniversal
+    lanes: [gsoc-watch, protective-intelligence, osint, corporate-security]
+    ats: smartrecruiters
+    board: NBCUniversal3
+    careers_url: https://www.nbcunicareers.com/find-a-job
+    hq: New York, NY
+    locations: [New York, NY, Universal City, CA, London, UK]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|\bGRIC\b|security operations|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat|manager|director)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|social media analyst|open[- ]source|counter[- ]?terror|insider (risk|threat))'
+    search_terms: [global security, intelligence, threat, protective, investigations, social media analyst]
+    verified: "2026-10-25"
+    open_jobs: 449
+    notes: "Global Security GRIC (24x7 intelligence centre): All-Source Intelligence Analyst, Digital Intel & Investigations, Social Media Analyst, Global Security internships."
+
+  - key: disney
+    name: The Walt Disney Company
+    lanes: [corporate-security, protective-intelligence, gsoc-watch]
+    ats: workday
+    board: disney/wd5/disneycareer
+    careers_url: https://jobs.disneycareers.com/
+    hq: Burbank, CA
+    locations: [New York, NY, Burbank, CA, Orlando, FL, London, UK]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|asset protection|insider (risk|threat))'
+    search_terms: [global security, intelligence, threat, protective, crisis, investigations]
+    verified: "2026-10-25"
+    open_jobs: 377
+    notes: "Disney Global Security (intelligence & threat analysis, EP, asset protection)."
+
+  - key: new-york-times
+    name: The New York Times
+    lanes: [osint, corporate-security]
+    ats: greenhouse
+    board: thenewyorktimes
+    careers_url: https://www.nytco.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    title_filter: '(?i)(\binvestigat|\bOSINT\b|open[- ]source|global security|security operations|corporate security|physical security|\bthreat|(?<!artificial )\bintelligence\b|\bcrisis\b|protective)'
+    verified: "2026-10-25"
+    open_jobs: 146
+    notes: "Visual Investigations fellowships (OSINT) and Global Security Operations."
+
+  - key: msg-entertainment
+    name: Madison Square Garden Entertainment
+    lanes: [gsoc-watch, protective-intelligence, corporate-security, osint]
+    ats: greenhouse
+    board: msgentertainmentholdingsllc
+    careers_url: https://www.msgentertainment.com/jobs/
+    hq: New York, NY
+    locations: [New York, NY]
+    title_filter: '(?i)((?<!artificial )(?<!business )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator)|\binvestigat|\bcrisis\b|\bOSINT\b)'
+    verified: "2026-10-25"
+    open_jobs: 89
+    notes: "Security Intelligence analysts/investigators, SOC operators, executive protection at MSG / Radio City. Greenhouse token found in the site embed."
+
+  - key: nfl
+    name: National Football League (NFL)
+    lanes: [corporate-security, protective-intelligence, gsoc-watch]
+    ats: greenhouse
+    board: nflcareers
+    careers_url: https://www.nfl.com/careers/
+    hq: New York, NY
+    locations: [New York, NY]
+    title_filter: '(?i)((?<!artificial )(?<!business )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security|\binvestigat|\bcrisis\b|\bOSINT\b|integrity)'
+    verified: "2026-10-25"
+    open_jobs: 39
+    notes: "League office (NFL Security, intelligence, investigations)."
+
+  - key: mlb
+    name: Major League Baseball (MLB)
+    lanes: [protective-intelligence, gsoc-watch, corporate-security]
+    ats: greenhouse
+    board: majorleaguebaseball
+    careers_url: https://www.mlb.com/careers/home
+    hq: New York, NY
+    locations: [New York, NY]
+    title_filter: '(?i)((?<!artificial )(?<!business )\bintelligence\b|\bintel\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security|\binvestigat|\bcrisis\b|incident response|\bOSINT\b)'
+    verified: "2026-10-25"
+    open_jobs: 33
+    notes: "Security & Ballpark Operations: Intelligence Analyst, Global Intelligence, Incident Response & Intel Analyst (seasonal). Event roles sit on a separate small board 'mlbevents'."
+
+  # ------------------------------------------------------------------ corporate security: pharma, tech, AI labs
+  - key: pfizer
+    name: Pfizer
+    lanes: [corporate-security, travel-risk-crisis, gsoc-watch]
+    ats: workday
+    board: pfizer/wd1/PfizerCareers
+    careers_url: https://www.pfizer.com/about/careers
+    hq: New York, NY
+    locations: [New York, NY, Collegeville, PA, Sandwich, UK]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|counter[- ]?terror|brand protection|insider (risk|threat))'
+    search_terms: [global security, intelligence, threat, crisis management, investigations, brand protection]
+    verified: "2026-10-25"
+    open_jobs: 540
+    notes: "Pfizer Global Security (intelligence, travel security, investigations, brand protection)."
+
+  - key: johnson-johnson
+    name: Johnson & Johnson
+    lanes: [corporate-security, travel-risk-crisis, gsoc-watch]
+    ats: workday
+    board: jj/wd5/JJ
+    careers_url: https://www.careers.jnj.com/
+    hq: New Brunswick, NJ
+    locations: [New Brunswick, NJ, New York, NY, Raritan, NJ]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|counter[- ]?terror|brand protection|insider (risk|threat))'
+    search_terms: [global security, intelligence, threat, crisis management, investigations, brand protection]
+    verified: "2026-10-25"
+    open_jobs: 1894
+    notes: "J&J Global Security (intelligence & threat analysis, GSOC)."
+
+  - key: salesforce
+    name: Salesforce
+    lanes: [protective-intelligence, gsoc-watch, corporate-security]
+    ats: workday
+    board: salesforce/wd12/External_Career_Site
+    careers_url: https://careers.salesforce.com/
+    hq: San Francisco, CA
+    locations: [New York, NY, San Francisco, CA, London, UK]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|security (risk|analyst|specialist|associate|coordinator|investigat)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|counter[- ]?terror|insider (risk|threat))'
+    search_terms: [global security, protective intelligence, threat, security operations center, executive protection, crisis management]
+    verified: "2026-10-25"
+    open_jobs: 1573
+    notes: "Global Protective Intelligence / GSOC / EP teams."
+
+  - key: airbnb
+    name: Airbnb
+    lanes: [corporate-security, travel-risk-crisis, gsoc-watch]
+    ats: greenhouse
+    board: airbnb
+    careers_url: https://careers.airbnb.com/
+    hq: San Francisco, CA
+    locations: [Remote US, San Francisco, CA, London, UK]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )(?<!query )(?<!traffic )(?<!marketplace )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations|global security|corporate security|physical security|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|safety)'
+    verified: "2026-10-25"
+    open_jobs: 191
+    notes: "Global Security / Crisis Management & Safety teams."
+
+  - key: snap
+    name: Snap Inc.
+    lanes: [protective-intelligence, corporate-security]
+    ats: workday
+    board: snapchat/wd1/snap
+    careers_url: https://careers.snap.com/
+    hq: Santa Monica, CA
+    locations: [Los Angeles, CA, New York, NY, London, UK]
+    title_filter: '(?i)((?<!artificial )(?<!business )\bintelligence\b|\bthreat|\bprotective\b|executive protection|\bGSOC\b|security operations|global security|corporate security|physical security|\binvestigat|\bcrisis\b|\bOSINT\b)'
+    verified: "2026-10-25"
+    open_jobs: 208
+    notes: "Executive protection / global security."
+
+  - key: openai
+    name: OpenAI
+    lanes: [threat-intelligence, osint, corporate-security]
+    groups: [trust-safety]
+    ats: ashby
+    board: openai
+    careers_url: https://openai.com/careers/
+    hq: San Francisco, CA
+    locations: [San Francisco, CA, New York, NY, Washington, DC, London, UK]
+    title_filter: '(?i)(\bthreat|(?<!artificial )(?<!business )(?<!customer )\bintelligence\b|\binvestigat|physical security|global security|corporate security|security (operations|risk|intelligence)|\bprotective\b|executive protection|\bcrisis\b|\bOSINT\b)'
+    verified: "2026-10-25"
+    open_jobs: 793
+    notes: "Intelligence & Investigations (threat investigators), physical/corporate security."
+
+  - key: anthropic
+    name: Anthropic
+    lanes: [threat-intelligence, corporate-security]
+    groups: [trust-safety]
+    ats: greenhouse
+    board: anthropic
+    careers_url: https://www.anthropic.com/careers
+    hq: San Francisco, CA
+    locations: [San Francisco, CA, New York, NY, Washington, DC, London, UK]
+    title_filter: '(?i)(\bthreat|(?<!artificial )(?<!business )(?<!customer )\bintelligence\b|\binvestigat|physical security|global security|corporate security|security (operations|risk|intelligence)|\bprotective\b|executive protection|\bcrisis\b|\bOSINT\b)'
+    verified: "2026-10-25"
+    open_jobs: 682
+    notes: "Safeguards threat-intelligence (CBRN, fraud, model exploitation) and corporate/physical security."
+
+  - key: crowdstrike
+    name: CrowdStrike
+    lanes: [threat-intelligence]
+    ats: workday
+    board: crowdstrike/wd5/crowdstrikecareers
+    careers_url: https://www.crowdstrike.com/careers/
+    hq: Austin, TX
+    locations: [Remote US, Washington, DC, New York, NY, London, UK]
+    title_filter: '(?i)((?<!artificial )(?<!business )\bintelligence\b|\bthreat|adversary|\bOSINT\b|counter[- ]?(terror|intel)|intelligence analyst)'
+    search_terms: [intelligence analyst, threat intelligence, counter adversary operations]
+    verified: "2026-10-25"
+    open_jobs: 390
+    notes: "Counter Adversary Operations intelligence analysts (cyber-leaning threat intelligence)."
+
+  # ------------------------------------------------------------------ manual (unsupported ATS) corporate security teams
+  - key: meta
+    name: Meta
+    lanes: [protective-intelligence, gsoc-watch, threat-intelligence, corporate-security]
+    groups: [trust-safety]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.metacareers.com/jobs?q=global%20security
+    hq: Menlo Park, CA
+    locations: [New York, NY, Washington, DC, London, UK]
+    notes: "Global Security (intelligence analysts, GSOC, EP)."
+
+  - key: google
+    name: Google
+    lanes: [protective-intelligence, gsoc-watch, threat-intelligence, travel-risk-crisis]
+    groups: [trust-safety]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.google.com/about/careers/applications/jobs/results/?q=%22security%20intelligence%22
+    hq: Mountain View, CA
+    locations: [New York, NY, Washington, DC, London, UK]
+    notes: "Global Security & Resilience Services (intelligence, GSOC, travel security)."
+
+  - key: amazon
+    name: Amazon
+    lanes: [gsoc-watch, protective-intelligence, corporate-security, threat-intelligence]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.amazon.jobs/en/search?base_query=intelligence+analyst+security
+    hq: Seattle, WA
+    locations: [New York, NY, Arlington, VA, London, UK]
+    notes: "Global Security Operations / GSOC, intelligence analysts (amazon.jobs has its own search)."
+
+  - key: microsoft
+    name: Microsoft
+    lanes: [gsoc-watch, protective-intelligence, corporate-security, threat-intelligence]
+    ats: other
+    ats_vendor: eightfold
+    careers_url: https://apply.careers.microsoft.com/careers?query=global%20security
+    hq: Redmond, WA
+    locations: [New York, NY, Washington, DC, London, UK]
+    notes: "Global Security (GSOC, intelligence), MSTIC threat intelligence."
+
+  - key: apple
+    name: Apple
+    lanes: [protective-intelligence, gsoc-watch, corporate-security]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://jobs.apple.com/en-us/search?search=global%20security
+    hq: Cupertino, CA
+    locations: [New York, NY, Cupertino, CA, London, UK]
+    notes: "Global Security intelligence / EP / GSOC."
+
+  - key: netflix
+    name: Netflix
+    lanes: [protective-intelligence, gsoc-watch, corporate-security, travel-risk-crisis]
+    ats: other
+    ats_vendor: eightfold
+    careers_url: https://explore.jobs.netflix.net/careers?query=security
+    hq: Los Gatos, CA
+    locations: [Los Angeles, CA, New York, NY, London, UK]
+    notes: "Global Security Services (production security, intelligence, GSOC)."
+
+  - key: uber
+    name: Uber
+    lanes: [gsoc-watch, corporate-security, threat-intelligence]
+    groups: [trust-safety]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.uber.com/us/en/careers/list/?query=security
+    hq: San Francisco, CA
+    locations: [New York, NY, Washington, DC, London, UK]
+    notes: "Global Security / GSOC and safety investigations."
+
+  - key: bloomberg
+    name: Bloomberg
+    lanes: [corporate-security, gsoc-watch, protective-intelligence]
+    ats: other
+    ats_vendor: avature
+    careers_url: https://bloomberg.avature.net/careers
+    hq: New York, NY
+    locations: [New York, NY, London, UK, Washington, DC]
+    notes: "Global Security / Corporate Security (intelligence, EP)."
+
+  - key: paramount
+    name: Paramount
+    lanes: [gsoc-watch, corporate-security, protective-intelligence]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://careers.paramount.com/search/?q=security
+    hq: New York, NY
+    locations: [New York, NY, Los Angeles, CA, London, UK]
+    notes: "GSOC analysts (London, Hollywood), global threat management, production security."
+
+  - key: nba
+    name: National Basketball Association (NBA)
+    lanes: [gsoc-watch, corporate-security, protective-intelligence]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://careers.nba.com/
+    hq: New York, NY
+    locations: [New York, NY, Secaucus, NJ]
+    notes: "NBA Security Global Intelligence vertical / GSOC operators (Secaucus)."
+
+  - key: columbia-university
+    name: Columbia University
+    lanes: [corporate-security, gsoc-watch]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: pageup
+    careers_url: https://opportunities.columbia.edu/jobs/search
+    hq: New York, NY
+    locations: [New York, NY]
+    notes: "Public Safety (operations centre, emergency management, threat assessment)."
+
+  - key: new-york-university
+    name: New York University (NYU)
+    lanes: [gsoc-watch, travel-risk-crisis, corporate-security]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://uscareers-nyu.icims.com/jobs/search?ss=1&searchKeyword=security
+    hq: New York, NY
+    locations: [New York, NY]
+    notes: "Campus Safety Global Security Operations Center Analyst (travel alerts, threat monitoring), protective services."

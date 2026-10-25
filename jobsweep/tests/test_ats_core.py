@@ -388,7 +388,9 @@ def test_workday_enrich_failure_keeps_job_and_bad_board() -> None:
         router.get(f"{FRS}/job/X/T_R-1").mock(return_value=httpx.Response(404, json={"errorCode": "S21"}))
         out = run(WorkdaySource, lambda s: s.enrich(job))
     assert out is job and out.description == ""
-    malformed = {"jobPostingInfo": {"jobDescription": "<p>Body</p>", "country": "US", "additionalLocations": "x"}}
+    malformed = {
+        "jobPostingInfo": {"jobDescription": "<p>Body</p>", "country": "US", "additionalLocations": "x"}
+    }
     with respx.mock() as router:
         router.get(f"{FRS}/job/X/T_R-1").mock(return_value=httpx.Response(200, json=malformed))
         out = run(WorkdaySource, lambda s: s.enrich(job))

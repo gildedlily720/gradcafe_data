@@ -179,7 +179,9 @@ class UltiProSource(Source):
             return job
         try:
             html = await self.get_text(
-                f"{base}/OpportunityDetail", params={"opportunityId": job.source_id}, headers={"Accept": "text/html"}
+                f"{base}/OpportunityDetail",
+                params={"opportunityId": job.source_id},
+                headers={"Accept": "text/html"},
             )
         except Exception as exc:  # noqa: BLE001 - enrichment is best effort
             self.ctx.log.warning("ultipro enrich %s failed: %s", job.uid, exc)
@@ -196,7 +198,10 @@ class UltiProSource(Source):
         hi = to_float(d.get("CompensationAnnualMaximum")) or to_float(pay.get("PayRangeMaximum"))
         period = "year"
         if lo is None and hi is None:
-            lo, hi = to_float(d.get("CompensationHourlyMinimum")), to_float(d.get("CompensationHourlyMaximum"))
+            lo, hi = (
+                to_float(d.get("CompensationHourlyMinimum")),
+                to_float(d.get("CompensationHourlyMaximum")),
+            )
             period = "hour"
         if (lo is not None or hi is not None) and job.salary_min is None:
             job.salary_min, job.salary_max = lo, hi if hi is not None else lo

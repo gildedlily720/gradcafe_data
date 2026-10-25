@@ -77,7 +77,11 @@ class PinpointSource(Source):
         if not isinstance(data, dict) or not isinstance(data.get("data"), list):
             raise SourceError(f"pinpoint {board}: unexpected payload")
         jobs = safe_parse(
-            data["data"], lambda p: self._parse(p, employer, board), source=self.name, board=board, logger=self.ctx.log
+            data["data"],
+            lambda p: self._parse(p, employer, board),
+            source=self.name,
+            board=board,
+            logger=self.ctx.log,
         )
         return jobs[: employer.max_jobs] if employer.max_jobs else jobs
 

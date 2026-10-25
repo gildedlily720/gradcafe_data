@@ -69,7 +69,11 @@ class BreezySource(Source):
             raise SourceError(f"breezy {host}: unexpected payload {type(data).__name__}")
         board = host.removesuffix(".breezy.hr")
         jobs = safe_parse(
-            data, lambda p: self._parse(p, employer, board), source=self.name, board=board, logger=self.ctx.log
+            data,
+            lambda p: self._parse(p, employer, board),
+            source=self.name,
+            board=board,
+            logger=self.ctx.log,
         )
         return jobs[: employer.max_jobs] if employer.max_jobs else jobs
 

@@ -140,7 +140,9 @@ class PaylocitySource(Source):
         if (job.extra or {}).get("enriched"):
             return job
         try:
-            html = await self.get_text(f"{BASE}/Recruiting/Jobs/Details/{job.source_id}", headers={"Accept": "text/html"})
+            html = await self.get_text(
+                f"{BASE}/Recruiting/Jobs/Details/{job.source_id}", headers={"Accept": "text/html"}
+            )
         except Exception as exc:  # noqa: BLE001 - enrichment is best effort
             self.ctx.log.warning("paylocity enrich %s failed: %s", job.uid, exc)
             return job

@@ -128,10 +128,16 @@ class OracleHCMSource(Source):
         remote = _WORKPLACE.get(str(r.get("WorkplaceTypeCode") or "").upper())
         if remote is None:
             remote = remote_from_text(r.get("WorkplaceType"))
-        emp_type = _employment(r.get("JobSchedule"), r.get("JobType"), r.get("ContractType"), r.get("WorkerType"))
+        emp_type = _employment(
+            r.get("JobSchedule"), r.get("JobType"), r.get("ContractType"), r.get("WorkerType")
+        )
         family, function = r.get("JobFamily") or None, r.get("JobFunction") or None
         extra: dict[str, Any] = {"host": host, "site": site, "id": rid}
-        for key, field in (("job_family", "JobFamily"), ("job_function", "JobFunction"), ("study_level", "StudyLevel")):
+        for key, field in (
+            ("job_family", "JobFamily"),
+            ("job_function", "JobFunction"),
+            ("study_level", "StudyLevel"),
+        ):
             if r.get(field):
                 extra[key] = r[field]
         return Job(
@@ -180,7 +186,9 @@ class OracleHCMSource(Source):
         text = truncate("\n\n".join(s for s in sections if s))
         if text:
             job.description = text
-        job.employment_type = job.employment_type or _employment(d.get("JobSchedule"), d.get("JobType"), d.get("ContractType"))
+        job.employment_type = job.employment_type or _employment(
+            d.get("JobSchedule"), d.get("JobType"), d.get("ContractType")
+        )
         job.closes_at = job.closes_at or iso_date(d.get("ExternalPostedEndDate"))
         if job.remote is None:
             job.remote = _WORKPLACE.get(str(d.get("WorkplaceTypeCode") or "").upper())
