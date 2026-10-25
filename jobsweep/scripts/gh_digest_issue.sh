@@ -20,7 +20,7 @@ body_file="$(mktemp)"
   cat "$digest_file"
   echo
   echo "---"
-  echo "Board: see the GitHub Pages site for this repository. Statuses you set there stay in your browser."
+  echo "Board: https://gildedlily720.github.io/gradcafe_data/ Statuses you set there stay in your browser."
 } > "$body_file"
 
 existing="$(gh issue list --label "$label" --state open --search "\"$title\" in:title" --json number --jq '.[0].number' 2>/dev/null || true)"
