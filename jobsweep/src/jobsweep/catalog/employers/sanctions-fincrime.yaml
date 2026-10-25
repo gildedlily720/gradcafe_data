@@ -1,0 +1,1329 @@
+# Employer registry -- group: sanctions-fincrime
+# Sanctions research & investigations, export controls / trade compliance, AML-KYC investigations, financial-crime
+# risk & financial intelligence (FIU), illicit finance, crypto / blockchain investigations, investigative
+# compliance, and market regulation / trade surveillance / enforcement.
+#
+# Coverage (researched 2026-10-25; every non-"other" board was hit through its public API this session and
+# returned a job count -- Teamtailor boards were verified through their public jobs.rss feed):
+#   * Sanctions / trade-risk data & financial-crime intelligence: Kharon, Castellum.AI (manual), Sayari, Altana,
+#     Strider, Exiger, LSEG (World-Check / Risk Intelligence), Dow Jones Risk & Compliance, LexisNexis Risk
+#     Solutions, Moody's (manual), Quantexa, ComplyAdvantage, Quantifind.
+#   * Blockchain analytics: Chainalysis, TRM Labs, Elliptic, Merkle Science, Crystal Intelligence.
+#   * Crypto exchanges / custodians / stablecoin issuers with FIU, sanctions & investigations teams: Coinbase,
+#     Kraken, Circle, Ripple, Gemini, Anchorage Digital, Paxos, BitGo, Crypto.com, OKX, Robinhood.
+#   * Fintech / payments FinCrime ops (AML investigations, EDD, sanctions ops): Stripe, Block, PayPal, Wise,
+#     Revolut (manual), Monzo, Ramp, Brex, Mercury, Plaid, Chime, SoFi, Affirm, Marqeta, Payoneer, Remitly,
+#     Western Union, Cross River Bank, Visa, Mastercard, American Express.
+#   * RegTech / AML & surveillance vendors: Alloy, Sardine, Unit21 (manual), Hummingbird, Feedzai, NICE Actimize,
+#     Behavox, Eventus, Silent Eight, Napier.
+#   * Banks (FIU, sanctions screening, KYC/EDD, trade surveillance): JPMorgan Chase, Citi, Goldman Sachs, Morgan
+#     Stanley, BNY, State Street, Bank of America, Wells Fargo, Capital One, TD, MUFG, Santander, UBS, HSBC,
+#     Barclays, Deutsche Bank, BNP Paribas, Societe Generale, Standard Chartered (the last six manual).
+#   * Exchanges, SROs and non-federal regulators: FINRA, NFA (manual), MSRB (manual), Nasdaq, ICE/NYSE (manual),
+#     Cboe, CME Group, DTCC, Options Clearing Corporation, Kalshi, UK FCA, NYDFS (manual).
+#   * Consultancies: Promontory (IBM, manual), K2 Integrity (manual), Guidehouse, Protiviti.
+#   * Export compliance: Descartes (Visual Compliance, manual), Expeditors (trade compliance), Akin, Steptoe,
+#     Covington (law-firm trade/sanctions practices, manual).
+#   * Illicit-finance research / investigative NGOs: C4ADS, The Sentry (manual), OCCRP, RUSI (manual), FDD (manual).
+#   Big generalist boards carry search_terms (server-side on Workday/Oracle) + a title_filter keeping only
+#   sanctions / AML / KYC / FCC / FIU / surveillance / investigations / fraud / compliance titles.
+#
+# Notable gaps / caveats:
+#   * Registry merge keeps the FIRST file's board, title_filter and search_terms for a shared key. intelligence-
+#     security.yaml loads earlier and already lists jpmorgan-chase, goldman-sachs, morgan-stanley, citi,
+#     bank-of-america, american-express, dow-jones, sayari and strider with security/intel-only filters, so the
+#     fincrime search_terms/title_filter below are ignored for those keys until the merge unions them.
+#   * Unsupported ATS (manual list): Phenom/Eightfold/Avature/SuccessFactors/custom at most European banks,
+#     iCIMS (ICE), SuccessFactors (Moody's, Descartes), Zoho Recruit (Unit21), legacy Rippling-ATS (Castellum.AI),
+#     HiBob (K2 Integrity), UKG Ready (MSRB), NAS Activate (NFA), ApplicantPro (FDD), heyplumm (RUSI).
+#   * Dropped: Featurespace (acquired by Visa 2024), Treliant (now part of Huron), E2open (acquired by WiseTech,
+#     no public board found), Livingston International (no public board found), Fireblocks (no fincrime hiring),
+#     Fenergo (Workable API rate-limited from this egress, could not verify), Ripjar/Solidus Labs/Windward/
+#     SteelEye (tiny or custom/Comeet boards).
+group: sanctions-fincrime
+employers:
+
+  # ------------------------------------------------ sanctions / trade-risk data & financial-crime intelligence
+  - key: kharon
+    name: Kharon
+    lanes: [sanctions, export-controls, illicit-finance, fincrime-intelligence]
+    ats: pinpoint
+    board: kharon
+    careers_url: https://www.kharon.com/careers
+    hq: Los Angeles, CA
+    locations: [Washington, DC, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 28
+    notes: "Sanctions / export-control / forced-labour risk data; research analyst roles alongside data science."
+
+  - key: castellum-ai
+    name: Castellum.AI
+    lanes: [sanctions, aml-kyc, fincrime-intelligence]
+    ats: other
+    ats_vendor: rippling-ats (legacy applicant-tracking.com)
+    careers_url: https://castellumai.rippling-ats.com/
+    hq: New York, NY
+    locations: [New York, NY]
+    notes: "Sanctions/AML screening startup (Series A). Board is the legacy rippling-ats.com widget, not the api.rippling.com board."
+
+  - key: sayari
+    name: Sayari
+    lanes: [sanctions, fincrime-intelligence, illicit-finance]
+    groups: [investigations-dd]
+    ats: greenhouse
+    board: sayari
+    careers_url: https://sayari.com/careers/
+    hq: Washington, DC
+    locations: [Washington, DC, London, UK, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 20
+    notes: "Corporate-ownership / trade graph; Field Intelligence Analyst and analytic-services roles."
+
+  - key: altana
+    name: Altana
+    lanes: [export-controls, sanctions]
+    groups: [geopolitical-risk]
+    ats: greenhouse
+    board: altanaai
+    careers_url: https://altana.ai/careers
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 36
+    notes: "Supply-chain / trade-network AI used for export-control, sanctions and forced-labour enforcement (CBP, etc.)."
+
+  - key: strider
+    name: Strider Technologies
+    lanes: [export-controls, sanctions, fincrime-intelligence]
+    groups: [geopolitical-risk, intelligence-security]
+    ats: ashby
+    board: strider-technologies
+    careers_url: https://www.striderintel.com/careers/
+    hq: Salt Lake City, UT
+    locations: [Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 10
+    notes: "Economic-security / tech-transfer intelligence (state-directed acquisition, export-control diversion); intelligence advisor roles."
+
+  - key: exiger
+    name: Exiger
+    lanes: [sanctions, aml-kyc, export-controls, fincrime-intelligence]
+    groups: [investigations-dd, geopolitical-risk]
+    ats: greenhouse
+    board: exiger
+    careers_url: https://www.exiger.com/careers/
+    hq: McLean, VA
+    locations: [New York, NY, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 61
+    notes: "Supply-chain & third-party risk, sanctions/KYC due diligence; entry 'Analyst - Data Services' and DD analyst roles."
+
+  - key: lseg
+    name: LSEG (London Stock Exchange Group)
+    lanes: [sanctions, fincrime-intelligence, market-surveillance, aml-kyc]
+    ats: workday
+    board: lseg/wd3/Careers
+    careers_url: https://www.lseg.com/en/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    search_terms: [World-Check, risk intelligence, research analyst, sanctions, financial crime, screening, surveillance, market supervision]
+    title_filter: '(?i)(world[- ]?check|risk intelligence|research (analyst|intern|specialist)|content analyst|\bsanction|financial crime|\bkyc\b|\baml\b|screening|surveillance|supervision|market operations|investigat|due diligence|compliance)'
+    verified: "2026-10-25"
+    open_jobs: 668
+    notes: "World-Check / Risk Intelligence research analysts (language-specialist PEP/sanctions researchers) and LSE market supervision."
+
+  - key: dow-jones
+    name: Dow Jones
+    lanes: [sanctions, fincrime-intelligence, aml-kyc]
+    groups: [investigations-dd]
+    ats: workday
+    board: dowjones/wd1/Dow_Jones_Career
+    careers_url: https://www.dowjones.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, London, UK, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 251
+    notes: "Dow Jones Risk & Compliance (sanctions / PEP / adverse-media research analysts, Factiva). Board also carries WSJ newsroom roles."
+
+  - key: lexisnexis-risk-solutions
+    name: LexisNexis Risk Solutions
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    groups: [investigations-dd]
+    ats: workday
+    board: relx/wd3/RiskSolutions
+    careers_url: https://risk.lexisnexis.com/about-us/careers
+    hq: Alpharetta, GA
+    locations: [New York, NY, Washington, DC, London, UK, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 217
+    notes: "Bridger / WorldCompliance sanctions & PEP screening data; Accuity payments-screening; fraud & identity."
+
+  - key: moodys
+    name: Moody's
+    lanes: [aml-kyc, fincrime-intelligence, sanctions]
+    groups: [investigations-dd]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://careers.moodys.com/
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    notes: "KYC & compliance solutions (Orbis/GRID entity and adverse-media data); search 'KYC', 'sanctions', 'research analyst'."
+
+  - key: quantexa
+    name: Quantexa
+    lanes: [fincrime-intelligence, aml-kyc]
+    ats: ashby
+    board: quantexa
+    careers_url: https://www.quantexa.com/careers/
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 29
+    notes: "Entity-resolution / network analytics for AML and financial-crime investigations."
+
+  - key: complyadvantage
+    name: ComplyAdvantage
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: greenhouse
+    board: complyadvantage
+    careers_url: https://complyadvantage.com/careers/
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 15
+    notes: "Sanctions/PEP/adverse-media screening data; occasional data-research analyst roles."
+
+  - key: quantifind
+    name: Quantifind
+    lanes: [fincrime-intelligence, aml-kyc, illicit-finance]
+    ats: greenhouse
+    board: quantifind
+    careers_url: https://www.quantifind.com/careers/
+    hq: Menlo Park, CA
+    locations: [Washington, DC, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 19
+    notes: "Risk-intelligence/name-screening AI for AML and USG (public sector); associate data scientist and CSM roles."
+
+  # ------------------------------------------------------------------------------------- blockchain analytics
+  - key: chainalysis
+    name: Chainalysis
+    lanes: [crypto-investigations, illicit-finance, sanctions]
+    ats: ashby
+    board: chainalysis-careers
+    careers_url: https://www.chainalysis.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 45
+    notes: "Investigations / intelligence analysts, training, public sector. Cleared USG roles sit on a second Ashby board 'chainalysis-government-solutions' (7 jobs)."
+
+  - key: trm-labs
+    name: TRM Labs
+    lanes: [crypto-investigations, illicit-finance, sanctions, fincrime-intelligence]
+    ats: ashby
+    board: trm-labs
+    careers_url: https://www.trmlabs.com/careers
+    hq: San Francisco, CA
+    locations: [Washington, DC, New York, NY, London, UK, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 113
+    notes: "Blockchain intelligence; investigators, threat-intel and sanctions analysts (TRM Forensics / Global Policy)."
+
+  - key: elliptic
+    name: Elliptic
+    lanes: [crypto-investigations, illicit-finance, sanctions]
+    ats: ashby
+    board: elliptic
+    careers_url: https://www.elliptic.co/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 30
+    notes: "Crypto AML / blockchain analytics; research & investigations team, customer-facing investigations analysts."
+
+  - key: merkle-science
+    name: Merkle Science
+    lanes: [crypto-investigations, illicit-finance]
+    ats: lever
+    board: merklescience
+    careers_url: https://jobs.lever.co/merklescience
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 21
+    notes: "Crypto risk & intelligence platform (Singapore/NY); some postings are long-lived evergreen roles."
+
+  - key: crystal-intelligence
+    name: Crystal Intelligence
+    lanes: [crypto-investigations, illicit-finance]
+    ats: teamtailor
+    board: crystalintelligence
+    careers_url: https://crystalintelligence.teamtailor.com/jobs
+    hq: London, UK
+    locations: [London, UK, Remote EU]
+    verified: "2026-10-25"
+    open_jobs: 16
+    notes: "Blockchain analytics (ex-Crystal Blockchain); verified via jobs.rss. Mostly Europe-remote."
+
+  # ----------------------------------------------------- crypto exchanges / custodians / stablecoin issuers
+  - key: coinbase
+    name: Coinbase
+    lanes: [crypto-investigations, aml-kyc, sanctions, fincrime-intelligence, investigative-compliance]
+    ats: greenhouse
+    board: coinbase
+    careers_url: https://www.coinbase.com/careers
+    hq: Remote-first (US)
+    locations: [New York, NY, Remote US, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 227
+    notes: "Financial crimes / FIU investigations, sanctions, blockchain intelligence, market surveillance (Coinbase Derivatives)."
+
+  - key: kraken
+    name: Kraken
+    lanes: [crypto-investigations, aml-kyc, fincrime-intelligence]
+    ats: ashby
+    board: kraken.com
+    careers_url: https://www.kraken.com/careers
+    hq: Remote-first (US)
+    locations: [Remote US, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 88
+    notes: "FinCrime / AML investigations, sanctions and fraud ops; mostly remote."
+
+  - key: circle
+    name: Circle
+    lanes: [crypto-investigations, aml-kyc, sanctions, illicit-finance]
+    ats: workday
+    board: circle/wd1/Circle
+    careers_url: https://careers.circle.com/us/en
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 58
+    notes: "USDC issuer; FIU, sanctions and financial-crimes compliance. Phenom front-end over this Workday board."
+
+  - key: ripple
+    name: Ripple
+    lanes: [crypto-investigations, aml-kyc, sanctions]
+    ats: greenhouse
+    board: ripple
+    careers_url: https://ripple.com/careers/
+    hq: San Francisco, CA
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 99
+    notes: "Compliance / BSA-AML, sanctions and payments-risk roles."
+
+  - key: gemini
+    name: Gemini
+    lanes: [crypto-investigations, aml-kyc, market-surveillance]
+    ats: greenhouse
+    board: gemini
+    careers_url: https://www.gemini.com/careers
+    hq: New York, NY
+    locations: [New York, NY, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 30
+    notes: "NYDFS-chartered exchange; AML investigations, market surveillance, compliance associates; internships."
+
+  - key: anchorage-digital
+    name: Anchorage Digital
+    lanes: [crypto-investigations, aml-kyc, sanctions]
+    ats: lever
+    board: anchorage
+    careers_url: https://www.anchorage.com/careers
+    hq: San Francisco, CA
+    locations: [New York, NY, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 22
+    notes: "Federally chartered crypto bank; BSA/AML, KYC and sanctions compliance."
+
+  - key: paxos
+    name: Paxos
+    lanes: [crypto-investigations, aml-kyc, sanctions]
+    ats: ashby
+    board: paxos
+    careers_url: https://www.paxos.com/careers
+    hq: New York, NY
+    locations: [New York, NY, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 21
+    notes: "Stablecoin issuer / trust company (NYDFS); KYC, AML and sanctions compliance."
+
+  - key: bitgo
+    name: BitGo
+    lanes: [crypto-investigations, aml-kyc]
+    ats: greenhouse
+    board: bitgo
+    careers_url: https://www.bitgo.com/company/careers/
+    hq: Palo Alto, CA
+    locations: [New York, NY, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 51
+    notes: "Qualified custodian / trust company; compliance, KYC onboarding and AML analysts."
+
+  - key: crypto-com
+    name: Crypto.com
+    lanes: [crypto-investigations, aml-kyc, sanctions]
+    ats: lever
+    board: crypto
+    careers_url: https://crypto.com/careers
+    hq: Singapore
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 90
+    notes: "Global exchange; FIU / AML investigations, sanctions and security-compliance roles (global locations)."
+
+  - key: okx
+    name: OKX
+    lanes: [crypto-investigations, aml-kyc, market-surveillance, investigative-compliance]
+    ats: greenhouse
+    board: okx
+    careers_url: https://www.okx.com/join-us
+    hq: Seychelles / Singapore
+    locations: [New York, NY, San Jose, CA, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 356
+    notes: "Large compliance org: AML investigations, special investigations, market surveillance (NY), corporate investigations."
+
+  - key: robinhood
+    name: Robinhood
+    lanes: [aml-kyc, crypto-investigations, market-surveillance, fincrime-intelligence]
+    ats: greenhouse
+    board: robinhood
+    careers_url: https://careers.robinhood.com/
+    hq: Menlo Park, CA
+    locations: [New York, NY, Remote US, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 157
+    notes: "Broker-dealer + crypto (incl. Bitstamp): financial crimes investigations, trade surveillance, compliance."
+
+  # ------------------------------------------------------------------------------ fintech / payments FinCrime
+  - key: stripe
+    name: Stripe
+    lanes: [aml-kyc, sanctions, fincrime-intelligence, investigative-compliance]
+    ats: greenhouse
+    board: stripe
+    careers_url: https://stripe.com/jobs
+    hq: San Francisco, CA
+    locations: [New York, NY, Remote US, London, UK]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client|business)|due diligence|\bc?dd\b|\bedd\b|\bpep\b|financial crime|fincrime|\bfcc\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade compliance|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|\brisk (analyst|associate|specialist|operations|investigat)|\babuse\b|trust (and|&) safety|\bintegrity\b)'
+    verified: "2026-10-25"
+    open_jobs: 719
+    notes: "Risk / Financial Crimes ops (AML investigations, EDD/PEP, sanctions), abuse investigators. ~60 titles pass the filter."
+
+  - key: block
+    name: Block (Square, Cash App, Afterpay)
+    lanes: [aml-kyc, fincrime-intelligence, crypto-investigations]
+    ats: greenhouse
+    board: block
+    careers_url: https://block.xyz/careers
+    hq: Oakland, CA
+    locations: [New York, NY, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 208
+    notes: "Large BSA/AML and FIU org (Cash App), sanctions, bitcoin compliance."
+
+  - key: paypal
+    name: PayPal (incl. Venmo)
+    lanes: [aml-kyc, sanctions, fincrime-intelligence, crypto-investigations]
+    ats: workday
+    board: paypal/wd1/jobs
+    careers_url: https://careers.pypl.com/
+    hq: San Jose, CA
+    locations: [New York, NY, Remote US, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 328
+    notes: "FinCrime / AML investigations, sanctions, financial intelligence unit."
+
+  - key: wise
+    name: Wise
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: smartrecruiters
+    board: Wise
+    careers_url: https://wise.jobs/
+    hq: London, UK
+    locations: [London, UK, New York, NY, Austin, TX]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client|business)|due diligence|\bc?dd\b|\bedd\b|\bpep\b|financial crime|fincrime|\bfcc\b|\bfiu\b|\brfi\b|transaction monitoring|surveillance|investigat|fraud|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|\brisk (analyst|associate|specialist|operations|investigat)|\bintegrity\b)'
+    verified: "2026-10-25"
+    open_jobs: 435
+    notes: "Large FinCrime ops (AML investigations, screening, PEP, KYC). ~90 titles pass the filter."
+
+  - key: revolut
+    name: Revolut
+    lanes: [aml-kyc, fincrime-intelligence, sanctions]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.revolut.com/careers/
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    notes: "Large FinCrime hiring (AML/KYC/transaction-monitoring analysts, MLRO teams); own careers site, filter by 'Financial Crime'."
+
+  - key: monzo
+    name: Monzo
+    lanes: [aml-kyc, fincrime-intelligence]
+    ats: greenhouse
+    board: monzo
+    careers_url: https://monzo.com/careers
+    hq: London, UK
+    locations: [London, UK, Remote UK]
+    verified: "2026-10-25"
+    open_jobs: 72
+    notes: "UK bank; Financial Crime ops / investigations and financial-crime risk."
+
+  - key: ramp
+    name: Ramp
+    lanes: [aml-kyc, fincrime-intelligence]
+    ats: ashby
+    board: ramp
+    careers_url: https://ramp.com/careers
+    hq: New York, NY
+    locations: [New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 167
+    notes: "Risk / compliance ops and credit-risk associates."
+
+  - key: brex
+    name: Brex
+    lanes: [aml-kyc, fincrime-intelligence]
+    ats: greenhouse
+    board: brex
+    careers_url: https://www.brex.com/careers
+    hq: San Francisco, CA
+    locations: [New York, NY, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 259
+    notes: "BSA/AML compliance and financial-crimes ops."
+
+  - key: mercury
+    name: Mercury
+    lanes: [aml-kyc, fincrime-intelligence]
+    ats: greenhouse
+    board: mercury
+    careers_url: https://mercury.com/jobs
+    hq: San Francisco, CA
+    locations: [New York, NY, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 77
+    notes: "Fintech bank partner model; AML investigators, KYB/onboarding risk."
+
+  - key: plaid
+    name: Plaid
+    lanes: [aml-kyc, fincrime-intelligence]
+    ats: ashby
+    board: plaid
+    careers_url: https://plaid.com/careers/
+    hq: San Francisco, CA
+    locations: [New York, NY, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 134
+    notes: "Identity verification / fraud (Plaid IDV, Beacon) and compliance roles."
+
+  - key: chime
+    name: Chime
+    lanes: [aml-kyc, fincrime-intelligence]
+    ats: greenhouse
+    board: chime
+    careers_url: https://careers.chime.com/
+    hq: San Francisco, CA
+    locations: [Remote US]
+    verified: "2026-10-25"
+    open_jobs: 73
+    notes: "BSA/AML, financial-crimes investigations and fraud ops."
+
+  - key: sofi
+    name: SoFi
+    lanes: [aml-kyc, sanctions, crypto-investigations]
+    ats: greenhouse
+    board: sofi
+    careers_url: https://www.sofi.com/careers/
+    hq: San Francisco, CA
+    locations: [New York, NY, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 57
+    notes: "National bank; BSA/AML, crypto sanctions compliance, 'Protect' (fraud) team."
+
+  - key: affirm
+    name: Affirm
+    lanes: [aml-kyc, fincrime-intelligence]
+    ats: greenhouse
+    board: affirm
+    careers_url: https://www.affirm.com/careers
+    hq: San Francisco, CA
+    locations: [New York, NY, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 225
+    notes: "Compliance / financial-crimes and fraud analysts; 'Analyst, Early Career' program."
+
+  - key: marqeta
+    name: Marqeta
+    lanes: [aml-kyc, fincrime-intelligence]
+    ats: ashby
+    board: marqeta-inc
+    careers_url: https://www.marqeta.com/company/careers
+    hq: Oakland, CA
+    locations: [New York, NY, Remote US, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 40
+    notes: "Card issuing platform; compliance / BSA-AML program roles. (Greenhouse board 'marqeta' is dead; moved to Ashby 'marqeta-inc'.)"
+
+  - key: payoneer
+    name: Payoneer
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: greenhouse
+    board: payoneer
+    careers_url: https://www.payoneer.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 102
+    notes: "Cross-border payments; AML, sanctions and KYC/EDD teams."
+
+  - key: remitly
+    name: Remitly
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: workday
+    board: remitly/wd5/Remitly_Careers
+    careers_url: https://careers.remitly.com/
+    hq: Seattle, WA
+    locations: [New York, NY, Remote US, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 176
+    notes: "Remittances; financial-crimes investigations, sanctions and trust & identity."
+
+  - key: western-union
+    name: Western Union
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: workday
+    board: westernunion/wd5/WesternUnionJobs
+    careers_url: https://careers.westernunion.com/
+    hq: Denver, CO
+    locations: [New York, NY, Remote US, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 81
+    notes: "Global AML compliance / FIU and sanctions screening."
+
+  - key: cross-river-bank
+    name: Cross River Bank
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: greenhouse
+    board: crossriverbank
+    careers_url: https://www.crossriver.com/careers
+    hq: Fort Lee, NJ
+    locations: [Fort Lee, NJ, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 37
+    notes: "BaaS/fintech-sponsor bank with a large BSA/AML & fintech-onboarding program; analyst/associate roles."
+
+  - key: visa
+    name: Visa
+    lanes: [aml-kyc, sanctions, fincrime-intelligence, illicit-finance]
+    ats: workday
+    board: visa/wd5/Visa
+    careers_url: https://corporate.visa.com/en/jobs/
+    hq: San Francisco, CA
+    locations: [New York, NY, Washington, DC, London, UK]
+    search_terms: [sanctions, AML, financial crime, risk intelligence, ecosystem integrity, investigations, compliance analyst]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client|business)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|\brisk (analyst|associate|specialist|operations|investigat)|\babuse\b|\bintegrity\b|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 836
+    notes: "Financial Crime Intelligence & Oversight, Risk & Identity Solutions, ecosystem integrity, sanctions compliance (Featurespace now part of Visa)."
+
+  - key: mastercard
+    name: Mastercard
+    lanes: [aml-kyc, sanctions, fincrime-intelligence, illicit-finance]
+    ats: workday
+    board: mastercard/wd1/CorporateCareers
+    careers_url: https://careers.mastercard.com/
+    hq: Purchase, NY
+    locations: [New York, NY, Purchase, NY, Washington, DC, London, UK]
+    search_terms: [sanctions, AML, financial crime, fraud intelligence, cyber and intelligence, investigations, compliance analyst]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client|business)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|\brisk (analyst|associate|specialist|operations|investigat)|\babuse\b|\bintegrity\b|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 1141
+    notes: "AML compliance ops, sanctions service, payment threat intelligence, Cyber & Intelligence solutions."
+
+  - key: american-express
+    name: American Express
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: oracle
+    board: egug.fa.us2.oraclecloud.com/CX_1
+    careers_url: https://www.americanexpress.com/en-us/careers/
+    hq: New York, NY
+    locations: [New York, NY, Phoenix, AZ, London, UK]
+    search_terms: [sanctions, anti-money laundering, AML, KYC, financial crimes, investigations, surveillance]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 387
+    notes: "Global Financial Crimes Compliance (AML, sanctions, KYC). Eightfold front-end over this Oracle site."
+
+  # ------------------------------------------------------------------------ RegTech / AML & surveillance vendors
+  - key: alloy
+    name: Alloy
+    lanes: [aml-kyc, fincrime-intelligence]
+    ats: greenhouse
+    board: alloy
+    careers_url: https://www.alloy.com/about/jobs
+    hq: New York, NY
+    locations: [New York, NY, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 26
+    notes: "Identity / KYC / fraud decisioning platform. (A mirrored Ashby board 'alloy' also exists; careers page embeds Greenhouse.)"
+
+  - key: sardine
+    name: Sardine
+    lanes: [aml-kyc, fincrime-intelligence, crypto-investigations]
+    ats: ashby
+    board: sardine
+    careers_url: https://www.sardine.ai/careers
+    hq: San Francisco, CA
+    locations: [Remote US, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 49
+    notes: "Fraud & AML compliance platform; risk/compliance solutions roles."
+
+  - key: unit21
+    name: Unit21
+    lanes: [aml-kyc, fincrime-intelligence]
+    ats: other
+    ats_vendor: zoho-recruit
+    careers_url: https://unit21.zohorecruit.com/jobs/Careers
+    hq: San Francisco, CA
+    locations: [San Francisco, CA, Remote US]
+    notes: "AML / fraud case-management and transaction-monitoring vendor."
+
+  - key: hummingbird
+    name: Hummingbird
+    lanes: [aml-kyc, investigative-compliance]
+    ats: greenhouse
+    board: hummingbirdregtech
+    careers_url: https://www.hummingbird.co/careers
+    hq: San Francisco, CA
+    locations: [Remote US]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "AML investigations / SAR case-management software; small board."
+
+  - key: feedzai
+    name: Feedzai
+    lanes: [fincrime-intelligence, aml-kyc]
+    ats: greenhouse
+    board: feedzai
+    careers_url: https://www.feedzai.com/careers/
+    hq: San Mateo, CA
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 20
+    notes: "Fraud & AML risk platform (Lisbon/San Mateo); financial-crime analysts and solutions roles."
+
+  - key: nice-actimize
+    name: NICE Actimize
+    lanes: [aml-kyc, market-surveillance, fincrime-intelligence]
+    ats: greenhouse
+    board: nice
+    careers_url: https://www.nice.com/careers
+    hq: Hoboken, NJ
+    locations: [Hoboken, NJ, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 189
+    notes: "Board is the whole of NICE Ltd; Actimize (AML, sanctions screening, trade surveillance) roles are tagged 'Actimize'."
+
+  - key: behavox
+    name: Behavox
+    lanes: [market-surveillance, investigative-compliance]
+    ats: greenhouse
+    board: behavox
+    careers_url: https://www.behavox.com/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 24
+    notes: "Communications / trade surveillance AI for banks and funds."
+
+  - key: eventus
+    name: Eventus
+    lanes: [market-surveillance]
+    ats: bamboohr
+    board: eventussystems
+    careers_url: https://eventussystems.bamboohr.com/careers
+    hq: Austin, TX
+    locations: [Austin, TX, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Validus trade-surveillance & market-risk platform; board live but empty at verification."
+
+  - key: silent-eight
+    name: Silent Eight
+    lanes: [sanctions, aml-kyc]
+    ats: teamtailor
+    board: silenteight
+    careers_url: https://silenteight.teamtailor.com/jobs
+    hq: Singapore
+    locations: [London, UK, Remote EU]
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: "AI name/transaction screening for sanctions & AML; verified via jobs.rss."
+
+  - key: napier
+    name: Napier AI
+    lanes: [aml-kyc, sanctions]
+    ats: pinpoint
+    board: napier
+    careers_url: https://napier.pinpointhq.com/
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: "AML transaction-monitoring and screening platform."
+
+  # ------------------------------------------------------------------------------------------------- banks
+  - key: jpmorgan-chase
+    name: JPMorgan Chase
+    lanes: [aml-kyc, sanctions, fincrime-intelligence, market-surveillance, investigative-compliance]
+    groups: [entry-routes]
+    ats: oracle
+    board: jpmc.fa.oraclecloud.com/CX_1001
+    careers_url: https://careers.jpmorgan.com/
+    hq: New York, NY
+    locations: [New York, NY, Jersey City, NJ, Washington, DC, London, UK]
+    search_terms: [sanctions, anti-money laundering, KYC, financial crimes, surveillance, screening, investigations]
+    max_jobs: 800
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 7240
+    notes: "Global Financial Crimes Compliance (GFCC), Central Screening Utility, Wholesale KYC Operations, trade surveillance."
+
+  - key: citi
+    name: Citi
+    lanes: [aml-kyc, sanctions, fincrime-intelligence, market-surveillance]
+    groups: [entry-routes]
+    ats: workday
+    board: citi/wd5/2
+    careers_url: https://jobs.citi.com/
+    hq: New York, NY
+    locations: [New York, NY, Tampa, FL, London, UK]
+    search_terms: [sanctions, anti-money laundering, KYC, financial crimes, investigations, surveillance, screening]
+    max_jobs: 800
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 2000
+    notes: "Sanctions hub, AML/KYC ops (many offshore C-band roles), Global Financial Crimes Investigations & Intelligence. Workday caps reported total at 2000."
+
+  - key: goldman-sachs
+    name: Goldman Sachs
+    lanes: [aml-kyc, sanctions, market-surveillance, investigative-compliance]
+    groups: [entry-routes]
+    ats: oracle
+    board: hdpc.fa.us2.oraclecloud.com/CX_3002
+    careers_url: https://higher.gs.com/results?search=compliance
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, Dallas, TX, Salt Lake City, UT, London, UK]
+    search_terms: [sanctions, anti-money laundering, financial crime, FCC, KYC, surveillance, compliance analyst]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 671
+    notes: "Compliance FCC (Government Sanctions, AML), Surveillance. CX_3002 = Lateral site; Campus programs are site CX_3001 (210 jobs). 'LateralHiring' is the URL name, not a SiteNumber."
+
+  - key: morgan-stanley
+    name: Morgan Stanley
+    lanes: [aml-kyc, sanctions, market-surveillance, fincrime-intelligence]
+    groups: [entry-routes]
+    ats: workday
+    board: ms/wd5/External
+    careers_url: https://morganstanley.eightfold.ai/careers
+    hq: New York, NY
+    locations: [New York, NY, Baltimore, MD, Alpharetta, GA, London, UK]
+    search_terms: [sanctions, anti-money laundering, KYC, financial crimes, surveillance, investigations]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 1261
+    notes: "Global Financial Crimes (sanctions, KYC advisory, FCI investigators), ISG trade surveillance."
+
+  - key: bny
+    name: BNY
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: oracle
+    board: eofe.fa.us2.oraclecloud.com/CX_3001
+    careers_url: https://eofe.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BNY-Careers/jobs
+    hq: New York, NY
+    locations: [New York, NY, Pittsburgh, PA, London, UK]
+    search_terms: [sanctions, AML, KYC, financial crime, SAR, surveillance, investigations]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|\bsar\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 1378
+    notes: "Oracle SiteNumber CX_3001 = URL name 'BNY-Careers'. AML surveillance / SAR investigators, sanctions compliance, KYC policy."
+
+  - key: state-street
+    name: State Street
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: workday
+    board: statestreet/wd1/Global
+    careers_url: https://careers.statestreet.com/
+    hq: Boston, MA
+    locations: [Boston, MA, New York, NY, London, UK]
+    search_terms: [sanctions, AML, KYC, financial crime, surveillance, investigations]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 1359
+    notes: "Custody bank; AML/sanctions compliance and KYC operations."
+
+  - key: bank-of-america
+    name: Bank of America
+    lanes: [aml-kyc, sanctions, fincrime-intelligence, investigative-compliance]
+    groups: [entry-routes]
+    ats: workday
+    board: ghr/wd1/Lateral-US
+    careers_url: https://careers.bankofamerica.com/en-us
+    hq: Charlotte, NC
+    locations: [New York, NY, Charlotte, NC, Jacksonville, FL, London, UK]
+    search_terms: [Global Financial Crimes, GFC, sanctions, anti-money laundering, KYC, surveillance, investigations]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 1952
+    notes: "Global Financial Crimes ('GFC' in titles: investigators, threat identification & liaison, screening analysts)."
+
+  - key: wells-fargo
+    name: Wells Fargo
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: workday
+    board: wf/wd1/WellsFargoJobs
+    careers_url: https://www.wellsfargojobs.com/
+    hq: San Francisco, CA
+    locations: [New York, NY, Charlotte, NC, Washington, DC]
+    search_terms: [financial crimes, sanctions, BSA/AML, KYC, surveillance, investigations]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 1489
+    notes: "Large Financial Crimes org (FCI investigations, sanctions, BSA/AML)."
+
+  - key: capital-one
+    name: Capital One
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: workday
+    board: capitalone/wd12/Capital_One
+    careers_url: https://www.capitalonecareers.com/
+    hq: McLean, VA
+    locations: [McLean, VA, New York, NY, Richmond, VA]
+    search_terms: [AML, sanctions, KYC, financial crimes, investigations, surveillance]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 2003
+    notes: "AML/sanctions compliance and financial-crimes investigations near DC (McLean)."
+
+  - key: td-bank
+    name: TD Bank
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: workday
+    board: td/wd3/TD_Bank_Careers
+    careers_url: https://jobs.td.com/
+    hq: Toronto, ON / Cherry Hill, NJ
+    locations: [New York, NY, Mount Laurel, NJ, London, UK]
+    search_terms: [AML, anti-money laundering, sanctions, KYC, financial crimes, FIU, investigations]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 1676
+    notes: "US AML remediation (post-2024 consent order) = heavy AML/FIU investigator hiring; board is global (Canada-heavy)."
+
+  - key: mufg
+    name: MUFG
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: workday
+    board: mufgub/wd3/MUFG-Careers
+    careers_url: https://careers.mufgamericas.com/
+    hq: New York, NY (Americas)
+    locations: [New York, NY, Jersey City, NJ]
+    search_terms: [sanctions, AML, KYC, financial crimes, BSA, investigations, surveillance]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 675
+    notes: "MUFG Americas: BSA/AML, sanctions (global sanctions hub in NY), KYC."
+
+  - key: santander
+    name: Santander
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: workday
+    board: santander/wd3/SantanderCareers
+    careers_url: https://www.santander.com/en/careers
+    hq: Madrid, Spain / Boston, MA (US)
+    locations: [New York, NY, Boston, MA, London, UK]
+    search_terms: [financial crime, AML, sanctions, KYC, investigations, surveillance]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bgfcc?\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|trade control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|anti[- ](bribery|corruption))'
+    verified: "2026-10-25"
+    open_jobs: 1106
+    notes: "Group-wide board (UK, US, Spain, LatAm); Santander UK and Santander US financial-crime teams."
+
+  - key: ubs
+    name: UBS
+    lanes: [aml-kyc, sanctions, market-surveillance]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.ubs.com/global/en/careers.html
+    hq: Zurich, Switzerland
+    locations: [New York, NY, Weehawken, NJ, London, UK]
+    notes: "Financial Crime Prevention, KYC and surveillance in NY/Weehawken and London; no public API board found."
+
+  - key: hsbc
+    name: HSBC
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: other
+    ats_vendor: eightfold
+    careers_url: https://portal.careers.hsbc.com/careers
+    hq: London, UK
+    locations: [New York, NY, London, UK]
+    notes: "Large financial-crime (FCC/FIU) organisation; search 'financial crime', 'sanctions'."
+
+  - key: barclays
+    name: Barclays
+    lanes: [aml-kyc, sanctions, fincrime-intelligence, market-surveillance]
+    ats: other
+    ats_vendor: custom (Radancy)
+    careers_url: https://search.jobs.barclays/search-jobs
+    hq: London, UK
+    locations: [New York, NY, Whippany, NJ, London, UK]
+    notes: "Financial Crime / KYC ops in Whippany NJ and NYC; London surveillance."
+
+  - key: deutsche-bank
+    name: Deutsche Bank
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://careers.db.com/professionals/search-roles/
+    hq: Frankfurt, Germany
+    locations: [New York, NY, Jacksonville, FL, London, UK]
+    notes: "AFC (Anti-Financial Crime) division: sanctions & embargoes, AML, KYC."
+
+  - key: bnp-paribas
+    name: BNP Paribas
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://group.bnpparibas/en/careers/all-job-offers
+    hq: Paris, France
+    locations: [New York, NY, Jersey City, NJ, London, UK]
+    notes: "Large US sanctions-compliance build-out (post-2014 OFAC settlement); filter location 'United States'."
+
+  - key: societe-generale
+    name: Societe Generale
+    lanes: [aml-kyc, sanctions]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://careers.societegenerale.com/en/search
+    hq: Paris, France
+    locations: [New York, NY, London, UK]
+    notes: "Americas AML/sanctions compliance and KYC teams in NYC."
+
+  - key: standard-chartered
+    name: Standard Chartered
+    lanes: [aml-kyc, sanctions, fincrime-intelligence]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://jobs.standardchartered.com/
+    hq: London, UK
+    locations: [New York, NY, London, UK]
+    notes: "Financial Crime Compliance (FCC), sanctions, FCSU/intelligence; London and NY."
+
+  # -------------------------------------------------------------------- exchanges, SROs, non-federal regulators
+  - key: finra
+    name: FINRA
+    lanes: [market-surveillance, investigative-compliance, aml-kyc]
+    ats: workday
+    board: finra/wd1/FINRA
+    careers_url: https://www.finra.org/careers
+    hq: Washington, DC / New York, NY
+    locations: [New York, NY, Washington, DC, Rockville, MD]
+    verified: "2026-10-25"
+    open_jobs: 47
+    notes: "Market Regulation / surveillance, Enforcement, Member Supervision examiners (AML exams), Fraud & Intelligence."
+
+  - key: national-futures-association
+    name: National Futures Association (NFA)
+    lanes: [market-surveillance, investigative-compliance, aml-kyc]
+    ats: other
+    ats_vendor: nas-activate
+    careers_url: https://jobs.nfa.futures.org/search/searchjobs
+    hq: Chicago, IL
+    locations: [New York, NY, Chicago, IL]
+    notes: "Derivatives SRO: compliance examiners (entry programme), market regulation, investigations."
+
+  - key: msrb
+    name: Municipal Securities Rulemaking Board (MSRB)
+    lanes: [market-surveillance]
+    ats: other
+    ats_vendor: ukg-ready (saashr)
+    careers_url: https://secure6.saashr.com/ta/6157311.careers?CareersSearch
+    hq: Washington, DC
+    locations: [Washington, DC]
+    notes: "Municipal-securities SRO; market-transparency / market-structure analysts. Small, occasional openings."
+
+  - key: nasdaq
+    name: Nasdaq
+    lanes: [market-surveillance, aml-kyc, fincrime-intelligence]
+    ats: workday
+    board: nasdaq/wd1/Global_External_Site
+    careers_url: https://www.nasdaq.com/about/careers
+    hq: New York, NY
+    locations: [New York, NY, Rockville, MD, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 168
+    notes: "Market surveillance / regulation and Nasdaq Financial Crime Management Technology (Verafin, SMARTS)."
+
+  - key: intercontinental-exchange
+    name: Intercontinental Exchange (ICE / NYSE)
+    lanes: [market-surveillance, investigative-compliance]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers.ice.com/jobs
+    hq: Atlanta, GA / New York, NY
+    locations: [New York, NY, Atlanta, GA, London, UK]
+    notes: "NYSE Regulation, ICE Futures market regulation / surveillance; search 'regulation', 'surveillance'."
+
+  - key: cboe
+    name: Cboe Global Markets
+    lanes: [market-surveillance, investigative-compliance]
+    ats: workday
+    board: cboe/wd1/External_Career_CBOE
+    careers_url: https://www.cboe.com/about/careers/
+    hq: Chicago, IL
+    locations: [Chicago, IL, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 112
+    notes: "Regulation division: 'Investigator, Regulation', market surveillance analysts."
+
+  - key: cme-group
+    name: CME Group
+    lanes: [market-surveillance, investigative-compliance]
+    ats: workday
+    board: cmegroup/wd1/cme_careers
+    careers_url: https://www.cmegroup.com/careers.html
+    hq: Chicago, IL
+    locations: [Chicago, IL, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 65
+    notes: "Market Regulation: market surveillance, investigations, data investigations analysts."
+
+  - key: dtcc
+    name: DTCC
+    lanes: [aml-kyc, sanctions, market-surveillance]
+    ats: oracle
+    board: ebxr.fa.us2.oraclecloud.com/CX_1
+    careers_url: https://www.dtcc.com/careers
+    hq: New York, NY
+    locations: [New York, NY, Jersey City, NJ, Tampa, FL, London, UK]
+    search_terms: [sanctions, AML, financial crime, KYC, surveillance, compliance, risk analyst]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|market abuse|conduct risk|\brisk (analyst|associate))'
+    verified: "2026-10-25"
+    open_jobs: 446
+    notes: "Post-trade infrastructure; compliance (AML/sanctions), surveillance and risk analyst roles."
+
+  - key: options-clearing-corporation
+    name: Options Clearing Corporation (OCC)
+    lanes: [market-surveillance, investigative-compliance]
+    ats: workday
+    board: theocc/wd5/Careers
+    careers_url: https://www.theocc.com/company-information/careers
+    hq: Chicago, IL
+    locations: [Chicago, IL, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 72
+    notes: "Clearing house; compliance, risk and surveillance-adjacent analyst roles."
+
+  - key: kalshi
+    name: Kalshi
+    lanes: [market-surveillance, investigative-compliance]
+    ats: ashby
+    board: kalshi
+    careers_url: https://kalshi.com/careers
+    hq: New York, NY
+    locations: [New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 46
+    notes: "CFTC-regulated event-contracts exchange: Surveillance Analyst, compliance / regulatory operations. (Stale Greenhouse board 'kalshi' also exists.)"
+
+  - key: financial-conduct-authority
+    name: Financial Conduct Authority (UK FCA)
+    lanes: [market-surveillance, aml-kyc, investigative-compliance, crypto-investigations]
+    ats: workday
+    board: fca/wd3/FCA_Careers
+    careers_url: https://www.fca.org.uk/careers
+    hq: London, UK
+    locations: [London, UK, Edinburgh, UK, Leeds, UK]
+    verified: "2026-10-25"
+    open_jobs: 19
+    notes: "UK conduct regulator: market oversight, enforcement, financial-crime supervision, cryptoasset specialists; graduate programme."
+
+  - key: nydfs
+    name: New York State Department of Financial Services (NYDFS)
+    lanes: [aml-kyc, sanctions, crypto-investigations, investigative-compliance]
+    groups: [government]
+    ats: other
+    ats_vendor: custom (state postings)
+    careers_url: https://www.dfs.ny.gov/contact_us/careers_with_dfs
+    hq: New York, NY
+    locations: [New York, NY, Albany, NY]
+    notes: "Financial Crimes / Virtual Currency divisions (e.g. 'Financial Crimes Blockchain Analytics Risk Associate'); postings are PDFs on the DFS site."
+
+  # --------------------------------------------------------------------------------------------- consultancies
+  - key: promontory
+    name: Promontory Financial Group (IBM)
+    lanes: [aml-kyc, sanctions, investigative-compliance]
+    ats: other
+    ats_vendor: custom (IBM careers)
+    careers_url: https://www.ibm.com/careers/search?q=promontory
+    hq: Washington, DC
+    locations: [Washington, DC, New York, NY, London, UK]
+    notes: "Regulatory/financial-crime consulting (AML lookbacks, sanctions remediation); hires analysts and associates via IBM careers."
+
+  - key: k2-integrity
+    name: K2 Integrity
+    lanes: [aml-kyc, sanctions, illicit-finance, investigative-compliance]
+    groups: [investigations-dd]
+    ats: other
+    ats_vendor: hibob
+    careers_url: https://k2integrity.careers.hibob.com/jobs
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    notes: "Financial-crimes risk & compliance advisory and monitorships; AML analyst / associate intake."
+
+  - key: guidehouse
+    name: Guidehouse
+    lanes: [aml-kyc, sanctions, fincrime-intelligence, investigative-compliance]
+    ats: workday
+    board: guidehouse/wd1/External
+    careers_url: https://guidehouse.com/careers
+    hq: McLean, VA
+    locations: [New York, NY, Washington, DC, McLean, VA, London, UK]
+    search_terms: [financial crimes, financial crime, AML, sanctions, KYC, investigations, intelligence analyst]
+    title_filter: '(?i)(\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bfcrc\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|screening|\bofac\b|illicit|(?<!business )(?<!artificial )intelligence|compliance|financial services consult)'
+    verified: "2026-10-25"
+    open_jobs: 767
+    notes: "Financial Crimes Risk & Compliance (FCRC) practice: sanctions analysts, TM investigators, EDD/QC, financial-investigations data science."
+
+  - key: protiviti
+    name: Protiviti
+    lanes: [aml-kyc, sanctions, investigative-compliance]
+    ats: workday
+    board: roberthalf/wd1/ProtivitiNA
+    careers_url: https://www.protiviti.com/us-en/careers
+    hq: Menlo Park, CA
+    locations: [New York, NY, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 168
+    notes: "Financial-crimes compliance consulting and managed services ('Financial Crimes Compliance Analyst' roles)."
+
+  # -------------------------------------------------------------------------------- export controls / trade
+  - key: descartes
+    name: Descartes Systems Group (Visual Compliance)
+    lanes: [export-controls, sanctions]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://careers.descartes.com/
+    hq: Waterloo, ON
+    locations: [Remote US, Toronto, ON]
+    notes: "Denied-party screening / export-licence software (Visual Compliance, OCR); customs & trade-compliance analysts."
+
+  - key: expeditors
+    name: Expeditors
+    lanes: [export-controls]
+    ats: smartrecruiters
+    board: EXPEDITORS
+    careers_url: https://www.expeditors.com/careers
+    hq: Seattle, WA
+    locations: [New York, NY, Washington, DC, Remote US]
+    title_filter: '(?i)(compliance|export (compliance|control|licens\w*)|\bsanction|denied party|restricted party|classification|\bitar\b|\bear\b|trade (analyst|specialist|advisory|consult\w*)|customs (analyst|specialist))'
+    verified: "2026-10-25"
+    open_jobs: 525
+    notes: "Freight forwarder / customs broker with Trade Compliance & Export Compliance specialist roles; filter drops ops/logistics."
+
+  - key: akin
+    name: Akin
+    lanes: [sanctions, export-controls]
+    groups: [investigations-dd]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.akingump.com/en/careers
+    hq: Washington, DC
+    locations: [Washington, DC, New York, NY, London, UK]
+    notes: "International trade / sanctions & export-controls practice; hires international trade analysts and paralegals."
+
+  - key: steptoe
+    name: Steptoe
+    lanes: [sanctions, export-controls]
+    groups: [investigations-dd]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.steptoe.com/en/careers.html
+    hq: Washington, DC
+    locations: [Washington, DC, New York, NY, London, UK]
+    notes: "Export controls & sanctions practice; trade compliance analysts."
+
+  - key: covington
+    name: Covington & Burling
+    lanes: [sanctions, export-controls]
+    groups: [investigations-dd]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.cov.com/en/careers
+    hq: Washington, DC
+    locations: [Washington, DC, New York, NY, London, UK]
+    notes: "Trade controls / sanctions & export-controls practice; analyst and paralegal openings."
+
+  # ------------------------------------------------------- illicit-finance research / investigative NGOs
+  - key: c4ads
+    name: C4ADS
+    lanes: [illicit-finance, sanctions, export-controls]
+    groups: [policy-research, investigations-dd]
+    ats: greenhouse
+    board: c4ads
+    careers_url: https://c4ads.org/careers/
+    hq: Washington, DC
+    locations: [Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Data-driven investigations of illicit networks (sanctions evasion, proliferation, trafficking); analyst/fellow roles. Board live, empty at verification."
+
+  - key: the-sentry
+    name: The Sentry
+    lanes: [illicit-finance, sanctions]
+    groups: [policy-research, investigations-dd]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://thesentry.org/jobs/
+    hq: Washington, DC
+    locations: [Washington, DC, Remote]
+    notes: "Follow-the-money investigations into conflict financing and kleptocracy; investigators, researchers, illicit-finance policy."
+
+  - key: occrp
+    name: OCCRP
+    lanes: [illicit-finance, fincrime-intelligence]
+    groups: [investigations-dd]
+    ats: bamboohr
+    board: occrp
+    careers_url: https://www.occrp.org/en/about-us/work-with-us
+    hq: Amsterdam, Netherlands
+    locations: [Remote, London, UK, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Organized Crime and Corruption Reporting Project; investigative research / data roles."
+
+  - key: rusi
+    name: RUSI
+    lanes: [illicit-finance, sanctions, fincrime-intelligence]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: heyplumm
+    careers_url: https://app.heyplumm.com/rusi/careers/uk
+    hq: London, UK
+    locations: [London, UK, Washington, DC]
+    notes: "Centre for Finance and Security (financial crime, sanctions, proliferation finance); research analyst roles."
+
+  - key: fdd
+    name: Foundation for Defense of Democracies (FDD)
+    lanes: [sanctions, illicit-finance]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: applicantpro
+    careers_url: https://fdd.applicantpro.com/jobs/
+    hq: Washington, DC
+    locations: [Washington, DC]
+    notes: "Center on Economic and Financial Power (sanctions, illicit finance); research analysts and CEFP research internships."

@@ -1,0 +1,1085 @@
+# Employer registry -- group: geopolitical-risk
+# Political / country / sovereign risk, geopolitical analysis, political forecasting, geoeconomics, economic
+# security, supply-chain & forced-labour risk, risk consulting, expert networks / primary research, and
+# research & due-diligence roles at investment firms.  Early-career focus (analyst / associate / fellow /
+# graduate programmes), New York first, then Washington DC, London and remote US.
+#
+# Coverage (researched 2026-10-25; every non-"other" board was hit through its public API this session):
+#   * Political-risk & geopolitical advisory: Eurasia Group, Teneo, BowerGroupAsia, Ankura (now home of
+#     McLarty Associates), Penta Group (absorbed Hamilton Place Strategies), Brunswick, S-RM, Capstone (DC policy
+#     research for investors), FiscalNote, Morning Consult; manual: The Asia Group (HiBob), DGA Group /
+#     Albright Stonebridge (UKG Pro on a custom host), Control Risks & Hakluyt (Workable, rate-limited),
+#     Beacon Policy Advisors, Macro Advisory Partners, Rhodium Group, RANE, Global Counsel, Flint Global.
+#   * Macro / country-risk research & ratings: Oxford Economics (incl. Alpine Macro), Economist Group (EIU),
+#     Dow Jones (Oxford Analytica, Dragonfly / Global Risk Insights), Verisk (Maplecroft), S&P Global,
+#     Morningstar (DBRS), KBRA, Energy Aspects (incl. Medley Advisors), Lazard (Geopolitical Advisory);
+#     manual: Moody's, Fitch Group (Fitch Ratings, BMI / Fitch Solutions, GeoQuant), Bloomberg, Capital
+#     Economics (Workable), BCA Research (Dayforce), TS Lombard (GlobalData).
+#   * Risk consulting: Oliver Wyman (MMC Workday, server-side search "Oliver Wyman"), Grant Thornton, Protiviti.
+#   * Economic security / supply chain / forced labour: SCSP, Strider, Sayari, Kharon, Altana, Exiger,
+#     Everstream, Resilinc, Datenna, EcoVadis (owns Ulula), Sourcemap, C4ADS; manual: Silverado Policy
+#     Accelerator, Interos (Paycor), Verite, Transparentem (HireHive).
+#   * Expert networks / primary research: GLG, AlphaSights, Guidepoint, Third Bridge, AlphaSense (Tegus),
+#     Coleman, Atheneum, Arbolus, NewtonX, Capvision; manual: Dialectica & proSapient (Workable), Inex One.
+#   * Investment research / DD: Bridgewater, Point72, Schonfeld, Viking, Blackstone, KKR,
+#     Carlyle, Apollo, TPG, Warburg Pincus, General Atlantic, Bain Capital; manual: Citadel, Two Sigma,
+#     D. E. Shaw, Millennium, Balyasny, Brevan Howard.
+#
+# Shared keys: the registry loads files alphabetically and keeps the FIRST file's board/title_filter/search_terms
+# (only groups/lanes are merged).  geopolitical-risk.yaml sorts before intelligence-security / sanctions-fincrime /
+# specialty-insurance, so for shared big boards (blackstone, dow-jones) the title_filter below is the UNION of
+# the other groups' filters plus this group's terms; verisk/protiviti keep the whole board (no filter) as the
+# other groups do.  marsh-mclennan is deliberately NOT listed here (its insurance-tuned search_terms would be
+# overridden); Oliver Wyman is a separate key on the same MMC board with its own server-side search.
+#
+# Notable gaps / caveats:
+#   * Workable (apply.workable.com) answered HTTP 429 / Cloudflare "error code 1015" for every account all
+#     session, so Control Risks (control-risks-6), Hakluyt (hakluyt), Capital Economics (capital-economics),
+#     Dialectica (dialectica) and proSapient (prosapient) are listed as manual with the board slug in notes;
+#     promote to ats: workable once the board API answers.  Capital Economics' slug was confirmed live via
+#     jobs.workable.com search.
+#   * UKG: DGA Group's board only answers on its own host (dgahr.rec.pro.ukg.net); the ultipro adapter can take
+#     'host/tenant/guid' but validate_catalog.py only accepts 'tenant/guid', so it is manual for now.
+#   * Unsupported ATS: SuccessFactors (Moody's, Fitch), Avature (Bloomberg, Two Sigma), Eightfold (Millennium),
+#     Phenom (Brevan Howard), HiBob (The Asia Group), Dayforce (BCA Research), Paycor (Interos), HireHive
+#     (Transparentem), Salesforce site (Balyasny), custom pages (Citadel, D. E. Shaw, Rhodium, Beacon Policy,
+#     Macro Advisory Partners, Global Counsel, Flint Global, Silverado, Verite, Inex One, RANE by email).
+#   * Dropped / folded: GeoQuant (acquired by Fitch), Oxford Analytica & Dragonfly (Dow Jones), Medley Global
+#     Advisors (redirects to Energy Aspects), Hamilton Place Strategies (Penta), Albright Stonebridge (DGA),
+#     McLarty Associates (Ankura), Tegus (AlphaSense), Ulula (EcoVadis), Alpine Macro (Oxford Economics).
+#     Not found / not worth listing: Kissinger Associates & Greenmantle (no public careers board), FRDM (no
+#     careers page), Horizon Advisory (no board), Grey Matter Research (unrelated US market-research shop),
+#     Elliott (no careers page), Coatue (jobs.coatue.com is a portfolio-company Getro board), Lone Pine
+#     (Greenhouse board empty), Kroll & FTI (TalentBrew/Coveo front ends, Workday tenant not found - left to
+#     investigations-dd), "map"/"rhg"/"silverado"/"dga" slug collisions on other ATSs belong to unrelated orgs.
+#   * Web search was unavailable (shared per-turn search budget exhausted); boards were found from careers-page
+#     HTML, slug guessing and job-id lookups (GLG's board token found by resolving a job id).
+group: geopolitical-risk
+employers:
+
+  # ------------------------------------------------------------ political-risk & geopolitical advisory
+  - key: eurasia-group
+    name: Eurasia Group
+    lanes: [geopolitical-analysis, country-sovereign-risk, political-forecasting, risk-consulting, geoeconomics]
+    groups: [policy-research]
+    ats: rippling
+    board: eurasia-group
+    careers_url: https://www.eurasiagroup.net/careers
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 18
+    notes: "Leading political-risk consultancy; regional Analyst / Research Associate roles and corporate advisory. Rippling lists one row per location."
+
+  - key: teneo
+    name: Teneo
+    lanes: [risk-consulting, geopolitical-analysis, political-forecasting]
+    groups: [strategic-comms]
+    ats: greenhouse
+    board: teneo
+    careers_url: https://www.teneo.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 53
+    notes: "CEO advisory incl. Teneo Risk / geopolitical advisory, strategic comms, financial advisory; DC spring/semester interns and associate consultants."
+
+  - key: bowergroupasia
+    name: BowerGroupAsia (BGA)
+    lanes: [country-sovereign-risk, geopolitical-analysis, political-forecasting]
+    groups: [strategic-comms]
+    ats: bamboohr
+    board: bga
+    careers_url: https://bowergroupasia.com/about/careers/
+    hq: Washington, DC
+    locations: [Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 22
+    notes: "Asia-focused government affairs / political-risk advisory; country Analyst / Senior Analyst roles and interns."
+
+  - key: ankura
+    name: Ankura (incl. McLarty Associates)
+    lanes: [risk-consulting, geopolitical-analysis, investment-research-dd]
+    groups: [investigations-dd, strategic-comms]
+    ats: workday
+    board: ankura/wd5/Ankura
+    careers_url: https://maglobal.com/join-our-team/
+    hq: Washington, DC
+    locations: [Washington, DC, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 87
+    notes: "McLarty Associates (international strategy, trade) is now part of Ankura and posts on Ankura's Workday (search 'McLarty'; Fellows Program each semester). Also risk advisory, disputes & economics, valuation/transaction advisory university roles."
+
+  - key: penta-group
+    name: Penta Group (incl. Hamilton Place Strategies)
+    lanes: [political-forecasting, geopolitical-analysis]
+    groups: [strategic-comms]
+    ats: lever
+    board: pentagrp
+    careers_url: https://pentagroup.com/careers
+    hq: Washington, DC
+    locations: [Washington, DC, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "hamiltonplacestrategies.com redirects to Penta; policy & economic analysis plus Insights & Monitoring Analyst roles."
+
+  - key: brunswick-group
+    name: Brunswick Group (incl. Brunswick Geopolitical)
+    lanes: [geopolitical-analysis, political-forecasting]
+    groups: [strategic-comms]
+    ats: greenhouse
+    board: brunswickgroup
+    careers_url: https://www.brunswickgroup.com/careers/
+    hq: London, UK
+    locations: [London, UK, New York, NY, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 46
+    notes: "Brunswick Geopolitical practice (DC/London) and Analysis & Research Center researchers alongside comms associates."
+
+  - key: capstone-dc
+    name: Capstone (Capstone DC)
+    lanes: [political-forecasting, investment-research-dd, geoeconomics, geopolitical-analysis]
+    groups: [policy-research]
+    ats: workday
+    board: capstonedc/wd501/Capstone
+    careers_url: https://capstonedc.com/about/careers/
+    hq: Washington, DC
+    locations: [Washington, DC, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 12
+    notes: "Policy-driven investment research for hedge funds / corporates; 'Research Analyst Associate Program' is its entry route."
+
+  - key: fiscalnote
+    name: FiscalNote
+    lanes: [political-forecasting]
+    groups: [policy-research]
+    ats: lever
+    board: fiscalnote
+    careers_url: https://fiscalnote.com/careers
+    hq: Washington, DC
+    locations: [Washington, DC, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 7
+    notes: "Policy & legislative intelligence (Roll Call, CQ). Sold Oxford Analytica and Dragonfly to Dow Jones."
+
+  - key: morning-consult
+    name: Morning Consult
+    lanes: [political-forecasting, primary-research-expert-networks]
+    groups: [strategic-comms]
+    ats: ashby
+    board: morningconsult
+    careers_url: https://morningconsult.com/careers/
+    hq: Washington, DC
+    locations: [Washington, DC, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 12
+    notes: "Survey research / political & geopolitical risk intelligence; research analyst roles appear periodically."
+
+  - key: s-rm
+    name: S-RM
+    lanes: [risk-consulting, geopolitical-analysis]
+    groups: [intelligence-security, investigations-dd]
+    ats: greenhouse
+    board: srm
+    careers_url: https://job-boards.greenhouse.io/srm
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 17
+    notes: "Risk consultancy (corporate intelligence, security risk, crisis/K&R response); language-enabled Research Analysts."
+
+  - key: the-asia-group
+    name: The Asia Group
+    lanes: [geopolitical-analysis, country-sovereign-risk, geoeconomics]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: hibob
+    careers_url: https://theasiagroup.careers.hibob.com/
+    hq: Washington, DC
+    locations: [Washington, DC]
+    notes: "Asia strategy & geopolitical advisory (Kurt Campbell's former firm); HiBob careers site (not supported)."
+
+  - key: dga-group
+    name: DGA Group (Albright Stonebridge Group)
+    lanes: [geopolitical-analysis, political-forecasting, risk-consulting, country-sovereign-risk]
+    groups: [strategic-comms]
+    ats: other
+    ats_vendor: ukg
+    careers_url: https://dgahr.rec.pro.ukg.net/DEN1502DGBV/JobBoard/35d54f2b-b9c1-442f-9403-035c369c012b/
+    hq: Washington, DC
+    locations: [Washington, DC, New York, NY, London, UK]
+    notes: "UKG Pro board DEN1502DGBV/35d54f2b-b9c1-442f-9403-035c369c012b answers ONLY on host dgahr.rec.pro.ukg.net (9 jobs on 2026-10-25, incl. 'Associate - Asia'); recruiting.ultipro.com returns 404, and the validator rejects 'host/tenant/guid' boards, so manual for now. ASG regional associates/analysts."
+
+  - key: control-risks
+    name: Control Risks
+    lanes: [risk-consulting, geopolitical-analysis, country-sovereign-risk]
+    groups: [intelligence-security, investigations-dd]
+    ats: other
+    ats_vendor: workable
+    careers_url: https://www.controlrisks.com/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY, Washington, DC]
+    notes: "Workable board control-risks-6 (rate-limited from this egress); intelligence-security.yaml carries it as sweepable and the registry adopts that board. Political & security risk analysts (Seerist), consulting analysts."
+
+  - key: hakluyt
+    name: Hakluyt
+    lanes: [geopolitical-analysis, investment-research-dd, risk-consulting]
+    groups: [investigations-dd]
+    ats: other
+    ats_vendor: workable
+    careers_url: https://apply.workable.com/hakluyt/
+    hq: London, UK
+    locations: [London, UK, New York, NY, Washington, DC]
+    notes: "Strategic intelligence & advisory for boards / investors; graduate Associate / researcher intake. Workable slug 'hakluyt' (linked from hakluytandco.com/join-us) but the Workable API was rate-limited, so unverified."
+
+  - key: beacon-policy-advisors
+    name: Beacon Policy Advisors
+    lanes: [political-forecasting, investment-research-dd]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.beaconpolicyadvisors.com/careers
+    hq: Washington, DC
+    locations: [Washington, DC]
+    notes: "Washington policy research for institutional investors; analyst / research associate openings posted on the careers page."
+
+  - key: macro-advisory-partners
+    name: Macro Advisory Partners
+    lanes: [geopolitical-analysis, geoeconomics, political-forecasting]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.macroadvisorypartners.com/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    notes: "Geopolitical & macro advisory for CEOs / investors; site blocks scripted fetches (HTTP 403), no ATS found. (Greenhouse 'map' belongs to an unrelated company.)"
+
+  - key: rhodium-group
+    name: Rhodium Group
+    lanes: [geoeconomics, economic-security, country-sovereign-risk, geopolitical-analysis]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://rhg.com/about/careers/
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC]
+    notes: "China / geoeconomics research; positions posted directly on the careers page (none open on 2026-10-25). Hires Research Analysts."
+
+  - key: rane
+    name: RANE (Stratfor)
+    lanes: [geopolitical-analysis, political-forecasting]
+    groups: [intelligence-security]
+    ats: other
+    ats_vendor: email
+    careers_url: https://www.ranenetwork.com/about/career-page
+    hq: Austin, TX
+    locations: [Austin, TX, New York, NY, Remote US]
+    notes: "Stratfor Worldview geopolitical analysts and RANE Core Intelligence; applications by email (careers@ranenetwork.com)."
+
+  - key: global-counsel
+    name: Global Counsel
+    lanes: [geopolitical-analysis, political-forecasting, geoeconomics]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.globalcounsel.com/careers
+    hq: London, UK
+    locations: [London, UK]
+    notes: "Policy & geopolitical advisory; graduate Analyst intake. Careers page has no ATS embed."
+
+  - key: flint-global
+    name: Flint Global
+    lanes: [geopolitical-analysis, political-forecasting, geoeconomics]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.flintglobal.com/careers
+    hq: London, UK
+    locations: [London, UK]
+    notes: "Regulatory / trade / geopolitical advisory; analyst roles. No ATS embed found (Ashby 'flint' is an unrelated US startup)."
+
+  # ------------------------------------------------------------ macro, country-risk research and ratings
+  - key: oxford-economics
+    name: Oxford Economics (incl. Alpine Macro)
+    lanes: [geoeconomics, country-sovereign-risk, geopolitical-analysis]
+    ats: pinpoint
+    board: oxfordeconomics
+    careers_url: https://careers.oxfordeconomics.com/
+    hq: Oxford, UK
+    locations: [New York, NY, London, UK, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 25
+    notes: "Economist / Assistant Economist roles, country-risk and scenario work; Alpine Macro talent pools post here."
+
+  - key: economist-group
+    name: Economist Group (Economist Intelligence / EIU, Economist Impact)
+    lanes: [country-sovereign-risk, geopolitical-analysis, geoeconomics, political-forecasting]
+    groups: [policy-research]
+    ats: greenhouse
+    board: theeconomistgroup
+    careers_url: https://www.economistgroup.com/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 49
+    notes: "Board lives on job-boards.eu.greenhouse.io but answers on boards-api.greenhouse.io. EIU country analysts / economists and Economist Impact research roles appear alongside media jobs."
+
+  - key: dow-jones
+    name: Dow Jones (Oxford Analytica, Dragonfly / Global Risk Insights, Factiva, Risk & Compliance)
+    lanes: [geopolitical-analysis, country-sovereign-risk, political-forecasting]
+    groups: [intelligence-security, sanctions-fincrime, investigations-dd]
+    ats: workday
+    board: dowjones/wd1/Dow_Jones_Career
+    careers_url: https://dowjones.wd1.myworkdayjobs.com/Dow_Jones_Career
+    hq: New York, NY
+    locations: [New York, NY, London, UK, Washington, DC, Oxford, UK]
+    title_filter: '(?i)(dragonfly|oxford analytica|analytica|global risk|\bGRI\b|security|(?<!artificial )(?<!business )\bintelligence\b|geopolit|politic|threat|crisis|terror|risk analyst|associate analyst|country analyst|\banalyst\b|research|econom|forecast|sanction|\bPEP\b|adverse media|risk (&|and) compliance|compliance|due diligence|factiva|\bintern\b|internship)'
+    verified: "2026-10-25"
+    open_jobs: 251
+    notes: "Whole board (251 < 400 cap) swept with a title filter that is the union of the intelligence-security (Dragonfly/GRI), sanctions-fincrime (Risk & Compliance research) and geopolitical-risk (Oxford Analytica, country analysts, economists) interests. Oxford Analytica and Dragonfly were bought from FiscalNote."
+
+  - key: verisk
+    name: Verisk (Verisk Maplecroft, ISO ClaimSearch)
+    lanes: [country-sovereign-risk, geopolitical-analysis, supply-chain-forced-labor]
+    groups: [specialty-insurance]
+    ats: oracle
+    board: fa-ewmy-saasfaprod1.fa.ocs.oraclecloud.com/CX_1
+    careers_url: https://www.verisk.com/company/careers/
+    hq: Jersey City, NJ
+    locations: [Jersey City, NJ, New York, NY, London, UK, Bath, UK]
+    verified: "2026-10-25"
+    open_jobs: 155
+    notes: "Verisk Maplecroft (Bath/London) political, country, human-rights & supply-chain risk analysts; whole board kept (no filter) because specialty-insurance also relies on it for insurance-fraud roles."
+
+  - key: sp-global
+    name: S&P Global (Ratings, Market Intelligence, Commodity Insights)
+    lanes: [country-sovereign-risk, geoeconomics, investment-research-dd, supply-chain-forced-labor]
+    ats: workday
+    board: spgi/wd5/SPGI_Careers
+    careers_url: https://careers.spglobal.com/jobs
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    title_filter: '(?i)(sovereign|country|politic|geopolit|econom|rating|research|analytical|commodity associate|associate analyst|supply chain|critical mineral|\btrade\b|risk analyst|\bintern\b|internship|graduate|analyst program|early career)'
+    verified: "2026-10-25"
+    open_jobs: 311
+    notes: "Sovereign & International Public Finance Ratings, Ratings Analytical internships, Commodity Associate Program, Market Intelligence country-risk / supply-chain research (ex-IHS Markit). Under the 400 cap so no search_terms; add them if the board grows."
+
+  - key: moodys
+    name: Moody's
+    lanes: [country-sovereign-risk, geoeconomics, investment-research-dd]
+    groups: [sanctions-fincrime, investigations-dd]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://careers.moodys.com/en
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    notes: "SuccessFactors (career8, company MoodysProd). Sovereign Risk Group analysts, Moody's Analytics economists (Moody's Analytics macro team), KYC/Orbis research. Search 'sovereign', 'economist', 'analyst'."
+
+  - key: fitch-group
+    name: Fitch Group (Fitch Ratings, BMI / Fitch Solutions)
+    lanes: [country-sovereign-risk, geopolitical-analysis, geoeconomics, investment-research-dd]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://careers.fitch.group/
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    notes: "SuccessFactors (career5.successfactors.eu, company C0016306184P). BMI country-risk analysts and Fitch sovereign analysts; GeoQuant (political-risk data) was absorbed by Fitch."
+
+  - key: morningstar
+    name: Morningstar (incl. Morningstar DBRS, Sustainalytics)
+    lanes: [investment-research-dd, country-sovereign-risk]
+    ats: workday
+    board: morningstar/wd5/Morningstar
+    careers_url: https://www.morningstar.com/careers
+    hq: Chicago, IL
+    locations: [Chicago, IL, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 164
+    notes: "Equity / manager research associates and DBRS credit-ratings analysts (incl. sovereign). A separate small 'Americas' Workday site (14 jobs) duplicates part of this one."
+
+  - key: kbra
+    name: KBRA (Kroll Bond Rating Agency)
+    lanes: [investment-research-dd, country-sovereign-risk]
+    ats: greenhouse
+    board: krollbondratingagency
+    careers_url: https://www.kbra.com/company/careers
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 56
+    notes: "Credit-ratings analyst / associate roles (NY), incl. public finance and sovereign-adjacent coverage."
+
+  - key: bloomberg
+    name: Bloomberg (Bloomberg Economics, Bloomberg Intelligence, Bloomberg Government)
+    lanes: [geoeconomics, investment-research-dd, geopolitical-analysis, country-sovereign-risk]
+    groups: [intelligence-security, strategic-comms]
+    ats: other
+    ats_vendor: avature
+    careers_url: https://bloomberg.avature.net/careers
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    notes: "Avature board. Bloomberg Economics (geoeconomics team), Bloomberg Intelligence research analysts / associates, Bloomberg Government policy analysts; also Global Security."
+
+  - key: energy-aspects
+    name: Energy Aspects (incl. Medley Advisors)
+    lanes: [geoeconomics, geopolitical-analysis, investment-research-dd]
+    ats: pinpoint
+    board: energyaspects
+    careers_url: https://careers.energyaspects.com/
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 14
+    notes: "Energy / commodities & macro research; medleyadvisors.com (Medley Global Advisors) now redirects into Energy Aspects."
+
+  - key: capital-economics
+    name: Capital Economics
+    lanes: [geoeconomics, country-sovereign-risk]
+    ats: other
+    ats_vendor: workable
+    careers_url: https://apply.workable.com/capital-economics/
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    notes: "Workable slug 'capital-economics' (from capitaleconomics.com/careers; confirmed live via jobs.workable.com, e.g. 'Latin America Economist') but the Workable board API was rate-limited (429), so unverified. Graduate / Assistant Economist intake."
+
+  - key: bca-research
+    name: BCA Research
+    lanes: [geopolitical-analysis, geoeconomics, investment-research-dd]
+    ats: other
+    ats_vendor: dayforce
+    careers_url: https://jobs.dayforcehcm.com/en-GB/euromoneyplc/BCA
+    hq: Montreal, QC
+    locations: [Montreal, QC, London, UK, New York, NY]
+    notes: "Independent macro & geopolitical strategy research (Delinian group); Dayforce candidate portal."
+
+  - key: ts-lombard
+    name: TS Lombard (GlobalData)
+    lanes: [geoeconomics, geopolitical-analysis, political-forecasting]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://careers.globaldata.com/
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    notes: "Macro & political research house owned by GlobalData; tslombard.com/careers redirects to GlobalData's careers site (custom, Talos-hosted)."
+
+  - key: lazard
+    name: Lazard (incl. Geopolitical Advisory, Lazard Asset Management)
+    lanes: [geopolitical-analysis, investment-research-dd]
+    ats: oracle
+    board: icbpjb.fa.ocs.oraclecloud.com/LazardProfessionalCareers
+    careers_url: https://www.lazard.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 135
+    notes: "Advisory analyst / summer associate programmes, Lazard Asset Management research analysts and the Geopolitical Advisory practice."
+
+  # ------------------------------------------------------------ risk consulting
+  - key: oliver-wyman
+    name: Oliver Wyman
+    lanes: [risk-consulting, investment-research-dd, geoeconomics]
+    groups: [entry-routes]
+    ats: workday
+    board: mmc/wd1/MMC
+    careers_url: https://careers.marsh.com/global/en/oliver-wyman
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    search_terms: [Oliver Wyman]
+    title_filter: '(?i)(risk|geopolit|politic|sovereign|public sector|government|research|due diligence|private capital|private equity|\bM&A\b|mergers|transaction|entry level|consultant|analyst|\bintern\b|internship|summer|graduate|placement)'
+    max_jobs: 600
+    verified: "2026-10-25"
+    open_jobs: 395
+    notes: "Shares Marsh McLennan's Workday board (1,981 jobs); server-side search 'Oliver Wyman' returned 395 (OW, OW Actuarial, INNOPAY) and is not polluted by MMC boilerplate. Finance & Risk practice, Private Capital DD, Oliver Wyman Forum; Entry Level Consultant / intern roles."
+
+  - key: grant-thornton
+    name: Grant Thornton (US)
+    lanes: [risk-consulting, investment-research-dd]
+    ats: oracle
+    board: ehzq.fa.us2.oraclecloud.com/CX_1
+    careers_url: https://www.grantthornton.com/careers
+    hq: Chicago, IL
+    locations: [New York, NY, Arlington, VA, Chicago, IL]
+    title_filter: '(?i)(risk advisory|due diligence|transaction|\bdeal|\bM&A\b|value creation|forensic|investigat|global trade|customs|econom|geopolit|supply chain|\bintern\b|internship|graduate|campus)'
+    verified: "2026-10-25"
+    open_jobs: 173
+    notes: "Risk Advisory (interns), Financial Due Diligence / transaction advisory, Global Trade & Customs advisory."
+
+  - key: protiviti
+    name: Protiviti
+    lanes: [risk-consulting]
+    groups: [sanctions-fincrime]
+    ats: workday
+    board: roberthalf/wd1/ProtivitiNA
+    careers_url: https://www.protiviti.com/us-en/careers
+    hq: Menlo Park, CA
+    locations: [New York, NY, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 168
+    notes: "Risk & compliance consulting (enterprise risk, financial-crimes compliance); whole board kept as sanctions-fincrime does."
+
+  # ------------------------------------------------------------ economic security, supply chain & forced labour
+  - key: special-competitive-studies-project
+    name: Special Competitive Studies Project (SCSP)
+    lanes: [economic-security, geoeconomics]
+    groups: [policy-research]
+    ats: lever
+    board: schmidt-entities
+    careers_url: https://www.scsp.ai/careers/
+    hq: Arlington, VA
+    locations: [Arlington, VA, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 17
+    notes: "Shared Lever board 'schmidt-entities' (SCSP + Schmidt Sciences + other Schmidt entities; SCSP roles carry department 'Schmidt Special Competitive Studies Project'). SCSP Research Assistants / associates on tech-economic competition."
+
+  - key: strider
+    name: Strider Technologies
+    lanes: [economic-security, supply-chain-forced-labor, geoeconomics]
+    groups: [intelligence-security, sanctions-fincrime]
+    ats: ashby
+    board: strider-technologies
+    careers_url: https://striderintel.com/company/careers/
+    hq: Salt Lake City, UT
+    locations: [Arlington, VA, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 10
+    notes: "Strategic-competition / economic-security intelligence (state-sponsored talent & tech transfer, supply-chain risk); intelligence advisors and analysts."
+
+  - key: sayari
+    name: Sayari
+    lanes: [supply-chain-forced-labor, economic-security]
+    groups: [sanctions-fincrime, investigations-dd]
+    ats: greenhouse
+    board: sayari
+    careers_url: https://sayari.com/careers/
+    hq: Washington, DC
+    locations: [Washington, DC, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 20
+    notes: "Commercial-risk / supply-chain & forced-labour (UFLPA) entity data; Field Intelligence Analysts."
+
+  - key: kharon
+    name: Kharon
+    lanes: [supply-chain-forced-labor, economic-security]
+    groups: [sanctions-fincrime]
+    ats: pinpoint
+    board: kharon
+    careers_url: https://www.kharon.com/careers
+    hq: Los Angeles, CA
+    locations: [Washington, DC, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 28
+    notes: "Sanctions / export-control / forced-labour risk research; research analysts alongside data science."
+
+  - key: altana
+    name: Altana
+    lanes: [supply-chain-forced-labor, economic-security]
+    groups: [sanctions-fincrime]
+    ats: greenhouse
+    board: altanaai
+    careers_url: https://altana.ai/careers
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 36
+    notes: "Global supply-chain network AI (customs, forced labour, export controls)."
+
+  - key: exiger
+    name: Exiger
+    lanes: [supply-chain-forced-labor, economic-security, risk-consulting]
+    groups: [sanctions-fincrime, investigations-dd]
+    ats: greenhouse
+    board: exiger
+    careers_url: https://www.exiger.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, McLean, VA, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 61
+    notes: "Supply-chain & third-party risk (1Exiger); Supply Chain Risk Analysts, Analyst - Data Services, language-enabled research associates."
+
+  - key: interos
+    name: Interos
+    lanes: [supply-chain-forced-labor, economic-security]
+    groups: [intelligence-security]
+    ats: other
+    ats_vendor: paycor
+    careers_url: https://recruitingbypaycor.com/career/CareerHome.action?clientId=8a7883d0848832f201848c7dbf79011a
+    hq: Arlington, VA
+    locations: [Arlington, VA]
+    notes: "Supply-chain risk intelligence; Paycor careers (unsupported)."
+
+  - key: everstream-analytics
+    name: Everstream Analytics
+    lanes: [supply-chain-forced-labor, geopolitical-analysis]
+    ats: greenhouse
+    board: everstreamanalytics
+    careers_url: https://www.everstream.ai/careers/
+    locations: [Remote US]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Supply-chain risk intelligence (incl. geopolitical risk); Intelligence Solutions intern/analyst roles."
+
+  - key: resilinc
+    name: Resilinc
+    lanes: [supply-chain-forced-labor]
+    ats: lever
+    board: resilinc
+    careers_url: https://jobs.lever.co/resilinc
+    hq: Milpitas, CA
+    locations: [Remote US]
+    verified: "2026-10-25"
+    open_jobs: 11
+    notes: "Supply-chain risk monitoring (EventWatch analysts)."
+
+  - key: datenna
+    name: Datenna
+    lanes: [economic-security, supply-chain-forced-labor]
+    ats: recruitee
+    board: datenna
+    careers_url: https://jobs.datenna.com/
+    hq: Eindhoven, NL
+    locations: [Eindhoven, NL, Remote]
+    verified: "2026-10-25"
+    open_jobs: 2
+    notes: "China economic-security intelligence (ownership / tech-transfer); OSINT data analysts."
+
+  - key: ecovadis
+    name: EcoVadis (incl. Ulula)
+    lanes: [supply-chain-forced-labor]
+    ats: smartrecruiters
+    board: ecovadis
+    careers_url: https://careers.smartrecruiters.com/ecovadis
+    hq: Paris, FR
+    locations: [London, UK, New York, NY, Toronto, ON]
+    verified: "2026-10-25"
+    open_jobs: 22
+    notes: "Supply-chain sustainability / human-rights ratings; Ulula (worker-voice, forced-labour detection) now hires through EcoVadis's board."
+
+  - key: sourcemap
+    name: Sourcemap
+    lanes: [supply-chain-forced-labor]
+    ats: breezy
+    board: sourcemap-inc
+    careers_url: https://sourcemap-inc.breezy.hr/
+    hq: New York, NY
+    locations: [New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Supply-chain mapping & traceability (forced-labour compliance) software; small board."
+
+  - key: c4ads
+    name: C4ADS
+    lanes: [supply-chain-forced-labor, economic-security]
+    groups: [sanctions-fincrime, intelligence-security]
+    ats: greenhouse
+    board: c4ads
+    careers_url: https://c4ads.org/careers/
+    hq: Washington, DC
+    locations: [Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Illicit-network & forced-labour / supply-chain investigations; board live but empty at verification (hires analysts and fellows periodically)."
+
+  - key: silverado-policy-accelerator
+    name: Silverado Policy Accelerator
+    lanes: [economic-security, geoeconomics]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://silverado.org/work-at-silverado/
+    hq: Washington, DC
+    locations: [Washington, DC]
+    notes: "Economic-security / trade & tech policy think tank; openings posted on its own page (Greenhouse 'silverado' is an unrelated senior-care company)."
+
+  - key: verite
+    name: Verite
+    lanes: [supply-chain-forced-labor]
+    groups: [trust-safety]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://verite.org/about-us/opportunities/
+    hq: Amherst, MA
+    locations: [Remote US]
+    notes: "Forced-labour / ethical-recruitment research NGO; opportunities page only."
+
+  - key: transparentem
+    name: Transparentem
+    lanes: [supply-chain-forced-labor]
+    groups: [trust-safety]
+    ats: other
+    ats_vendor: hirehive
+    careers_url: https://transparentem.org/job-openings/
+    locations: [Remote US]
+    notes: "Supply-chain labour-abuse investigations NGO; HireHive widget (unsupported)."
+
+  # ------------------------------------------------------------ expert networks & primary research
+  - key: glg
+    name: GLG (Gerson Lehrman Group)
+    lanes: [primary-research-expert-networks, investment-research-dd]
+    groups: [entry-routes]
+    ats: greenhouse
+    board: gersonlehrmangroup
+    careers_url: https://glg.com/careers
+    hq: New York, NY
+    locations: [New York, NY, London, UK, Austin, TX]
+    verified: "2026-10-25"
+    open_jobs: 101
+    notes: "Board token found by resolving a glg.com/job/<id> link. Associate, Service / Client Solutions cohorts (Nov / Feb starts) in NY and London."
+
+  - key: alphasights
+    name: AlphaSights
+    lanes: [primary-research-expert-networks, investment-research-dd]
+    groups: [entry-routes]
+    ats: greenhouse
+    board: alphasights
+    careers_url: https://www.alphasights.com/careers/open-roles
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 64
+    notes: "Associate, Client Service (graduate cohorts) and Launchpad / case-competition programmes."
+
+  - key: guidepoint
+    name: Guidepoint
+    lanes: [primary-research-expert-networks, investment-research-dd]
+    groups: [entry-routes]
+    ats: greenhouse
+    board: guidepoint
+    careers_url: https://www.guidepoint.com/company/careers/
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 114
+    notes: "Campus Client Service Associates; research analysts (incl. healthcare-focus)."
+
+  - key: third-bridge
+    name: Third Bridge
+    lanes: [primary-research-expert-networks, investment-research-dd]
+    groups: [entry-routes]
+    ats: greenhouse
+    board: thirdbridge
+    careers_url: https://www.thirdbridge.com/en-us/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 129
+    notes: "Associates (expert sourcing / Forum interviews), summer interns. A small separate SmartRecruiters 'thirdbridge' board (7 jobs, Japan/tech) is not listed."
+
+  - key: alphasense
+    name: AlphaSense (incl. Tegus)
+    lanes: [primary-research-expert-networks, investment-research-dd]
+    ats: greenhouse
+    board: alphasense
+    careers_url: https://www.alpha-sense.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, London, UK, Remote US]
+    title_filter: '(?i)(research|expert|directed content|content|sector (lead|specialist|project|analyst)|insight|survey|primary|channel|transcript|\banalyst\b|associate, client|\bintern\b|internship|graduate)'
+    verified: "2026-10-25"
+    open_jobs: 212
+    notes: "Tegus expert-call library merged in; Directed Content sector leads, Client Research associates, Expert Network compliance analysts. Filter drops most sales/engineering."
+
+  - key: coleman-research
+    name: Coleman Research
+    lanes: [primary-research-expert-networks]
+    ats: greenhouse
+    board: colemanresearch
+    careers_url: https://www.colemanrg.com/careers
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 11
+    notes: "Associate, Client Management cohorts (November / winter starts)."
+
+  - key: atheneum
+    name: Atheneum
+    lanes: [primary-research-expert-networks]
+    ats: recruitee
+    board: atheneum
+    careers_url: https://www.atheneum.ai/careers
+    hq: Berlin, DE
+    locations: [New York, NY, London, UK, Berlin, DE]
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: "Associate - Client Delivery (US team, EMEA, language-enabled)."
+
+  - key: arbolus
+    name: Arbolus
+    lanes: [primary-research-expert-networks]
+    ats: teamtailor
+    board: careers.arbolus.com
+    careers_url: https://careers.arbolus.com/
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 7
+    notes: "Teamtailor on its own host (careers.arbolus.com/jobs.rss returned 7 items; arbolus.teamtailor.com is 404). Professional Services Associates."
+
+  - key: newtonx
+    name: NewtonX
+    lanes: [primary-research-expert-networks]
+    ats: ashby
+    board: newtonx
+    careers_url: https://jobs.ashbyhq.com/newtonx
+    hq: New York, NY
+    locations: [New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 8
+    notes: "B2B primary research / expert surveys."
+
+  - key: capvision
+    name: Capvision
+    lanes: [primary-research-expert-networks]
+    ats: greenhouse
+    board: capvision
+    careers_url: https://www.capvision.com/careers
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 9
+    notes: "Associate, Client Services cohorts (fresh graduates)."
+
+  - key: dialectica
+    name: Dialectica
+    lanes: [primary-research-expert-networks]
+    groups: [entry-routes]
+    ats: other
+    ats_vendor: workable
+    careers_url: https://www.dialectica.io/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    notes: "Careers page embeds Workable (account believed to be 'dialectica'); Workable API rate-limited during research, so unverified. Large graduate Research Associate / Associate intake."
+
+  - key: prosapient
+    name: proSapient
+    lanes: [primary-research-expert-networks]
+    ats: other
+    ats_vendor: workable
+    careers_url: https://apply.workable.com/prosapient/
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    notes: "Workable slug 'prosapient' (linked from prosapient.com/careers); API rate-limited during research, so unverified. Graduate associates."
+
+  - key: inex-one
+    name: Inex One
+    lanes: [primary-research-expert-networks]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://inex.one/careers
+    locations: [New York, NY, London, UK]
+    notes: "Expert-network platform; jobs are static pages under inex.one/careers/."
+
+  # ------------------------------------------------------------ investment research / due diligence
+  - key: bridgewater-associates
+    name: Bridgewater Associates
+    lanes: [investment-research-dd, geoeconomics, geopolitical-analysis]
+    groups: [entry-routes]
+    ats: greenhouse
+    board: bridgewater89
+    careers_url: https://www.bridgewater.com/working-at-bridgewater
+    hq: Westport, CT
+    locations: [Westport, CT, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 18
+    notes: "Investment Associate (incl. intern) programme - global macro / geopolitical research."
+
+  - key: point72
+    name: Point72
+    lanes: [investment-research-dd]
+    groups: [entry-routes]
+    ats: greenhouse
+    board: point72
+    careers_url: https://careers.point72.com/
+    hq: Stamford, CT
+    locations: [New York, NY, Stamford, CT, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 215
+    notes: "Point72 Academy Investment Analyst programme / internships, research associates, macro & market intelligence."
+
+  - key: schonfeld
+    name: Schonfeld
+    lanes: [investment-research-dd]
+    ats: greenhouse
+    board: schonfeld
+    careers_url: https://www.schonfeld.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 67
+    notes: "Investment-analyst internships (e.g. Emerging Markets & Delta One), fundamental research analysts."
+
+  - key: viking-global-investors
+    name: Viking Global Investors
+    lanes: [investment-research-dd]
+    ats: greenhouse
+    board: vikingglobalinvestors
+    careers_url: https://vikingglobal.com/jobs/
+    hq: Stamford, CT
+    locations: [New York, NY, Stamford, CT]
+    verified: "2026-10-25"
+    open_jobs: 7
+    notes: "Fundamental long/short; opportunistic investment-team roles."
+
+
+  - key: blackstone
+    name: Blackstone
+    lanes: [investment-research-dd]
+    groups: [intelligence-security, entry-routes]
+    ats: workday
+    board: blackstone/wd1/Blackstone_Careers
+    careers_url: https://www.blackstone.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    title_filter: '(?i)((?<!artificial )(?<!business )(?<!market )(?<!competitive )(?<!customer )\bintelligence\b|\bthreat|\bprotective\b|executive protection|close protection|\bGSOC\b|security operations cent|global security|corporate security|physical security|\bsecurity (risk|analyst|associate|coordinator|investigat|intelligence)|\binvestigat|\bcrisis\b|travel (risk|security)|\bOSINT\b|open[- ]source|counter[- ]?terror|special agent|insider (risk|threat)|(business|firm) resilien|\bresearch\b|due diligence|\binvest|private equity|acquisition|portfolio|underwrit|\banalyst\b|campus|summer|\bintern\b|internship|geopolit|macro|economist)'
+    verified: "2026-10-25"
+    open_jobs: 146
+    notes: "title_filter = intelligence-security's security/intelligence filter + investment-research terms (this file loads first, so its filter is the one used). Analyst programmes, BXCI / PE / real-estate research and Blackstone Investment Strategy."
+
+  - key: kkr
+    name: KKR (incl. KKR Global Institute, KKR Capstone)
+    lanes: [investment-research-dd, geopolitical-analysis, geoeconomics]
+    groups: [entry-routes]
+    ats: greenhouse
+    board: stage
+    careers_url: https://www.kkr.com/careers/career-opportunities
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 140
+    notes: "Greenhouse token is literally 'stage' (board name 'Careers at KKR', embedded on kkr.com). Associates/analysts across PE, credit, Capstone, Global Institute (geopolitics & macro) and insurance (Global Atlantic) public policy."
+
+  - key: carlyle
+    name: The Carlyle Group
+    lanes: [investment-research-dd, geopolitical-analysis]
+    groups: [entry-routes]
+    ats: workday
+    board: carlyle/wd1/Carlyle
+    careers_url: https://www.carlyle.com/careers
+    hq: Washington, DC
+    locations: [New York, NY, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 72
+    notes: "2-year associate / analyst programmes; Carlyle's global research & geopolitical risk team sits in DC/NY."
+
+  - key: apollo-global-management
+    name: Apollo Global Management
+    lanes: [investment-research-dd]
+    groups: [entry-routes]
+    ats: workday
+    board: athene/wd5/Apollo_Careers
+    careers_url: https://www.apollo.com/careers
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 54
+    notes: "Workday tenant is 'athene' (Athene is Apollo's retirement business), site Apollo_Careers."
+
+  - key: tpg
+    name: TPG
+    lanes: [investment-research-dd]
+    groups: [entry-routes]
+    ats: greenhouse
+    board: tpgcareers
+    careers_url: https://www.tpg.com/careers
+    hq: Fort Worth, TX
+    locations: [New York, NY, San Francisco, CA, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 20
+    notes: "Investment analysts / associates (credit, asset-based finance, PE)."
+
+  - key: warburg-pincus
+    name: Warburg Pincus
+    lanes: [investment-research-dd]
+    groups: [entry-routes]
+    ats: greenhouse
+    board: warburgpincusllc
+    careers_url: https://warburgpincus.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: "US Analyst Program (full-time) and European investing internships."
+
+  - key: general-atlantic
+    name: General Atlantic
+    lanes: [investment-research-dd]
+    groups: [entry-routes]
+    ats: greenhouse
+    board: generalatlantic
+    careers_url: https://www.generalatlantic.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 13
+    notes: "Growth-equity analysts (sector / portfolio-management) and associates."
+
+  - key: bain-capital
+    name: Bain Capital
+    lanes: [investment-research-dd]
+    groups: [entry-routes]
+    ats: workday
+    board: baincapital/wd1/External_Public
+    careers_url: https://www.baincapital.com/careers
+    hq: Boston, MA
+    locations: [Boston, MA, New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 31
+    notes: "PE / credit / public-equity analysts and associates."
+
+  - key: citadel
+    name: Citadel
+    lanes: [investment-research-dd, geoeconomics]
+    groups: [entry-routes]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.citadel.com/careers/open-opportunities/
+    hq: Miami, FL
+    locations: [New York, NY, Miami, FL, London, UK]
+    notes: "Custom careers site (blocks scripted fetches). Fundamental equity research associates / investment analysts; Global Macro & economics research."
+
+  - key: two-sigma
+    name: Two Sigma
+    lanes: [investment-research-dd]
+    ats: other
+    ats_vendor: avature
+    careers_url: https://careers.twosigma.com/
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    notes: "Avature portal; mostly quant/engineering, some research & macro roles."
+
+  - key: de-shaw
+    name: D. E. Shaw & Co.
+    lanes: [investment-research-dd]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.deshaw.com/careers/choose-your-path
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    notes: "Custom applicant site (apply.deshaw.com); fundamental research analyst and macro roles."
+
+  - key: millennium-management
+    name: Millennium Management
+    lanes: [investment-research-dd]
+    ats: other
+    ats_vendor: eightfold
+    careers_url: https://career.mlp.com/careers
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    notes: "Eightfold careers site (mlp.eightfold.ai); fundamental equity research analysts / associates."
+
+  - key: balyasny-asset-management
+    name: Balyasny Asset Management (BAM)
+    lanes: [investment-research-dd, geoeconomics]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.bamfunds.com/careers
+    hq: Chicago, IL
+    locations: [New York, NY, Chicago, IL, London, UK]
+    notes: "Jobs served from a Salesforce-backed site; early-career investment analyst programme, BAM macro/geopolitical research."
+
+  - key: brevan-howard
+    name: Brevan Howard
+    lanes: [investment-research-dd, geoeconomics]
+    ats: other
+    ats_vendor: phenom
+    careers_url: https://careers.brevanhoward.com/gb/en/home
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    notes: "Phenom careers site; global macro research analysts."

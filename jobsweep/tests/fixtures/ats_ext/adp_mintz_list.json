@@ -1,0 +1,713 @@
+{
+ "jobRequisitions": [
+  {
+   "itemID": "9207542293906_1",
+   "postingInstructions": [],
+   "links": [],
+   "clientRequisitionID": "1076",
+   "customFieldGroup": {
+    "dateFields": [
+     {
+      "dateValue": "2026-10-06T08:50Z",
+      "nameCode": {
+       "codeValue": "PostingDate"
+      }
+     },
+     {
+      "dateValue": "2026-10-25T12:43Z",
+      "nameCode": {
+       "codeValue": "CurrentServerDateTime"
+      }
+     }
+    ],
+    "indicatorFields": [
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "PriortyStatusFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "InternalPostingFlag"
+      }
+     },
+     {
+      "indicatorValue": true,
+      "nameCode": {
+       "codeValue": "MinValue"
+      }
+     },
+     {
+      "indicatorValue": true,
+      "nameCode": {
+       "codeValue": "IsVsidApplicable"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsSassDlReqForExtPostFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsSassDlReqForIntPostFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsMonetaryFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsNonMonetaryFlag"
+      }
+     }
+    ],
+    "numberFields": [
+     {
+      "categoryCode": {
+       "codeValue": "ApplicantCount"
+      },
+      "numberValue": 114.0
+     },
+     {
+      "categoryCode": {
+       "codeValue": "AwardAmount"
+      }
+     }
+    ],
+    "stringFields": [
+     {
+      "nameCode": {
+       "codeValue": "ExternalJobID"
+      },
+      "stringValue": "1009378"
+     },
+     {
+      "nameCode": {
+       "codeValue": "CareerCenterRefId"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "GuidelineOid"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "CurrencySymbolOrCode"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "SassStatus"
+      },
+      "stringValue": "null"
+     },
+     {
+      "nameCode": {
+       "codeValue": "ReferralEligible"
+      },
+      "stringValue": "0"
+     },
+     {
+      "nameCode": {
+       "codeValue": "HomeDepartment"
+      },
+      "stringValue": ""
+     },
+     {
+      "nameCode": {
+       "codeValue": "JobClass"
+      }
+     }
+    ]
+   },
+   "organizationalUnits": [],
+   "postDate": "2026-10-06T18:20:00",
+   "requisitionLocations": [
+    {
+     "address": {
+      "cityName": "Mumbai",
+      "countrySubdivisionLevel1": {
+       "codeValue": "Maharashtra"
+      },
+      "postalCode": "400052"
+     },
+     "aliasNames": [],
+     "nameCode": {
+      "shortName": " Mumbai, Maharashtra, IN"
+     }
+    }
+   ],
+   "requisitionTitle": "Director - India",
+   "screeningRequirements": [],
+   "sponsoredVisaTypeCodes": []
+  },
+  {
+   "itemID": "9206787267556_1",
+   "postingInstructions": [],
+   "links": [],
+   "clientRequisitionID": "1073",
+   "customFieldGroup": {
+    "dateFields": [
+     {
+      "dateValue": "2026-07-15T10:02Z",
+      "nameCode": {
+       "codeValue": "PostingDate"
+      }
+     },
+     {
+      "dateValue": "2026-10-25T12:43Z",
+      "nameCode": {
+       "codeValue": "CurrentServerDateTime"
+      }
+     }
+    ],
+    "indicatorFields": [
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "PriortyStatusFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "InternalPostingFlag"
+      }
+     },
+     {
+      "indicatorValue": true,
+      "nameCode": {
+       "codeValue": "MinValue"
+      }
+     },
+     {
+      "indicatorValue": true,
+      "nameCode": {
+       "codeValue": "IsVsidApplicable"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsSassDlReqForExtPostFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsSassDlReqForIntPostFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsMonetaryFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsNonMonetaryFlag"
+      }
+     }
+    ],
+    "numberFields": [
+     {
+      "categoryCode": {
+       "codeValue": "ApplicantCount"
+      },
+      "numberValue": 97.0
+     },
+     {
+      "categoryCode": {
+       "codeValue": "AwardAmount"
+      }
+     }
+    ],
+    "stringFields": [
+     {
+      "nameCode": {
+       "codeValue": "ExternalJobID"
+      },
+      "stringValue": "1001820"
+     },
+     {
+      "nameCode": {
+       "codeValue": "CareerCenterRefId"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "GuidelineOid"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "CurrencySymbolOrCode"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "SassStatus"
+      },
+      "stringValue": "null"
+     },
+     {
+      "nameCode": {
+       "codeValue": "ReferralEligible"
+      },
+      "stringValue": "0"
+     },
+     {
+      "nameCode": {
+       "codeValue": "HomeDepartment"
+      },
+      "stringValue": ""
+     },
+     {
+      "nameCode": {
+       "codeValue": "JobClass"
+      }
+     }
+    ]
+   },
+   "organizationalUnits": [],
+   "postDate": "2026-07-15T19:32:00",
+   "requisitionLocations": [
+    {
+     "address": {
+      "cityName": "Worthing",
+      "countrySubdivisionLevel1": {
+       "codeValue": "West Sussex"
+      },
+      "postalCode": "BN14 9BY"
+     },
+     "aliasNames": [],
+     "nameCode": {
+      "shortName": " Worthing, West Sussex, GB"
+     }
+    }
+   ],
+   "requisitionTitle": "Senior Investigator",
+   "screeningRequirements": [],
+   "sponsoredVisaTypeCodes": []
+  },
+  {
+   "itemID": "9206552413069_1",
+   "postingInstructions": [],
+   "links": [],
+   "clientRequisitionID": "1067",
+   "customFieldGroup": {
+    "codeFields": [
+     {
+      "codeValue": "AN",
+      "nameCode": {
+       "codeValue": "SalaryType"
+      },
+      "shortName": "Annually"
+     },
+     {
+      "codeValue": "RANGE",
+      "nameCode": {
+       "codeValue": "SalaryRangeType"
+      },
+      "shortName": "RANGE"
+     }
+    ],
+    "dateFields": [
+     {
+      "dateValue": "2026-07-10T09:31Z",
+      "nameCode": {
+       "codeValue": "PostingDate"
+      }
+     },
+     {
+      "dateValue": "2026-10-25T12:43Z",
+      "nameCode": {
+       "codeValue": "CurrentServerDateTime"
+      }
+     }
+    ],
+    "indicatorFields": [
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "PriortyStatusFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "InternalPostingFlag"
+      }
+     },
+     {
+      "indicatorValue": true,
+      "nameCode": {
+       "codeValue": "MinValue"
+      }
+     },
+     {
+      "indicatorValue": true,
+      "nameCode": {
+       "codeValue": "IsVsidApplicable"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsSassDlReqForExtPostFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsSassDlReqForIntPostFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsMonetaryFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsNonMonetaryFlag"
+      }
+     }
+    ],
+    "numberFields": [
+     {
+      "categoryCode": {
+       "codeValue": "ApplicantCount"
+      },
+      "numberValue": 81.0
+     },
+     {
+      "categoryCode": {
+       "codeValue": "AwardAmount"
+      }
+     }
+    ],
+    "stringFields": [
+     {
+      "nameCode": {
+       "codeValue": "ExternalJobID"
+      },
+      "stringValue": "999363"
+     },
+     {
+      "nameCode": {
+       "codeValue": "CareerCenterRefId"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "GuidelineOid"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "CurrencySymbolOrCode"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "SassStatus"
+      },
+      "stringValue": "null"
+     },
+     {
+      "nameCode": {
+       "codeValue": "ReferralEligible"
+      },
+      "stringValue": "0"
+     },
+     {
+      "nameCode": {
+       "codeValue": "HomeDepartment"
+      },
+      "stringValue": ""
+     },
+     {
+      "nameCode": {
+       "codeValue": "JobClass"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "SalaryRange"
+      },
+      "stringValue": "110000.00 to 125000.00 (USD) Annually"
+     }
+    ]
+   },
+   "organizationalUnits": [],
+   "payGradeRange": {
+    "minimumRate": {
+     "amountValue": 110000.0,
+     "currencyCode": "USD"
+    },
+    "maximumRate": {
+     "amountValue": 125000.0,
+     "currencyCode": "USD"
+    }
+   },
+   "postDate": "2026-07-10T19:01:00",
+   "requisitionLocations": [
+    {
+     "address": {
+      "cityName": "Washington",
+      "countrySubdivisionLevel1": {
+       "codeValue": "DC"
+      },
+      "postalCode": "20036"
+     },
+     "aliasNames": [],
+     "nameCode": {
+      "shortName": " Washington, DC, US"
+     }
+    }
+   ],
+   "requisitionTitle": "Senior Managing Investigator - Disputes",
+   "screeningRequirements": [],
+   "sponsoredVisaTypeCodes": []
+  },
+  {
+   "itemID": "9206644501083_1",
+   "postingInstructions": [],
+   "links": [],
+   "clientRequisitionID": "1069",
+   "customFieldGroup": {
+    "dateFields": [
+     {
+      "dateValue": "2026-06-17T09:13Z",
+      "nameCode": {
+       "codeValue": "PostingDate"
+      }
+     },
+     {
+      "dateValue": "2026-10-25T12:43Z",
+      "nameCode": {
+       "codeValue": "CurrentServerDateTime"
+      }
+     }
+    ],
+    "indicatorFields": [
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "PriortyStatusFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "InternalPostingFlag"
+      }
+     },
+     {
+      "indicatorValue": true,
+      "nameCode": {
+       "codeValue": "MinValue"
+      }
+     },
+     {
+      "indicatorValue": true,
+      "nameCode": {
+       "codeValue": "IsVsidApplicable"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsSassDlReqForExtPostFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsSassDlReqForIntPostFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsMonetaryFlag"
+      }
+     },
+     {
+      "indicatorValue": false,
+      "nameCode": {
+       "codeValue": "IsNonMonetaryFlag"
+      }
+     }
+    ],
+    "numberFields": [
+     {
+      "categoryCode": {
+       "codeValue": "ApplicantCount"
+      },
+      "numberValue": 94.0
+     },
+     {
+      "categoryCode": {
+       "codeValue": "AwardAmount"
+      }
+     }
+    ],
+    "stringFields": [
+     {
+      "nameCode": {
+       "codeValue": "ExternalJobID"
+      },
+      "stringValue": "1000317"
+     },
+     {
+      "nameCode": {
+       "codeValue": "CareerCenterRefId"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "GuidelineOid"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "CurrencySymbolOrCode"
+      }
+     },
+     {
+      "nameCode": {
+       "codeValue": "SassStatus"
+      },
+      "stringValue": "null"
+     },
+     {
+      "nameCode": {
+       "codeValue": "ReferralEligible"
+      },
+      "stringValue": "0"
+     },
+     {
+      "nameCode": {
+       "codeValue": "HomeDepartment"
+      },
+      "stringValue": ""
+     },
+     {
+      "nameCode": {
+       "codeValue": "JobClass"
+      }
+     }
+    ]
+   },
+   "organizationalUnits": [],
+   "postDate": "2026-06-17T18:43:00",
+   "requisitionLocations": [
+    {
+     "address": {
+      "cityName": "",
+      "countrySubdivisionLevel1": {
+       "codeValue": ""
+      },
+      "postalCode": ""
+     },
+     "aliasNames": [],
+     "nameCode": {}
+    },
+    {
+     "address": {
+      "cityName": "Washington",
+      "countrySubdivisionLevel1": {
+       "codeValue": "DC"
+      },
+      "postalCode": "20036"
+     },
+     "aliasNames": [],
+     "nameCode": {
+      "shortName": " Washington, DC, US"
+     }
+    }
+   ],
+   "requisitionTitle": "Managing Investigator - Executive Due Diligence",
+   "screeningRequirements": [],
+   "sponsoredVisaTypeCodes": [],
+   "workLevelCode": {
+    "shortName": "Full Time"
+   }
+  }
+ ],
+ "meta": {
+  "startSequence": 1,
+  "totalNumber": 4,
+  "links": [
+   {
+    "schema": "LOCATION",
+    "payLoadArguments": [
+     {
+      "argumentPath": "9201374716839_1",
+      "argumentValue": "Canada - Montreal"
+     },
+     {
+      "argumentPath": "9201374716870_1",
+      "argumentValue": "Canada - Toronto"
+     },
+     {
+      "argumentPath": "9201584158272_1",
+      "argumentValue": "Canada - Toronto GV, Toronto, ON, CA"
+     }
+    ]
+   },
+   {
+    "schema": "WORKER CATEGORY",
+    "payLoadArguments": [
+     {
+      "argumentPath": "9201279234867_49",
+      "argumentValue": "COBRA"
+     },
+     {
+      "argumentPath": "1:132",
+      "argumentValue": "Consultant"
+     },
+     {
+      "argumentPath": "1:133",
+      "argumentValue": "Contract"
+     }
+    ]
+   },
+   {
+    "schema": "JOB CLASS",
+    "payLoadArguments": [
+     {
+      "argumentPath": "1:150",
+      "argumentValue": "Clerical"
+     },
+     {
+      "argumentPath": "1:151",
+      "argumentValue": "Management"
+     },
+     {
+      "argumentPath": "1:152",
+      "argumentValue": "Manual Labor"
+     }
+    ]
+   }
+  ],
+  "eccCount": 4,
+  "iccCount": 4
+ }
+}

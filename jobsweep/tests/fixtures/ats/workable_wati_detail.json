@@ -1,0 +1,46 @@
+{
+ "_capture": {
+  "source": "github.com/jobverify/jobverify-backend scraper/wati/fixtures (raw Workable API captures)",
+  "captured_at": "2026-10-23T02:55:03.631Z",
+  "note": "apply.workable.com returned HTTP 429 (Cloudflare 1015) to this egress on 2026-10-25; results trimmed"
+ },
+ "request": {
+  "url": "https://apply.workable.com/api/v2/accounts/wati-dot-i-o/jobs/89E979B9A0"
+ },
+ "response": {
+  "id": 6216859,
+  "shortcode": "89E979B9A0",
+  "title": "Product Support Associate - L2",
+  "remote": false,
+  "location": {
+   "city": "Bengaluru",
+   "country": "India",
+   "countryCode": "IN",
+   "region": "Karnataka"
+  },
+  "locations": [
+   {
+    "city": "Bengaluru",
+    "country": "India",
+    "countryCode": "IN",
+    "hidden": false,
+    "region": "Karnataka"
+   }
+  ],
+  "state": "published",
+  "isInternal": false,
+  "code": "",
+  "published": "2026-10-23T00:00:00.000Z",
+  "type": "full",
+  "language": "en",
+  "department": [
+   "Customer Service"
+  ],
+  "accountUid": "da70e071-85cc-431f-b985-66f433ef6d33",
+  "approvalStatus": "approved",
+  "workplace": "hybrid",
+  "description": "<p><strong>About Wati </strong><br>Started as a WhatsApp team inbox in 2020, Wati has evolved into an AI-powered customer engagement platform that goes beyond a single channel. Designed for businesses that sell, support, and grow through conversations, Wati observes customer intent in real time, decides the next best revenue action, and executes it across marketing, sales, and support — on WhatsApp, Instagram, Facebook, TikTok, SMS, and more.</p><p>Trusted by over 16,000 customers across 190+ countries, Wati simplifies complex operations and business conversations with a unified inbox, no-code automation, and Wati AI powered by AI Copilot, Astra AI Agent and flexibility to add your own LLMs/AI.</p><p>Proudly backed by Tiger Global, Sequoia Capital, DST Global, and Shopify, and recognised as a Premium Partner of Meta and Google.</p><p>Wati, the AI-Powered Customer Engagement Platform for Revenue Growth.</p><p><strong>About the role- </strong></p><p>A Level 2 Product Support Engineer - Level 2 is crucial in providing advanced technical assistance to customers or internal teams beyond what Level 1 support can handle. They are responsible for troubleshooting complex technical issues, resolving problems, and ensuring high customer satisfaction. <br><br>This role follows rotational shifts across APAC (6 AM–3 PM IST), General (9 AM–6 PM / 10 AM–7 PM IST), and EMEA (1 PM–9 PM / 2 PM–10 PM IST). There are no night shifts, but flexibility is required during incident escalations. The role also include weekend shifts while maintaining a 5-day work week. <br><strong><br>Key responsibilities include:</strong></p><ul><li>Technical Expertise: Serve as the second-level technical support expert for our SaaS product, demonstrating an in-depth understanding of our software's functionalities, configurations, and integrations.</li><li>Advanced Troubleshooting: Investigate and resolve complex technical issues escalated from Level 1 support, including but not limited to software bugs, integration problems, and data-related issues.</li><li>Customer Interaction: Communicate with customers or end-users in a professional, empathetic, and customer-centric manner, ensuring their technical issues are addressed promptly and effectively.</li><li>Documentation: Accurately document all customer interactions, resolutions, and technical solutions in the support ticketing system, maintaining comprehensive and organised records.</li><li>Escalation Management: Collaborate closely with Level 1 support agents, product development teams, and other internal departments to escalate and prioritise critical issues and ensure timely resolutions.</li><li>Training and Mentorship: Assist in training and mentoring Level 1 support agents, sharing your technical knowledge and best practices to improve their skills and knowledge.</li><li>Product Knowledge Sharing: Stay updated with the latest features, updates, and enhancements of our SaaS product, and share this knowledge with the support team and customers.</li><li>Quality Assurance: Ensure that all support interactions meet or exceed established quality and service standards, continuously improving the support process.</li><li>Feedback Loop: Provide valuable feedback to the product development team based on recurring technical issues, customer feedback, and suggestions for product improvement.</li></ul>",
+  "requirements": "<ul><li>Bachelor's degree in Computer Science, Information Technology, or a related field</li><li>4+ years experience in a technical support role, with a strong focus on troubleshooting complex technical issues related to SaaS products.</li><li>Proficiency in using and troubleshooting SaaS applications.</li><li>Hands-on experience with APIs, webhooks, scripting, and working knowledge of MongoDB or similar databases.</li><li>Knowledge of data handling, migration, and security within SaaS environments.</li><li>Experience with remote support tools and troubleshooting methods.</li><li>Exceptional communication skills, both written and verbal, with the ability to convey technical concepts to non-technical users.</li><li>Experience with modern customer support platforms (e.g., Intercom, Zendesk, Freshdesk).</li><li>Strong analytical and problem-solving skills with the ability to think critically and logically.</li><li>Ability to work collaboratively with cross-functional teams and guide junior support agents.</li><li>Relevant technical certifications (e.g., ITIL, SaaS-specific certifications) would be an added advantage</li></ul>",
+  "benefits": ""
+ }
+}

@@ -1,0 +1,795 @@
+# Employer registry -- defense tech, intelligence-data firms and government research contractors
+# (lanes: regional-research-specialist, defense-intel-data; also strategic-intelligence, osint,
+#  threat-intelligence, counterterrorism; supply-chain / sanctions data firms also carry
+#  geopolitical-risk / sanctions-fincrime groups).
+#
+# Coverage (researched 2026-10-25; every non-"other" board was hit through its public API in this session and
+# open_jobs is the count it returned -- Workday totals display-cap at 2000):
+#   * Defense tech: Palantir, Anduril, Shield AI, Scale AI, Saronic, Helsing (London), Adarga (UK).
+#   * Intelligence / geospatial / OSINT data: Vannevar Labs, Rhombus Power, HawkEye 360, BlackSky, Planet, Vantor
+#     (ex-Maxar Intelligence), Air (ex-Govini), Babel Street, Strider, Sayari, Janes, Altana, Exiger, Two Six
+#     Technologies, C4ADS; manual: Primer, Interos, BigBear.ai, Expedition Technology, Windward, In-Q-Tel.
+#   * Government services contractors hiring all-source / OSINT / targeting / GEOINT / language & regional analysts:
+#     Booz Allen, CACI, Leidos, GDIT, KBR, Parsons, Northrop Grumman, Guidehouse, Amentum (sweepable, with
+#     search_terms + title_filter); manual: SAIC, ManTech, Peraton, BAE Systems, Lockheed Martin, Accenture Federal,
+#     Deloitte, SOSi, HII Mission Technologies, Culmen, Chenega, Mission Essential, Amyx, SPA, DCS, Prescient Edge,
+#     Noblis, Riverside Research, QinetiQ.
+#   * FFRDCs / UARCs / defense research nonprofits: RAND, ANSER (sweepable); MITRE, CNA, IDA, JHU APL,
+#     MIT Lincoln Lab, GTRI (manual).
+#   Title filters: CONTRACTOR filter (intel / OSINT / targeting / GEOINT / SIGINT / language / regional / CT / IO
+#   vocabulary, excludes "Artificial/Business Intelligence") on the big contractor boards; DEFENSE-TECH filter
+#   (drops engineering / production / finance titles, keeps analyst / strategy / BD-ops / intelligence titles) on the
+#   big startup boards.
+#
+# Notable gaps / caveats:
+#   * Unsupported ATS (manual list): iCIMS (Peraton, BigBear.ai, Culmen, Chenega, Amyx, SPA, Noblis, Riverside,
+#     In-Q-Tel, JHU APL), Taleo Business Edition (IDA, DCS), Avature (ManTech, Deloitte), Brassring behind Phenom
+#     (BAE Systems), Eightfold (Lockheed Martin), SuccessFactors (MIT Lincoln Lab, HII Mission Technologies,
+#     QinetiQ), Dayforce (CNA), HiBob (Primer), Paycor (Interos), Gem (Expedition Technology), Comeet (Windward),
+#     HRSmart (Prescient Edge), custom/blocked (SAIC jobs.saic.com 403, SOSi behind Incapsula, Accenture Federal,
+#     GTRI, Mission Essential). iCIMS boards sit behind an AWS WAF captcha from this egress.
+#   * MITRE's Workday site (mitre/wd5/MITRE) is unlisted: job detail endpoints work but the list endpoint returns
+#     0, so it is manual via its Phenom front end.
+#   * Dropped: Centauri (acquired by KBR), Rebellion Defense (Greenhouse board empty), Premise (no public board
+#     found), Valiant Integrated Services (website parked; jobs only on ClearanceJobs; mostly senior ex-military
+#     trainer roles), Castelion / Epirus / Applied Intuition (engineering-only boards, no analyst hiring),
+#     Penn State ARL (Workday board is all of Penn State; ARL postings are engineering), Thomson Reuters Special
+#     Services (no TRSS-tagged analyst roles found on the TR Workday board), "Ronin" (could not identify).
+#   * Most contractor analyst roles require an active TS/SCI; entry-level ("Junior", "Analyst I", "Associate")
+#     postings exist at Booz Allen, Leidos, CACI, Amentum, SPA, CNA, ANSER and the data startups.
+group: intelligence-security
+employers:
+
+  # ------------------------------------------------------------------ defense tech
+  - key: palantir
+    name: Palantir Technologies
+    lanes: [defense-intel-data, strategic-intelligence]
+    ats: lever
+    board: palantir
+    careers_url: https://www.palantir.com/careers/
+    hq: Denver, CO
+    locations: [New York, NY, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 309
+    notes: "Deployment Strategist (incl. US Government / Intel), fellowships; NYC is the largest office. Board < 400, no title filter."
+
+  - key: anduril
+    name: Anduril Industries
+    lanes: [defense-intel-data]
+    ats: greenhouse
+    board: andurilindustries
+    careers_url: https://www.anduril.com/careers
+    hq: Costa Mesa, CA
+    locations: [Washington, DC, Costa Mesa, CA, London, UK]
+    title_filter: &defense_tech_filter '^(?!.*\b(engineer|engineering|technician|machinist|mechanic|welder|assembler|developer|scientist|recruiter|counsel|accountant|buyer|inspector|electrician|operator|designer|architect|production|materials?|warehouse|inventory|logistics|facilities|kitchen|finance|financial|FP&A|pricing|supply chain|sourcing|procurement|payroll|administrator|business systems|loads|configuration|workplace|property|marketing)\b).*\b(analyst|intelligence|intel|OSINT|open[- ]source|geospatial|GEOINT|imagery|SIGINT|threat|counterintelligence|mission insights|wargam|strategy|strategic|policy|government|international|regional|foreign|country|early career|graduate|fellow|business operations|research|deployment strategist)'
+    verified: "2026-10-25"
+    open_jobs: 2510
+    notes: "Huge engineering-heavy board; filter keeps ~85 titles (Mission Analyst, Business Operations Associate, Counterintelligence & Security Risk Analyst, Wargaming Research Analyst, early-career business ops)."
+
+  - key: shield-ai
+    name: Shield AI
+    lanes: [defense-intel-data]
+    ats: lever
+    board: shieldai
+    careers_url: https://shield.ai/careers/
+    hq: San Diego, CA
+    locations: [Washington, DC, San Diego, CA, Dallas, TX]
+    title_filter: *defense_tech_filter
+    verified: "2026-10-25"
+    open_jobs: 668
+    notes: "Market-intelligence / price-to-win analysts, strategy & operations, government relations."
+
+  - key: scale-ai
+    name: Scale AI
+    lanes: [defense-intel-data]
+    ats: greenhouse
+    board: scaleai
+    careers_url: https://scale.com/careers
+    hq: San Francisco, CA
+    locations: [New York, NY, Washington, DC, London, UK]
+    title_filter: '(?i)(trust|safety|safeguard|integrity|abuse|\bpolic(y|ies)\b|enforcement|moderat|\brisk\b|investigat|threat|fraud|\bscams?\b|\bspam\b|election|misinformation|disinformation|influence op|human rights|global affairs|public affairs|government affairs|\bharms?\b|\bharmful\b|child|extremis|red team|regulat|preparedness|governance|national security|forecast|geopolit|model behavio|responsible|societal|alignment|frontier risk|deployment strategist|public sector|\bdefen[cs]e\b|intelligence|mission|government|\bDoD\b|army|navy|air force|space force|fellow)'
+    verified: "2026-10-25"
+    open_jobs: 171
+    notes: "Public Sector (Deployment Strategist - DoD/DHS/IC) out of DC; Human Frontier Collective fellowships. Also in trust-safety.yaml; this file loads first, so the title_filter here is the union of both groups' filters."
+
+  - key: saronic
+    name: Saronic Technologies
+    lanes: [defense-intel-data]
+    ats: ashby
+    board: saronic
+    careers_url: https://www.saronic.com/careers
+    hq: Austin, TX
+    locations: [Austin, TX, Washington, DC]
+    title_filter: *defense_tech_filter
+    verified: "2026-10-25"
+    open_jobs: 235
+    notes: "Autonomous surface vessels; few analyst roles (Mission Operations Analyst)."
+
+  - key: helsing
+    name: Helsing
+    lanes: [defense-intel-data]
+    ats: greenhouse
+    board: helsing
+    careers_url: https://helsing.ai/jobs
+    hq: Munich, Germany
+    locations: [London, UK, Munich, Germany]
+    title_filter: *defense_tech_filter
+    verified: "2026-10-25"
+    open_jobs: 160
+    notes: "European defence-AI company with a large London office; mostly engineering, filter keeps strategy / programme / international roles."
+
+  - key: adarga
+    name: Adarga
+    lanes: [defense-intel-data, osint]
+    ats: recruitee
+    board: adarga
+    careers_url: https://www.adarga.ai/careers
+    hq: London, UK
+    locations: [London, UK]
+    verified: "2026-10-25"
+    open_jobs: 2
+    notes: "UK defence & national-security information-intelligence (AI over open-source data). Small board."
+
+  # ------------------------------------------------------------------ intelligence / geospatial / OSINT data firms
+  - key: vannevar-labs
+    name: Vannevar Labs
+    lanes: [defense-intel-data, osint, regional-research-specialist, strategic-intelligence]
+    ats: greenhouse
+    board: vannevarlabs
+    careers_url: https://www.vannevarlabs.com/careers
+    hq: Palo Alto, CA
+    locations: [Washington, DC, Tampa, FL, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 30
+    notes: "Foreign-language open-source data for DoD/IC; Mission Lead / Mission Strategist roles (clearance), MBA intern."
+
+  - key: rhombus-power
+    name: Rhombus Power
+    lanes: [defense-intel-data, regional-research-specialist, strategic-intelligence]
+    ats: greenhouse
+    board: rhombuspower
+    careers_url: https://rhombuspower.com/careers
+    hq: Palo Alto, CA
+    locations: [Washington, DC, Palo Alto, CA]
+    verified: "2026-10-25"
+    open_jobs: 14
+    notes: "AI strategic-warning platform (Guardian); hires regional Intelligence Analyst SMEs (Asia-Pacific, Middle East/South Asia) in DC."
+
+  - key: hawkeye-360
+    name: HawkEye 360
+    lanes: [defense-intel-data]
+    ats: greenhouse
+    board: hawkeye360
+    careers_url: https://www.he360.com/careers/
+    hq: Herndon, VA
+    locations: [Herndon, VA]
+    verified: "2026-10-25"
+    open_jobs: 16
+    notes: "Space-based RF geolocation; occasional RF / mission analyst roles."
+
+  - key: blacksky
+    name: BlackSky Technology
+    lanes: [defense-intel-data, osint]
+    ats: greenhouse
+    board: blacksky
+    careers_url: https://blacksky.com/company/careers/
+    hq: Herndon, VA
+    locations: [Herndon, VA, Seattle, WA, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 36
+    notes: "Real-time satellite imagery + analytics; imagery / mission analysts appear intermittently."
+
+  - key: planet-labs
+    name: Planet Labs
+    lanes: [defense-intel-data, osint]
+    ats: greenhouse
+    board: planetlabs
+    careers_url: https://www.planet.com/company/careers/
+    hq: San Francisco, CA
+    locations: [Arlington, VA, San Francisco, CA, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 123
+    notes: "Defense & Intelligence business unit in Arlington (deployment strategists, analysts)."
+
+  - key: vantor
+    name: Vantor (formerly Maxar Intelligence)
+    lanes: [defense-intel-data, osint]
+    ats: workday
+    board: maxar/wd1/Vantor
+    careers_url: https://vantor.com/careers/
+    hq: Westminster, CO
+    locations: [Herndon, VA, McLean, VA, Reston, VA, Westminster, CO]
+    verified: "2026-10-25"
+    open_jobs: 146
+    notes: "Maxar Intelligence rebranded Vantor (Workday tenant still 'maxar'). Junior / Senior Geospatial Analyst, MASINT Data Analyst (TS/SCI)."
+
+  - key: govini
+    name: Air (formerly Govini)
+    lanes: [defense-intel-data, economic-security]
+    groups: [geopolitical-risk]
+    ats: greenhouse
+    board: air
+    careers_url: https://air.ai/careers
+    hq: Arlington, VA
+    locations: [Arlington, VA, Pittsburgh, PA, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 35
+    notes: "Govini rebranded as Air (air.ai) in 2026; defense-acquisition / supply-chain data (Ark). Greenhouse board token 'air' (Arlington + Pittsburgh roles confirm identity)."
+
+  - key: babel-street
+    name: Babel Street
+    lanes: [osint, defense-intel-data, threat-intelligence]
+    ats: greenhouse
+    board: babelstreet
+    careers_url: https://www.babelstreet.com/careers
+    hq: Reston, VA
+    locations: [Reston, VA, Washington, DC, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 12
+    notes: "PAI/OSINT analytics vendor to the IC (also listed in intelligence-security.yaml)."
+
+  - key: strider
+    name: Strider Technologies
+    lanes: [strategic-intelligence, osint, defense-intel-data, economic-security]
+    groups: [geopolitical-risk, sanctions-fincrime]
+    ats: ashby
+    board: strider-technologies
+    careers_url: https://striderintel.com/careers
+    hq: South Jordan, UT
+    locations: [Tysons Corner, VA, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 10
+    notes: "Strategic / economic-security intelligence (state-sponsored tech transfer); Data Intelligence Analyst I roles, regional (China/Japan) advisors."
+
+  - key: sayari
+    name: Sayari
+    lanes: [osint, defense-intel-data, beneficial-ownership, sanctions]
+    groups: [sanctions-fincrime, investigations-dd]
+    ats: greenhouse
+    board: sayari
+    careers_url: https://sayari.com/careers/
+    hq: Washington, DC
+    locations: [Washington, DC, London, UK, Remote US]
+    verified: "2026-10-25"
+    open_jobs: 20
+    notes: "Commercial risk-intelligence data (corporate records OSINT); Field Intelligence Analyst roles, strong DoD/IC customer base."
+
+  - key: janes
+    name: Janes
+    lanes: [defense-intel-data, strategic-intelligence, osint, regional-research-specialist]
+    ats: greenhouse
+    board: janes
+    careers_url: https://job-boards.greenhouse.io/janes
+    hq: London, UK
+    locations: [London, UK, Arlington, VA]
+    verified: "2026-10-25"
+    open_jobs: 9
+    notes: "Defence intelligence; Country Intelligence analysts (regional desks) and Defence Intelligence Analysts (C4ISR, equipment, order of battle)."
+
+  - key: altana
+    name: Altana
+    lanes: [defense-intel-data, supply-chain-forced-labor, export-controls]
+    groups: [geopolitical-risk, sanctions-fincrime]
+    ats: greenhouse
+    board: altanaai
+    careers_url: https://altana.ai/careers
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 36
+    notes: "Brooklyn-based supply-chain intelligence (Atlas); public-sector / national-security vertical."
+
+  - key: exiger
+    name: Exiger
+    lanes: [defense-intel-data, supply-chain-forced-labor, due-diligence, regional-research-specialist]
+    groups: [geopolitical-risk, sanctions-fincrime, investigations-dd]
+    ats: greenhouse
+    board: exiger
+    careers_url: https://www.exiger.com/careers/
+    hq: New York, NY
+    locations: [New York, NY, McLean, VA, Richmond, VA, Huntsville, AL]
+    verified: "2026-10-25"
+    open_jobs: 61
+    notes: "Supply-chain risk (1Exiger) for DoD/IC; Investigative Analyst (DD & global risk), Supply Chain Risk Analyst, language-enabled Research Associates (Arabic/Chinese/etc.)."
+
+  - key: two-six-technologies
+    name: Two Six Technologies
+    lanes: [defense-intel-data, regional-research-specialist]
+    ats: greenhouse
+    board: twosixtechnologies
+    careers_url: https://twosixtech.com/careers/
+    hq: Arlington, VA
+    locations: [Arlington, VA, Herndon, VA, Chantilly, VA, Linthicum, MD]
+    verified: "2026-10-25"
+    open_jobs: 72
+    notes: "IC/DoD tech (incl. information-operations products); Language Enabled Analyst, Operations Analyst roles."
+
+  - key: c4ads
+    name: C4ADS
+    lanes: [osint, defense-intel-data, illicit-finance]
+    groups: [sanctions-fincrime]
+    ats: greenhouse
+    board: c4ads
+    careers_url: https://c4ads.org/careers/
+    hq: Washington, DC
+    locations: [Washington, DC]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Data-driven analysis of illicit networks / national-security threats; board live but empty at verification (hires analysts and fellows periodically)."
+
+  - key: primer
+    name: Primer AI
+    lanes: [defense-intel-data, osint]
+    ats: other
+    ats_vendor: hibob
+    careers_url: https://primertechnology.careers.hibob.com/
+    hq: San Francisco, CA
+    locations: [Washington, DC, San Francisco, CA]
+    notes: "NLP / AI for intelligence analysts (DoD/IC). Not the Primer on ashby 'primer' (education company)."
+
+  - key: interos
+    name: Interos
+    lanes: [defense-intel-data, supply-chain-forced-labor]
+    groups: [geopolitical-risk]
+    ats: other
+    ats_vendor: paycor
+    careers_url: https://recruitingbypaycor.com/career/CareerHome.action?clientId=8a7883d0848832f201848c7dbf79011a
+    hq: Arlington, VA
+    locations: [Arlington, VA]
+    notes: "Supply-chain risk intelligence."
+
+  - key: bigbear-ai
+    name: BigBear.ai
+    lanes: [defense-intel-data]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-bigbearai.icims.com/jobs/search?ss=1
+    hq: Columbia, MD
+    locations: [Columbia, MD, Washington, DC]
+    notes: "Decision-intelligence / analytics contractor."
+
+  - key: expedition-technology
+    name: Expedition Technology (EXP)
+    lanes: [defense-intel-data]
+    ats: other
+    ats_vendor: gem
+    careers_url: https://jobs.gem.com/expedition-technology
+    hq: Herndon, VA
+    locations: [Herndon, VA]
+    notes: "RF / signals machine-learning for DoD/IC; mostly engineering."
+
+  - key: windward
+    name: Windward
+    lanes: [defense-intel-data, osint, sanctions]
+    groups: [sanctions-fincrime]
+    ats: other
+    ats_vendor: comeet
+    careers_url: https://windward.ai/company/careers/
+    hq: Tel Aviv, Israel
+    locations: [London, UK, Washington, DC]
+    notes: "Maritime AI / sanctions-evasion intelligence; DC public-sector team and London office."
+
+  - key: in-q-tel
+    name: In-Q-Tel (IQT)
+    lanes: [defense-intel-data]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-iqt.icims.com/jobs/search?ss=1
+    hq: Arlington, VA
+    locations: [Arlington, VA]
+    notes: "IC strategic investor; occasional technology-analyst / IQT Labs roles."
+
+  # ------------------------------------------------------------------ government services contractors (sweepable)
+  - key: booz-allen-hamilton
+    name: Booz Allen Hamilton
+    lanes: [defense-intel-data, strategic-intelligence, osint, regional-research-specialist, counterterrorism]
+    ats: workday
+    board: bah/wd1/BAH_Jobs
+    careers_url: https://careers.boozallen.com/
+    hq: McLean, VA
+    locations: [Washington, DC, McLean, VA, Annapolis Junction, MD, Tampa, FL]
+    title_filter: &contractor_filter '(?<!artificial )(?<!business )intelligence|\bintel\b|all[- ]?source|OSINT|\bPAI\b|open[- ]source|\btarget|regional (analyst|research|specialist|subject|SME|expert|advisor)|\bcountry (analyst|specialist|desk)|foreign|linguist|language|cultur|socio|human geog|GEOINT|geospatial|imagery|\bFMV\b|SIGINT|HUMINT|MASINT|FISINT|ELINT|COMINT|\bTDNA\b|signals? (analyst|intelligence)|counter[- ]?(terror|intel|prolif|narc|insur|threat|UAS|WMD)|\bCT\b|\bCI\b|threat|watch ?(floor|officer|analyst|list)|fusion|military analyst|irregular warfare|information (environment|operations)|\bOIE\b|PSYOP|psychological op|\bMISO\b|desk officer|research (analyst|associate|assistant|specialist)|political|insurgen|collection manag|reporting analyst|\bC[45]I(SR)?\b|\bISR\b|satellite analyst|mission analyst|exercise analyst|wargam|national security|\b(?!technician|clinician|librarian|mathematician|physician|statistician|politician|custodian|guardian|electrician|musician)[a-z]+(ian|ean|can|ese|ish|i) analyst\b'
+    search_terms: [all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, regional, intelligence analyst]
+    max_jobs: 1000
+    verified: "2026-10-25"
+    open_jobs: 2000
+    notes: "Largest IC/DoD analyst employer (all-source, OSINT, targeting, language-enabled, GEOINT, watchfloor). 'intelligence analyst' search alone returns ~1,100."
+
+  - key: caci
+    name: CACI International
+    lanes: [defense-intel-data, strategic-intelligence, osint, regional-research-specialist, counterterrorism]
+    ats: workday
+    board: caci/wd1/External
+    careers_url: https://careers.caci.com/
+    hq: Reston, VA
+    locations: [Reston, VA, Washington, DC, Tampa, FL]
+    title_filter: *contractor_filter
+    search_terms: [all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, regional, intelligence analyst]
+    max_jobs: 600
+    verified: "2026-10-25"
+    open_jobs: 1753
+    notes: "All-source / OSINT / SIGINT / FMV analysts, cultural advisors, irregular-warfare & information-environment analysts."
+
+  - key: leidos
+    name: Leidos
+    lanes: [defense-intel-data, strategic-intelligence, osint, regional-research-specialist, counterterrorism]
+    ats: workday
+    board: leidos/wd5/External
+    careers_url: https://careers.leidos.com/
+    hq: Reston, VA
+    locations: [Reston, VA, Washington, DC, Chantilly, VA]
+    title_filter: *contractor_filter
+    search_terms: [all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, human geography, intelligence analyst]
+    max_jobs: 800
+    verified: "2026-10-25"
+    open_jobs: 2000
+    notes: "Targeting officers, desk officers (language-enabled), human-geography analysts, signals analysts."
+
+  - key: gdit
+    name: General Dynamics Information Technology (GDIT)
+    lanes: [defense-intel-data, strategic-intelligence, osint, regional-research-specialist, counterterrorism]
+    ats: workday
+    board: gdit/wd5/External_Career_Site
+    careers_url: https://www.gdit.com/careers/
+    hq: Falls Church, VA
+    locations: [Falls Church, VA, Washington, DC, Tampa, FL]
+    title_filter: *contractor_filter
+    search_terms: [all-source, OSINT, targeting, language enabled, geospatial, counterterrorism, regional analyst, intelligence analyst]
+    max_jobs: 600
+    verified: "2026-10-25"
+    open_jobs: 1294
+    notes: "All-source / OSINT-PAI targeting, Regional Analyst and country-focused social-media analysts (e.g. SOUTHCOM information-environment work)."
+
+  - key: kbr
+    name: KBR (Government Solutions)
+    lanes: [defense-intel-data, strategic-intelligence, counterterrorism]
+    ats: workday
+    board: kbr/wd5/KBR_Careers
+    careers_url: https://careers.kbr.com/
+    hq: Houston, TX
+    locations: [Washington, DC, Chantilly, VA, Dayton, OH, Huntsville, AL]
+    title_filter: *contractor_filter
+    search_terms: [all-source, targeting, GEOINT, OSINT, counterintelligence, intelligence analyst]
+    max_jobs: 500
+    verified: "2026-10-25"
+    open_jobs: 1860
+    notes: "Absorbed Centauri; technical intelligence (space / counterspace / S&T) analysts, technical targeters, GEOINT analysts."
+
+  - key: parsons
+    name: Parsons
+    lanes: [defense-intel-data, osint, strategic-intelligence]
+    ats: workday
+    board: parsons/wd5/Search
+    careers_url: https://www.parsons.com/careers/
+    hq: Chantilly, VA
+    locations: [Chantilly, VA, Washington, DC, Tampa, FL]
+    title_filter: *contractor_filter
+    search_terms: [all-source, targeting, OSINT, geospatial intelligence, counterterrorism, language enabled, intelligence analyst]
+    max_jobs: 500
+    verified: "2026-10-25"
+    open_jobs: 1919
+    notes: "Board is mostly infrastructure engineering; intel side has all-source, OSINT, TDNA, GEOINT, language-enabled OSINT collectors."
+
+  - key: northrop-grumman
+    name: Northrop Grumman
+    lanes: [defense-intel-data]
+    ats: workday
+    board: ngc/wd1/Northrop_Grumman_External_Site
+    careers_url: https://www.northropgrumman.com/careers
+    hq: Falls Church, VA
+    locations: [Falls Church, VA, McLean, VA, Annapolis Junction, MD]
+    title_filter: *contractor_filter
+    search_terms: [OSINT, geospatial, all-source, targeting, intelligence analyst]
+    verified: "2026-10-25"
+    open_jobs: 3767
+    notes: "Prime; few analyst roles relative to board size (filter keeps intel analysts only)."
+
+  - key: guidehouse
+    name: Guidehouse
+    lanes: [defense-intel-data, osint, strategic-intelligence]
+    groups: [sanctions-fincrime]
+    ats: workday
+    board: guidehouse/wd1/External
+    careers_url: https://guidehouse.com/careers
+    hq: McLean, VA
+    locations: [Washington, DC, McLean, VA, New York, NY, London, UK]
+    title_filter: '(?i)((?<!business )(?<!artificial )intelligence|all[- ]?source|OSINT|open[- ]source|\btarget|foreign|linguist|language|regional (analyst|research|specialist)|geospatial|threat|counter[- ]?(terror|intel|prolif|threat)|national security|watch ?(floor|list)|research analyst|\bsanction|\baml\b|anti[- ]?money|money[- ]laundering|\bbsa\b|\bkyc\b|\bkyb\b|know your (customer|client)|due diligence|\bc?dd\b|\bedd\b|financial crime|fincrime|\bfcc\b|\bfcrc\b|\bfiu\b|transaction monitoring|surveillance|investigat|fraud|export control|screening|\bofac\b|illicit|compliance|financial services consult|forensic)'
+    search_terms: [OSINT, all-source, national security, sanctions, AML, KYC, financial crime, investigations, intelligence analyst]
+    max_jobs: 500
+    verified: "2026-10-25"
+    open_jobs: 767
+    notes: "National Security segment: Intelligence Analyst, All-Source, OSINT, Open-Source Research Analyst (China/Mandarin). Also listed in sanctions-fincrime.yaml; this file loads first, so title_filter/search_terms here are the union of both groups' (registry keeps the first entry's filter)."
+
+  - key: amentum
+    name: Amentum
+    lanes: [defense-intel-data, counterterrorism, regional-research-specialist, osint]
+    ats: workday
+    board: pae/wd1/Amentum_Careers
+    careers_url: https://www.amentumcareers.com/
+    hq: Chantilly, VA
+    locations: [Chantilly, VA, Washington, DC, Huntsville, AL]
+    title_filter: *contractor_filter
+    search_terms: [OSINT, all-source, targeting, linguist, counterintelligence, geospatial, counterterrorism, intelligence analyst]
+    max_jobs: 600
+    verified: "2026-10-25"
+    open_jobs: 2837
+    notes: "Workday tenant is legacy 'pae'. Junior All Source / Junior GEOINT / Junior Targeting Analyst (CBP NTC), CT analysts, CAT II linguists."
+
+  - key: anser
+    name: ANSER (Analytic Services Inc.)
+    lanes: [defense-intel-data, strategic-intelligence, counterterrorism]
+    ats: greenhouse
+    board: analyticservicesinc
+    careers_url: https://www.anser.org/careers/
+    hq: Falls Church, VA
+    locations: [Arlington, VA, Alexandria, VA, Springfield, VA]
+    verified: "2026-10-25"
+    open_jobs: 76
+    notes: "Nonprofit research institute (homeland security / defense industrial base); early-career programme, All Source Intelligence Analyst, GEOINT Source Strategies, International Engagement Analyst."
+
+  - key: rand-corporation
+    name: RAND Corporation
+    lanes: [regional-research-specialist, defense-intel-data, strategic-intelligence]
+    groups: [policy-research]
+    ats: workday
+    board: rand/wd5/External_Career_Site
+    careers_url: https://www.rand.org/jobs.html
+    hq: Santa Monica, CA
+    locations: [Arlington, VA, Washington, DC, Santa Monica, CA, Pittsburgh, PA, Cambridge, UK]
+    verified: "2026-10-25"
+    open_jobs: 22
+    notes: "FFRDC operator (Project AIR FORCE, Arroyo, NDRI); assistant policy researchers, Summer Associate programme, regional / country researchers."
+
+  # ------------------------------------------------------------------ government services contractors (manual)
+  - key: saic
+    name: SAIC (Science Applications International Corp.)
+    lanes: [defense-intel-data, strategic-intelligence, regional-research-specialist]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://jobs.saic.com/
+    hq: Reston, VA
+    locations: [Reston, VA, Washington, DC, Chantilly, VA]
+    notes: "jobs.saic.com returns 403 to scripts; no public Workday tenant found. Staff officers, intel analysts (TS/SCI)."
+
+  - key: mantech
+    name: ManTech
+    lanes: [defense-intel-data, strategic-intelligence, counterterrorism]
+    ats: other
+    ats_vendor: avature
+    careers_url: https://careers.mantech.com/en_US/careers
+    hq: Herndon, VA
+    locations: [Herndon, VA, Chantilly, VA, Washington, DC]
+    notes: "Carlyle-owned; all-source / CI / CT analysts (mostly cleared)."
+
+  - key: peraton
+    name: Peraton
+    lanes: [defense-intel-data, strategic-intelligence, osint]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-peraton.icims.com/jobs/search?ss=1
+    hq: Reston, VA
+    locations: [Reston, VA, Herndon, VA, Washington, DC]
+    notes: "Large IC contractor (ex-Perspecta); all-source, targeting and OSINT analysts."
+
+  - key: bae-systems
+    name: BAE Systems
+    lanes: [defense-intel-data, strategic-intelligence, regional-research-specialist]
+    ats: other
+    ats_vendor: brassring
+    careers_url: https://jobs.baesystems.com/global/en/search-results?keywords=intelligence%20analyst
+    hq: London, UK
+    locations: [Falls Church, VA, McLean, VA, Washington, DC, London, UK]
+    notes: "Phenom front end over Kenexa Brassring. Intelligence Solutions hires Intelligence Analyst IA-2 (entry-ish, 24/7 watch) and all-source analysts (DIA RIIA)."
+
+  - key: lockheed-martin
+    name: Lockheed Martin
+    lanes: [defense-intel-data]
+    ats: other
+    ats_vendor: eightfold
+    careers_url: https://lockheedmartin.eightfold.ai/careers?query=intelligence%20analyst
+    hq: Bethesda, MD
+    locations: [Bethesda, MD, Arlington, VA]
+    notes: "Prime; occasional intelligence / wargaming analyst roles; strong early-career programmes (engineering-heavy)."
+
+  - key: accenture-federal-services
+    name: Accenture Federal Services
+    lanes: [defense-intel-data, strategic-intelligence]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.accenture.com/us-en/careers/local/federal-services
+    hq: Arlington, VA
+    locations: [Arlington, VA, Washington, DC]
+    notes: "AFS jobs are not on the global Accenture Workday board; search via accenture.com/us-en/careers/jobsearch (Target System Analysis, analytics analysts)."
+
+  - key: deloitte
+    name: Deloitte (Government & Public Services)
+    lanes: [defense-intel-data, strategic-intelligence]
+    ats: other
+    ats_vendor: avature
+    careers_url: https://apply.deloitte.com/en_US/careers/SearchJobs
+    hq: New York, NY
+    locations: [Arlington, VA, Washington, DC, New York, NY]
+    notes: "GPS practice hires intelligence / national-security analysts and consultants (often clearance-required); filter apply.deloitte.com by 'intelligence'."
+
+  - key: sosi
+    name: SOS International (SOSi)
+    lanes: [regional-research-specialist, strategic-intelligence, osint, counterterrorism, defense-intel-data]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.sosi.com/careers
+    hq: Reston, VA
+    locations: [Reston, VA, Washington, DC, Tampa, FL]
+    notes: "Key regional / language analyst employer: Military Analyst (regional insurgencies, order of battle), Insurgency & Violence Analyst, OSINT investigators, all-source (SOUTHCOM/CENTCOM). Site behind Incapsula; ATS not identifiable from here."
+
+  - key: hii-mission-technologies
+    name: HII Mission Technologies
+    lanes: [defense-intel-data, strategic-intelligence, counterterrorism]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://jobs.hii-tsd.com/search/?q=intelligence
+    hq: Newport News, VA
+    locations: [McLean, VA, Washington, DC, Tampa, FL]
+    notes: "Ex-Alion / Camber; all-source and C5ISR analysts."
+
+  - key: culmen-international
+    name: Culmen International
+    lanes: [counterterrorism, osint, strategic-intelligence]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-culmen.icims.com/jobs/search?ss=1
+    hq: Alexandria, VA
+    locations: [Alexandria, VA, Washington, DC]
+    notes: "CT / OSINT / law-enforcement intelligence analysts (State, DHS); also a UK iCIMS portal (uk-culmen)."
+
+  - key: chenega
+    name: Chenega Corporation (government services)
+    lanes: [strategic-intelligence, counterterrorism, osint]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-chenega.icims.com/jobs/search?ss=1
+    hq: Anchorage, AK
+    locations: [Chantilly, VA, Washington, DC]
+    notes: "Alaska Native Corporation; Chenega MIOS etc. hire intelligence and watch analysts."
+
+  - key: mission-essential
+    name: Mission Essential
+    lanes: [regional-research-specialist, defense-intel-data]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://careers.missionessential.com/search
+    hq: New Albany, OH
+    locations: [New Albany, OH, Washington, DC]
+    notes: "Linguists (CAT II/III), cultural advisors and language analysts for DoD; part of Mission Group."
+
+  - key: amyx
+    name: Amyx
+    lanes: [defense-intel-data]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-amyx.icims.com/jobs/search?ss=1
+    hq: Reston, VA
+    locations: [Reston, VA, Washington, DC]
+    notes: "Mostly DoD financial-management / IT services; occasional analyst roles (low prior)."
+
+  - key: systems-planning-and-analysis
+    name: Systems Planning & Analysis (SPA)
+    lanes: [defense-intel-data, strategic-intelligence]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-spa.icims.com/jobs/search?ss=1
+    hq: Alexandria, VA
+    locations: [Alexandria, VA, Washington, DC]
+    notes: "Defense analysis / SETA firm that hires recent graduates as analysts (national security, strategic forces)."
+
+  - key: dcs-corp
+    name: DCS Corp
+    lanes: [defense-intel-data]
+    ats: other
+    ats_vendor: taleo
+    careers_url: https://phh.tbe.taleo.net/phh04/ats/careers/v2/jobSearch?act=redirectCwsV2&cws=37&org=DCSCORP2
+    hq: Alexandria, VA
+    locations: [Alexandria, VA]
+    notes: "Engineering / SETA contractor; some intelligence & analyst support roles (Taleo Business Edition)."
+
+  - key: prescient-edge
+    name: Prescient Edge
+    lanes: [strategic-intelligence, counterterrorism, osint, regional-research-specialist]
+    ats: other
+    ats_vendor: hrsmart
+    careers_url: https://prescientedge.hua.hrsmart.com/hr/ats/JobSearch/viewAll
+    hq: McLean, VA
+    locations: [Washington, DC, McLean, VA]
+    notes: "Intelligence-community contractor (all-source / OSINT / CT / regional analysts; most roles need clearance)."
+
+  - key: noblis
+    name: Noblis
+    lanes: [defense-intel-data, strategic-intelligence]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers.noblis.org/
+    hq: Reston, VA
+    locations: [Reston, VA, Washington, DC]
+    notes: "Nonprofit science & technology; junior data / intelligence analysts (TS/SCI)."
+
+  - key: riverside-research
+    name: Riverside Research
+    lanes: [defense-intel-data, osint]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-riversideresearch.icims.com/jobs/search?ss=1
+    hq: Dayton, OH
+    locations: [Arlington, VA, Dayton, OH]
+    notes: "Nonprofit research for the IC (geospatial, open-source and MASINT research)."
+
+  - key: qinetiq
+    name: QinetiQ
+    lanes: [defense-intel-data]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://careers.qinetiq.com/
+    hq: Farnborough, UK
+    locations: [London, UK, Farnborough, UK]
+    notes: "UK defence research / T&E; graduate schemes, occasional analysis roles."
+
+  # ------------------------------------------------------------------ FFRDCs / UARCs (manual)
+  - key: mitre
+    name: MITRE
+    lanes: [defense-intel-data, strategic-intelligence]
+    ats: other
+    ats_vendor: phenom
+    careers_url: https://careers.mitre.org/us/en/search-results
+    hq: McLean, VA
+    locations: [McLean, VA, Bedford, MA, Washington, DC]
+    notes: "Operates NSEC and other FFRDCs; Workday site mitre/wd5/MITRE is unlisted (list API returns 0), so check by hand."
+
+  - key: cna-corporation
+    name: CNA (Center for Naval Analyses)
+    lanes: [regional-research-specialist, defense-intel-data, strategic-intelligence]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: dayforce
+    careers_url: https://jobs.dayforcehcm.com/cna/CANDIDATEPORTAL
+    hq: Arlington, VA
+    locations: [Arlington, VA]
+    notes: "FFRDC. Regional, Strategy & Policy (RSP) division hires research analysts / research specialists with regional (China, Russia, Middle East) expertise -- core regional-research employer. Key is cna-corporation (not the insurer CNA)."
+
+  - key: institute-for-defense-analyses
+    name: Institute for Defense Analyses (IDA)
+    lanes: [defense-intel-data, strategic-intelligence]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: taleo
+    careers_url: https://phh.tbe.taleo.net/phh01/ats/careers/v2/jobSearch?act=redirectCwsV2&cws=39&org=INSTITUTEDA
+    hq: Alexandria, VA
+    locations: [Alexandria, VA]
+    notes: "FFRDC; research associates / analysts (Strategy, Forces & Resources, Intelligence Analyses divisions)."
+
+  - key: johns-hopkins-apl
+    name: Johns Hopkins University Applied Physics Laboratory (APL)
+    lanes: [defense-intel-data, strategic-intelligence]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers.jhuapl.edu/jobs
+    hq: Laurel, MD
+    locations: [Laurel, MD]
+    notes: "UARC; Research & Analysis job family (mission / wargaming / intelligence analysts); student portal on studentcareers-jhuapl.icims.com."
+
+  - key: mit-lincoln-laboratory
+    name: MIT Lincoln Laboratory
+    lanes: [defense-intel-data]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://careers.ll.mit.edu/search/
+    hq: Lexington, MA
+    locations: [Lexington, MA]
+    notes: "DoD FFRDC; mostly technical staff, occasional analyst roles."
+
+  - key: georgia-tech-research-institute
+    name: Georgia Tech Research Institute (GTRI)
+    lanes: [defense-intel-data]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://careers.gtri.gatech.edu/jobs/search
+    hq: Atlanta, GA
+    locations: [Atlanta, GA, Arlington, VA]
+    notes: "UARC; research associates / analysts incl. NCR (Arlington) field office."

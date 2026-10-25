@@ -1,0 +1,2025 @@
+# jobsweep lanes taxonomy -- see ARCHITECTURE.md section 4.
+#
+# Group and lane ids and their ORDER are fixed (ARCHITECTURE.md 4.1; checked by scripts/validate_catalog.py).
+# Names use the candidate's own wording.
+#
+# Matching conventions (implemented by taxonomy.py):
+#   * Terms are case-insensitive whole-word / whole-phrase matches on the raw (un-normalised) text.
+#   * A term wrapped in slashes ('/\bK&R\b/') is a raw Python regex. Raw regexes are written to work when
+#     compiled with re.IGNORECASE; abbreviations that must keep their case use a scoped flag, e.g.
+#     '/\b(?-i:CORE)\b/' (FEMA CORE, not "core").
+#   * Every plain term starts and ends with a word character, so \b-based matchers work too.
+#   * "&" and "and", hyphen and space, UK and US spellings are listed as separate variants where
+#     postings use both (no normalisation is assumed).
+#
+# Per lane:
+#   title    strong signals, matched in the job title only: job-title phrasings plus short or ambiguous
+#            terms that are only trustworthy in a title (e.g. "political risk", "investigator").
+#   phrases  specific signals trusted anywhere (title or description).
+#   context  supporting vocabulary; never sufficient on its own.
+#   exclude  title phrases that veto the lane (cyber SOC for GSOC, sales/engineering for trust & safety...).
+#   queries  keyword searches for generic search sources, tuned for entry-level / early-career hits.
+#   usajobs  optional USAJOBS mapping: keywords (one search each), series (JobCategoryCode), hiring_path,
+#            grade_low/grade_high, organization. Series codes were checked against the USAJOBS
+#            occupational-series codelist and FEMA's organization code (HSCB) against the agency
+#            sub-element codelist (2026-10-25).
+#   nycjobs  optional NYC Jobs mapping: keywords and exact `agency` strings from NYC Open Data
+#            dataset kpav-sd4t (same NYCAPS agency names as the citywide payroll dataset), 2026-10-25.
+#
+# A term appears at most once per lane across title/phrases/context/exclude (tests/test_lanes_yaml.py).
+# entry-routes lanes are modifiers (programme / level vocabulary); earlier-lanes are classified but
+# inactive (excluded from search plans, hidden by default).
+
+version: 1
+groups:
+
+  # ===================================================================================================
+  - id: specialty-insurance
+    name: "Specialty insurance (underwriting and broking)"
+    active: true
+    lanes:
+
+      - id: political-risk
+        name: "Political risk (incl. credit and political risk)"
+        active: true
+        title: ["political risk", "political risks", "credit and political risk", "credit & political risk",
+                "political and credit risk", "political & credit risk", "CPRI", "PRI underwriter",
+                "PRI underwriting", "PRI broker"]
+        phrases: ["political risk insurance", "political risk cover", "contract frustration", "expropriation",
+                  "confiscation, expropriation", "CEND", "inconvertibility", "non-honouring", "non-honoring",
+                  "wrongful calling", "sovereign obligors", "non-payment insurance",
+                  "structured credit insurance", "export credit agency", "export credit agencies", "MIGA",
+                  "Berne Union", "licence cancellation", "license cancellation", "forced abandonment",
+                  "currency transfer restriction"]
+        context: ["underwriter", "underwriting", "broker", "broking", "Lloyd's", "London market", "syndicate",
+                  "MGA", "insurer", "reinsurer", "trade finance", "project finance"]
+        exclude: ["political campaign"]
+        queries: ["political risk underwriter", "credit and political risk underwriting assistant",
+                  "political risk insurance analyst", "credit political risk associate",
+                  "political risk insurance broker", "political risk insurance"]
+        usajobs: {keywords: ["political risk insurance", "political risk"], series: ["1101", "1160", "1165", "0301"]}
+
+      - id: political-violence-terrorism
+        name: "Political violence and terrorism"
+        active: true
+        title: ["political violence", "PV & Terrorism", "PV and Terrorism", "PV/Terrorism", "terrorism underwriter",
+                "terrorism underwriting", "terrorism insurance", "terrorism broker", "sabotage & terrorism",
+                "sabotage and terrorism"]
+        phrases: ["political violence insurance", "political violence cover", "political violence and terrorism",
+                  "political violence & terrorism", "strikes, riots and civil commotion",
+                  "strikes, riot and civil commotion", "riots, strikes and civil commotion", "SRCC",
+                  "civil commotion", "malicious damage", "standalone terrorism", "stand-alone terrorism",
+                  "Pool Re", "Terrorism Risk Insurance Act", "TRIA", "TRIPRA", "active assailant",
+                  "deadly weapons protection", "LMA3030", "terrorism pool", "war on land", "terrorism and sabotage"]
+        context: ["underwriter", "underwriting", "broker", "broking", "Lloyd's", "syndicate", "London market",
+                  "property damage", "business interruption", "MGA", "coverholder"]
+        exclude: ["solar", "photovoltaic"]
+        queries: ["political violence underwriter", "terrorism political violence underwriting assistant",
+                  "political violence insurance", "terrorism insurance analyst", "PV terrorism underwriter"]
+
+      - id: war-risk
+        name: "War risk"
+        active: true
+        title: ["war risk", "war risks", "war & terrorism", "war and terrorism", "war & political risk",
+                "war and political risk", "war & political risks", "war and political risks", "hull war",
+                "marine war", "aviation war", "cargo war", "war underwriter", "war underwriting"]
+        phrases: ["war risk insurance", "war risks insurance", "Joint War Committee", "JWC listed areas",
+                  "breach of trading warranties", "blocking and trapping", "blocking & trapping",
+                  "war exclusion", "Institute War Clauses", "war and strikes", "war & strikes", "AVN48",
+                  "AVN 48B", "AVN52", "war, hijacking and other perils", "aviation war risks",
+                  "marine war risks", "hull war risks", "war risk P&I", "confiscation and deprivation"]
+        context: ["Lloyd's", "syndicate", "hull", "cargo", "marine", "aviation", "London market", "underwriter",
+                  "underwriting", "reinsurance", "shipping", "Red Sea", "Black Sea"]
+        exclude: ["warehouse"]
+        queries: ["war risk underwriter", "marine war underwriting assistant", "war and terrorism underwriter",
+                  "war risks insurance", "aviation war underwriter", "hull war underwriter"]
+
+      - id: kidnap-ransom
+        name: "Kidnap and ransom, extortion and crisis management"
+        active: true
+        title: ['/\bK&R\b/', "kidnap & ransom", "kidnap and ransom", "kidnap, ransom", "kidnap for ransom",
+                "crisis management underwriter", "crisis management underwriting", "special crime", "extortion",
+                "hostage", "kidnap response", "crisis response consultant", "response consultant"]
+        phrases: ["kidnap and ransom insurance", "kidnap & ransom insurance", "K&R insurance",
+                  "kidnap, ransom and extortion", "kidnap, ransom & extortion", "KR&E",
+                  "crisis management insurance", "wrongful detention", "express kidnap", "express kidnapping",
+                  "virtual kidnap", "virtual kidnapping", "illegal detention", "ransom negotiation",
+                  "hostage negotiation", "hostage negotiator", "kidnap prevention", "extortion threats",
+                  "product extortion", "malicious product tampering", "crisis response consultancy",
+                  "special crime insurance"]
+        context: ["underwriter", "underwriting", "broker", "Lloyd's", "syndicate", "crisis management",
+                  "security consultancy", "personal accident", "duty of care", "travel security", "MGA"]
+        exclude: ["cyber", "ransomware", "incident response"]
+        queries: ["kidnap ransom crisis management", "K&R underwriter", "kidnap and ransom insurance",
+                  "crisis management underwriter", "special crime underwriting assistant",
+                  "crisis response consultant"]
+        usajobs: {keywords: ["hostage", "hostage recovery"], series: ["0130", "0132", "0301", "1811"]}
+
+      - id: special-risks
+        name: "Special risks"
+        active: true
+        title: ["special risks", "special risk", "contingency underwriter", "contingency underwriting",
+                "event cancellation", "event cancelation", "prize indemnity", "bloodstock", "personal accident",
+                "entertainment underwriter", "livestock underwriter", "accident & health underwriter",
+                "accident and health underwriter"]
+        phrases: ["contingency insurance", "event cancellation insurance", "non-appearance",
+                  "weather contingency", "prize indemnity insurance", "hole-in-one", "over-redemption",
+                  "death and disgrace", "death & disgrace", "film production insurance", "cast insurance",
+                  "sports disability", "career-ending disability", "bloodstock insurance",
+                  "livestock insurance", "equine insurance", "specialty accident", "special risks underwriting"]
+        context: ["underwriter", "underwriting", "broker", "Lloyd's", "syndicate", "MGA", "coverholder", "binder",
+                  "London market", "specialty"]
+        exclude: ["special education", "special needs"]
+        queries: ["special risks underwriter", "contingency underwriter", "event cancellation insurance",
+                  "special risks underwriting assistant", "personal accident special risks",
+                  "accident and health underwriter"]
+
+      - id: trade-credit-surety
+        name: "Trade credit, surety and credit analysis (incl. maritime and shipping finance)"
+        active: true
+        title: ["trade credit", "credit insurance", "surety", "risk underwriter", "credit underwriter",
+                "credit analyst", "credit analysis", "shipping finance", "ship finance", "maritime finance",
+                "shipping & offshore", "shipping and offshore", "export credit", "bond underwriter"]
+        phrases: ["trade credit insurance", "credit insurer", "whole turnover", "single buyer", "buyer limits",
+                  "buyer risk", "accounts receivable insurance", "receivables insurance", "protracted default",
+                  "surety bonds", "surety bond", "contract surety", "commercial surety", "performance bonds",
+                  "bid bonds", "payment bonds", "bonding capacity", "Miller Act", "ship mortgage",
+                  "vessel valuations", "vessel finance", "shipowners", "ship financing", "credit memorandum",
+                  "financial statement analysis", "Allianz Trade", "Euler Hermes", "Coface", "Atradius"]
+        context: ["underwriter", "underwriting", "financial statements", "credit risk", "broker", "insurer",
+                  "portfolio", "trade finance", "receivables", "maritime", "shipping", "vessels", "counterparty"]
+        exclude: ["mortgage", "consumer lending", "consumer credit", "credit card", "collections", "collector",
+                  "accounts receivable specialist", "loan processor", "credit union", "auto finance"]
+        queries: ["trade credit underwriter", "surety underwriter trainee", "credit insurance analyst",
+                  "shipping finance analyst", "trade credit risk analyst", "surety bond analyst",
+                  "junior credit analyst shipping finance"]
+        usajobs: {keywords: ["credit analyst", "surety bond", "ship financing", "export credit"],
+                  series: ["1160", "1165", "0570"]}
+
+      - id: transactional-liability
+        name: "Transactional liability (reps and warranties, M&A)"
+        active: true
+        title: ["transactional risk", "transactional risks", "transactional liability", "transaction liability",
+                '/\bW&I\b/', "warranty & indemnity", "warranty and indemnity", "reps & warranties",
+                "reps and warranties", "RWI", '/\bR&W\b/', "M&A insurance", "tax insurance",
+                "contingent risk", "contingent risks", "transaction solutions"]
+        phrases: ["representations and warranties insurance", "representations & warranties insurance",
+                  "R&W insurance", "RWI policy", "RWI policies", "W&I insurance",
+                  "warranty and indemnity insurance", "warranty & indemnity insurance", "buy-side policy",
+                  "buy-side policies", "sell-side policy", "tax liability insurance",
+                  "contingent liability insurance", "judgment preservation insurance", "litigation insurance",
+                  "transactional insurance", "transaction insurance", "deal insurance", "underwriting call"]
+        context: ["underwriter", "underwriting", "broker", "M&A", "private equity", "due diligence", "attorney",
+                  "counsel", "Lloyd's", "deal", "transactions"]
+        exclude: []
+        queries: ["transactional risk insurance", "W&I underwriting assistant",
+                  "representations and warranties insurance analyst", "transactional risk analyst",
+                  "M&A insurance associate", "tax insurance underwriter"]
+
+      - id: financial-lines
+        name: "Financial lines and management liability"
+        active: true
+        title: ['/\bD&O\b/', "directors & officers", "directors and officers", "management liability",
+                "financial lines", "professional lines", "executive risk", "executive risks", "FINPRO",
+                "financial institutions underwriter", "financial institutions underwriting", "FI underwriter",
+                "professional indemnity", "professional liability", '/\bE&O\b/', "errors & omissions",
+                "errors and omissions", "fiduciary liability", "commercial crime", "employment practices liability"]
+        phrases: ["D&O insurance", "D&O liability", "directors and officers liability",
+                  "directors' and officers' liability", "management liability insurance", "financial lines insurance",
+                  "financial lines underwriting", "financial lines team", "professional indemnity insurance",
+                  "professional liability insurance", "E&O insurance", "errors and omissions insurance",
+                  "employment practices liability insurance", "EPLI", "fiduciary liability insurance",
+                  "crime insurance", "fidelity bond", "financial institutions bond", "bankers blanket bond",
+                  "bankers professional indemnity", "securities class action", "Side A DIC",
+                  "investment managers insurance", "lawyers professional liability"]
+        context: ["underwriter", "underwriting", "broker", "broking", "Lloyd's", "claims", "insurer",
+                  "policy wordings", "syndicate", "MGA", "London market", "carrier", "wholesale"]
+        exclude: []
+        queries: ["D&O underwriter", "management liability underwriting assistant", "financial lines analyst",
+                  "professional liability underwriter trainee", "financial institutions underwriter",
+                  "financial lines broker", "executive risk underwriting associate"]
+
+      - id: fine-art-specie
+        name: "Fine art, specie and jewelers block"
+        active: true
+        title: ["fine art underwriter", "fine art underwriting", "fine art broker", "fine art & specie",
+                "fine art and specie", "specie", "art underwriter", "art & private client", "art and private client",
+                "jewellers block underwriter", "jewelers block underwriter", "cash in transit underwriter"]
+        phrases: ["fine art insurance", "specie insurance", "jewellers block", "jewelers block",
+                  "jeweller's block", "jeweler's block", "jewellers' block", "jewelers' block",
+                  "cash in transit", "cash-in-transit", "general specie", "vault risk", "vault risks",
+                  "precious metals storage", "nail-to-nail", "wall-to-wall cover", "fine art and collectibles",
+                  "collectibles insurance"]
+        context: ["underwriter", "underwriting", "broker", "Lloyd's", "syndicate", "London market",
+                  "high net worth", "private client", "bullion", "museums", "galleries", "vaults", "collectors"]
+        exclude: ["teacher", "instructor", "professor", "handler", "installer", "photographer"]
+        queries: ["fine art and specie underwriter", "fine art insurance", "specie underwriting assistant",
+                  "jewelers block insurance", "cash in transit insurance", "fine art insurance broker"]
+
+      - id: intangibles
+        name: "Intangibles"
+        active: true
+        title: ["intangibles", "intangible assets", "intangible asset", "IP insurance", "IP solutions",
+                "intellectual property solutions", "IP valuation", "intellectual property valuation",
+                "reputation insurance"]
+        phrases: ["intellectual property insurance", "intangible asset insurance", "intangible assets insurance",
+                  "IP-backed lending", "IP-backed financing", "IP infringement insurance",
+                  "patent infringement insurance", "patent insurance", "trade secret insurance",
+                  "reputational harm insurance", "reputational risk insurance", "IP litigation insurance",
+                  "IP collateral protection", "collateral protection insurance", "intangible risk",
+                  "intangible risks", "non-physical damage", "valuation of intellectual property"]
+        context: ["underwriter", "underwriting", "broker", "valuation", "patents", "trademarks",
+                  "intellectual property", "Lloyd's", "litigation", "insurer"]
+        exclude: ["network", "engineer", "telecom"]
+        queries: ["intangible assets insurance", "intellectual property insurance analyst", "IP solutions analyst",
+                  "IP valuation analyst", "intangibles underwriter"]
+
+      - id: aviation
+        name: "Aviation"
+        active: true
+        title: ["aviation underwriter", "aviation underwriting", "aviation broker", "aviation broking",
+                "aerospace underwriter", "aerospace underwriting", "aerospace broker", "aviation hull",
+                "space underwriter", "general aviation underwriter", "aviation reinsurance", "aviation claims"]
+        phrases: ["aviation insurance", "aerospace insurance", "airline insurance", "aircraft hull",
+                  "hull and liability", "airport liability", "satellite insurance", "launch insurance",
+                  "space insurance", "aviation products liability", "loss of licence", "loss of license",
+                  "aircraft lessors", "unmanned aircraft insurance", "drone insurance", "aviation hull and liability"]
+        context: ["underwriter", "underwriting", "broker", "Lloyd's", "syndicate", "London market", "aircraft",
+                  "airlines", "airports", "reinsurance", "MGA"]
+        exclude: ["pilot", "mechanic", "technician", "flight attendant", "air traffic controller"]
+        queries: ["aviation underwriter", "aviation insurance underwriting assistant", "aviation insurance broker",
+                  "aerospace insurance analyst", "aviation underwriting trainee"]
+
+      - id: marine-cargo
+        name: "Marine, cargo and maritime"
+        active: true
+        title: ["marine underwriter", "marine underwriting", "marine cargo", "cargo underwriter",
+                "cargo underwriting", "marine hull", "hull underwriter", "hull & machinery", "hull and machinery",
+                '/\bP&I\b/', "protection & indemnity", "protection and indemnity", "marine liability",
+                "marine broker", "marine broking", "ocean marine", "inland marine", "marine claims",
+                "maritime analyst", "maritime intelligence"]
+        phrases: ["marine insurance", "cargo insurance", "P&I club", "P&I clubs",
+                  "International Group of P&I Clubs", "stock throughput", "freight forwarders liability",
+                  "charterers liability", "charterer's liability", "Institute Cargo Clauses", "marine surveyor",
+                  "vessel tracking", "dark fleet", "ship-to-ship transfers", "AIS data",
+                  "maritime domain awareness", "yacht insurance", "Lloyd's List", "maritime security"]
+        context: ["underwriter", "underwriting", "broker", "Lloyd's", "syndicate", "London market", "shipping",
+                  "vessels", "ports", "freight", "logistics", "MGA", "claims"]
+        exclude: ["marine biologist", "marine corps", "marine scientist", "marine mechanic", "deckhand",
+                  "marine technician"]
+        queries: ["marine cargo underwriter", "marine underwriting assistant", "marine insurance broker",
+                  "hull and machinery underwriter", "P&I club graduate", "maritime intelligence analyst",
+                  "marine insurance trainee"]
+
+      - id: reinsurance-broking
+        name: "Reinsurance and specialty broking"
+        active: true
+        title: ["reinsurance broker", "reinsurance broking", "reinsurance analyst", "reinsurance associate",
+                "reinsurance underwriter", "reinsurance underwriting", "facultative", "treaty broker",
+                "treaty underwriter", "treaty underwriting", "specialty broker", "specialty broking",
+                "wholesale broker", "wholesale broking", "Lloyd's broker", "London market broker",
+                "broking assistant", "broking technician", "placing broker"]
+        phrases: ["treaty reinsurance", "facultative reinsurance", "reinsurance placements",
+                  "reinsurance programmes", "reinsurance programs", "retrocession", "excess of loss",
+                  "quota share", "cedants", "cedent", "ceding companies", "reinsurance market", "reinsurers",
+                  "Lloyd's market", "market submissions", "MRC slip", "binding authorities", "coverholders"]
+        context: ["Lloyd's", "London market", "broker", "underwriter", "placement", "clients", "insurers",
+                  "catastrophe modelling", "catastrophe modeling", "actuarial", "renewals", "analytics"]
+        exclude: ["accountant", "accounting", "mortgage", "real estate", "freight"]
+        queries: ["reinsurance broker graduate", "reinsurance analyst", "treaty reinsurance analyst",
+                  "facultative reinsurance", "specialty broking graduate", "reinsurance broking associate",
+                  "Lloyd's broker trainee", "wholesale broking assistant"]
+
+      - id: insurance-fraud-siu
+        name: "Insurance fraud investigation (SIU)"
+        active: true
+        title: ['/\bSIU\b/', "special investigations", "special investigator", "insurance fraud", "claims fraud",
+                "healthcare fraud", "health care fraud", "claims investigator", "insurance investigator",
+                "field investigator", "surveillance investigator", "NICB", "medical fraud", "insurance crime"]
+        phrases: ["special investigations unit", "special investigation unit", "insurance fraud investigations",
+                  "Insurance Fraud Bureau", "Insurance Frauds Bureau", "National Insurance Crime Bureau",
+                  "staged accidents", "staged accident", "no-fault fraud", "workers' compensation fraud",
+                  "workers compensation fraud", "premium fraud", "fraud referrals", "examinations under oath",
+                  "examination under oath", "EUO", "IASIU", "fraud ring", "fraud rings", "suspicious claims",
+                  "provider fraud", "billing fraud", "upcoding", "fraud, waste and abuse"]
+        context: ["claims", "insurer", "investigation", "interviews", "surveillance", "subpoenas",
+                  "law enforcement", "CFE", "Certified Fraud Examiner", "analytics"]
+        exclude: ["clinical", "principal investigator"]
+        queries: ["SIU investigator", "special investigations unit analyst", "insurance fraud investigator entry level",
+                  "claims fraud analyst", "healthcare fraud investigator", "insurance fraud analyst"]
+
+  # ===================================================================================================
+  - id: intelligence-security
+    name: "Intelligence and security"
+    active: true
+    lanes:
+
+      - id: strategic-intelligence
+        name: "Risk, security and strategic intelligence"
+        active: true
+        title: ["intelligence analyst", "intel analyst", "strategic intelligence", "security intelligence",
+                "risk intelligence", "global intelligence", "intelligence associate", "intelligence researcher",
+                "intelligence specialist", "intelligence officer", "intelligence research",
+                "intelligence and analysis", "intelligence & analysis", "all-source analyst", "all source analyst",
+                "intelligence coordinator"]
+        phrases: ["all-source intelligence", "all-source analysis", "intelligence cycle",
+                  "intelligence requirements", "intelligence products", "intelligence assessments",
+                  "intelligence briefings", "analytic tradecraft", "structured analytic techniques",
+                  "estimative language", "indicators and warnings", "indications and warning",
+                  "strategic intelligence assessments", "intelligence collection", "collection requirements",
+                  "horizon scanning", "risk intelligence platform", "Intelligence Community", "ICD 203",
+                  "analytic standards", "bottom line up front", "BLUF", "Analysis of Competing Hypotheses",
+                  "key judgments", "key judgements"]
+        context: ["geopolitical", "security", "risk", "briefings", "assessments", "clearance", "TS/SCI", "crisis",
+                  "travel", "foreign language", "regional expertise", "open source", "reporting"]
+        exclude: ["business intelligence", "BI analyst", "BI developer", "sales intelligence", "revenue intelligence",
+                  "market intelligence", "competitive intelligence", "customer intelligence",
+                  "artificial intelligence", "pricing intelligence", "conversation intelligence",
+                  "software engineer", "data engineer", "intelligence engineer", "account director", "account executive",
+                  "account manager", "sales"]
+        queries: ["intelligence analyst entry level", "strategic intelligence analyst", "risk intelligence analyst",
+                  "security intelligence analyst", "global intelligence analyst", "junior intelligence analyst",
+                  "intelligence associate", "all source intelligence analyst"]
+        usajobs: {keywords: ["intelligence analyst", "intelligence research specialist", "intelligence specialist"],
+                  series: ["0132"]}
+
+      - id: threat-intelligence
+        name: "Threat intelligence and threat analysis"
+        active: true
+        title: ["threat intelligence", "threat intel", "threat analyst", "threat analysis", "threat assessment",
+                "threat investigator", "threat investigations", "threat researcher", "threat research",
+                "threat management", "threat monitoring", "insider threat", "threat and risk", "threat & risk",
+                "threat operations"]
+        phrases: ["threat landscape", "threat actors", "threat actor", "threat assessments", "threat reporting",
+                  "threat briefings", "threat indicators", "targeted violence",
+                  "behavioral threat assessment and management", "BTAM", "concerning behavior",
+                  "threat intelligence platform", "threat intelligence reports", "MITRE ATT&CK",
+                  "indicators of compromise", "dark web", "deep and dark web", "adversary tactics", "TTPs",
+                  "nation-state actors", "physical threats", "online threats", "threat vectors",
+                  "threat analyses"]
+        context: ["OSINT", "cyber", "physical security", "geopolitical", "executives", "social media", "extremism",
+                  "investigations", "briefings", "monitoring", "alerts"]
+        exclude: ["detection engineer", "security engineer", "malware", "reverse engineer", "penetration",
+                  "vulnerability", "software engineer", "SOC analyst", "red team", "exploit", "account executive"]
+        queries: ["threat intelligence analyst", "threat analyst entry level", "threat assessment analyst",
+                  "threat intelligence associate", "threat investigator", "physical threat intelligence analyst",
+                  "junior threat intelligence analyst"]
+        usajobs: {keywords: ["threat analyst", "threat assessment", "insider threat"], series: ["0132", "0080", "1801"]}
+
+      - id: protective-intelligence
+        name: "Protective intelligence and executive protection"
+        active: true
+        title: ["protective intelligence", "executive protection", "executive security", "protective operations",
+                "protective services", "close protection", "protective security", "principal protection",
+                "dignitary protection", "personal protection", "EP agent", "EP specialist", "EP coordinator",
+                "EP operations", "protective analyst", "protective detail"]
+        phrases: ["protective intelligence program", "protective intelligence investigations",
+                  "executive protection program", "executive protection team", "principals and their families",
+                  "security advances", "residential security", "motorcade", "close protection officers",
+                  "protectees", "protectee", "travel advances", "concerning communications",
+                  "inappropriate communications", "fixated persons", "fixated individuals",
+                  "pathway to violence", "UHNW principals", "family office security"]
+        context: ["threat assessment", "travel", "executives", "security operations", "OSINT",
+                  "social media monitoring", "family office", "events", "risk"]
+        exclude: ["child protective", "adult protective", "protective services worker", "caseworker", "case worker",
+                  "social worker", "environmental protection", "data protection", "fire protection",
+                  "asset protection", "loss prevention"]
+        queries: ["protective intelligence analyst", "executive protection coordinator", "executive protection analyst",
+                  "protective intelligence associate", "executive protection specialist",
+                  "protective operations analyst"]
+        usajobs: {keywords: ["protective intelligence", "protective operations", "protective security"],
+                  series: ["0132", "0080", "1811"]}
+
+      - id: travel-risk-crisis
+        name: "Travel risk and crisis response"
+        active: true
+        title: ["travel risk", "travel security", "travel safety", "crisis response", "crisis management",
+                "crisis coordinator", "crisis analyst", "crisis operations", "duty of care", "journey management",
+                "assistance coordinator", "security assistance", "global assistance", "travel intelligence",
+                "traveler safety", "traveller safety"]
+        phrases: ["travel risk management", "pre-travel advisories", "travel advisories", "traveler tracking",
+                  "traveller tracking", "evacuations", "evacuation planning", "crisis response operations",
+                  "medical and security assistance", "security evacuation", "crisis management plans",
+                  "crisis management plan", "high-risk travel", "high risk travel", "journey management plans",
+                  "duty of care obligations", "hostile environment awareness training", "HEAT training",
+                  "International SOS", "Crisis24", "Global Rescue"]
+        context: ["travelers", "travel", "security operations", "assistance", "24/7", "incidents", "alerts",
+                  "emergency", "evacuation", "crisis", "risk ratings"]
+        exclude: ["crisis counselor", "crisis counsellor", "crisis worker", "crisis intervention", "mental health",
+                  "behavioral health", "crisis line", "crisis clinician", "travel agent", "travel nurse", "nurse",
+                  "travel consultant"]
+        queries: ["travel risk analyst", "travel security coordinator", "crisis response coordinator",
+                  "travel risk management associate", "assistance coordinator security", "crisis management analyst"]
+        usajobs: {keywords: ["crisis management", "travel security"], series: ["0080", "0130", "0301"]}
+
+      - id: gsoc-watch
+        name: "GSOC, global security operations and watch officer roles"
+        active: true
+        title: ['/\bGSOC\b/', "global security operations", "security operations center", "security operations centre",
+                "watch officer", "watch analyst", "watch commander", "watchstander", "watch stander", "watch floor",
+                "operations center analyst", "operations centre analyst", "operations center specialist",
+                "fusion center", "fusion centre", "command center", "command centre", "intelligence watch"]
+        phrases: ["global security operations center", "global security operations centre", "GSOC operator",
+                  "watch officers", "24/7 monitoring", "24x7 operations", "incident monitoring",
+                  "alarm monitoring", "access control monitoring", "video management system",
+                  "emergency notifications", "mass notification", "Everbridge", "Dataminr", "flash alerts",
+                  "physical security information management", "PSIM", "Genetec", "Lenel"]
+        context: ["security operations", "physical security", "monitoring", "incidents", "alerts", "shifts",
+                  "travel", "executives", "crisis", "dispatch", "escalation"]
+        exclude: ["cyber", "cybersecurity", "SOC", "information security", "infosec", "security engineer",
+                  "network operations", "NOC", "penetration", "SIEM", "incident responder", "cloud security",
+                  "endpoint", "IT security", "network security"]
+        queries: ["GSOC analyst", "GSOC operator", "global security operations center analyst", "watch officer",
+                  "security operations center operator physical security", "intelligence watch analyst",
+                  "global security operations specialist"]
+        usajobs: {keywords: ["watch officer", "operations center", "command center"],
+                  series: ["0132", "0080", "0301", "0089"]}
+
+      - id: corporate-security
+        name: "Corporate security (non-cyber) and security risk analysis"
+        active: true
+        title: ["corporate security", "physical security", "security risk", "global security", "enterprise security",
+                "workplace security", "security & resilience", "security and resilience", "business continuity",
+                "personnel security", "industrial security", "facility security officer", "facility security",
+                "insider risk", "security investigations", "security program analyst", "security planning"]
+        phrases: ["security risk assessments", "security risk assessment", "physical security assessments",
+                  "site security assessments", "crime prevention through environmental design", "CPTED",
+                  "access control systems", "enterprise security risk management", "ESRM", "NISPOM",
+                  "32 CFR Part 117", "personnel security investigations", "insider risk program",
+                  "insider threat program", "business continuity planning", "crisis and continuity",
+                  "resilience planning", "security incident reporting", "ASIS International",
+                  "Certified Protection Professional", "Physical Security Professional", "site security",
+                  "workplace violence prevention program"]
+        context: ["security operations", "risk assessment", "crisis management", "investigations", "executives",
+                  "facilities", "travel", "compliance", "incident", "vendors", "guard force"]
+        exclude: ["cyber", "cybersecurity", "information security", "infosec", "security engineer", "penetration",
+                  "application security", "cloud security", "network security", "SOC", "IT security",
+                  "security architect", "SIEM", "devsecops", "security guard", "unarmed", "armed security", "patrol",
+                  "concierge", "engineer", "GRC", "risk engineering"]
+        queries: ["corporate security analyst", "security risk analyst", "physical security analyst",
+                  "global security analyst", "security risk management associate", "corporate security coordinator",
+                  "business continuity analyst"]
+        usajobs: {keywords: ["security specialist", "physical security", "personnel security", "industrial security"],
+                  series: ["0080"]}
+
+      - id: osint
+        name: "OSINT and open-source investigations"
+        active: true
+        title: ['/\bOSINT\b/', "open source investigator", "open-source investigator", "open source researcher",
+                "open-source researcher", "open source analyst", "open-source analyst", "digital investigator",
+                "digital investigations", "online investigator", "online investigations", "internet investigations",
+                "visual investigations", "verification researcher", "verification editor"]
+        phrases: ["open source intelligence", "open-source intelligence", "open source investigations",
+                  "open-source investigations", "open source research", "open-source research",
+                  "publicly available information", "social media monitoring", "social media investigations",
+                  "social media intelligence", "SOCMINT", "geolocation", "chronolocation", "satellite imagery",
+                  "Bellingcat", "Maltego", "image verification", "video verification", "Telegram channels"]
+        context: ["investigations", "social media", "verification", "journalism", "human rights", "research",
+                  "languages", "reporting", "due diligence", "threat"]
+        exclude: ["software", "engineer", "developer", "open source software", "OSPO", "license compliance"]
+        queries: ["OSINT analyst", "open source intelligence analyst", "open source investigator",
+                  "OSINT researcher entry level", "digital investigations analyst", "online investigations analyst",
+                  "open source researcher"]
+        usajobs: {keywords: ["open source intelligence", "OSINT"], series: ["0132"]}
+
+      - id: counterterrorism
+        name: "Counterterrorism and counter-extremism"
+        active: true
+        title: ["counterterrorism", "counter-terrorism", "counter terrorism", "counterterror", "counter-extremism",
+                "counter extremism", "countering violent extremism", "violent extremism", "extremism",
+                "terrorism analyst", "terrorism research", "terrorism researcher", "radicalization", "radicalisation",
+                "P/CVE", "domestic terrorism", "terrorist financing"]
+        phrases: ["violent extremist", "violent extremists", "extremist groups", "extremist content",
+                  "terrorist organizations", "terrorist organisations", "foreign terrorist organizations",
+                  "designated terrorist", "jihadist", "jihadism", "white supremacist", "accelerationism",
+                  "accelerationist", "racially and ethnically motivated violent extremism", "REMVE",
+                  "domestic violent extremism", "terrorist content", "terrorist and violent extremist content",
+                  "TVEC", "GIFCT", "Tech Against Terrorism", "deradicalisation", "deradicalization",
+                  "online radicalization", "terrorism prevention"]
+        context: ["national security", "intelligence", "online harms", "trust and safety", "hate speech", "policy",
+                  "research", "Middle East", "Africa", "Arabic"]
+        exclude: ["software engineer"]
+        queries: ["counterterrorism analyst", "counter extremism researcher", "terrorism research assistant",
+                  "countering violent extremism program", "violent extremism analyst",
+                  "counter terrorism research associate"]
+        usajobs: {keywords: ["counterterrorism", "terrorism"], series: ["0132", "0130", "0131", "1811"]}
+        nycjobs: {keywords: ["counter terrorism", "counterterrorism"],
+                  agencies: ["POLICE DEPARTMENT", "DISTRICT ATTORNEY-MANHATTAN"]}
+
+      - id: regional-research-specialist
+        name: "Regional research specialist roles at government research contractors"
+        active: true
+        title: ["regional research specialist", "regional research analyst", "regional researcher",
+                "regional analyst", "regional specialist",
+                "country analyst", "country specialist", "area specialist", "foreign area", "sociocultural",
+                "socio-cultural", "cultural analyst", "language analyst", "foreign media analyst",
+                '/\b(?:Middle East|MENA|Africa|Sub-Saharan Africa|Sahel|Russia|Eurasia|China|East Asia|South Asia|Latin America|Iran|Levant|Indo-Pacific|Asia-Pacific)n? (?:Analyst|Researcher|Research Analyst|Research Specialist|Specialist)\b/']
+        phrases: ["regional expertise", "area studies", "foreign language proficiency", "native or near-native",
+                  "near-native fluency", "ILR level 3", "Interagency Language Roundtable", "DLPT",
+                  "Defense Language Proficiency Test", "socio-cultural analysis", "sociocultural analysis",
+                  "human terrain", "country studies", "foreign media", "vernacular media",
+                  "regional subject matter expert", "regional SME", "geographic combatant command",
+                  "combatant command", "COCOM", "COCOMs", "AFRICOM", "CENTCOM", "INDOPACOM", "EUCOM", "SOUTHCOM"]
+        context: ["Arabic", "Farsi", "Russian", "Mandarin", "Korean", "Spanish", "TS/SCI", "security clearance",
+                  "government contractor", "DoD", "research"]
+        exclude: ["sales", "account executive"]
+        queries: ["regional research specialist", "regional analyst middle east", "country analyst",
+                  "foreign media analyst", "sociocultural analyst", "regional research analyst clearance",
+                  "language analyst research"]
+        usajobs: {keywords: ["regional analyst", "country analyst", "area specialist"],
+                  series: ["0132", "0130", "0131", "0101"]}
+
+      - id: defense-intel-data
+        name: "Defense tech and intelligence data firms"
+        active: true
+        title: ["geospatial analyst", "GEOINT", "imagery analyst", "imagery intelligence", "IMINT",
+                "signals intelligence", "SIGINT", "signals analyst", "RF analyst", "defense analyst", "defence analyst",
+                "military analyst", "mission analyst", "deployment strategist", "defense tech", "defence tech",
+                "national security analyst", "intelligence solutions"]
+        phrases: ["geospatial intelligence", "satellite imagery analysis", "synthetic aperture radar",
+                  "electro-optical imagery", "RF geolocation", "radio frequency data", "signals data",
+                  "defense industrial base", "national security customers", "intelligence community customers",
+                  "defense technology", "defence technology", "dual-use", "DoD and IC", "IC and DoD",
+                  "warfighter", "warfighters", "battlespace", "C4ISR", "ISR",
+                  "intelligence, surveillance and reconnaissance",
+                  "intelligence, surveillance, and reconnaissance", "Janes", "order of battle",
+                  "foreign military"]
+        context: ["defense", "defence", "national security", "clearance", "DoD", "government", "data", "analytics",
+                  "geospatial", "satellite", "intelligence community"]
+        exclude: ["software engineer", "hardware engineer", "firmware", "mechanical engineer", "electrical engineer",
+                  "technician", "machinist"]
+        queries: ["geospatial intelligence analyst", "defense analyst entry level", "imagery analyst",
+                  "intelligence data analyst", "national security analyst defense tech", "GEOINT analyst",
+                  "mission analyst defense", "deployment strategist"]
+        usajobs: {keywords: ["geospatial intelligence", "imagery analyst", "signals intelligence"],
+                  series: ["0132", "0150", "1370"]}
+
+  # ===================================================================================================
+  - id: investigations-dd
+    name: "Investigations and due diligence"
+    active: true
+    lanes:
+
+      - id: corporate-intelligence
+        name: "Corporate intelligence and investigative research"
+        active: true
+        title: ["corporate intelligence", "investigative research", "investigative researcher", "investigative analyst",
+                "investigative associate", "investigations analyst", "investigations associate",
+                "investigations specialist", "investigations", "investigator", "intelligence & investigations",
+                "intelligence and investigations"]
+        phrases: ["corporate investigations", "asset tracing", "asset searches", "asset search",
+                  "background investigations", "public records research", "court records", "corporate registries",
+                  "company registries", "media searches", "source inquiries", "source enquiries",
+                  "discreet inquiries", "human intelligence", "HUMINT", "internal investigations",
+                  "investigative reports", "investigative firm", "investigations firm", "litigation intelligence",
+                  "complex investigations", "cross-border investigations", "investigative techniques"]
+        context: ["due diligence", "research", "foreign language", "litigation", "clients", "reports", "LexisNexis",
+                  "PACER", "corporate records", "financial records", "public records"]
+        exclude: ["clinical", "principal investigator", "co-investigator", "sub-investigator", "child protective",
+                  "Title IX", "EEO", "equal employment", "human resources", "HR investigator", "employee relations",
+                  "workplace investigations", "fire investigator", "death investigator", "medicolegal",
+                  "business intelligence", "competitive intelligence", "crime scene", "case investigator",
+                  "communicable", "disease"]
+        queries: ["investigative research analyst", "corporate investigations analyst", "investigations associate",
+                  "corporate intelligence analyst", "investigative analyst entry level", "junior investigator research",
+                  "investigations analyst"]
+
+      - id: due-diligence
+        name: "Due diligence and enhanced due diligence"
+        active: true
+        title: ["due diligence", "diligence", '/\b(?-i:EDD)\b/', "DD analyst", "DD associate", "DD researcher",
+                "vetting", "third-party risk", "third party risk", "background research", "supplier risk"]
+        phrases: ["enhanced due diligence", "integrity due diligence", "reputational due diligence",
+                  "third-party due diligence", "third party due diligence", "pre-transaction due diligence",
+                  "pre-deal due diligence", "adverse media", "negative news", "adverse media screening",
+                  "litigation searches", "regulatory records", "know your counterparty", "vendor due diligence",
+                  "supplier due diligence", "partner due diligence", "anti-corruption due diligence",
+                  "FCPA due diligence", "FCPA", "UK Bribery Act", "anti-bribery and corruption", "World-Check",
+                  "Orbis", "Factiva", "LexisNexis Diligence", "Dow Jones Risk & Compliance"]
+        context: ["research", "reports", "compliance", "clients", "public records", "foreign language",
+                  "corporate records", "litigation", "sanctions", "reputational"]
+        exclude: ["cyber", "information security", "vendor security", "software"]
+        queries: ["due diligence analyst", "enhanced due diligence analyst", "integrity due diligence researcher",
+                  "due diligence research associate", "third party due diligence analyst",
+                  "junior due diligence analyst", "reputational due diligence"]
+        usajobs: {keywords: ["due diligence"], series: ["1160", "1101", "0301"]}
+
+      - id: beneficial-ownership
+        name: "Beneficial ownership research"
+        active: true
+        title: ["beneficial ownership", "ownership research", "ownership researcher", "ownership analyst", "UBO",
+                "corporate ownership", "entity research", "entity researcher", "corporate structure", "ownership data"]
+        phrases: ["beneficial owners", "ultimate beneficial owner", "ultimate beneficial owners",
+                  "ultimate beneficial ownership", "beneficial ownership registers", "beneficial ownership transparency",
+                  "Corporate Transparency Act", "BOI reporting", "beneficial ownership information", "shell companies",
+                  "shell company", "offshore companies", "nominee directors", "nominee shareholders",
+                  "opaque ownership", "complex ownership structures", "corporate registries", "Companies House",
+                  "OpenCorporates", "Sayari", "Open Ownership", "Panama Papers", "Pandora Papers",
+                  "persons with significant control", "PSC register"]
+        context: ["due diligence", "sanctions", "research", "corporate records", "AML", "KYC", "data",
+                  "investigations", "transparency", "offshore"]
+        exclude: ["home ownership", "homeownership"]
+        queries: ["beneficial ownership analyst", "beneficial ownership research", "corporate ownership researcher",
+                  "UBO analyst", "entity research analyst", "ownership data analyst"]
+        usajobs: {keywords: ["beneficial ownership"], series: ["1801", "0301", "0343", "1160"]}
+
+      - id: fraud-investigations
+        name: "Fraud and counter-fraud investigations"
+        active: true
+        title: ["fraud investigator", "fraud investigations", "fraud investigation", "fraud analyst", "fraud specialist",
+                "counter-fraud", "counter fraud", "anti-fraud", "anti fraud", "fraud prevention", "fraud risk",
+                "fraud operations", "fraud examiner", "fraud intelligence", "fraud strategy", "fraud associate",
+                "financial investigator"]
+        phrases: ["fraud schemes", "fraud typologies", "first-party fraud", "third-party fraud", "account takeover",
+                  "identity theft", "synthetic identity", "synthetic identities", "authorized push payment",
+                  "APP fraud", "check fraud", "wire fraud", "payment fraud", "procurement fraud", "occupational fraud",
+                  "Certified Fraud Examiner", "ACFE", "fraud losses", "chargebacks", "fraud cases", "fraud alerts",
+                  "fraud, waste and abuse", "fraud, waste, and abuse"]
+        context: ["investigations", "transactions", "analytics", "SQL", "banking", "payments", "compliance",
+                  "law enforcement", "case management", "AML"]
+        exclude: ["call center", "contact center", "customer service", "representative", "engineer", "developer",
+                  "data scientist", "machine learning"]
+        queries: ["fraud investigator entry level", "fraud analyst", "counter fraud analyst",
+                  "fraud investigations analyst", "anti-fraud specialist", "fraud intelligence analyst",
+                  "fraud examiner associate"]
+        usajobs: {keywords: ["fraud", "fraud investigator", "fraud specialist"], series: ["1801", "1811", "0511", "0343"]}
+        nycjobs: {keywords: ["fraud", "investigator"],
+                  agencies: ["DEPARTMENT OF INVESTIGATION", "HRA/DEPT OF SOCIAL SERVICES", "DEPARTMENT OF FINANCE",
+                             "CONSUMER AND WORKER PROTECTION"]}
+
+      - id: forensic-investigations
+        name: "Forensic investigations"
+        active: true
+        title: ["forensic accountant", "forensic investigator", "forensic analyst", "forensic auditor",
+                "forensic examiner", "forensic consultant", "forensic associate", "forensic services",
+                "forensic technology", "forensic & integrity", "forensic and integrity",
+                "disputes & investigations", "disputes and investigations"]
+        phrases: ["forensic accounting", "forensic investigations", "forensic investigation", "forensic audit",
+                  "forensic data analytics", "digital forensics", "computer forensics", "mobile forensics",
+                  "forensic imaging", "eDiscovery", "e-discovery", "financial investigations",
+                  "fraud and misconduct investigations", "accounting irregularities", "misappropriation",
+                  "embezzlement", "bribery and corruption investigations", "FCPA investigations",
+                  "whistleblower allegations", "tracing of funds", "funds tracing", "Cellebrite", "EnCase"]
+        context: ["CPA", "CFE", "accounting", "audit", "litigation", "disputes", "investigations", "data analytics",
+                  "regulators", "counsel", "Big 4"]
+        exclude: ["scientist", "toxicologist", "nurse", "psychologist", "psychiatrist", "pathologist", "DNA",
+                  "biologist", "chemist", "criminalist", "anthropologist", "engineer", "odontologist",
+                  "social worker", "therapist", "mental health"]
+        queries: ["forensic accounting associate", "forensic investigations analyst", "forensic accountant entry level",
+                  "digital forensics analyst", "disputes and investigations associate", "forensic technology analyst"]
+        usajobs: {keywords: ["forensic accountant", "forensic auditor", "digital forensics"],
+                  series: ["0510", "0511", "1811", "1801"]}
+
+      - id: law-firm-analyst
+        name: "Law firm analyst programs: white collar, asset recovery, international disputes, cybercrime"
+        active: true
+        title: ["white collar", "white-collar", "asset recovery", "arbitration", "international disputes",
+                "disputes analyst", "disputes associate", "cybercrime", "cyber crime", "legal analyst",
+                "legal research analyst", "case assistant", "investigations paralegal"]
+        phrases: ["white collar defense", "white-collar defense", "white collar crime", "government investigations",
+                  "internal investigations", "regulatory investigations", "investor-state arbitration",
+                  "investor-state", "commercial arbitration", "international arbitration", "ICSID",
+                  "ICC arbitration", "LCIA", "UNCITRAL", "enforcement of arbitral awards", "award enforcement",
+                  "judgment enforcement", "asset tracing and recovery", "recovery of assets", "fraud litigation",
+                  "cross-border disputes", "Foreign Corrupt Practices Act", "SEC enforcement",
+                  "data breach investigations", "economic crime"]
+        context: ["law firm", "attorneys", "partners", "associates", "litigation", "paralegal", "Big Law", "AmLaw",
+                  "document review", "legal research"]
+        exclude: ["payment disputes", "chargeback", "billing", "customer service"]
+        queries: ["white collar analyst law firm", "international arbitration analyst", "law firm investigations analyst",
+                  "legal analyst white collar", "international disputes analyst", "asset recovery analyst",
+                  "case assistant law firm"]
+
+      - id: litigation-case-analyst
+        name: "Litigation and case analyst roles"
+        active: true
+        title: ["litigation analyst", "litigation assistant", "litigation support specialist", "litigation paralegal",
+                "litigation clerk", "paralegal", "case analyst", "legal assistant", "trial preparation assistant",
+                "trial assistant", "discovery specialist", "eDiscovery analyst", "e-discovery analyst",
+                "document review", "legal case analyst"]
+        phrases: ["litigation support", "document productions", "document production", "privilege logs",
+                  "privilege review", "depositions", "trial preparation", "court filings", "Relativity",
+                  "Bates numbering", "exhibit preparation", "trial exhibits", "discovery requests",
+                  "class action", "complex litigation", "mass torts", "multidistrict litigation", "subpoenas"]
+        context: ["law firm", "attorneys", "litigation", "discovery", "court", "legal", "cases", "deadlines",
+                  "Westlaw", "LexisNexis", "PACER"]
+        exclude: ["attorney", "counsel", "partner", "nurse", "medical", "utilization", "clinical", "benefits"]
+        queries: ["litigation analyst", "litigation paralegal entry level", "case analyst legal",
+                  "litigation support analyst", "legal assistant litigation recent graduate",
+                  "trial preparation assistant", "discovery analyst"]
+        usajobs: {keywords: ["paralegal specialist", "legal assistant", "litigation support"], series: ["0950", "0986"]}
+        nycjobs: {keywords: ["paralegal", "litigation", "trial preparation"],
+                  agencies: ["LAW DEPARTMENT", "BRONX DISTRICT ATTORNEY", "DISTRICT ATTORNEY-MANHATTAN",
+                             "DISTRICT ATTORNEY KINGS COUNTY", "DISTRICT ATTORNEY QNS COUNTY",
+                             "DISTRICT ATTORNEY RICHMOND COU"]}
+
+      - id: public-defense-investigation
+        name: "Public defense investigation"
+        active: true
+        title: ["defense investigator", "defence investigator", "defender investigator", "mitigation specialist",
+                "mitigation investigator", "capital mitigation", "sentencing mitigation", "sentencing advocate",
+                "post-conviction", "wrongful conviction", "innocence", "public defense"]
+        phrases: ["public defender", "public defender's office", "indigent defense", "criminal defense",
+                  "holistic defense", "mitigation investigation", "mitigation investigations",
+                  "witness interviews", "interviewing witnesses", "locate witnesses", "serve subpoenas",
+                  "Legal Aid Society", "Bronx Defenders", "Brooklyn Defender Services",
+                  "Neighborhood Defender Service", "New York County Defender Services", "Federal Defenders",
+                  "Innocence Project", "Queens Defenders"]
+        context: ["investigation", "clients", "criminal", "court", "interviews", "records", "trial", "attorneys",
+                  "Spanish", "community"]
+        exclude: ["attorney", "staff attorney", "lawyer", "counsel"]
+        queries: ["public defender investigator", "defense investigator", "mitigation specialist",
+                  "criminal defense investigator entry level", "legal aid investigator", "investigator public defense"]
+
+      - id: nonprofit-grant-dd
+        name: "Nonprofit and grant due diligence"
+        active: true
+        title: ["grants compliance", "grant compliance", "grants management", "grants analyst", "grant analyst",
+                "grants associate", "grants specialist", "grants officer"]
+        phrases: ["equivalency determination", "equivalency determinations", "expenditure responsibility", "NGOsource",
+                  "grantee due diligence", "nonprofit due diligence", "charity due diligence", "NGO due diligence",
+                  "grantee vetting", "partner vetting", "foreign grantees", "international grantmaking",
+                  "sub-grantee", "subgrantee", "subawards", "sub-awards", "Uniform Guidance", "2 CFR 200",
+                  "Form 990", "grant compliance monitoring"]
+        context: ["foundation", "philanthropy", "nonprofit", "nonprofits", "grantmaking", "compliance",
+                  "sanctions screening", "budgets", "audits", "international"]
+        exclude: ["grant writer", "grant writing", "fundraising", "development officer"]
+        queries: ["grants compliance associate", "grantee due diligence", "grants management associate",
+                  "nonprofit due diligence analyst", "equivalency determination", "grants analyst foundation"]
+        usajobs: {keywords: ["grants management specialist", "grants specialist"], series: ["1109", "0301", "0343"]}
+
+  # ===================================================================================================
+  - id: geopolitical-risk
+    name: "Geopolitical and political risk"
+    active: true
+    lanes:
+
+      - id: country-sovereign-risk
+        name: "Political, country and sovereign risk"
+        active: true
+        title: ["political risk analyst", "political risk consultant", "political risk associate",
+                "political risk research", "political risk researcher", "country risk", "sovereign risk",
+                "sovereign analyst", "sovereign ratings", "sovereign credit", "sovereign debt", "sovereign research",
+                "emerging markets analyst", "EM sovereign", "country economist"]
+        phrases: ["country risk analysis", "country risk assessment", "country risk ratings", "sovereign risk analysis",
+                  "sovereign credit ratings", "sovereign creditworthiness", "sovereign default", "political stability",
+                  "regime stability", "political risk analysis", "political risk assessment", "political risk ratings",
+                  "political risk consulting", "macro-political", "frontier markets", "IMF programs",
+                  "IMF programme", "balance of payments", "fiscal sustainability", "country risk reports",
+                  "government stability", "expropriation risk"]
+        context: ["emerging markets", "macroeconomic", "geopolitical", "elections", "ratings", "investors", "clients",
+                  "forecasts", "regional expertise", "languages"]
+        exclude: ["political campaign"]
+        queries: ["political risk analyst", "country risk analyst", "sovereign risk analyst",
+                  "political risk research associate", "sovereign analyst emerging markets",
+                  "political risk consultant junior"]
+        usajobs: {keywords: ["country risk", "international economist"], series: ["0110", "0130", "1160"]}
+
+      - id: geopolitical-analysis
+        name: "Geopolitical and global risk analysis"
+        active: true
+        title: ["geopolitical", "geopolitics", "geostrategic", "geostrategy", "global risk", "international risk",
+                "global affairs", "world affairs", "strategic risk analyst", "global issues"]
+        phrases: ["geopolitical risk", "geopolitical analysis", "geopolitical developments",
+                  "geopolitical events", "geopolitical trends", "geopolitical landscape",
+                  "geopolitical intelligence", "global risk analysis", "global risks", "strategic foresight",
+                  "political and security developments", "regional security developments", "conflict analysis",
+                  "conflict monitoring", "conflict trends", "armed conflict", "great power competition",
+                  "geopolitical consulting", "risk briefings"]
+        context: ["international affairs", "foreign policy", "elections", "conflict", "security", "regional",
+                  "clients", "writing", "briefings", "research", "forecasts"]
+        exclude: ["credit risk", "market risk", "model risk", "operational risk", "liquidity risk", "counterparty risk",
+                  "risk modeling"]
+        queries: ["geopolitical analyst", "geopolitical risk analyst", "global risk analyst",
+                  "geopolitical research associate", "junior geopolitical analyst", "geopolitical intelligence analyst",
+                  "global affairs analyst"]
+        usajobs: {keywords: ["geopolitical", "political analyst"], series: ["0132", "0130", "0131"]}
+
+      - id: political-forecasting
+        name: "Political analysis and forecasting"
+        active: true
+        title: ["political analyst", "political analysis", "political research", "political researcher",
+                "political intelligence", "political scientist", "political forecasting", "forecasting research",
+                "forecasting researcher", "forecaster", "superforecaster", "election analyst", "elections analyst",
+                "polling analyst", "public opinion research", "Washington research", "Washington policy analyst"]
+        phrases: ["forecasting questions", "probabilistic forecasts", "probabilistic forecasting",
+                  "forecasting platform", "prediction markets", "prediction market", "Good Judgment",
+                  "Metaculus", "superforecasters", "Brier score", "election forecasts", "election forecasting",
+                  "election modeling", "polling data", "public opinion polling", "survey research",
+                  "legislative outlook", "policy outlook", "political outlook", "Washington policy research",
+                  "scenario forecasting", "geopolitical forecasting"]
+        context: ["elections", "Congress", "legislation", "campaigns", "public opinion", "investors", "clients", "data",
+                  "statistics", "writing"]
+        exclude: ["weather", "meteorologist", "meteorology", "demand", "sales", "inventory", "supply chain", "FP&A",
+                  "revenue", "workforce", "campaign manager", "field organizer", "canvasser"]
+        queries: ["political analyst", "political research analyst", "forecasting research analyst", "election analyst",
+                  "political intelligence analyst", "Washington policy analyst", "polling analyst entry level"]
+        usajobs: {keywords: ["political analyst", "political officer"], series: ["0130", "0132", "0101"]}
+
+      - id: geoeconomics
+        name: "Geoeconomics"
+        active: true
+        title: ["geoeconomics analyst", "geoeconomics research", "geoeconomic analyst", "geo-economics", "geo-economic",
+                "international economics", "international economic", "trade policy", "international trade analyst",
+                "trade economist", "global macro", "macro research", "economic research analyst",
+                "economic research assistant"]
+        phrases: ["geoeconomics", "geoeconomic", "economic statecraft", "economic coercion", "economic warfare",
+                  "financial statecraft", "investment screening", "inbound investment screening",
+                  "outbound investment", "CFIUS", "industrial policy", "friend-shoring", "friendshoring",
+                  "reshoring", "de-risking", "trade war", "trade wars", "critical minerals", "Belt and Road",
+                  "dollar dominance", "de-dollarization", "economic interdependence", "global trade flows"]
+        context: ["tariffs", "China", "trade", "macroeconomics", "investment", "sanctions", "supply chains", "policy",
+                  "think tank", "data"]
+        exclude: ["trader", "trading", "customs broker", "freight", "logistics"]
+        queries: ["geoeconomics research assistant", "economic statecraft", "trade policy analyst",
+                  "international economics research assistant", "geoeconomics analyst",
+                  "international trade policy research associate"]
+        usajobs: {keywords: ["international trade", "trade policy", "international economist"],
+                  series: ["1140", "0110", "0130", "0131"]}
+
+      - id: economic-security
+        name: "Economic security and resiliency research"
+        active: true
+        title: ["economic security", "economic resilience", "economic resiliency", "research security",
+                "investment security", "CFIUS analyst", "supply chain security", "critical infrastructure",
+                "technology security", "resilience research", "resiliency research", "strategic competition"]
+        phrases: ["national economic security", "economic and national security", "supply chain resilience",
+                  "supply chain vulnerabilities", "critical supply chains", "industrial base",
+                  "critical and emerging technologies", "technology competition", "CHIPS Act",
+                  "CHIPS and Science Act", "semiconductor supply chain", "critical minerals", "rare earths",
+                  "rare earth elements", "energy security", "strategic dependencies", "chokepoints", "overcapacity",
+                  "Made in China 2025", "dual-use technologies", "talent recruitment programs",
+                  "foreign influence in research"]
+        context: ["China", "trade", "technology", "sanctions", "policy", "think tank", "national security", "industry",
+                  "semiconductors", "energy"]
+        exclude: ["cyber", "cybersecurity", "benefits eligibility", "caseworker", "eligibility"]
+        queries: ["economic security research assistant", "economic security analyst", "supply chain resilience research",
+                  "research security analyst", "CFIUS analyst", "critical minerals research analyst"]
+        usajobs: {keywords: ["economic security", "investment security", "supply chain"],
+                  series: ["0110", "0130", "1140", "0301", "0343"]}
+
+      - id: supply-chain-forced-labor
+        name: "Supply chain risk and forced labor"
+        active: true
+        title: ["supply chain risk", "supply chain intelligence", "supply chain due diligence",
+                "supply chain transparency", "supply chain mapping", "supplier risk", "responsible sourcing",
+                "ethical sourcing", "social compliance", "supply chain compliance", "labor rights", "labour rights",
+                "human rights due diligence"]
+        phrases: ["forced labor", "forced labour", "modern slavery", "Uyghur Forced Labor Prevention Act",
+                  "UFLPA", "Withhold Release Order", "withhold release orders", "Section 307",
+                  "human trafficking", "child labor", "child labour", "Xinjiang", "social audits",
+                  "sub-tier suppliers", "Corporate Sustainability Due Diligence Directive", "CSDDD",
+                  "German Supply Chain Act", "LkSG", "OECD Due Diligence Guidance", "UN Guiding Principles",
+                  "conflict minerals", "EU Deforestation Regulation", "Modern Slavery Act"]
+        context: ["ESG", "sustainability", "compliance", "suppliers", "sourcing", "audits", "customs", "trade", "NGOs",
+                  "data", "research"]
+        exclude: ["buyer", "planner", "procurement specialist", "logistics coordinator", "warehouse", "inventory"]
+        queries: ["supply chain risk analyst", "forced labor research analyst", "supply chain due diligence analyst",
+                  "responsible sourcing analyst", "supply chain intelligence analyst", "UFLPA compliance analyst",
+                  "human rights due diligence analyst"]
+        usajobs: {keywords: ["forced labor", "child labor", "supply chain risk"],
+                  series: ["1801", "1889", "1140", "0131", "0343"]}
+
+      - id: risk-consulting
+        name: "Risk consulting and advisory"
+        active: true
+        title: ["risk consulting", "risk consultant", "risk advisory", "risk advisor", "risk adviser", "strategic risk",
+                "enterprise risk", "risk and resilience", "risk & resilience", "risk management consultant",
+                "risk mitigation", "crisis and risk", "crisis & risk"]
+        phrases: ["risk advisory services", "risk consulting firm", "risk consultancy", "strategic risk consultancy",
+                  "crisis and risk consultancy", "security risk consulting", "integrity risk",
+                  "reputational risk management", "risk mitigation strategies", "enterprise risk management",
+                  "high-risk environments", "complex and high-risk markets", "market entry risk",
+                  "political and security risks", "security and political risks", "operating in complex environments"]
+        context: ["clients", "consultancy", "consulting", "advisory", "geopolitical", "security", "compliance",
+                  "investigations", "crisis", "reports"]
+        exclude: ["credit risk", "market risk", "model risk", "liquidity risk", "IT risk", "cyber",
+                  "information security", "technology risk", "clinical", "patient safety", "actuarial"]
+        queries: ["risk consulting analyst", "risk advisory associate", "risk consultant entry level",
+                  "strategic risk consultant", "security risk consultant", "risk advisory analyst graduate"]
+
+      - id: primary-research-expert-networks
+        name: "Custom and primary research, expert networks"
+        active: true
+        title: ["expert network", "expert networks", "custom research", "primary research analyst",
+                "primary research associate", "client service associate", "expert sourcing", "expert recruitment"]
+        phrases: ["expert network firm", "expert calls", "expert consultations", "primary research",
+                  "custom research projects", "private equity and hedge fund clients",
+                  "consulting firms and investors", "AlphaSights", "GLG", "Guidepoint", "Third Bridge", "Tegus",
+                  "Coleman Research", "Dialectica", "Atheneum", "Capvision", "Arbolus", "NewtonX",
+                  "channel checks"]
+        context: ["clients", "investors", "consulting", "private equity", "hedge funds", "research", "sourcing",
+                  "outreach", "fast-paced"]
+        exclude: ["clinical research", "lab", "laboratory", "scientist"]
+        queries: ["expert network associate", "primary research associate", "custom research analyst",
+                  "expert network research associate", "client service associate expert network",
+                  "AlphaSights associate"]
+
+      - id: investment-research-dd
+        name: "Research and due diligence for investment firms (PE, hedge funds, M&A, fundamental research programs)"
+        active: true
+        title: ["investment research", "equity research", "fundamental research", "investment analyst",
+                "private equity analyst", "hedge fund analyst", "commercial due diligence", '/\bM&A\b/',
+                "mergers & acquisitions", "mergers and acquisitions", "buy-side research", "alt data",
+                "transaction advisory", "financial due diligence", "research analyst program"]
+        phrases: ["investment thesis", "investment theses", "investment memos", "investment committee", "deal teams",
+                  "deal flow", "portfolio companies", "bottom-up research", "alternative data", "long/short",
+                  "long-short equity", "public equities", "private markets", "sector coverage",
+                  "industry coverage", "earnings models", "investment process", "fundamental analysis"]
+        context: ["hedge fund", "private equity", "financial modeling", "valuation", "Excel", "investors",
+                  "sectors", "companies", "markets", "portfolio", "sell-side"]
+        exclude: ["sales", "account executive", "software engineer", "fund accountant", "fund accounting", "tax",
+                  "engineer", "counsel", "attorney", "accounting", "integration"]
+        queries: ["investment research analyst", "commercial due diligence analyst",
+                  "fundamental research analyst program", "hedge fund research analyst entry level",
+                  "private equity research associate", "M&A analyst", "alternative data research analyst"]
+
+  # ===================================================================================================
+  - id: sanctions-fincrime
+    name: "Sanctions, export controls and financial crime"
+    active: true
+    lanes:
+
+      - id: sanctions
+        name: "Sanctions research and investigations"
+        active: true
+        title: ["sanctions", "OFAC", "screening analyst", "transaction screening", "name screening",
+                "payment screening", "payments screening", "watchlist"]
+        phrases: ["economic sanctions", "sanctions compliance", "sanctions screening", "sanctions programs",
+                  "sanctions programmes", "sanctions evasion", "sanctions designations", "sanctions regimes",
+                  "sanctions research", "sanctions investigations", "Specially Designated Nationals", "SDN List",
+                  "Office of Foreign Assets Control", "Office of Financial Sanctions Implementation", "OFSI",
+                  "blocked persons", "blocked property", "50 Percent Rule", "secondary sanctions",
+                  "sectoral sanctions", "EU sanctions", "UN sanctions", "UK sanctions", "shadow fleet",
+                  "oil price cap", "sanctions circumvention"]
+        context: ["compliance", "screening", "Russia", "Iran", "North Korea", "trade", "financial institutions",
+                  "investigations", "export controls", "KYC", "AML"]
+        exclude: ["background screening", "patient", "medical", "health screening", "COVID"]
+        queries: ["sanctions analyst", "sanctions compliance analyst entry level", "sanctions research analyst",
+                  "sanctions investigator", "sanctions screening analyst", "OFAC compliance analyst",
+                  "sanctions policy research assistant"]
+        usajobs: {keywords: ["sanctions", "OFAC", "sanctions investigator", "sanctions policy"],
+                  series: ["0130", "0131", "1801", "0301", "0343", "0110"]}
+
+      - id: export-controls
+        name: "Export controls and export compliance"
+        active: true
+        title: ["export controls", "export control", "export compliance", "trade compliance", "export licensing",
+                "export license", "export licence", "ITAR", "trade controls", "strategic trade",
+                "nonproliferation", "non-proliferation", "counterproliferation", "counter-proliferation",
+                "customs compliance", "import compliance"]
+        phrases: ["Export Administration Regulations", "International Traffic in Arms Regulations",
+                  "Commerce Control List", "ECCN", "ECCNs", "export classification", "export classifications",
+                  "Entity List", "Bureau of Industry and Security", "Directorate of Defense Trade Controls", "DDTC",
+                  "dual-use goods", "end-use checks", "end-user screening", "restricted party screening",
+                  "deemed exports", "technology control plans", "foreign direct product rule", "export enforcement",
+                  "WMD proliferation", "Wassenaar Arrangement", "Missile Technology Control Regime",
+                  "Nuclear Suppliers Group", "Export Control Joint Unit", "ECJU", "strategic export controls",
+                  "semiconductor export controls"]
+        context: ["compliance", "customs", "trade", "licensing", "classification", "sanctions", "semiconductors",
+                  "defense", "technology", "logistics"]
+        exclude: ["freight", "warehouse", "driver"]
+        queries: ["export compliance analyst", "export controls analyst", "trade compliance analyst entry level",
+                  "export control research assistant", "nonproliferation research assistant",
+                  "export licensing specialist", "trade compliance associate"]
+        usajobs: {keywords: ["export control", "export compliance", "nonproliferation", "export enforcement"],
+                  series: ["1801", "1140", "0130", "0131", "1811"]}
+
+      - id: aml-kyc
+        name: "AML and KYC investigations"
+        active: true
+        title: ['/\bAML\b/', '/\bKYC\b/', "BSA", "CDD", "client onboarding", "transaction monitoring",
+                "financial crimes investigator", "financial crime investigator", "financial crimes analyst",
+                "financial crime analyst", "periodic review analyst"]
+        phrases: ["money laundering", "know your customer", "customer due diligence",
+                  "suspicious activity reports", "suspicious activity report", "suspicious activity",
+                  "SAR filings", "SAR filing", "SAR narratives", "Bank Secrecy Act", "BSA/AML",
+                  "transaction monitoring alerts", "source of funds", "source of wealth",
+                  "politically exposed persons", "PEP screening", "FinCEN", "USA PATRIOT Act",
+                  '/\b(?-i:CAMS)\b/', "ACAMS", "correspondent banking", "trade-based money laundering",
+                  "money mules", "KYC refresh"]
+        context: ["banking", "compliance", "investigations", "financial institutions", "transactions", "risk",
+                  "sanctions", "fraud", "regulatory", "case management", "Actimize"]
+        exclude: ["leukemia", "oncology", "clinical", "HR onboarding", "employee onboarding", "nurse"]
+        queries: ["AML analyst entry level", "KYC analyst", "AML investigator", "financial crimes analyst",
+                  "transaction monitoring analyst", "BSA AML analyst", "client onboarding KYC analyst",
+                  "anti money laundering investigations analyst"]
+        usajobs: {keywords: ["anti-money laundering", "Bank Secrecy Act", "financial crimes"],
+                  series: ["0570", "1801", "1160", "0132"]}
+
+      - id: fincrime-intelligence
+        name: "Financial crime risk analysis and financial intelligence"
+        active: true
+        title: ["financial intelligence", "FIU", "financial crime risk", "financial crimes risk",
+                "financial crime intelligence", "financial crimes intelligence", "fincrime", "financial crime",
+                "financial crimes", "economic crime"]
+        phrases: ["financial crime risk assessment", "financial crime risk assessments",
+                  "enterprise-wide risk assessment", "typologies", "financial crime typologies",
+                  "red flag indicators", "link analysis", "intelligence-led", "proactive investigations",
+                  "law enforcement requests", "314(b) information sharing", "Egmont Group", "FATF",
+                  "Financial Action Task Force", "mutual evaluation", "national risk assessment",
+                  "FinCEN advisories", "financial intelligence units",
+                  "Joint Money Laundering Intelligence Taskforce", "JMLIT"]
+        context: ["AML", "sanctions", "fraud", "data analytics", "SQL", "law enforcement", "banking", "regulators",
+                  "compliance", "reporting"]
+        exclude: ["leukemia", "clinical"]
+        queries: ["financial intelligence analyst", "financial crime risk analyst", "FIU analyst",
+                  "financial crime intelligence analyst", "financial crimes risk assessment analyst",
+                  "financial intelligence unit associate"]
+        usajobs: {keywords: ["financial intelligence", "intelligence research specialist", "financial crimes"],
+                  series: ["0132", "1801", "0343"]}
+
+      - id: illicit-finance
+        name: "Illicit finance"
+        active: true
+        title: ["illicit finance", "threat finance", "counter threat finance", "terrorist financing",
+                "proliferation financing", "kleptocracy", "anti-corruption", "anticorruption", "transnational crime",
+                "organized crime", "organised crime", "illicit trade", "illicit markets", "illicit networks",
+                "CFT", "counter-narcotics", "counternarcotics"]
+        phrases: ["illicit financial flows", "illicit financial activity", "illicit funds", "kleptocrats", "kleptocratic",
+                  "grand corruption", "state capture", "dirty money", "money laundering networks",
+                  "professional money launderers", "terrorist financing networks", "financing of terrorism",
+                  "sanctions evasion networks", "proliferation finance", "narcotics trafficking",
+                  "drug trafficking organizations", "transnational criminal organizations", "Transparency International",
+                  "Global Financial Integrity", "Organized Crime and Corruption Reporting Project", "OCCRP",
+                  "FACT Coalition", "Office of Terrorism and Financial Intelligence", "anti-kleptocracy",
+                  "golden passports"]
+        context: ["AML", "sanctions", "research", "investigations", "policy", "think tank", "corruption",
+                  "law enforcement", "offshore", "financial secrecy", "real estate"]
+        exclude: ["software engineer"]
+        queries: ["illicit finance analyst", "illicit finance research associate", "counter threat finance analyst",
+                  "terrorist financing analyst", "anti-corruption research assistant", "kleptocracy research",
+                  "transnational organized crime analyst"]
+        usajobs: {keywords: ["illicit finance", "terrorist financing", "threat finance", "counter threat finance"],
+                  series: ["0132", "0130", "0131", "0110", "1801"]}
+
+      - id: crypto-investigations
+        name: "Crypto and blockchain investigations"
+        active: true
+        title: ["blockchain investigator", "blockchain investigations", "blockchain intelligence", "blockchain analyst",
+                "crypto investigator", "crypto investigations", "cryptocurrency investigator",
+                "cryptocurrency investigations", "crypto compliance", "crypto intelligence",
+                "digital asset investigations", "digital asset compliance", "on-chain analyst", "on-chain investigator",
+                "onchain analyst", "virtual asset"]
+        phrases: ["blockchain analytics", "on-chain analysis", "on-chain data", "onchain data",
+                  "cryptocurrency tracing", "crypto tracing", "blockchain forensics", "crypto forensics",
+                  "virtual asset service providers", "VASP", "VASPs", "darknet markets", "darknet market",
+                  "crypto mixers", "ransomware payments", "pig butchering", "crypto scams", "crypto fraud",
+                  "illicit crypto", "Chainalysis Reactor", "Chainalysis", "TRM Labs", "Crystal Blockchain",
+                  "Merkle Science", "wallet attribution", "address attribution", "Lazarus Group", "Travel Rule",
+                  "DeFi exploits"]
+        context: ["Bitcoin", "Ethereum", "stablecoins", "DeFi", "wallets", "exchanges", "law enforcement", "AML",
+                  "sanctions", "cybercrime", "compliance"]
+        exclude: ["software engineer", "developer", "smart contract engineer", "trader", "trading", "marketing",
+                  "solidity", "protocol engineer", "account executive", "sales"]
+        queries: ["blockchain investigator", "crypto investigations analyst", "blockchain intelligence analyst",
+                  "cryptocurrency investigator entry level", "on-chain analyst", "crypto compliance analyst",
+                  "blockchain analytics investigator"]
+        usajobs: {keywords: ["cryptocurrency", "virtual currency", "blockchain"], series: ["1811", "1801", "0132", "0570"]}
+
+      - id: investigative-compliance
+        name: "Investigative compliance roles"
+        active: true
+        title: ["compliance investigator", "compliance analyst", "compliance associate", "ethics investigator",
+                "ethics & compliance", "ethics and compliance", "conduct investigations", "conduct risk",
+                "internal investigations", "employee misconduct", "whistleblower", "speak up", "hotline",
+                "regulatory investigations", "investigations & compliance", "investigative compliance",
+                "anti-bribery"]
+        phrases: ["compliance investigations", "internal investigations team", "allegations of misconduct",
+                  "misconduct allegations", "whistleblower complaints", "whistleblower reports",
+                  "ethics hotline", "speak-up reports", "code of conduct violations",
+                  "investigative interviews", "anti-bribery and corruption", "FCPA compliance",
+                  "gifts and entertainment", "regulatory inquiries", "investigation reports"]
+        context: ["compliance", "investigations", "ethics", "interviews", "legal", "policies", "risk", "regulators",
+                  "reporting", "data analysis"]
+        exclude: ["HIPAA", "healthcare compliance", "IT compliance", "SOX", "environmental", "EHS", "OSHA", "quality",
+                  "food safety", "pharmacy", "clinical", "billing", "coding", "privacy", "construction", "nurse"]
+        queries: ["compliance investigations analyst", "compliance investigator",
+                  "ethics and compliance investigations analyst", "compliance analyst investigations entry level",
+                  "internal investigations analyst", "conduct investigations analyst"]
+        usajobs: {keywords: ["compliance investigator", "compliance specialist", "investigations analyst"],
+                  series: ["1801", "0343", "0301"]}
+
+      - id: market-surveillance
+        name: "Market regulation, market and trade surveillance, enforcement"
+        active: true
+        title: ["trade surveillance", "market surveillance", "communications surveillance", "comms surveillance",
+                "surveillance analyst", "surveillance associate", "trading surveillance", "market regulation",
+                "market integrity", "market abuse", "insider trading", "securities enforcement", "associate examiner",
+                "securities examiner", "regulatory examiner", "market oversight"]
+        phrases: ["market manipulation", "wash trading", "front running", "front-running", "insider dealing",
+                  "surveillance alerts", "Consolidated Audit Trail", "FINRA rules",
+                  "SEC Division of Enforcement", "Division of Enforcement", "self-regulatory organization",
+                  "Securities Exchange Act", "Rule 10b-5", "Regulation SHO", "best execution",
+                  "electronic communications surveillance", "Commodity Exchange Act", "market conduct",
+                  "market abuse regulation", "spoofing and layering"]
+        context: ["FINRA", "SEC", "CFTC", "broker-dealers", "equities", "options", "futures", "trading", "compliance",
+                  "regulatory", "investigations"]
+        exclude: ["epidemiologist", "epidemiology", "public health", "disease", "infection", "casino", "nurse", "video"]
+        queries: ["trade surveillance analyst", "market surveillance analyst entry level",
+                  "FINRA market regulation analyst", "communications surveillance analyst", "market integrity analyst",
+                  "securities enforcement analyst", "associate examiner FINRA"]
+        usajobs: {keywords: ["securities compliance examiner", "market surveillance", "trading surveillance",
+                             "futures trading investigator"],
+                  series: ["0570", "1801", "1160", "0110"]}
+
+  # ===================================================================================================
+  - id: trust-safety
+    name: "Trust and safety and information integrity"
+    active: true
+    lanes:
+
+      - id: trust-safety-policy
+        name: "Trust and safety, content policy and platform integrity"
+        active: true
+        title: ["trust & safety", "trust and safety", '/\bT&S\b/', "content policy", "content moderator",
+                "content reviewer", "platform integrity", "integrity analyst", "integrity operations",
+                "integrity specialist", "site integrity", "community standards", "user safety", "online safety",
+                "platform policy", "product policy", "safety policy"]
+        phrases: ["content moderation", "community guidelines", "harmful content",
+                  "child sexual abuse material", "CSAM", "hate speech", "graphic violence",
+                  "platform manipulation", "inauthentic behavior", "Digital Services Act", "Online Safety Act",
+                  "Ofcom", "eSafety", "transparency reports", "content policies", "integrity teams", "TSPA",
+                  "Trust & Safety Professional Association", "harm types", "online harms", "policy escalations",
+                  "online child safety"]
+        context: ["policy", "enforcement", "escalations", "operations", "investigations", "data analysis", "SQL",
+                  "platform", "users", "safety", "moderation"]
+        exclude: ["software engineer", "engineer", "account executive", "sales", "recruiter", "data engineer",
+                  "data integrity", "program integrity", "academic integrity", "research integrity",
+                  "pipeline integrity", "asset integrity", "mechanical integrity", "structural integrity",
+                  "signal integrity"]
+        queries: ["trust and safety analyst", "trust and safety specialist entry level", "content policy analyst",
+                  "platform integrity analyst", "trust & safety associate", "content policy associate",
+                  "integrity analyst", "online safety policy"]
+
+      - id: policy-enforcement-ai-safeguards
+        name: "Policy enforcement, abuse and AI safeguards"
+        active: true
+        title: ["safeguards", "policy enforcement", "enforcement analyst", "enforcement specialist",
+                "enforcement operations", "abuse analyst", "abuse investigator", "abuse investigations", "anti-abuse",
+                "abuse operations", "abuse prevention", "AI safety", "model safety", "misuse", "account integrity",
+                "scaled abuse", "safety operations"]
+        phrases: ["usage policies", "usage policy", "acceptable use policy", "acceptable use policies",
+                  "abuse patterns", "abuse detection", "misuse of AI", "AI misuse", "model misuse",
+                  "harmful use", "dangerous capabilities", "CBRN", "jailbreaks", "jailbreak", "red teaming",
+                  "red-teaming", "account suspensions", "abuse reports", "scaled enforcement",
+                  "coordinated abuse", "malicious actors", "frontier AI", "responsible scaling",
+                  "safety evaluations"]
+        context: ["AI", "LLM", "machine learning", "classifiers", "policy", "investigations", "SQL", "Python",
+                  "trust and safety", "escalation", "operations"]
+        exclude: ["nuclear", "IAEA", "research scientist", "engineer", "engineering manager", "designer",
+                  "data scientist", "code enforcement", "law enforcement", "parking enforcement",
+                  "child support enforcement", "environmental enforcement"]
+        queries: ["policy enforcement analyst", "AI safeguards analyst", "abuse investigator",
+                  "safeguards enforcement analyst", "trust and safety enforcement associate", "anti-abuse analyst",
+                  "AI safety policy analyst"]
+
+      - id: ai-policy-forecasting
+        name: "AI policy, model policy and forecasting research organizations"
+        active: true
+        title: ["AI policy", "AI governance", "model policy", "model behavior", "model behaviour", "AI regulation",
+                "AI forecasting", "AI risk", "compute governance", "responsible AI", "AI ethics", "AI accountability",
+                "societal impacts", "artificial intelligence policy", "AI strategy researcher"]
+        phrases: ["frontier AI safety", "frontier models", "frontier model", "AI Safety Institute",
+                  "AI Security Institute", "Center for AI Standards and Innovation", "EU AI Act", "AI Act",
+                  "compute thresholds", "AI timelines", "transformative AI", "catastrophic risks from AI",
+                  "existential risk", "AI alignment", "alignment research", "responsible scaling policies",
+                  "model specifications", "model spec", "AI policy research", "technical AI governance",
+                  "forecasting AI progress", "Epoch AI", "Forecasting Research Institute", "GovAI",
+                  "Centre for the Governance of AI", "Institute for AI Policy and Strategy"]
+        context: ["AI", "machine learning", "LLMs", "governance", "regulation", "forecasting", "research", "think tank",
+                  "Washington", "Brussels"]
+        exclude: ["software engineer", "machine learning engineer", "research engineer", "account executive", "sales",
+                  "data engineer", "counsel"]
+        queries: ["AI policy research assistant", "AI governance researcher", "AI policy analyst", "AI policy fellow",
+                  "model policy analyst", "forecasting research associate", "AI governance research associate"]
+        usajobs: {keywords: ["artificial intelligence policy", "AI governance"], series: ["0301", "0343", "0101", "0130"]}
+
+      - id: election-integrity
+        name: "Election integrity and democracy"
+        active: true
+        title: ["election integrity", "election security", "election administration", "election protection",
+                "election observation", "elections", "electoral", "democracy", "democratic governance",
+                "civic integrity", "voting rights", "voter protection", "campaign finance", "political finance"]
+        phrases: ["free and fair elections", "election observation missions", "election monitoring",
+                  "electoral processes", "electoral integrity", "election officials", "election infrastructure",
+                  "election misinformation", "election disinformation", "voter suppression", "voting access",
+                  "ballot access", "democratic backsliding", "authoritarianism", "democratic resilience",
+                  "campaign finance disclosure", "dark money", "redistricting", "gerrymandering", "IFES",
+                  "National Democratic Institute", "International Republican Institute",
+                  "National Endowment for Democracy", "Brennan Center", "Freedom House", "Carter Center",
+                  "International IDEA", "Democracy Fund"]
+        context: ["voting", "governance", "civil society", "policy", "research", "legislation", "voters", "campaigns",
+                  "disinformation", "nonpartisan"]
+        exclude: ["benefits", "poll worker"]
+        queries: ["election integrity analyst", "democracy program associate", "election protection associate",
+                  "voting rights research assistant", "democracy and governance program assistant",
+                  "campaign finance analyst", "election security analyst"]
+        usajobs: {keywords: ["election", "democracy and governance"], series: ["0130", "0131", "0301"]}
+        nycjobs: {keywords: ["campaign finance", "election", "voter"], agencies: ["CAMPAIGN FINANCE BOARD"]}
+
+      - id: disinformation
+        name: "Disinformation, misinformation and influence operations"
+        active: true
+        title: ["disinformation", "misinformation", "influence operations", "information operations",
+                "foreign influence", "information integrity", "information manipulation", "FIMI",
+                "narrative intelligence", "narrative analyst", "information warfare", "propaganda",
+                "information threats", "malign influence"]
+        phrases: ["coordinated inauthentic behavior", "coordinated inauthentic behaviour", "inauthentic accounts",
+                  "bot networks", "troll farms", "state-sponsored media", "state media", "foreign malign influence",
+                  "influence campaigns", "disinformation campaigns", "narrative analysis", "narrative tracking",
+                  "information ecosystem", "information environment", "social media manipulation",
+                  "computational propaganda", "deepfakes", "synthetic media", "media manipulation", "DFRLab",
+                  "Digital Forensic Research Lab", "Graphika", "Alethea", "NewsGuard", "EU DisinfoLab",
+                  "hybrid threats", "cognitive warfare"]
+        context: ["social media", "OSINT", "elections", "research", "platforms", "Russia", "China", "narratives",
+                  "data analysis", "journalism", "trust and safety"]
+        exclude: ["software engineer"]
+        queries: ["disinformation analyst", "misinformation researcher", "influence operations analyst",
+                  "information integrity research associate", "foreign influence analyst",
+                  "disinformation research assistant", "narrative intelligence analyst"]
+        usajobs: {keywords: ["foreign malign influence", "information operations", "disinformation"],
+                  series: ["0132", "0130", "0131", "1035"]}
+
+      - id: human-rights
+        name: "Human rights"
+        active: true
+        title: ["human rights", "civil rights", "civil liberties", "atrocity prevention", "war crimes",
+                "transitional justice", "international justice", "international criminal law", "rights researcher",
+                "freedom of expression", "press freedom", "religious freedom", "migrant rights", "refugee rights",
+                "humanitarian law"]
+        phrases: ["human rights violations", "human rights abuses", "human rights documentation",
+                  "human rights research", "human rights investigations", "international humanitarian law",
+                  "international human rights law", "crimes against humanity", "genocide", "atrocity crimes",
+                  "accountability mechanisms", "UN Guiding Principles on Business and Human Rights",
+                  "business and human rights", "enforced disappearances", "forced disappearances",
+                  "arbitrary detention", "civic space", "human rights defenders", "UN Human Rights Council",
+                  "Universal Periodic Review", "Human Rights Watch", "Amnesty International",
+                  "International Criminal Court", "OHCHR", "Office of the High Commissioner for Human Rights"]
+        context: ["advocacy", "research", "documentation", "NGO", "nonprofit", "international law", "interviews",
+                  "reports", "languages", "accountability"]
+        exclude: ["attorney", "staff attorney", "engineer"]
+        queries: ["human rights research assistant", "human rights program associate",
+                  "human rights researcher entry level", "atrocity prevention fellow", "business and human rights analyst",
+                  "human rights investigator", "civil rights investigator"]
+        usajobs: {keywords: ["human rights", "civil rights"], series: ["0130", "0131", "0160", "0360"]}
+        nycjobs: {keywords: ["human rights", "investigator"],
+                  agencies: ["HUMAN RIGHTS COMMISSION", "OFFICE OF RACIAL EQUITY", "COMMISSION ON RACIAL EQUITY"]}
+
+  # ===================================================================================================
+  - id: policy-research
+    name: "Policy and research"
+    active: true
+    lanes:
+
+      - id: national-security
+        name: "National security"
+        active: true
+        title: ["national security", "homeland security", "defense policy", "defence policy", "security policy",
+                "nuclear policy", "arms control", "nuclear security", "strategic studies", "military affairs",
+                "defense strategy", "defence strategy", "international security", "security studies", "space policy",
+                "deterrence", "intelligence policy"]
+        phrases: ["national security policy", "foreign and defense policy", "defense and foreign policy",
+                  "U.S. national security", "US national security", "Pentagon", "National Security Council",
+                  "nuclear deterrence", "Indo-Pacific security", "transatlantic security", "NATO",
+                  "defense budget", "force posture", "military strategy", "wargaming", "wargames",
+                  "national security community", "Congressional Research Service"]
+        context: ["think tank", "research", "Congress", "defense", "foreign policy", "clearance", "writing", "events",
+                  "fellowship", "China", "Russia", "Middle East"]
+        exclude: ["sales", "account executive", "account manager", "account director", "business development",
+                  "software engineer", "engineer", "recruiter", "architect", "information security", "customer success",
+                  "partnerships"]
+        queries: ["national security research assistant", "national security program assistant",
+                  "defense policy research associate", "national security analyst entry level",
+                  "arms control research assistant", "international security program coordinator",
+                  "defense policy analyst"]
+        usajobs: {keywords: ["national security", "defense policy", "foreign affairs officer"],
+                  series: ["0130", "0131", "0132", "0301", "0343"]}
+
+      - id: foreign-policy
+        name: "Foreign policy and international affairs"
+        active: true
+        title: ["foreign policy", "foreign affairs", "international affairs", "international relations", "diplomacy",
+                "diplomatic", "political affairs", "political officer", "foreign service", "international policy",
+                "regional affairs",
+                '/\b(?:Asia|Africa|Americas|Europe|Middle East|Russia|Eurasia|China|Latin America|Indo-Pacific)n? (?:Program|Programme|Studies)\b/']
+        phrases: ["U.S. foreign policy", "US foreign policy", "American foreign policy", "foreign policy research",
+                  "foreign policy analysis", "multilateral diplomacy", "bilateral relations", "transatlantic relations",
+                  "US-China relations", "U.S.-China relations", "Council on Foreign Relations", "Department of State",
+                  "State Department", "Foreign Service Officer", "embassy", "international order", "statecraft",
+                  "diplomatic engagement", "Track II", "Track 2 dialogue"]
+        context: ["think tank", "research", "policy briefs", "writing", "events", "international", "Congress",
+                  "languages", "Washington", "fellowship"]
+        exclude: ["software engineer", "sales", "account executive", "tax", "accounting"]
+        queries: ["foreign policy research assistant", "international affairs program assistant",
+                  "foreign policy program coordinator", "international relations research associate",
+                  "foreign affairs analyst", "foreign policy fellow"]
+        usajobs: {keywords: ["foreign affairs officer", "international relations specialist", "foreign affairs"],
+                  series: ["0130", "0131"]}
+
+      - id: think-tank-research
+        name: "Think tank research associate, research assistant and program associate roles"
+        active: true
+        title: ["research associate", "research assistant", "research fellow", "junior fellow", "research coordinator",
+                "program associate", "research analyst", "policy associate", "policy fellow",
+                "research and program assistant"]
+        phrases: ["think tank", "think-tank", "nonpartisan research", "non-partisan research",
+                  "public policy research", "policy briefs", "policy papers", "op-eds", "senior fellows",
+                  "convenings", "roundtables", "Brookings", "Center for Strategic and International Studies",
+                  "CSIS", "Carnegie Endowment", "RAND Corporation", "Atlantic Council", "Wilson Center",
+                  "Hudson Institute", "American Enterprise Institute", "Center for a New American Security",
+                  "Stimson Center", "Chatham House", "International Institute for Strategic Studies",
+                  "Royal United Services Institute", "RUSI", "Peterson Institute", "German Marshall Fund"]
+        context: ["policy", "research", "writing", "editing", "events", "publications", "literature reviews",
+                  "data analysis", "Washington", "scholars"]
+        exclude: ["clinical", "laboratory", "lab", "biology", "chemistry", "biochemistry", "molecular", "medical",
+                  "medicine", "hospital", "neuroscience", "psychiatry", "pharmacology", "oncology", "genomics",
+                  "physics", "veterinary", "disease", "epidemiology", "epidemiologist"]
+        queries: ["think tank research assistant", "think tank research associate", "policy research assistant",
+                  "think tank program assistant", "junior fellow think tank",
+                  "research associate foreign policy think tank", "program coordinator think tank"]
+        usajobs: {keywords: ["Congressional Research Service", "research assistant"], series: ["0101", "0130", "0303"]}
+
+      - id: international-orgs
+        name: "International organizations and human rights groups"
+        active: true
+        title: ["junior professional officer", "JPO", "young professionals programme", "young professional",
+                "associate expert", "associate programme officer", "programme officer", "UN programme officer",
+                "programme management officer", "humanitarian affairs officer", "human rights officer",
+                "political affairs officer", "UN volunteer", "UNV", "programme analyst", "programme associate"]
+        phrases: ["United Nations", "UN agencies", "UN system", "multilateral organizations",
+                  "multilateral organisations", "international organizations", "international organisations",
+                  "intergovernmental organization", "intergovernmental organisation", "OSCE", "World Bank",
+                  "International Monetary Fund", "UNDP", "UNHCR", "UNICEF", "UN Security Council",
+                  "UN Secretariat", "Inspira", "International Committee of the Red Cross", "ICRC",
+                  "International Crisis Group", "Human Rights Watch", "Amnesty International",
+                  "international NGO", "INGO", "Interpol", "Europol", "UNODC"]
+        context: ["international", "multilateral", "development", "humanitarian", "policy", "field", "languages",
+                  "French", "Spanish", "Arabic", "missions", "member states"]
+        exclude: ["software engineer"]
+        queries: ["junior professional officer", "associate programme officer", "united nations programme analyst",
+                  "international organization research assistant", "young professionals programme",
+                  "program associate human rights organization", "UN consultant research"]
+        usajobs: {keywords: ["international organization", "United Nations"], series: ["0130", "0131", "0136"]}
+
+      - id: policy-legislative-analyst
+        name: "Policy and legislative analyst roles"
+        active: true
+        title: ["policy analyst", "legislative analyst", "legislative assistant", "legislative aide",
+                "legislative correspondent", "legislative fellow", "legislative affairs", "legislative research",
+                "policy advisor", "policy adviser", "policy officer", "policy researcher", "policy coordinator",
+                "policy specialist", "policy and research", "policy & research", "staff assistant", "policy associate"]
+        phrases: ["bill analysis", "bill tracking", "legislative tracking", "legislative session", "legislative hearings",
+                  "committee hearings", "draft legislation", "drafting legislation", "policy memos", "policy memoranda",
+                  "policy recommendations", "constituent correspondence", "constituent services", "Capitol Hill",
+                  "congressional offices", "congressional staff", "state legislature", "City Council",
+                  "New York City Council", "New York State Assembly", "State Senate", "legislative agenda",
+                  "regulatory comments", "fiscal notes"]
+        context: ["Congress", "legislation", "policy", "research", "writing", "government", "stakeholders", "briefings",
+                  "data analysis", "Albany", "City Hall"]
+        exclude: ["insurance policy", "policy services", "policy servicing", "policy processor", "policy processing",
+                  "information security", "cybersecurity", "account director", "account executive", "sales"]
+        queries: ["policy analyst entry level", "legislative analyst", "legislative assistant",
+                  "legislative correspondent", "policy associate", "junior policy analyst", "staff assistant congress",
+                  "legislative fellow"]
+        usajobs: {keywords: ["legislative analyst", "policy analyst", "legislative affairs specialist"],
+                  series: ["0301", "0343", "0101", "0130"]}
+        nycjobs: {keywords: ["policy analyst", "legislative", "policy advisor"],
+                  agencies: ["OFFICE OF THE MAYOR", "OFFICE OF MANAGEMENT & BUDGET", "OFFICE OF CRIMINAL JUSTICE",
+                             "PUBLIC ADVOCATE", "OFFICE OF THE COMPTROLLER"]}
+
+      - id: tech-regulatory-policy
+        name: "Technology, regulatory and financial services policy"
+        active: true
+        title: ["technology policy", "tech policy", "digital policy", "internet policy", "telecom policy",
+                "telecommunications policy", "regulatory policy", "financial regulation", "financial services policy",
+                "fintech policy", "crypto policy", "digital assets policy", "cyber policy", "cybersecurity policy",
+                "privacy policy", "data policy", "competition policy", "antitrust", "public policy", "regulatory affairs"]
+        phrases: ["digital regulation", "tech regulation", "platform regulation", "AI regulation",
+                  "Digital Markets Act", "Digital Services Act", "privacy legislation", "net neutrality",
+                  "spectrum policy", "broadband policy", "Section 230", "competition law",
+                  "antitrust enforcement", "Federal Trade Commission", "Federal Communications Commission",
+                  "financial regulatory reform", "Dodd-Frank", "Basel III", "capital requirements",
+                  "prudential regulation", "payments regulation", "stablecoin legislation",
+                  "digital asset regulation", "consumer financial protection", "CFPB", "rulemaking",
+                  "comment letters", "regulatory developments"]
+        context: ["technology", "regulation", "Congress", "regulators", "privacy", "AI", "fintech", "banking", "payments",
+                  "telecom", "Brussels"]
+        exclude: ["pharma", "pharmaceutical", "clinical", "FDA", "medical device", "drug", "biologics", "CMC", "nurse",
+                  "software engineer"]
+        queries: ["technology policy analyst", "tech policy research assistant", "financial regulation policy analyst",
+                  "public policy associate technology", "regulatory policy analyst",
+                  "digital policy research associate", "fintech policy analyst"]
+        usajobs: {keywords: ["technology policy", "financial regulation", "telecommunications policy"],
+                  series: ["0301", "0343", "0110", "0101", "1160"]}
+
+      - id: criminal-justice-policy
+        name: "Criminal justice policy and research"
+        active: true
+        title: ["criminal justice", "justice policy", "criminal legal", "criminology", "criminologist", "crime analyst",
+                "crime analysis", "justice research", "public safety policy", "public safety research", "police reform",
+                "policing", "violence prevention", "gun violence", "reentry", "re-entry", "pretrial",
+                "court innovation", "justice innovation"]
+        phrases: ["mass incarceration", "incarceration", "pretrial detention", "bail reform", "sentencing reform",
+                  "criminal legal system", "criminal justice reform", "criminal justice policy",
+                  "criminal justice research", "recidivism", "decarceration", "alternatives to incarceration",
+                  "diversion programs", "court data", "Rikers Island", "community violence intervention",
+                  "violence interruption", "procedural justice", "police accountability", "use of force", "crime data",
+                  "crime trends", "Vera Institute", "Center for Justice Innovation", "John Jay College",
+                  "Council on Criminal Justice"]
+        context: ["courts", "corrections", "data analysis", "research", "reform", "evaluation", "policy", "community",
+                  "prosecution", "victims"]
+        exclude: ["police officer", "correction officer", "corrections officer", "probation officer", "parole officer",
+                  "sergeant", "deputy sheriff", "security guard", "nurse", "case manager", "counselor", "therapist",
+                  "attorney", "ADA"]
+        queries: ["criminal justice research assistant", "criminal justice policy analyst", "crime analyst entry level",
+                  "justice policy research associate", "criminal justice program associate",
+                  "public safety policy analyst", "criminal legal reform research"]
+        usajobs: {keywords: ["crime analyst", "criminal justice", "social science analyst"],
+                  series: ["0101", "0343", "1530", "0301"]}
+        nycjobs: {keywords: ["criminal justice", "crime analyst", "research"],
+                  agencies: ["OFFICE OF CRIMINAL JUSTICE", "POLICE DEPARTMENT", "DEPARTMENT OF PROBATION",
+                             "DEPARTMENT OF CORRECTION"]}
+
+      - id: social-policy-advocacy
+        name: "Social policy and nonprofit advocacy"
+        active: true
+        title: ["social policy", "advocacy", "campaigner", "housing policy", "economic justice", "anti-poverty",
+                "poverty", "labor policy", "labour policy", "workforce policy", "education policy", "health policy",
+                "immigration policy", "racial justice", "racial equity", "social justice", "public interest"]
+        phrases: ["nonprofit advocacy", "policy advocacy", "advocacy campaigns", "advocacy organizations",
+                  "coalition building", "coalition partners", "grassroots advocacy", "community organizing",
+                  "social safety net", "safety net programs", "affordable housing", "tenant protections", "universal child care",
+                  "minimum wage", "paid leave", "guaranteed income", "economic mobility", "income inequality",
+                  "public benefits", "immigrant rights", "low-income communities"]
+        context: ["nonprofit", "coalition", "community", "legislation", "campaigns", "research", "policy",
+                  "communications", "equity", "outreach"]
+        exclude: ["patient advocacy", "patient advocate", "victim advocate", "customer advocacy", "customer advocate",
+                  "brand advocacy", "employee advocacy", "medical", "nurse", "inspector", "registrar"]
+        queries: ["policy and advocacy associate", "advocacy coordinator nonprofit", "social policy research assistant",
+                  "housing policy analyst", "policy associate nonprofit", "advocacy associate",
+                  "economic justice research associate"]
+        usajobs: {keywords: ["social science analyst", "policy analyst"], series: ["0101", "0301", "0343"]}
+
+      - id: urban-planning-research
+        name: "Urban and regional planning research"
+        active: true
+        title: ["urban planning", "urban planner", "city planning", "city planner", "regional planning",
+                "regional planner", "planning analyst", "land use", "zoning", "transportation planning",
+                "transportation planner", "urban policy", "urban research", "community planning",
+                "neighborhood planning", "planning research", "housing research", "urban analytics"]
+        phrases: ["comprehensive plan", "comprehensive planning", "land use planning", "zoning amendments",
+                  "zoning resolution", "rezoning", "rezonings", "ULURP", "Uniform Land Use Review Procedure", "CEQR",
+                  "City Environmental Quality Review", "transit-oriented development", "housing supply",
+                  "housing production", "Regional Plan Association", "metropolitan planning organization",
+                  "American Community Survey", "demographic analysis", "neighborhood change", "gentrification",
+                  "public space", "urban design", "Department of City Planning"]
+        context: ["GIS", "ArcGIS", "census", "housing", "transportation", "demographics", "data analysis", "community",
+                  "infrastructure", "mapping"]
+        exclude: ["financial planner", "event planner", "production planner", "demand planner", "supply planner",
+                  "wedding", "construction inspector"]
+        queries: ["urban planning research assistant", "planning analyst entry level", "city planner I",
+                  "urban policy research associate", "regional planning research analyst", "land use planning analyst",
+                  "junior urban planner"]
+        usajobs: {keywords: ["community planner", "urban planner"], series: ["0020"]}
+        nycjobs: {keywords: ["planner", "planning", "research"],
+                  agencies: ["DEPARTMENT OF CITY PLANNING", "HOUSING PRESERVATION & DVLPMNT",
+                             "DEPARTMENT OF TRANSPORTATION"]}
+
+      - id: research-writing
+        name: "Writing roles: research writing, reporting, editing, fact-checking, correspondence"
+        active: true
+        title: ["fact-checker", "fact checker", "research writer", "staff writer", "writer", "speechwriter",
+                "speech writer", "correspondence", "editorial assistant", "editorial associate", "copy editor",
+                "research editor", "reporter", "news assistant", "news researcher", "editorial researcher",
+                "writer-researcher"]
+        phrases: ["fact-checking", "fact checking", "copy editing", "copyediting", "line editing", "AP style",
+                  "Chicago Manual of Style", "editorial calendar", "long-form", "longform",
+                  "investigative journalism", "investigative reporting", "newsroom",
+                  "constituent correspondence", "correspondence unit", "executive correspondence", "op-eds",
+                  "research and writing"]
+        context: ["writing", "editing", "research", "journalism", "publications", "deadlines", "editorial",
+                  "interviews", "sources", "accuracy"]
+        exclude: ["technical writer", "copywriter", "UX writer", "content writer", "grant writer", "medical writer",
+                  "proposal writer", "marketing", "SEO", "court reporter", "stenographer", "grand jury reporter",
+                  "solicitation", "procurement"]
+        queries: ["research writer", "fact checker", "editorial assistant", "news assistant", "correspondence analyst",
+                  "staff writer policy", "research and writing associate"]
+        usajobs: {keywords: ["writer-editor", "correspondence analyst", "editorial assistant", "writer editor"],
+                  series: ["1082", "1087", "0301"]}
+        nycjobs: {keywords: ["writer", "correspondence", "editor"], agencies: ["OFFICE OF THE MAYOR"]}
+
+  # ===================================================================================================
+  - id: strategic-comms
+    name: "Strategic communications"
+    active: true
+    lanes:
+
+      - id: strategic-comms-advisory
+        name: "Strategic communications and advisory research"
+        active: true
+        title: ["strategic communications", "strategic communication", "stratcom", "strategic comms",
+                "communications associate", "communications analyst", "communications coordinator",
+                "communications assistant", "communications specialist", "communications consultant",
+                "communications research", "corporate communications", "public relations", "PR associate",
+                "PR coordinator", "comms associate", "internal communications", "communications officer"]
+        phrases: ["strategic communications firm", "strategic communications consultancy",
+                  "strategic advisory firm", "stakeholder communications", "corporate reputation",
+                  "message development", "messaging strategy", "narrative development",
+                  "communications strategy", "communications strategies", "executive positioning",
+                  "media training", "press releases", "talking points", "op-ed placement", "M&A communications",
+                  "financial communications", "investor communications", "shareholder activism", "Teneo",
+                  "FGS Global", "Brunswick Group", "Edelman", "Kekst CNC", "APCO Worldwide", "Joele Frank",
+                  "Finsbury", "Sard Verbinnen", "Weber Shandwick"]
+        context: ["clients", "media", "research", "writing", "messaging", "reputation", "stakeholders", "press",
+                  "campaigns", "social media", "agency"]
+        exclude: ["telecommunications", "communications engineer", "communications technician", "radio", "dispatcher",
+                  "911", "unified communications"]
+        queries: ["strategic communications associate", "strategic communications analyst",
+                  "communications associate entry level", "strategic advisory research analyst",
+                  "corporate communications coordinator", "public relations associate",
+                  "strategic communications firm analyst"]
+        usajobs: {keywords: ["public affairs specialist", "strategic communications", "communications specialist"],
+                  series: ["1035", "0301", "1082"]}
+
+      - id: crisis-comms
+        name: "Crisis communications and issues management"
+        active: true
+        title: ["crisis communications", "crisis communication", "crisis comms", "issues management",
+                "issues & crisis", "issues and crisis", "crisis & issues", "crisis and issues", "rapid response",
+                "litigation communications", "crisis PR", "crisis & reputation", "crisis and reputation",
+                "risk communications", "risk communication", "emergency communications"]
+        phrases: ["crisis preparedness", "crisis simulations", "crisis simulation", "holding statements",
+                  "reactive statements", "reputational crises", "reputational crisis", "high-stakes situations",
+                  "media inquiries", "cyber incident communications", "rapid response communications",
+                  "crisis communications planning", "crisis communications plans"]
+        context: ["media", "reputation", "stakeholders", "press", "legal", "executives", "social media", "clients",
+                  "monitoring", "response"]
+        exclude: ["911", "dispatcher", "telecommunicator", "radio", "nurse", "crisis counselor", "mental health",
+                  "emergency communications technician"]
+        queries: ["crisis communications associate", "crisis communications analyst", "issues management associate",
+                  "crisis and issues management coordinator", "rapid response associate communications",
+                  "crisis communications consultant junior"]
+        usajobs: {keywords: ["crisis communications", "public affairs specialist"], series: ["1035"]}
+
+      - id: public-government-affairs
+        name: "Public affairs and government affairs"
+        active: true
+        title: ["public affairs", "government affairs", "government relations", "governmental affairs",
+                "intergovernmental affairs", "external affairs", "community affairs", "corporate affairs", "lobbyist",
+                "lobbying", "federal affairs", "state affairs", "community relations", "stakeholder engagement",
+                "public engagement", "legislative affairs"]
+        phrases: ["government affairs team", "government relations firm", "lobbying firm",
+                  "lobbying disclosure", "Lobbying Disclosure Act", "registered lobbyist", "elected officials",
+                  "public officials", "legislative and regulatory", "stakeholder outreach", "issue advocacy",
+                  "public affairs campaigns", "public affairs firm", "grassroots and grasstops", "grasstops",
+                  "policymakers", "state legislators", "political action committee"]
+        context: ["Congress", "legislation", "policy", "advocacy", "stakeholders", "regulators", "Washington",
+                  "communications", "events", "coalition"]
+        exclude: ["sales", "account executive"]
+        queries: ["government affairs associate", "public affairs associate", "government relations coordinator",
+                  "public affairs specialist entry level", "external affairs associate", "government affairs analyst",
+                  "intergovernmental affairs associate"]
+        usajobs: {keywords: ["public affairs specialist", "legislative affairs", "intergovernmental affairs"],
+                  series: ["1035", "0301"]}
+        nycjobs: {keywords: ["intergovernmental affairs", "public affairs", "external affairs", "community affairs"],
+                  agencies: ["OFFICE OF THE MAYOR"]}
+
+      - id: reputation-media-analysis
+        name: "Reputation, stakeholder and media analysis"
+        active: true
+        title: ["media analyst", "media analysis", "media research", "media researcher", "media intelligence",
+                "reputation analyst", "reputation research", "reputation management", "reputation intelligence",
+                "stakeholder analysis", "stakeholder research", "stakeholder mapping", "stakeholder intelligence",
+                "sentiment analyst", "perception research", "opposition research", "opposition researcher"]
+        phrases: ["media coverage analysis", "coverage analysis", "share of voice", "earned media",
+                  "reputational analysis", "reputation tracking", "reputation audits", "reputation audit",
+                  "stakeholder perceptions", "stakeholder maps", "perception audits", "perception surveys",
+                  "narrative analysis", "media landscape", "media audits", "message testing",
+                  "opinion research", "Meltwater", "Cision", "Signal AI", "Talkwalker", "Brandwatch",
+                  "NewsWhip", "Factiva"]
+        context: ["communications", "reputation", "media", "stakeholders", "research", "data analysis", "reports",
+                  "clients", "social media", "executives"]
+        exclude: ["paid media", "media buyer", "media planner", "social media manager", "media sales", "programmatic",
+                  "media technician"]
+        queries: ["media analyst", "reputation research analyst", "media research analyst entry level",
+                  "stakeholder mapping analyst", "media intelligence analyst", "opposition research associate",
+                  "reputation intelligence analyst"]
+
+      - id: insights-monitoring
+        name: "Insights and monitoring"
+        active: true
+        title: ["media monitoring", "monitoring analyst", "news monitoring", "social listening", "insights analyst",
+                "insights associate", "insights researcher", "insights specialist", "news analyst",
+                "monitoring specialist", "monitoring associate", "research & insights", "research and insights",
+                "audience insights", "digital insights", "policy monitoring", "legislative monitoring",
+                "regulatory monitoring"]
+        phrases: ["daily briefings", "morning briefings", "news briefings", "news summaries", "clips reports",
+                  "press clips", "monitoring reports", "social media listening", "listening tools",
+                  "policy tracking", "regulatory tracking", "insights reports", "Meltwater", "Brandwatch",
+                  "Sprinklr", "Dataminr", "Muck Rack", "FiscalNote", "Politico Pro"]
+        context: ["news", "media", "social media", "research", "reports", "clients", "communications", "data",
+                  "alerts", "policy"]
+        exclude: ["transaction monitoring", "network monitoring", "IT monitoring", "systems monitoring",
+                  "patient monitoring", "clinical", "environmental monitoring", "consumer insights", "shopper insights",
+                  "sales insights", "customer insights", "remote monitoring", "alarm monitoring"]
+        queries: ["media monitoring analyst", "insights analyst communications", "social listening analyst",
+                  "news monitoring associate", "policy monitoring analyst", "insights associate entry level",
+                  "media monitoring and insights"]
+
+  # ===================================================================================================
+  - id: government
+    name: "Government"
+    active: true
+    lanes:
+
+      - id: district-attorney
+        name: "District attorney offices: counterterrorism, hate crimes, crime strategies, forensic sciences, investigative analyst"
+        active: true
+        title: ["district attorney", "investigative analyst", "crime strategies", "crime strategy", "hate crimes",
+                "hate crime", "rackets investigator", "cell site analyst", "economic crimes", "conviction integrity",
+                "trial preparation", "forensic sciences", "forensic science", "special narcotics", "DA's Office",
+                "special victims"]
+        phrases: ["District Attorney's Office", "District Attorney’s Office", "Manhattan District Attorney",
+                  "Bronx District Attorney", "Brooklyn District Attorney", "Kings County District Attorney",
+                  "Queens District Attorney", "Richmond County District Attorney", "Staten Island District Attorney",
+                  "Special Narcotics Prosecutor", "Crime Strategies Unit", "Hate Crimes Unit", "Rackets Bureau",
+                  "Cybercrime and Identity Theft Bureau", "Economic Crimes Bureau", "Conviction Integrity Unit",
+                  "Financial Frauds Bureau", "Investigation Division", "DANY"]
+        context: ["prosecutors", "prosecution", "grand jury", "criminal cases", "investigations", "NYPD", "intelligence",
+                  "trial", "cases", "court"]
+        exclude: ["assistant district attorney", "ADA", "attorney", "custodial", "mechanic", "stenographer",
+                  "special officer"]
+        queries: ["investigative analyst district attorney", "district attorney analyst", "crime strategies analyst",
+                  "trial preparation assistant", "district attorney office investigator", "hate crimes analyst",
+                  "counterterrorism analyst district attorney"]
+        nycjobs: {keywords: ["analyst", "investigative analyst", "trial preparation assistant", "investigator"],
+                  agencies: ["DISTRICT ATTORNEY-MANHATTAN", "BRONX DISTRICT ATTORNEY", "DISTRICT ATTORNEY KINGS COUNTY",
+                             "DISTRICT ATTORNEY QNS COUNTY", "DISTRICT ATTORNEY RICHMOND COU",
+                             "DISTRICT ATTORNEY-SPECIAL NARC"]}
+
+      - id: nyc-integrity
+        name: "NYC DOI, inspectors general, CCRB and integrity investigators"
+        active: true
+        title: ["inspector general", "investigative auditor", "integrity investigator", "integrity monitor",
+                "monitorship", "confidential investigator", "special investigator", "background investigator",
+                "complaint investigator", "police oversight", "oversight analyst", "investigative analyst",
+                "OIG", "civilian oversight", "integrity officer"]
+        phrases: ["Department of Investigation", "NYC DOI", "New York City Department of Investigation",
+                  "Civilian Complaint Review Board", "CCRB", "Business Integrity Commission",
+                  "Conflicts of Interest Board", "Office of the Inspector General", "Inspector General for the NYPD",
+                  "inspectors general", "integrity monitoring", "corruption investigations", "public corruption",
+                  "fraud, waste and abuse", "fraud, waste, and abuse", "police misconduct", "allegations of misconduct",
+                  "vendor integrity", "procurement fraud", "Commission to Combat Police Corruption"]
+        context: ["investigations", "audits", "interviews", "NYPD", "city agencies", "corruption", "oversight",
+                  "evidence", "reports", "subpoenas"]
+        exclude: ["attorney", "examining attorney", "counsel"]
+        queries: ["Department of Investigation investigator", "inspector general investigator", "CCRB investigator",
+                  "integrity investigator", "investigative auditor", "confidential investigator", "oversight analyst"]
+        usajobs: {keywords: ["inspector general investigator", "investigator OIG", "auditor OIG"],
+                  series: ["1801", "1811", "0511", "0343"]}
+        nycjobs: {keywords: ["investigator", "inspector general", "investigative analyst", "auditor"],
+                  agencies: ["DEPARTMENT OF INVESTIGATION", "CIVILIAN COMPLAINT REVIEW BD", "BUSINESS INTEGRITY COMMISSION",
+                             "CONFLICTS OF INTEREST BOARD", "OFFICE OF THE COMPTROLLER"]}
+
+      - id: nyc-mayors-office
+        name: "NYC Mayor's Office and City Hall policy and research roles"
+        active: true
+        title: ["Mayor's Office", "Mayor’s Office", "City Hall", "mayoral", "Urban Fellow", "Urban Fellows",
+                "advance associate", "mayoral fellow", "Mayor's Graduate Scholar"]
+        phrases: ["Office of the Mayor", "Mayor's Office of Operations", "Mayor's Office of Criminal Justice",
+                  "MOCJ", "Mayor's Office of Contract Services", "Mayor's Management Report", "Deputy Mayor for",
+                  "mayoral administration", "Mayor's Office of Data Analytics", "citywide policy",
+                  "citywide initiatives", "NYC Office of Management and Budget", "Office of Policy and Planning",
+                  "New York City Urban Fellows"]
+        context: ["New York City", "NYC", "city agencies", "policy", "research", "data", "community", "stakeholders",
+                  "briefings", "interagency"]
+        exclude: ["cook", "custodian", "driver", "attorney", "counsel"]
+        queries: ["Mayor's Office policy analyst", "NYC Mayor's Office research", "City Hall policy associate",
+                  "Mayor's Office special assistant", "NYC Urban Fellows", "Office of the Mayor analyst"]
+        nycjobs: {keywords: ["policy", "research", "analyst", "special assistant"],
+                  agencies: ["OFFICE OF THE MAYOR", "MAYORS OFFICE OF CONTRACT SVCS", "OFFICE OF CRIMINAL JUSTICE",
+                             "OFFICE OF MANAGEMENT & BUDGET", "OFFICE OF RACIAL EQUITY"]}
+
+      - id: nys-agencies
+        name: "NYS DFS, DCJS, NY Attorney General, OMIG, Comptroller, MTA, Port Authority, NYPD"
+        active: true
+        title: ["bank examiner", "insurance examiner", "criminal justice program representative",
+                "program research specialist", "examiner of municipal affairs", "medical facilities auditor",
+                "Medicaid fraud", "program integrity", "NYPD", "Port Authority", "MTA", "DCJS", "OMIG",
+                "NYS DFS", "excise tax investigator"]
+        phrases: ["New York State Department of Financial Services", "Department of Financial Services",
+                  "Division of Criminal Justice Services", "Office of the Attorney General",
+                  "New York State Attorney General", "Office of the Medicaid Inspector General",
+                  "Medicaid Inspector General", "Office of the State Comptroller", "New York State Comptroller",
+                  "New York City Comptroller", "Metropolitan Transportation Authority",
+                  "Port Authority of New York and New Jersey", "New York City Police Department",
+                  "NYPD Intelligence Bureau", "Counterterrorism Bureau", "Medicaid Fraud Control Unit",
+                  "Excelsior Service Fellowship", "Empire State Fellows", "NYS Department of Civil Service"]
+        context: ["New York State", "Albany", "civil service", "New York City", "examinations", "investigations",
+                  "audits", "Medicaid", "insurance", "banking"]
+        exclude: ["police officer", "bus operator", "train operator", "conductor", "track worker", "custodian",
+                  "mechanic", "electrician", "maintainer", "nurse", "school safety agent", "traffic enforcement agent"]
+        queries: ["NYS Department of Financial Services analyst", "DCJS research analyst",
+                  "Attorney General investigator New York", "OMIG investigator", "Port Authority analyst",
+                  "MTA analyst entry level", "NYPD intelligence research specialist",
+                  "New York State Comptroller examiner"]
+        nycjobs: {keywords: ["intelligence", "crime analyst", "analyst", "investigator"],
+                  agencies: ["POLICE DEPARTMENT", "OFFICE OF THE COMPTROLLER"]}
+
+      - id: ny-fed
+        name: "NY Fed"
+        active: true
+        title: ["Federal Reserve", "New York Fed", "NY Fed", "FRBNY", "bank supervision", "supervision analyst",
+                "supervisory analyst", "financial institution supervision", "bank examiner trainee",
+                "supervision associate", "Fed research analyst"]
+        phrases: ["Federal Reserve Bank of New York", "Federal Reserve System",
+                  "monetary policy implementation", "open market operations", "Markets Group",
+                  "Supervision Group", "Research and Statistics Group",
+                  "Financial Institution Supervision Group", "Liberty Street Economics",
+                  "Federal Open Market Committee", "FOMC", "prudential supervision",
+                  "systemically important", "bank holding companies", "large financial institutions",
+                  "payments policy", "Research Analyst Program"]
+        context: ["economics", "banking", "supervision", "regulation", "monetary policy", "markets", "data",
+                  "research", "finance", "policy"]
+        exclude: ["police officer", "custodian"]
+        queries: ["New York Fed research analyst", "Federal Reserve Bank of New York analyst",
+                  "NY Fed supervision associate", "Federal Reserve research analyst program", "NY Fed markets analyst",
+                  "Federal Reserve bank examiner"]
+
+      - id: emergency-management
+        name: "Emergency management and resiliency (FEMA incl. reservist and CORE, NYC Emergency Management)"
+        active: true
+        title: ["emergency management", "emergency manager", "emergency preparedness", "emergency planner",
+                "emergency planning", "preparedness", "disaster recovery", "disaster response", "disaster",
+                "resiliency", "hazard mitigation", "continuity of operations", '/\b(?-i:COOP)\b/', "FEMA",
+                "reservist", '/\b(?-i:CORE)\b/', "emergency operations", "EOC", "public assistance specialist",
+                "individual assistance"]
+        phrases: ["Federal Emergency Management Agency", "NYC Emergency Management", "New York City Emergency Management",
+                  "Office of Emergency Management", "Cadre of On-Call Response/Recovery Employees",
+                  "FEMA Reservist", "Reservist program", "disaster deployments", "National Incident Management System",
+                  "NIMS", "Incident Command System", "ICS-100", "Stafford Act", "hazard mitigation planning",
+                  "tabletop exercises", "after-action reports", "after action reports", "emergency operations center",
+                  "continuity planning", "coastal resiliency", "climate resiliency",
+                  "Homeland Security Exercise and Evaluation Program", "HSEEP", "Certified Emergency Manager",
+                  "DHSES", "Division of Homeland Security and Emergency Services"]
+        context: ["disasters", "hurricanes", "flooding", "response", "recovery", "planning", "exercises", "shelters",
+                  "logistics", "community", "hazards"]
+        exclude: ["IT disaster recovery", "data center", "backup", "cyber", "information technology", "nurse", "EMT",
+                  "paramedic", "emergency medicine", "emergency department", "emergency room", "physician",
+                  "veterinarian", "engineer", "epidemiology", "scientist"]
+        queries: ["emergency management specialist", "FEMA reservist", "FEMA CORE",
+                  "emergency management program analyst", "emergency preparedness coordinator",
+                  "NYC Emergency Management", "hazard mitigation specialist", "resiliency planner"]
+        usajobs: {keywords: ["Reservist", "CORE", "emergency management specialist", "program analyst",
+                             "hazard mitigation"],
+                  series: ["0089", "0301", "0343", "0080"], organization: "HSCB"}
+        nycjobs: {keywords: ["emergency management", "emergency preparedness", "resiliency", "planner"],
+                  agencies: ["OFFICE OF EMERGENCY MANAGEMENT"]}
+
+      - id: federal-pathways
+        name: "Federal Pathways Recent Graduate, GS-5 to GS-9 (series 0130, 0131, 0132, 0301, 0343, 1801): international affairs, international trade, foreign affairs, legislative analysis, correspondence, program and management analysis"
+        active: true
+        title: ["recent graduate", "recent graduates", "pathways recent", "pathways program",
+                "management and program analyst", "foreign affairs officer", "foreign affairs specialist",
+                "international relations specialist", "international trade specialist", "intelligence specialist",
+                '/\bGS-?0?[579]\b/', "recent grad"]
+        phrases: ["Recent Graduates Program", "Pathways Recent Graduates", "recent graduate appointment",
+                  "Presidential Management Fellows", "PMF", "Schedule D", "excepted service appointment",
+                  "Participant Agreement", "non-competitive conversion", "noncompetitive conversion", "GS-0130",
+                  "GS-0131", "GS-0132", "GS-0301", "GS-0343", "GS-1801", "within the previous two years"]
+        context: ["federal", "USAJOBS", "U.S. citizenship", "security clearance", "agency", "OPM",
+                  "competitive service", "veterans' preference", "program management"]
+        exclude: ["career pathways", "teacher", "school"]
+        queries: ["pathways recent graduate", "recent graduates program analyst",
+                  "pathways recent graduate foreign affairs", "pathways recent graduate international trade",
+                  "recent graduate management and program analyst", "pathways recent graduate intelligence"]
+        usajobs: {keywords: ["Recent Graduate", "Pathways"], series: ["0130", "0131", "0132", "0301", "0343", "1801"],
+                  hiring_path: ["graduates"], grade_low: "05", grade_high: "09"}
+
+      - id: federal-investigator
+        name: "Federal investigator roles (e.g. DOL employee benefits investigator)"
+        active: true
+        title: ["employee benefits investigator", '/\bInvestigator \(Employee Benefits\)/', "employee benefits security",
+                "criminal investigator", "special agent", "investigative specialist", "general investigator",
+                "wage and hour investigator", "wage-hour investigator", "investigative assistant",
+                '/\bInvestigator \((?:General|Criminal|Fraud|Compliance)\)/', "federal investigator",
+                "industry operations investigator", "OIG investigator"]
+        phrases: ["Employee Benefits Security Administration", "EBSA", "ERISA",
+                  "Employee Retirement Income Security Act", "Wage and Hour Division", "Office of Inspector General",
+                  "Federal Bureau of Investigation", "Homeland Security Investigations", "Diplomatic Security Service",
+                  "Defense Counterintelligence and Security Agency", "DCSA",
+                  "Bureau of Alcohol, Tobacco, Firearms and Explosives", "criminal investigations",
+                  "civil investigations", "GS-1811", "GS-1801", "GS-1810", "Law Enforcement Availability Pay"]
+        context: ["federal", "investigations", "interviews", "evidence", "subpoenas", "compliance", "enforcement",
+                  "travel", "U.S. citizenship", "background investigation"]
+        exclude: ["clinical", "principal investigator"]
+        queries: ["employee benefits investigator", "investigator employee benefits EBSA",
+                  "federal investigator entry level", "criminal investigator recent graduate",
+                  "industry operations investigator", "wage and hour investigator", "general investigator"]
+        usajobs: {keywords: ["Investigator (Employee Benefits)", "Investigator", "Criminal Investigator",
+                             "Industry Operations Investigator", "Wage and Hour Investigator"],
+                  series: ["1801", "1810", "1811"]}
+
+  # ===================================================================================================
+  - id: entry-routes
+    name: "Entry routes"
+    active: true
+    lanes:
+
+      - id: graduate-programs
+        name: "Graduate, rotational and early careers programs"
+        active: true
+        title: ["graduate programme", "graduate program", "graduate scheme", "graduate trainee", "graduate analyst",
+                "graduate underwriter", "graduate broker", "graduate associate", "graduate intake", "rotational",
+                "early careers", "early career", "early talent", "new grad", "new graduate", "campus hire",
+                "university graduate", "recent college graduate", '/\bclass of 20\d\d\b/',
+                '/\b20\d\d (?:Graduate|Analyst|Associate|Intake|Start|Programme|Program)\b/']
+        phrases: ["rotational program", "rotational programme", "rotations across", "rotate through",
+                  "two-year program", "two-year programme", "two year program", "early careers program",
+                  "early careers programme", "graduate development programme", "graduate development program",
+                  "structured training programme", "structured training program", "training academy",
+                  "final-year students", "final year students", "penultimate year", "expected graduation",
+                  '/\bgraduat(?:e|ing) (?:in|by) (?:(?:spring|summer|fall|autumn|winter|may|june|december) )?20\d\d\b/',
+                  "no prior experience required", "entry-level program"]
+        context: ["training", "mentorship", "cohort", "rotations", "development", "university", "recruitment",
+                  "analysts", "associates"]
+        exclude: ["graduate research assistant", "graduate teaching assistant", "graduate assistant", "graduate nurse",
+                  "nurse", "teaching", "postdoctoral", "graduate student", "graduate admissions", "graduate school",
+                  "software engineer", "engineer", "designer", "developer"]
+        queries: ["graduate programme insurance", "graduate underwriter specialty", "rotational program analyst",
+                  "early careers program risk", "graduate scheme intelligence", "new grad analyst program",
+                  "early careers insurance broking", "2027 graduate program"]
+
+      - id: analyst-programs
+        name: "Analyst, associate and development programs"
+        active: true
+        title: ["analyst program", "analyst programme", "associate program", "associate programme",
+                "development program", "development programme", "leadership development", "analyst development",
+                "analyst class", "analyst training", "associate training", "trainee program", "trainee programme",
+                "management trainee", "LDP", "accelerated development"]
+        phrases: ["two-year analyst program", "2-year analyst program", "incoming analyst class",
+                  "analyst cohort", "associate cohort", "structured development program",
+                  "leadership development program", "development program participants",
+                  "promotion to associate", "full-time analyst program", "analyst and associate programs"]
+        context: ["training", "mentorship", "cohort", "rotations", "networking", "career development", "coaching",
+                  "analysts", "associates"]
+        exclude: ["software development", "business development", "product development", "fund development",
+                  "development officer", "development director", "development associate", "child development",
+                  "real estate development", "web development", "software", "engineer"]
+        queries: ["analyst program", "associate program risk", "development program analyst",
+                  "leadership development program", "analyst development program insurance", "trainee programme",
+                  "full time analyst program"]
+
+      - id: fellowships
+        name: "Fellowships and program assistant roles"
+        active: true
+        title: ["fellowship", "fellow", "fellows", "program assistant", "programme assistant", "program associate",
+                "programme associate", "project assistant", "program coordinator", "programme coordinator",
+                "staff assistant"]
+        phrases: ["fellowship program", "fellowship programme", "fellowship year", "one-year fellowship",
+                  "two-year fellowship", "fellows program", "Herbert Scoville Jr. Peace Fellowship", "Scoville",
+                  "Presidential Management Fellows", "Truman Scholar", "Boren Fellowship", "Boren Award",
+                  "Pickering Fellowship", "Rangel Fellowship", "Fulbright", "Coro Fellows", "NYC Urban Fellows",
+                  "Excelsior Service Fellowship", "Empire State Fellows", "Gaither Junior Fellows",
+                  "James C. Gaither Junior Fellows", "Luce Scholars", "Payne Fellowship", "cohort-based fellowship"]
+        context: ["cohort", "mentorship", "stipend", "professional development", "research", "policy", "nonprofit",
+                  "program support", "events", "administrative"]
+        exclude: ["clinical", "postdoctoral", "postdoc", "medical", "physician", "residency", "nursing", "teaching",
+                  "senior fellow", "distinguished fellow", "nonresident fellow", "non-resident fellow"]
+        queries: ["policy fellowship", "research fellowship recent graduate", "program assistant international affairs",
+                  "junior fellow", "program associate foreign policy", "fellowship national security",
+                  "program assistant think tank"]
+
+      - id: entry-level-analyst
+        name: "Entry-level analyst roles"
+        active: true
+        title: ["junior", '/\bAnalyst,?\s+(?:(?-i:I)|1)\b/', '/\bLevel\s+(?:(?-i:I)|1)\b/', "associate analyst",
+                "assistant analyst", "analyst trainee", "trainee analyst", "trainee", "apprentice", "apprenticeship",
+                "entry level", "entry-level", "underwriting assistant", "assistant underwriter"]
+        phrases: ["entry-level position", "entry level position", "entry-level role", "early career professionals",
+                  "early-career professionals", "recent college graduates", "0-2 years of experience",
+                  "0–2 years of experience", "0-1 years of experience", "1-2 years of experience",
+                  "up to 2 years of experience", "no experience required", "no prior experience", "new graduates",
+                  "junior-level", "less than two years of experience"]
+        context: ["training", "mentorship", "bachelor's degree", "learning", "supervision", "growth", "team support",
+                  "recent graduate"]
+        exclude: ["nurse", "clinical", "dental", "pharmacy", "psychologist", "engineer", "technician", "developer",
+                  "designer", "scientist"]
+        queries: ["junior analyst", "entry level analyst risk", "associate analyst intelligence", "analyst I research",
+                  "entry level research analyst", "junior research analyst", "trainee analyst"]
+
+  # ===================================================================================================
+  - id: earlier-lanes
+    name: "Earlier lanes, not in the current sweeps"
+    active: false
+    lanes:
+
+      - id: program-evaluation
+        name: "Program evaluation and civic analytics"
+        active: false
+        title: ["program evaluation", "evaluation analyst", "evaluation associate", "evaluator",
+                "monitoring and evaluation", "monitoring & evaluation", '/\bM&E\b/', '/\b(?-i:MEL)\b/',
+                "impact evaluation", "civic analytics", "civic data", "civic tech", "performance management analyst",
+                "data and evaluation", "research and evaluation", "evidence and learning"]
+        phrases: ["evaluation design", "impact evaluations", "randomized controlled trials",
+                  "randomized evaluations", "quasi-experimental", "theory of change", "logic models",
+                  "logic model", "Mayor's Management Report", "civic technology", "open data",
+                  "government performance", "evidence-based policymaking", "evidence-based policy",
+                  "Results for America", "J-PAL", "MDRC", "Urban Institute", "Mathematica"]
+        context: ["data analysis", "Stata", "Python", "SQL", "surveys", "metrics", "government", "nonprofit",
+                  "research", "outcomes"]
+        exclude: ["clinical", "nurse", "vehicle", "psychological evaluator", "speech", "occupational therapist"]
+        queries: ["program evaluation analyst", "evaluation associate", "monitoring and evaluation associate",
+                  "civic analytics analyst", "research and evaluation analyst", "performance management analyst"]
+        usajobs: {keywords: ["program evaluation", "evaluation specialist"], series: ["0343", "0101", "1530"]}
+        nycjobs: {keywords: ["evaluation", "performance management", "data analyst"],
+                  agencies: ["OFFICE OF THE MAYOR", "OFFICE OF MANAGEMENT & BUDGET"]}
+
+      - id: philanthropy
+        name: "Philanthropy and grantmaking"
+        active: false
+        title: ["philanthropy", "philanthropic", "grantmaking", "grant-making", "program officer", "grants associate",
+                "grants manager", "impact investing", "social impact", "charitable giving", "foundation program"]
+        phrases: ["grantmaking strategy", "grantees", "grant portfolio", "grant portfolios", "private foundation",
+                  "family foundation", "donor-advised funds", "donor-advised fund", "philanthropic advisory",
+                  "philanthropic strategy", "strategic philanthropy", "effective altruism", "Open Philanthropy",
+                  "GiveWell", "Rockefeller Foundation", "Ford Foundation", "MacArthur Foundation",
+                  "Carnegie Corporation", "Bloomberg Philanthropies", "Gates Foundation", "Open Society Foundations",
+                  "Hewlett Foundation"]
+        context: ["nonprofit", "nonprofits", "foundation", "grants", "impact", "program", "due diligence", "evaluation",
+                  "strategy", "partners"]
+        exclude: ["major gifts", "fundraising", "fundraiser", "development officer", "annual giving", "donor relations",
+                  "gift officer", "prospect research"]
+        queries: ["philanthropy associate", "grantmaking associate", "program associate foundation",
+                  "philanthropic advisor analyst", "grants associate foundation", "impact investing analyst"]
+
+      - id: digital-rights
+        name: "Digital rights and responsible tech"
+        active: false
+        title: ["digital rights", "responsible tech", "responsible technology", "tech ethics", "technology ethics",
+                "internet freedom", "tech accountability", "tech justice", "data rights", "algorithmic accountability",
+                "algorithmic justice", "public interest technology", "public interest tech", "privacy advocate"]
+        phrases: ["privacy rights", "surveillance technology", "surveillance technologies", "facial recognition",
+                  "spyware", "internet shutdowns", "censorship circumvention", "online freedom of expression",
+                  "algorithmic bias", "algorithmic discrimination", "AI accountability", "Electronic Frontier Foundation",
+                  "Access Now", "Center for Democracy & Technology", "Center for Democracy and Technology",
+                  "Citizen Lab", "Data & Society", "AI Now Institute", "Fight for the Future",
+                  "Surveillance Technology Oversight Project", "Mozilla Foundation", "Ranking Digital Rights"]
+        context: ["privacy", "surveillance", "AI", "technology", "civil liberties", "human rights", "policy",
+                  "advocacy", "research", "platforms"]
+        exclude: ["software engineer", "sales"]
+        queries: ["digital rights research assistant", "responsible tech policy associate", "tech accountability researcher",
+                  "internet freedom program associate", "privacy and surveillance policy analyst",
+                  "public interest technology fellow"]
+
+      - id: economic-consulting
+        name: "Economic consulting and litigation support analyst programs (dropped Sept 2026)"
+        active: false
+        title: ["economic consulting", "economic consultant", "economics analyst", "economic analyst",
+                "litigation consulting", "litigation economics", "antitrust economics", "economics associate",
+                "consulting analyst", "damages analyst", "expert services"]
+        phrases: ["economic consulting firm", "expert testimony", "expert witnesses", "damages analysis",
+                  "damages calculations", "class certification", "antitrust litigation", "merger review",
+                  "econometric analysis", "econometrics", "regression analysis", "Analysis Group", "Cornerstone Research",
+                  "Compass Lexecon", "NERA", "Charles River Associates", "Brattle Group", "Bates White",
+                  "Edgeworth Economics", "Berkeley Research Group"]
+        context: ["Stata", "Python", "SAS", "economics", "finance", "litigation", "data", "testimony", "attorneys",
+                  "regulators"]
+        exclude: ["sales", "software"]
+        queries: ["economic consulting analyst", "litigation consulting analyst", "economics analyst antitrust",
+                  "economic consulting research analyst", "damages analyst"]
+
+      - id: broadcast-journalism
+        name: "Broadcast journalism"
+        active: false
+        title: ["broadcast journalist", "broadcast associate", "broadcast assistant", "broadcast journalism",
+                "news associate", "news producer", "associate producer", "production assistant", "desk assistant",
+                "assignment desk", "booker", "segment producer", "newsroom assistant", "news writer",
+                "multimedia journalist", "journalist"]
+        phrases: ["newsroom", "news division", "television news", "TV news", "cable news", "network news",
+                  "local news station", "live broadcasts", "on-air", "newscast", "newscasts", "show rundowns",
+                  "breaking news", "booking guests", "story pitches", "NBC News", "CBS News", "ABC News", "CNN",
+                  "BBC News", "Fox News", "MSNBC", "PBS NewsHour"]
+        context: ["video", "scripts", "reporters", "anchors", "production", "deadlines", "research", "interviews",
+                  "story", "segments"]
+        exclude: ["broadcast engineer", "broadcast technician", "audio engineer", "film", "commercial production",
+                  "advertising", "music"]
+        queries: ["news associate", "broadcast associate news", "associate producer news", "desk assistant news",
+                  "production assistant news", "booker news"]
+
+      - id: real-estate
+        name: "Real estate (Marx Realty internship pursuit, July 2026)"
+        active: false
+        title: ["real estate", "CRE", "acquisitions analyst", "leasing", "property management", "realty",
+                "investment sales", "asset management analyst", "real estate analyst"]
+        phrases: ["commercial real estate", "office buildings", "office properties", "retail properties",
+                  "property acquisitions", "leasing activity", "rent rolls", "ARGUS Enterprise", "cap rates",
+                  "cap rate", "net operating income", "NOI", "tenant relations", "tenant improvement",
+                  "Marx Realty", "Class A office", "placemaking", "REIT", "REITs"]
+        context: ["Excel", "financial modeling", "properties", "tenants", "investments", "New York City", "Manhattan",
+                  "brokers", "market research", "valuations", "landlord"]
+        exclude: ["real estate agent", "realtor", "mortgage loan officer", "maintenance", "porter", "superintendent",
+                  "counsel", "attorney", "construction"]
+        queries: ["real estate analyst", "commercial real estate analyst entry level", "real estate acquisitions analyst",
+                  "real estate asset management analyst", "Marx Realty"]

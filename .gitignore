@@ -1,2 +1,12 @@
 *.html
 *.xlsx
+# jobsweep
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+jobsweep/var/
+jobsweep/site/
+jobsweep/.env
+.env

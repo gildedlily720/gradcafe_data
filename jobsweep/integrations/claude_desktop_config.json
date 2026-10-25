@@ -1,0 +1,61 @@
+{
+  "mcpServers": {
+    "jobsweep": {
+      "command": "uv",
+      "args": ["run", "--directory", "/ABSOLUTE/PATH/TO/gradcafe_data/jobsweep", "jobsweep-mcp"]
+    },
+    "pipeworx-usajobs": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://gateway.pipeworx.io/usajobs/mcp"]
+    },
+    "jobspy": {
+      "command": "uvx",
+      "args": ["mcp-jobspy@latest"]
+    },
+    "ats-jobs": {
+      "command": "npx",
+      "args": ["-y", "github:benkrasin/ats-jobs-mcp", "mcp"],
+      "env": {
+        "APIFY_TOKEN": ""
+      }
+    },
+    "federal-compass": {
+      "command": "npx",
+      "args": ["-y", "federal-compass-mcp@latest"],
+      "env": {
+        "USAJOBS_API_KEY": "<USAJOBS_API_KEY>",
+        "USAJOBS_EMAIL": "<USAJOBS_EMAIL>"
+      }
+    },
+    "adzuna": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/folathecoder/adzuna-job-search-mcp@e00a5956bc07524a6bddadb1d79db731ce107461",
+        "adzuna-mcp"
+      ],
+      "env": {
+        "ADZUNA_APP_ID": "<ADZUNA_APP_ID>",
+        "ADZUNA_APP_KEY": "<ADZUNA_APP_KEY>"
+      }
+    },
+    "hasdata-indeed": {
+      "command": "npx",
+      "args": ["-y", "@hasdata/indeed-mcp"],
+      "env": {
+        "HASDATA_API_KEY": "<HASDATA_API_KEY>"
+      }
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@brave/brave-search-mcp-server", "--transport", "stdio"],
+      "env": {
+        "BRAVE_API_KEY": "<BRAVE_API_KEY>"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    }
+  }
+}

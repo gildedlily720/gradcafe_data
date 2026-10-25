@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "enabledMcpjsonServers": [
+    "jobsweep",
+    "pipeworx-usajobs",
+    "exa",
+    "jobspy",
+    "ats-jobs",
+    "playwright"
+  ],
+  "permissions": {
+    "allow": [
+      "mcp__jobsweep__list_lanes",
+      "mcp__jobsweep__list_sources",
+      "mcp__jobsweep__list_employers",
+      "mcp__jobsweep__search_jobs",
+      "mcp__jobsweep__get_job",
+      "mcp__jobsweep__digest",
+      "mcp__jobsweep__sweep_status"
+    ]
+  }
+}

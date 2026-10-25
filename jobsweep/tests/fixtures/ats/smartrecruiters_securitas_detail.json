@@ -1,0 +1,135 @@
+{
+ "id": "744000155986710",
+ "name": "Risk Intelligence Analyst",
+ "uuid": "969fa7fa-e46d-4fa2-b904-3888b2723f4f",
+ "jobId": "65bc2dc1-940e-4312-9650-20c5fa25b16a",
+ "jobAdId": "d19f3575-d45b-456e-9eb8-2c731fdf2a4d",
+ "defaultJobAd": true,
+ "refNumber": "REF29242O",
+ "company": {
+  "name": "Securitas",
+  "identifier": "Securitas"
+ },
+ "location": {
+  "city": "Milton Keynes",
+  "region": "England",
+  "country": "gb",
+  "remote": false,
+  "hybrid": false,
+  "latitude": "52.0406224",
+  "longitude": "-0.7594171",
+  "fullLocation": "Milton Keynes, England, United Kingdom"
+ },
+ "customField": [
+  {
+   "fieldId": "6274d2a16c2fb649108957bc",
+   "fieldLabel": "Work location",
+   "valueLabel": "Milton Keynes"
+  },
+  {
+   "fieldId": "62697230738fb86bcf86b45b",
+   "fieldLabel": "Branch",
+   "valueId": "dff6daff-5f1c-49ba-863a-f708aa937dd3",
+   "valueLabel": "197 - Intelligence Hub"
+  },
+  {
+   "fieldId": "65e5b6024454566b94e8fa88",
+   "fieldLabel": "Pay Rate (UK)",
+   "valueId": "cdd032e7-023b-48f0-b6c2-4f9d01c9c06b",
+   "valueLabel": "Annual"
+  },
+  {
+   "fieldId": "COUNTRY",
+   "fieldLabel": "Country/Region",
+   "valueId": "gb",
+   "valueLabel": "United Kingdom"
+  },
+  {
+   "fieldId": "62697322738fb86bcf86b45c",
+   "fieldLabel": "Reason of job opening",
+   "valueId": "d8cfba3b-5b9b-4726-be44-f05368008062",
+   "valueLabel": "New Role"
+  },
+  {
+   "fieldId": "62697265d64608203043f03e",
+   "fieldLabel": "Job category",
+   "valueId": "47d8e63c-2e6b-4660-b6da-3cbe82a8e67e",
+   "valueLabel": "Intelligence"
+  },
+  {
+   "fieldId": "626972ed5c96561ef7f085a9",
+   "fieldLabel": "Labor type",
+   "valueId": "09583f3b-2480-43f9-abc8-91126ec6ff35",
+   "valueLabel": "Indirect (UK)"
+  },
+  {
+   "fieldId": "626972205c96561ef7f085a8",
+   "fieldLabel": "Area",
+   "valueId": "56479e0f-9f8f-4e69-a695-3763c6eeadd0",
+   "valueLabel": "UK - RIC"
+  },
+  {
+   "fieldId": "6267f03969f68919d25b8d58",
+   "fieldLabel": "Brands",
+   "valueId": "4a895b44-c15a-4504-8fe3-bf1cb9b8eb25",
+   "valueLabel": "Securitas UK"
+  },
+  {
+   "fieldId": "626973036fec5b04a258d9dd",
+   "fieldLabel": "Type of Contract",
+   "valueId": "7cfd96f1-1574-4112-b10d-acc9191c9c18",
+   "valueLabel": "Permanent"
+  }
+ ],
+ "releasedDate": "2026-10-16T12:50:25.623Z",
+ "creator": {
+  "name": "",
+  "avatarUrl": ""
+ },
+ "postingUrl": "https://jobs.smartrecruiters.com/Securitas/744000155986710-risk-intelligence-analyst",
+ "applyUrl": "https://jobs.smartrecruiters.com/Securitas/744000155986710-risk-intelligence-analyst?oga=true",
+ "referralUrl": "https://jobs.smartrecruiters.com/external-referrals/company/Securitas/publication/969fa7fa-e46d-4fa2-b904-3888b2723f4f?dcr_ci=Securitas",
+ "jobAd": {
+  "sections": {
+   "companyDescription": {
+    "title": "Company Description",
+    "text": "<p>Securitas' Risk Intelligence Center (RIC) delivers actionable intelligence on the global security &amp; threat landscape, providing decision-making advantage and confidence to protect people, property and assets and to help make the world a safer place.&#xa0;</p><p>The RIC is part of Securitas' new business unit, Security Risk Management (SRM), which is a holistic, intelligence-led approach to identifying, understanding, monitoring and acting on risks specific to each client.&#xa0;</p><p>The RIC is currently recruiting for a <strong>Risk Intelligence Analyst </strong>to join its fast-growing Consultancy team<strong>.</strong>&#xa0;As a Risk Intelligence Analyst, you will play a vital role in supporting our mission to proactively identify and mitigate security threats through comprehensive analysis and strategic insights.&#xa0;</p><ul><li>Collection,&#xa0;processing, and analysis of&#xa0;data and information to support the production of intelligence products</li><li>Shape intelligence outputs and meet stakeholder expectations in a fast-paced environment</li><li>£30-35k per year</li><li>4 on, 4 off (0700-1900)</li><li>Based in Milton Keynes (in office).</li></ul><p><strong>Essential Requirements: </strong></p><ul><li>Live within a 45-minute (door-to-door) commute of the office in Milton Keynes.&#xa0;</li><li>Be eligible to work in the UK on a permanent basis, without the need for sponsorship</li><li>Must have at least 1-2 years'&#xa0;experience working in an intelligence or intelligence-related analytical role</li><li>Strong knowledge of, and genuine interest in, current affairs and the global security threat landscape</li><li>Well‑developed interpersonal skills, with the ability to communicate clearly, constructively, and professionally as part of a team</li></ul><p>The RIC is currently based at Unity Place in Central Milton Keynes; however, we are due to relocate back to The Park MK in Wavendon, Milton Keynes, during the first half of 2027.</p><ul></ul>"
+   },
+   "jobDescription": {
+    "title": "Job Description",
+    "text": "<p>The Risk Intelligence Analyst is a role within the Risk Intelligence Center (RIC). The role is responsible for operating and supporting the delivery of intelligence products and services to Securitas and Securitas’ customers, primarily clients specific to the RIC’s Ad Hoc intelligence service. There is a high degree of autonomy expected from this role, with a focus on intelligence output and customer-specific intelligence requirements, and as such, the role is suited to someone with 1-2 years’ experience in intelligence and / or investigations, specific to the Securitas RIC.</p><p>The primary focus of the Risk Intelligence Analyst is to collect, process, and analyse data and information to inform the production of intelligence products and services, and disseminate these globally to customers internally and commercially.</p><p>The role reports directly into the Lead Risk Intelligence Consultant and requires strong research, analytical and report writing skills, in addition to proficiency in IT systems including Microsoft Office and specific intelligence tools. Being able to work autonomously is key to the success of this role, supported by direction and guidance from RIC leadership and management.</p><p>Working within a dynamic and demanding environment, the role requires flexibility and agility, including mobilising on short notice to meet operational requirement. The role is a 4-on-4-off shift pattern, working days 0700 – 1900hrs. Travel may be required to visit customers on occasion. Responsibilities will evolve over time, with opportunities for ongoing development and progression.</p><p><strong>Responsibilities </strong></p><ul><li><strong>Direction</strong> of intelligence efforts based on instruction from managers and seniors, colleagues, and clients, and based on own identification and initiative.</li><li><strong>Collection</strong> of data and information, including use of intelligence tools, and manual processes including research.</li><li><strong>Processing </strong>of intelligence into databases, forms, logs, systems, templates etc.</li><li><strong>Analysis</strong> of data and information using recognised intelligence techniques and supporting seniors with more complex and / or demanding efforts.</li><li><strong>Production</strong> of finished intelligence products autonomously, or with support / supporting seniors, including (but not limited to) alerts, analysis (assessments, reports etc.) and investigations. This includes both written products and verbal presentations.</li><li><strong>Dissemination</strong> of intelligence products to stakeholders, including internally within Securitas, and commercially to customers, both in the UK and overseas.</li><li>Support the management and drive of operational excellence through ongoing Evaluation and Feedback of intelligence services, including maintaining the highest level of consistency and quality. Additionally, managing ongoing service development by maintaining awareness of innovation within intelligence to ensure implementation of latest techniques and tactics, best practice, and information relevant to the RIC</li><li>Prioritise and manage workloads for customer projects which may have immediate, short, medium and/or long-term requirements.</li><li>Be able to work autonomously without direct supervision in dynamic situations.</li><li>Being a central point of contact, and managing expectations and enabling collaboration with other RIC resources and teams, clients, and other stakeholders.</li><li>Support the identification and development of new sources and methods of research to ensure that intelligence products reflect latest methodologies and best practice.</li><li>Maintaining awareness of innovation within intelligence to develop and implement the latest techniques and tactics, best practice, and information relevant to the RIC and own self development.</li><li>Support management and seniors and provide guidance to junior colleagues in order to maximise their development, efficiency, and morale.</li><li>Work collaboratively with the wider Securitas organisation, including client facing staff and global colleagues.</li><li>Work closely in partnership with other internal stakeholders and be willing to challenge the status-quo.</li><li>Liaise and collaborate with colleagues, stakeholders, and agencies (both internally and externally) in the UK and internationally to build an intelligence network.</li><li>Demonstrate understanding and engagement with the Securitas Core Values of Integrity, Vigilance and Helpfulness, whilst showing a natural ability to recognise risk within the workplace and consider safety as a priority, complying with relevant policies, procedures and training as provided by the Company.</li></ul>"
+   },
+   "qualifications": {
+    "title": "Qualifications",
+    "text": "<p><strong>Essential</strong></p><ul><li>Must have the right to work in the UK and have a five-year checkable employment history, or be able to produce documentary evidence of any period of unemployment</li><li>Must live within a 45-minute commute to the office in Milton Keynes, or be willing to relocate</li><li>Must have at least 1-2 years of experience in intelligence or intelligence-related analytical role</li><li>Excellent command of written and spoken English to deliver intelligence reports to various audience levels</li><li>Strong interpersonal and communication skills, with the ability to engage openly, professionally, and with warmth in day‑to‑day collaboration.</li><li>Ability to prioritise and plan own work and manage time effectively to meet objectives and deadlines, while remaining calm under pressure.</li><li>The ability to embody and uphold the Securitas core values of Integrity, Vigilance, and Helpfulness.</li></ul><p><strong>Competencies&#xa0;</strong></p><p><strong>Driving Performance</strong></p><ul><li>Takes Ownership</li><li>Expects Excellence</li><li>Delivers Sustainable Results</li><li>Builds High Performing Teams</li></ul><p><strong>Developing Yourself &amp; Others</strong></p><ul><li>Is Respectful</li><li>Is Empowering</li><li>Leads by Example</li><li>Gives &amp; Asks for Feedback</li></ul><p><strong>Making Our Strategy Happen</strong></p><ul><li>Drives Innovation</li><li>Seeks Opportunities</li><li>Fosters Collaboration</li><li>Values Diverse Perspectives</li></ul>"
+   },
+   "additionalInformation": {
+    "title": "Additional Information",
+    "text": "<div sr-tagline=\"\"></div><p>See a different world with Securitas UK</p><p><strong>Ready to make a difference?</strong> You're one step closer to joining over <strong>322,000 colleagues worldwide</strong> who help make your world a safer place every day.</p><p>At Securitas, our values of <strong>Integrity, Vigilance and Helpfulness</strong> guide everything we do. We believe in making a clear promise to our people:</p><ul><li><strong>Opportunity</strong> – Seeing potential in every person</li><li><strong>People</strong> – Putting people at the heart of what we do</li><li><strong>Purpose</strong> – Making your world a safer place</li></ul><p><strong>So what happens next?</strong></p><p>Our Talent Team reviews every application carefully and is here to support you throughout the process. Whatever the outcome, you'll always hear back from us.</p><p><strong>Creating spaces for you to belong</strong></p><p>We're proud to be a <strong>Level 2 Disability Confident Employer</strong> and are committed to creating an inclusive workplace where everyone can thrive. Through our networks, partnerships and celebrations throughout the year, we're building a culture where differences are valued and people can be themselves.</p><p><strong>Ready to see a rewarding world?</strong></p><p>From day one, you'll have access to a range of benefits, including:</p><ul><li>Employee discounts with leading global and local brands.</li><li>Health and wellbeing support, 24/7 online GP services.</li><li>Pension and financial wellbeing resources and support.</li><li>Life assurance for added peace of mind.</li><li>Employee eligibility to EV Schemes (Subject to graded benefits).</li></ul><p><strong>Keen to take the next step...</strong></p><p>Join a team that values your contribution, supports your growth and helps you build a rewarding career.</p><p><strong>Click \"I'm Interested\" and start seeing a different world with Securitas UK.</strong></p>"
+   }
+  }
+ },
+ "active": true,
+ "visibility": "PUBLIC",
+ "industry": {
+  "id": "security_and_investigations",
+  "label": "Security And Investigations"
+ },
+ "function": {
+  "id": "analyst",
+  "label": "Analyst"
+ },
+ "experienceLevel": {
+  "id": "not_applicable",
+  "label": "Not Applicable"
+ },
+ "typeOfEmployment": {
+  "id": "permanent",
+  "label": "Full-time"
+ },
+ "language": {
+  "code": "en",
+  "label": "English",
+  "labelNative": "English (US)"
+ }
+}

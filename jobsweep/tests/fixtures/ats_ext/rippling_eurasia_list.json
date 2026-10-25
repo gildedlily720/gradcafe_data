@@ -1,0 +1,54 @@
+[
+ {
+  "uuid": "eeb2a159-658b-43af-8511-286befd066ed",
+  "name": "Associate Director, Corporate Advisory & Consulting ",
+  "department": {
+   "id": "Corporates",
+   "label": "Corporates"
+  },
+  "url": "https://ats.rippling.com/eurasia-group/jobs/eeb2a159-658b-43af-8511-286befd066ed",
+  "workLocation": {
+   "label": "Washington, DC",
+   "id": "Washington, DC"
+  }
+ },
+ {
+  "uuid": "eeb2a159-658b-43af-8511-286befd066ed",
+  "name": "Associate Director, Corporate Advisory & Consulting ",
+  "department": {
+   "id": "Corporates",
+   "label": "Corporates"
+  },
+  "url": "https://ats.rippling.com/eurasia-group/jobs/eeb2a159-658b-43af-8511-286befd066ed",
+  "workLocation": {
+   "label": "London, United Kingdom",
+   "id": "London, United Kingdom"
+  }
+ },
+ {
+  "uuid": "4f93735d-3394-474a-b235-41141dd7b4c7",
+  "name": "Analyst, Southeast Asia (Malaysia)",
+  "department": {
+   "id": "Research",
+   "label": "Research"
+  },
+  "url": "https://ats.rippling.com/eurasia-group/jobs/4f93735d-3394-474a-b235-41141dd7b4c7",
+  "workLocation": {
+   "label": "Malaysia",
+   "id": "Malaysia"
+  }
+ },
+ {
+  "uuid": "1d0a858c-c5d2-4079-9997-ab61c520ea32",
+  "name": "Associate Director, Japan Client Services",
+  "department": {
+   "id": "Corporates",
+   "label": "Corporates"
+  },
+  "url": "https://ats.rippling.com/eurasia-group/jobs/1d0a858c-c5d2-4079-9997-ab61c520ea32",
+  "workLocation": {
+   "label": "Tokyo, Japan",
+   "id": "Tokyo, Japan"
+  }
+ }
+]

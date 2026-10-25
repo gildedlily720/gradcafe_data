@@ -1,0 +1,27 @@
+{
+ "meta": {
+  "totalCount": 1
+ },
+ "result": [
+  {
+   "id": "136",
+   "jobOpeningName": "Research Assistant/Associate",
+   "departmentId": "18317",
+   "departmentLabel": "Technology and National Security Program",
+   "employmentStatusLabel": "Full-Time",
+   "employmentType": null,
+   "location": {
+    "city": "Washington",
+    "state": "District of Columbia"
+   },
+   "atsLocation": {
+    "country": null,
+    "state": null,
+    "province": null,
+    "city": null
+   },
+   "isRemote": null,
+   "locationType": "0"
+  }
+ ]
+}

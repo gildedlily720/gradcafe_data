@@ -1,0 +1,45 @@
+{
+ "total": 9,
+ "jobPostings": [
+  {
+   "title": "Senior Portfolio Actuarial Analyst",
+   "externalPath": "/job/London/Senior-Portfolio-Actuarial-Analyst_JR2604501-1",
+   "locationsText": "London",
+   "postedOn": "Posted 2 Days Ago",
+   "bulletFields": [
+    "JR2604501",
+    "Talbot Underwriting Services Ltd (TS1)"
+   ]
+  },
+  {
+   "title": "2027 Early Careers: Analyst, Underwriting – Structured Credit (Political Risk)– United States, New York, NY",
+   "externalPath": "/job/NY-New-York/XMLNAME-2027-Early-Careers--Analyst--Underwriting---Political-Risk---United-States--New-York--NY_JR2603633-1",
+   "locationsText": "NY-New York",
+   "postedOn": "Posted 5 Days Ago",
+   "bulletFields": [
+    "JR2603633"
+   ]
+  },
+  {
+   "title": "Senior Credit Officer, Political Risk Group",
+   "externalPath": "/job/London/Senior-Credit-Officer--Political-Risk-Group_JR2600431-1",
+   "locationsText": "London",
+   "postedOn": "Posted 25 Days Ago",
+   "bulletFields": [
+    "JR2600431",
+    "AIG Europe S.A. (U.K. Branch) & American International Group UK Ltd"
+   ]
+  },
+  {
+   "title": "Premium Technician",
+   "externalPath": "/job/London/Premium-Technician_JR2603916",
+   "locationsText": "London",
+   "postedOn": "Posted 30 Days Ago",
+   "bulletFields": [
+    "JR2603916",
+    "Talbot Underwriting Services Ltd (TS1)"
+   ]
+  }
+ ],
+ "userAuthenticated": false
+}

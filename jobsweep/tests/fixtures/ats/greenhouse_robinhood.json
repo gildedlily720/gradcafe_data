@@ -1,0 +1,168 @@
+{
+ "jobs": [
+  {
+   "absolute_url": "https://boards.greenhouse.io/robinhood/jobs/8319304?t=gh_src=&gh_jid=8319304",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": true
+    }
+   ],
+   "internal_job_id": 3596541,
+   "location": {
+    "name": "Denver, CO; Westlake, TX"
+   },
+   "metadata": [
+    {
+     "id": 4288026,
+     "name": "Careers Page Bucket",
+     "value": "CUSTOMER EXPERIENCE",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 8319304,
+   "updated_at": "2026-10-23T18:04:26-04:00",
+   "requisition_id": "1956",
+   "title": "Account Servicing Associate",
+   "pay_input_ranges": [
+    {
+     "min_cents": 2040,
+     "max_cents": 2400,
+     "currency_type": "USD",
+     "title": "Zone 1 (Menlo Park, CA; New York, NY; Bellevue, WA; Washington, DC)",
+     "blurb": "<p><strong>In addition to the base pay range listed below, this role is also eligible for bonus opportunities + benefits.</strong></p>\n<p>Base pay for the successful applicant will depend on a variety of job-related factors, which may include education, training, experience, location, business needs, or market demands. The expected base pay range for this role is based on the location where the work will be performed and is aligned to one of 3 compensation zones. For other locations not listed, compensation can be discussed with your recruiter during the interview process.</p>\n<p><span style=\"text-decoration: underline;\">Base Pay Range:</span></p>"
+    },
+    {
+     "min_cents": 2040,
+     "max_cents": 2400,
+     "currency_type": "USD",
+     "title": "Zone 2 (Denver, CO; Westlake, TX; Chicago, IL)",
+     "blurb": ""
+    },
+    {
+     "min_cents": 2040,
+     "max_cents": 2400,
+     "currency_type": "USD",
+     "title": "Zone 3 (Lake Mary, FL; Clearwater, FL; Gainesville, FL)",
+     "blurb": ""
+    }
+   ],
+   "company_name": "Robinhood",
+   "first_published": "2026-10-23T17:15:05-04:00",
+   "language": "en",
+   "application_deadline": "2026-12-27T17:15:05-05:00",
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;h2&gt;Join us in building the future of finance.&lt;/h2&gt;\n&lt;p&gt;Our mission is to democratize finance for all. &lt;a href=&quot;https://www.cerulli.com/press-releases/cerulli-anticipates-124-trillion-in-wealth-will-transfer-through-2048&quot; target=&quot;_blank&quot;&gt;An estimated $124 trillion of assets&lt;/a&gt; will be inherited by younger generations in the next two decades. The largest transfer of wealth in human history. If you’re ready to be at the epicenter of this historic cultural and financial shift, keep reading.&lt;/p&gt;&lt;/div&gt;&lt;h2&gt;&lt;strong&gt;About the team + role&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;We are building an elite team, applying frontier technologies to the world’s biggest financial problems. We’re looking for bold thinkers. Sharp problem-solvers. Builders who are wired to make an impact. Robinhood isn’t a place for complacency, it’s where ambitious people do the best work of their careers. We’re a high-performing, fast-moving team with ethics at the center of everything we do. Expectations are high, and so are the rewards.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Robinhood’s Account Operations team is essential to supporting the growth of Robinhood and supporting our customers at critical points of their relationship with Robinhood. The team handles various account servicing tasks including application review, customer information updates, reviewing levy notices, and much more. As the first point of contact for most customers, the Account Operations team values customer understanding, emotional intelligence, and technical expertise.&lt;/p&gt;\n&lt;p&gt;As an Account Servicing Associate, you’ll serve as an integral part in our account opening and maintenance processes by reviewing new account applications, analyzing documents with keen attention to detail, working with cross-functional partners to address customer issues, and performing daily account maintenance activities. This is an opportunity to be a part of one of the most efficient and important pillars of Robinhood’s business.&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;This role is based in our Denver, CO, Westlake, TX office(s), with in-person attendance expected at least 3 days per week.&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;At Robinhood, we believe in the power of in-person work to accelerate progress, spark innovation, and strengthen community. Our office experience is intentional, energizing, and designed to fully support high-performing teams.&amp;nbsp;&lt;/p&gt;\n&lt;h2&gt;&lt;strong&gt;What you’ll do&amp;nbsp;&lt;/strong&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Review internal escalations from vendors and internal employees on operational case or process escalations.&lt;/li&gt;\n&lt;li&gt;Review customer-related documents for completeness and process any vital changes in customer accounts&lt;/li&gt;\n&lt;li&gt;Consistently meet efficiency goals with minimal error&lt;/li&gt;\n&lt;li&gt;Act as subject matter authority in the firm account opening and maintenance processes with the ability to clearly communicate this with other teams and customers with outstanding customer service.&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Identify gaps or inefficiencies within processes and suggest improvements to departmental leadership.&lt;/li&gt;\n&lt;li&gt;Perform daily account maintenance requests while interacting and troubleshooting with internal partners for more sophisticated account issues related to customer accounts such as deactivating and reactivating accounts, levy notice processing, updating customer information ( CX, Legal, Compliance, Clearing Operations, etc.).&lt;/li&gt;\n&lt;li&gt;Utilize AI-tooling to increase individual efficiency and accuracy within the subject matter area.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;&lt;strong&gt;What you bring&lt;/strong&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Bachelor&#39;s degree or equivalent practical experience&lt;/li&gt;\n&lt;li&gt;Ability to meet productivity goals&lt;/li&gt;\n&lt;li&gt;Exceptional attention to detail and strong problem solving skills&lt;/li&gt;\n&lt;li&gt;Excellent written and oral communication skills&lt;/li&gt;\n&lt;li&gt;Self-starter with ability to work independently&lt;/li&gt;\n&lt;li&gt;Resourceful and adaptive in fast-paced, entrepreneurial environments&lt;/li&gt;\n&lt;li&gt;Ability to make appropriate independent decisions within established frameworks&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;&lt;strong&gt;What we offer&lt;/strong&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Challenging, high-impact work to grow your career.&lt;/li&gt;\n&lt;li&gt;Performance driven compensation with multipliers for outsized impact, bonus programs, equity ownership, and 401(k) matching.&lt;/li&gt;\n&lt;li&gt;Top Tier benefits to fuel your work, including 100% paid health insurance for employees with 90% coverage for dependents.&lt;/li&gt;\n&lt;li&gt;Access to the Robinhood Employee Fund that gives eligible US employees the opportunity to invest in a private employee fund that provides exposure to Robinhood Ventures funds.&lt;/li&gt;\n&lt;li&gt;Access to the best AI tools on the market and continuous AI skill-building for every employee, technical or not.&amp;nbsp;&lt;/li&gt;\n&lt;li&gt;Lifestyle wallet - a highly flexible benefits spending account for wellness, learning, and more.&lt;/li&gt;\n&lt;li&gt;Employer-paid life &amp;amp; disability insurance, fertility benefits, and mental health benefits.&lt;/li&gt;\n&lt;li&gt;Time off to recharge including company holidays, paid time off, sick time, parental leave, and more!&lt;/li&gt;\n&lt;li&gt;Exceptional office experience with catered meals, events, and comfortable workspaces.&lt;/li&gt;\n&lt;/ul&gt;&lt;div class=&quot;content-pay-transparency&quot;&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;description&quot;&gt;&lt;p&gt;&lt;strong&gt;In addition to the base pay range listed below, this role is also eligible for bonus opportunities + benefits.&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;Base pay for the successful applicant will depend on a variety of job-related factors, which may include education, training, experience, location, business needs, or market demands. The expected base pay range for this role is based on the location where the work will be performed and is aligned to one of 3 compensation zones. For other locations not listed, compensation can be discussed with your recruiter during the interview process.&lt;/p&gt;\n&lt;p&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;Base Pay Range:&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;title&quot;&gt;Zone 1 (Menlo Park, CA; New York, NY; Bellevue, WA; Washington, DC)&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$20.40&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$24 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;title&quot;&gt;Zone 2 (Denver, CO; Westlake, TX; Chicago, IL)&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$20.40&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$24 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;title&quot;&gt;Zone 3 (Lake Mary, FL; Clearwater, FL; Gainesville, FL)&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$20.40&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$24 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;p&gt;Click &lt;a href=&quot;https://careers.robinhood.com/benefits&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt; to learn more about our Total Rewards, which vary by region and entity.&lt;/p&gt;\n&lt;p&gt;If our mission energizes you and you’re ready to build the future of finance, we look forward to seeing your application.&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;AI Usage Disclosure:&lt;/strong&gt; Robinhood uses artificial intelligence (AI) tools to support parts of our recruiting process. These tools enhance the efficiency and consistency of our hiring process; however, all hiring decisions are made by our hiring teams.&lt;/p&gt;\n&lt;p&gt;Robinhood provides equal opportunity for all applicants, offers reasonable accommodations upon request, and complies with applicable equal employment and privacy laws. Inclusion is built into how we hire and work—welcoming different backgrounds, perspectives, and experiences so everyone can do their best. Please review the&amp;nbsp;&lt;a href=&quot;https://careers.robinhood.com/applicantprivacypolicy&quot; target=&quot;_blank&quot;&gt;Privacy Policy&lt;/a&gt; for your country of application.&lt;/p&gt;&lt;/div&gt;",
+   "departments": [
+    {
+     "id": 89160,
+     "name": "Customer Care",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 66322,
+     "name": "Denver, CO",
+     "location": null,
+     "child_ids": [],
+     "parent_id": null
+    },
+    {
+     "id": 74104,
+     "name": "Westlake, TX",
+     "location": null,
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": false,
+   "ai_opt_out_request_url": "http://app.greenhouse.io/ai_opt_out_request/job_post/8319304/ai_opt_out"
+  },
+  {
+   "absolute_url": "https://boards.greenhouse.io/robinhood/jobs/6669758?t=gh_src=&gh_jid=6669758",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": true
+    }
+   ],
+   "internal_job_id": 3085172,
+   "location": {
+    "name": "New York, NY"
+   },
+   "metadata": [
+    {
+     "id": 4288026,
+     "name": "Careers Page Bucket",
+     "value": "SOFTWARE ENGINEERING",
+     "value_type": "single_select"
+    }
+   ],
+   "id": 6669758,
+   "updated_at": "2026-10-02T18:48:15-04:00",
+   "requisition_id": "1683",
+   "title": "Android Engineer, Government Products",
+   "pay_input_ranges": [
+    {
+     "min_cents": 16600000,
+     "max_cents": 19500000,
+     "currency_type": "USD",
+     "title": "Zone 1 (Menlo Park, CA; New York, NY; Bellevue, WA; Washington, DC)",
+     "blurb": "<p><strong>In addition to the base pay range listed below, this role is also eligible for bonus opportunities + equity + benefits.</strong></p>\n<p>Base pay for the successful applicant will depend on a variety of job-related factors, which may include education, training, experience, location, business needs, or market demands. The expected base pay range for this role is based on the location where the work will be performed and is aligned to one of 3 compensation zones. For other locations not listed, compensation can be discussed with your recruiter during the interview process.</p>\n<p><span style=\"text-decoration: underline;\">Base Pay Range:</span></p>"
+    },
+    {
+     "min_cents": 14700000,
+     "max_cents": 17200000,
+     "currency_type": "USD",
+     "title": "Zone 2 (Denver, CO; Westlake, TX; Chicago, IL)",
+     "blurb": ""
+    },
+    {
+     "min_cents": 13000000,
+     "max_cents": 15200000,
+     "currency_type": "USD",
+     "title": "Zone 3 (Lake Mary, FL; Clearwater, FL; Gainesville, FL)",
+     "blurb": ""
+    }
+   ],
+   "company_name": "Robinhood",
+   "first_published": "2025-05-08T14:52:01-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;h2&gt;Join us in building the future of finance.&lt;/h2&gt;\n&lt;p&gt;Our mission is to democratize finance for all. &lt;a href=&quot;https://www.cerulli.com/press-releases/cerulli-anticipates-124-trillion-in-wealth-will-transfer-through-2048&quot; target=&quot;_blank&quot;&gt;An estimated $124 trillion of assets&lt;/a&gt; will be inherited by younger generations in the next two decades. The largest transfer of wealth in human history. If you’re ready to be at the epicenter of this historic cultural and financial shift, keep reading.&lt;/p&gt;&lt;/div&gt;&lt;h2&gt;&lt;strong&gt;About the team + role &lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;We are building an elite team, applying frontier technologies to the world’s biggest financial problems. We’re looking for bold thinkers. Sharp problem-solvers. Builders who are wired to make an impact. Robinhood isn’t a place for complacency, it’s where ambitious people do the best work of their careers. We’re a high-performing, fast-moving team with ethics at the center of everything we do. Expectations are high, and so are the rewards.&lt;br&gt;Robinhood has been tapped as the brokerage and initial trustee for Trump Accounts, and is working alongside BNY and The U.S. Department of Treasury to develop and operate the program, which aims to expand market access for the next generation of Americans. In this role, you will help build a world-class, intuitive platform, leveraging Robinhood’s industry-leading financial technology to deliver a standalone web and app experience for this historic national initiative.&lt;br&gt;&lt;br&gt;The &lt;strong&gt;Government Products &lt;/strong&gt;team focuses on building and scaling systems that support long-term investing and account management for millions of customers. This team works closely with product, data, and infrastructure partners to deliver reliable, secure, and intuitive experiences. You will help shape systems that enable customers to plan for their financial future with confidence!&lt;/p&gt;\n&lt;p class=&quot;wnfdntu _1ibi0s3f5 _1ibi0s3ce _1ibi0s3ea&quot; data-pm-slice=&quot;1 1 []&quot;&gt;As an &lt;strong&gt;Android Engineer&lt;/strong&gt; on the Government Products team, you’ll help build mobile experiences for a historic initiative designed to expand market access for the next generation of Americans. You’ll ship intuitive, secure, and scalable features that make long-term investing and account management feel simple and accessible, while partnering with a high-performing team tackling some of the biggest challenges in financial access.&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;This role is based in our New York, NY office, with in-person attendance expected at least 3 days per week.&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;At Robinhood, we believe in the power of in-person work to accelerate progress, spark innovation, and strengthen community. Our office experience is intentional, energizing, and designed to fully support high-performing teams.&lt;/p&gt;\n&lt;h2&gt;What you&#39;ll do&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Work with a fast-growing team to revolutionize finance at speed and scale&lt;/li&gt;\n&lt;li&gt;Build smooth, stable, and elegant products with Kotlin and the newest Android APIs&lt;/li&gt;\n&lt;li&gt;Own features from inception to design, implementation, and launch&lt;/li&gt;\n&lt;li&gt;Work cross-functionally with Product Designers, Product Managers, Backend Developers, and Data team&lt;/li&gt;\n&lt;li&gt;Work with Kotlin, Android SDK &amp;amp; Jetpack Compose, MVVM, Coroutines &amp;amp; Flow (preferred) OR RxJava, and Retrofit &amp;amp; Room&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h2&gt;What you bring&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;3+ years of professional Android development experience building consumer Android applications at scale, preferably in Kotlin and Compose&lt;/li&gt;\n&lt;li&gt;Attention to detail, passion for writing clean, readable and maintainable code&lt;/li&gt;\n&lt;li&gt;Proficiency in Kotlin or Java, and Jetpack&lt;/li&gt;\n&lt;li&gt;Desire to improve Robinhood&#39;s app and codebase to ensure outstanding quality for our all users&lt;/li&gt;\n&lt;li&gt;Strong product sense and ability to collaborate with Product Managers and Designers&lt;/li&gt;\n&lt;li&gt;Excellent communication skills and passion for solving technical challenges&lt;/li&gt;\n&lt;li&gt;Bachelor’s degree in Computer Science or a related field preferred; equivalent training or work experience also acceptable&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;At Robinhood, we believe in the power of in-person work to accelerate progress, spark innovation, and strengthen community. Our office experience is intentional, energizing, and designed to fully support high-performing teams.&lt;/p&gt;\n&lt;h2&gt;&lt;strong&gt;What we offer&lt;/strong&gt;&lt;/h2&gt;\n&lt;ul&gt;\n&lt;li&gt;Challenging, high-impact work to grow your career&lt;/li&gt;\n&lt;li&gt;Performance driven compensation with multipliers for outsized impact, bonus programs, equity ownership, and 401(k) matching&lt;/li&gt;\n&lt;li&gt;Best in class benefits to fuel your work, including 100% paid health insurance for employees with 90% coverage for dependents&lt;/li&gt;\n&lt;li&gt;Lifestyle wallet - a highly flexible benefits spending account for wellness, learning, and more&lt;/li&gt;\n&lt;li&gt;Employer-paid life &amp;amp; disability insurance, fertility benefits, and mental health benefits&lt;/li&gt;\n&lt;li&gt;Time off to recharge including company holidays, paid time off, sick time, parental leave, and more!&lt;/li&gt;\n&lt;li&gt;Exceptional office experience with catered meals, events, and comfortable workspaces.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;Position Restriction:&lt;/strong&gt; This position is restricted to US citizens or lawful permanent residents&lt;/p&gt;&lt;div class=&quot;content-pay-transparency&quot;&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;description&quot;&gt;&lt;p&gt;&lt;strong&gt;In addition to the base pay range listed below, this role is also eligible for bonus opportunities + equity + benefits.&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;Base pay for the successful applicant will depend on a variety of job-related factors, which may include education, training, experience, location, business needs, or market demands. The expected base pay range for this role is based on the location where the work will be performed and is aligned to one of 3 compensation zones. For other locations not listed, compensation can be discussed with your recruiter during the interview process.&lt;/p&gt;\n&lt;p&gt;&lt;span style=&quot;text-decoration: underline;&quot;&gt;Base Pay Range:&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;title&quot;&gt;Zone 1 (Menlo Park, CA; New York, NY; Bellevue, WA; Washington, DC)&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$166,000&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$195,000 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;title&quot;&gt;Zone 2 (Denver, CO; Westlake, TX; Chicago, IL)&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$147,000&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$172,000 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;pay-input&quot;&gt;&lt;div class=&quot;title&quot;&gt;Zone 3 (Lake Mary, FL; Clearwater, FL; Gainesville, FL)&lt;/div&gt;&lt;div class=&quot;pay-range&quot;&gt;&lt;span&gt;$130,000&lt;/span&gt;&lt;span class=&quot;divider&quot;&gt;&amp;mdash;&lt;/span&gt;&lt;span&gt;$152,000 USD&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;p&gt;Click &lt;a href=&quot;https://careers.robinhood.com/benefits&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt; to learn more about our Total Rewards, which vary by region and entity.&lt;/p&gt;\n&lt;p&gt;If our mission energizes you and you’re ready to build the future of finance, we look forward to seeing your application.&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;AI Usage Disclosure:&lt;/strong&gt; Robinhood uses artificial intelligence (AI) tools to support parts of our recruiting process. These tools enhance the efficiency and consistency of our hiring process; however, all hiring decisions are made by our hiring teams.&lt;/p&gt;\n&lt;p&gt;Robinhood provides equal opportunity for all applicants, offers reasonable accommodations upon request, and complies with applicable equal employment and privacy laws. Inclusion is built into how we hire and work—welcoming different backgrounds, perspectives, and experiences so everyone can do their best. Please review the&amp;nbsp;&lt;a href=&quot;https://careers.robinhood.com/applicantprivacypolicy&quot; target=&quot;_blank&quot;&gt;Privacy Policy&lt;/a&gt; for your country of application.&lt;/p&gt;&lt;/div&gt;",
+   "departments": [
+    {
+     "id": 69810,
+     "name": "ENG Infrastructure",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 17714,
+     "name": "Menlo Park, CA",
+     "location": null,
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": false,
+   "ai_opt_out_request_url": "http://app.greenhouse.io/ai_opt_out_request/job_post/6669758/ai_opt_out"
+  }
+ ],
+ "meta": {
+  "total": 157
+ }
+}

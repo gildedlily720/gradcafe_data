@@ -1,0 +1,16 @@
+{
+  "requestMetadata": {
+    "id": "8c2e6b1a-77d0-4b0e-8f3f-0f5e1d2c3b4a",
+    "status": "ok",
+    "url": "https://www.indeed.com/viewjob?jk=9a1c3e5f7b2d4f60"
+  },
+  "job": {
+    "title": "Geopolitical Risk Analyst",
+    "company": "Eurasia Group",
+    "location": "New York, NY",
+    "salary": {"min": 70000, "max": 80000, "type": "YEARLY", "currency": "USD"},
+    "details": {"jobType": ["Full-time"]},
+    "description": "\n About the role \n \n  Eurasia Group's Global Macro practice is hiring an analyst to cover political risk in emerging markets.",
+    "descriptionHtml": "<div>\n About the role \n <div>\n  <p>Eurasia Group's Global Macro practice is hiring an analyst to cover <b>political risk</b> in emerging markets.</p><ul><li>Track elections and sanctions</li><li>Draft client notes</li></ul></div></div>"
+  }
+}

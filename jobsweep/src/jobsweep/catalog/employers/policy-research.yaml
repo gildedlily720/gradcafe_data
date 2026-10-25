@@ -1,0 +1,1156 @@
+# Employer registry -- group: policy-research
+# Think tanks, international organisations / humanitarian and human-rights NGOs, policy-research institutes,
+# criminal-justice and urban/social-policy research orgs (NYC-heavy), policy-adjacent trade bodies, and
+# newsrooms / publications that hire researchers, fact-checkers, editorial assistants and fellows.
+#
+# Coverage (researched 2026-10-25; every non-"other" board was hit through its public API this session,
+# using the jobsweep adapters themselves, and open_jobs is the count they returned):
+#   * Foreign policy / national security think tanks (DC/NY/London): CSIS, RAND, Hudson, Heritage, Cato, CNAS,
+#     MEI, Quincy, GMF, ISW, BPC, Third Way, Manhattan Institute, Partnership for Public Service, Japan Society,
+#     Chatham House (Teamtailor), ECFR (Personio), International Crisis Group (Recruitee); manual: CFR, Brookings,
+#     Carnegie, Atlantic Council, AEI, Stimson, New America, FDD, Washington Institute, IISS, RUSI, NCUSCR, CAP,
+#     Niskanen, R Street, PIIE.
+#   * Social-policy / evaluation research: Urban Institute, Pew Research Center, Pew Charitable Trusts, Abt Global,
+#     AIR, Child Trends, Results for America, Data & Society, IIF; manual: MDRC, Mathematica, NORC.
+#   * Criminal justice and NYC social / urban policy: Vera, Council on Criminal Justice, Arnold Ventures, ACLU,
+#     Robin Hood, United Way of NYC, Community Service Society, LISC, NYCEDC; manual: Brennan Center, Center for
+#     Justice Innovation, Fortune Society, CSG Justice Center.
+#   * International organisations / humanitarian / rights: IMF, OECD, UNDP, WFP, IRC, Mercy Corps, Save the
+#     Children, HRW, Amnesty USA, NED, NDI, IRI, GI-TOC, PEN America, CPJ; manual: World Bank, UN Secretariat.
+#   * Newsrooms / publications (research-writing): NYT, WSJ/Dow Jones, Reuters, Washington Post, The Atlantic,
+#     Conde Nast (New Yorker), The Economist, FT, Politico (US + Europe), Axios, Semafor, NPR, ProPublica,
+#     The Marshall Project, CQ Roll Call (FiscalNote), FactCheck.org (via Penn's Workday); manual: AP.
+#   Big generalist boards (Reuters, Conde Nast, IRC, Save the Children, Washington Post, Penn) carry a title_filter
+#   and, where the board is > 400 jobs, server-side search_terms.
+#
+# Notable gaps / caveats:
+#   * Cloudflare / Incapsula bot walls blocked most think-tank careers pages, so several boards were found via
+#     the orgs' WordPress REST API, pac.org job pages or ATS-slug probing instead. Workable's API was rate-limited
+#     (HTTP 429 / "error code 1015") all session: Council on Criminal Justice is therefore listed as manual with
+#     its Workable URL (board slug "counciloncj" taken from the org's own site, not API-verified).
+#   * Unsupported ATS (manual list): iCIMS (CFR incl. Foreign Affairs, Brookings, AEI), ApplicantPro (Carnegie,
+#     Stimson, FDD, CSG Justice Center), Paycom (Atlantic Council, Fortune Society), JazzHR (New America, Brennan,
+#     R Street), Gusto (Niskanen), UKG Ready (MDRC), Cornerstone (Mathematica, World Bank), PageUp (NORC),
+#     HeyPlumm (RUSI), UN careers portal; custom pages (CAP, PIIE, Washington Institute, IISS, NCUSCR).
+#   * Registry merge order: intelligence-security.yaml loads before this file, so for new-york-times and dow-jones
+#     its security-oriented title_filter wins and newsroom research/editorial titles are dropped. Fix belongs in
+#     EmployerRegistry (merge/OR title filters) - reported, not changed here.
+#   * Dropped / not found: Wilson Center (largely shut down after the 2025 executive order; residual posts go via
+#     USAJOBS), Belfer Center / Hoover (university-wide boards: Harvard, Stanford Oracle on a custom domain the
+#     validator does not accept), Lawfare, War on the Rocks, Puck, Rest of World, Foreign Policy, Snopes, Lead
+#     Stories, Poynter (no public ATS board found; pages bot-walled), Regional Plan Association, Citizens Budget
+#     Commission, Center for an Urban Future, Citizens' Committee for Children, MAS, Pratt Center (email / no
+#     board), SIFMA (UKG Ready), US Chamber (Dayforce), BPI, TechNet, ITI, CCIA, Blockchain Association,
+#     Coin Center, EPIC (custom pages, not verified); Asia Society, CSBA, AS/COA, Inter-American Dialogue
+#     (email / custom pages, left out to stay under the size budget); CARE, IOM, UNICEF (board not identified).
+#     Lever "brookings", Pinpoint "bipartisanpolicy" /
+#     "instituteforgovernment" / "uli" and GH "robinhood" / "rpa" / "ccj" are vendor demo boards or different
+#     companies - do not use.
+group: policy-research
+employers:
+
+  # ------------------------------------------------------------------ foreign policy / national security think tanks
+  - key: csis
+    name: Center for Strategic and International Studies (CSIS)
+    lanes: [national-security, foreign-policy, think-tank-research]
+    groups: [geopolitical-risk]
+    ats: greenhouse
+    board: centerforstrategicandinternationalstudiesinc
+    careers_url: https://www.csis.org/about/careers-culture/careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 10
+    notes: "Greenhouse embed on csis.org. Program coordinator / research assistant roles per chair or program plus termed internships."
+
+  - key: rand-corporation
+    name: RAND
+    lanes: [national-security, think-tank-research, tech-regulatory-policy, social-policy-advocacy]
+    ats: workday
+    board: rand/wd5/External_Career_Site
+    careers_url: https://www.rand.org/jobs.html
+    hq: "Santa Monica, CA"
+    locations: ["Arlington, VA", "Washington, DC", "Pittsburgh, PA", "Cambridge, UK", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 22
+    notes: "Policy researcher, assistant policy researcher and Summer Associate roles; RAND Europe (Cambridge) on the same board."
+
+  - key: hudson-institute
+    name: Hudson Institute
+    lanes: [national-security, foreign-policy, think-tank-research]
+    ats: paylocity
+    board: 58f6a769-631f-48b9-aa5a-874b6f41aaae
+    careers_url: https://recruiting.paylocity.com/recruiting/jobs/All/58f6a769-631f-48b9-aa5a-874b6f41aaae
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 9
+    notes: "Research associate (e.g. Japan Chair) and research internships by center."
+
+  - key: heritage-foundation
+    name: The Heritage Foundation
+    lanes: [think-tank-research, policy-legislative-analyst, national-security, research-writing]
+    ats: pinpoint
+    board: heritage
+    careers_url: https://heritage.pinpointhq.com/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 9
+    notes: "Research assistants (e.g. Allison Center for National Security), policy analysts, editorial associates, Young Leaders Program. Board also shows a couple of 'Test' postings."
+
+  - key: cato-institute
+    name: Cato Institute
+    lanes: [think-tank-research, policy-legislative-analyst, research-writing]
+    ats: paylocity
+    board: eb1d479c-5f1a-41bf-8916-c72467c0b7ca
+    careers_url: https://recruiting.paylocity.com/recruiting/jobs/All/eb1d479c-5f1a-41bf-8916-c72467c0b7ca
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 12
+    notes: "Two-year Research Associate program (budget, immigration, monetary, legal studies) recurs on this board; GUID taken from a live posting."
+
+  - key: cnas
+    name: Center for a New American Security (CNAS)
+    lanes: [national-security, foreign-policy, think-tank-research]
+    ats: bamboohr
+    board: cnas
+    careers_url: https://www.cnas.org/careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Research assistant / associate roles by program (Defense, Indo-Pacific, Technology & National Security, Energy, Economic Security)."
+
+  - key: middle-east-institute
+    name: Middle East Institute (MEI)
+    lanes: [foreign-policy, think-tank-research, national-security]
+    ats: rippling
+    board: mei-employment
+    careers_url: https://www.mei.edu/employment
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "Policy Center research assistants and interns."
+
+  - key: quincy-institute
+    name: Quincy Institute for Responsible Statecraft
+    lanes: [foreign-policy, think-tank-research, research-writing]
+    ats: lever
+    board: quincyinst
+    careers_url: https://quincyinst.org/about/careers/
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Includes Responsible Statecraft (magazine) reporter / editorial roles; research internships each term."
+
+  - key: german-marshall-fund
+    name: German Marshall Fund of the United States (GMF)
+    lanes: [foreign-policy, think-tank-research, tech-regulatory-policy]
+    ats: paylocity
+    board: 43d988e3-6446-4a25-8e28-28602ea60858
+    careers_url: https://www.gmfus.org/about/careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "Brussels, Belgium", "Berlin, Germany", "Paris, France"]
+    verified: "2026-10-25"
+    open_jobs: 11
+    notes: "Program coordinators, trainees and fellows (technology policy, Indo-Pacific, democracy)."
+
+  - key: institute-for-the-study-of-war
+    name: Institute for the Study of War (ISW)
+    lanes: [national-security, foreign-policy, think-tank-research]
+    groups: [intelligence-security, geopolitical-risk]
+    ats: bamboohr
+    board: understandingwar
+    careers_url: https://understandingwar.bamboohr.com/careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 16
+    notes: "Russia / China / Middle East / Iran researchers and geospatial (OSINT) researchers - strong entry-level fit."
+
+  - key: chatham-house
+    name: Chatham House (Royal Institute of International Affairs)
+    lanes: [foreign-policy, think-tank-research, research-writing]
+    groups: [geopolitical-risk]
+    ats: teamtailor
+    board: careers.chathamhouse.org
+    careers_url: https://careers.chathamhouse.org/jobs
+    hq: "London, UK"
+    locations: ["London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 2
+    notes: "Teamtailor on a custom domain (RSS feed). Research assistant / associate roles per programme; Academy fellowships."
+
+  - key: ecfr
+    name: European Council on Foreign Relations (ECFR)
+    lanes: [foreign-policy, think-tank-research]
+    ats: personio
+    board: ecfr
+    careers_url: https://ecfr.eu/jobs/
+    hq: "Berlin, Germany"
+    locations: ["London, UK", "Berlin, Germany", "Brussels, Belgium"]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Only a speculative application open at verification; programme assistant roles appear here (London office)."
+
+  - key: international-crisis-group
+    name: International Crisis Group
+    lanes: [foreign-policy, international-orgs, think-tank-research]
+    groups: [geopolitical-risk]
+    ats: recruitee
+    board: crisisgroup
+    careers_url: https://crisisgroup.recruitee.com/
+    hq: "Brussels, Belgium"
+    locations: ["Washington, DC", "New York, NY", "London, UK", "Brussels, Belgium"]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "Analysts, research assistants and advocacy roles (US advocacy based in Washington / New York)."
+
+  - key: japan-society
+    name: Japan Society
+    lanes: [foreign-policy, think-tank-research]
+    ats: adp
+    board: "53a462cd-5a10-449e-8481-b23cf33697c6"
+    careers_url: https://japansociety.org/about/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "ADP cid from the careers page. Mostly arts/culture roles; policy / US-Japan relations programme associates appear occasionally."
+
+  - key: council-on-foreign-relations
+    name: Council on Foreign Relations (CFR) / Foreign Affairs
+    lanes: [foreign-policy, national-security, think-tank-research, research-writing]
+    groups: [geopolitical-risk]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-cfr.icims.com/jobs/search?ss=1
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    notes: "Research associate per Studies fellow (NY and DC), Foreign Affairs editorial roles, internships. iCIMS - check by hand."
+
+  - key: brookings-institution
+    name: Brookings Institution
+    lanes: [think-tank-research, foreign-policy, social-policy-advocacy, tech-regulatory-policy, urban-planning-research]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-brookings.icims.com/jobs/search?ss=1
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Research assistants (Economic Studies, Hamilton Project, Foreign Policy, Brookings Metro). Live iCIMS board; a Pinpoint 'brookings' board with 2 generic posts looks like a trial - ignore."
+
+  - key: carnegie-endowment
+    name: Carnegie Endowment for International Peace
+    lanes: [foreign-policy, national-security, think-tank-research]
+    ats: other
+    ats_vendor: applicantpro
+    careers_url: https://carnegieendowment.applicantpro.com/jobs/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "James C. Gaither Junior Fellows (graduating seniors) and program research assistants."
+
+  - key: atlantic-council
+    name: Atlantic Council
+    lanes: [foreign-policy, national-security, think-tank-research, tech-regulatory-policy]
+    ats: other
+    ats_vendor: paycom
+    careers_url: https://www.atlanticcouncil.org/about/careers/
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY"]
+    notes: "Program assistants per center and Young Global Professionals; apply links go to Paycom portal 1B8B05965A36F1ED6E136AA0A0907656 (unsupported). Job list also readable at /wp-json/wp/v2/job-opportunity."
+
+  - key: american-enterprise-institute
+    name: American Enterprise Institute (AEI)
+    lanes: [think-tank-research, foreign-policy, social-policy-advocacy, policy-legislative-analyst]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-aei.icims.com/jobs/search?ss=1
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Research assistants (foreign and defense, economic, social policy) - typically 2-year RA cohort hiring in spring."
+
+  - key: stimson-center
+    name: Stimson Center
+    lanes: [national-security, foreign-policy, think-tank-research]
+    ats: other
+    ats_vendor: applicantpro
+    careers_url: https://stimson.applicantpro.com/jobs/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Research assistants / associates (38 North, China, South Asia, nonproliferation)."
+
+  - key: new-america
+    name: New America
+    lanes: [think-tank-research, tech-regulatory-policy, social-policy-advocacy]
+    ats: other
+    ats_vendor: jazzhr
+    careers_url: https://newamerica.applytojob.com/
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY"]
+    notes: "Open Technology Institute, Future of Security, education and family policy programs."
+
+  - key: fdd
+    name: Foundation for Defense of Democracies (FDD)
+    lanes: [national-security, foreign-policy, think-tank-research]
+    ats: other
+    ats_vendor: applicantpro
+    careers_url: https://fdd.applicantpro.com/jobs/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Research analysts / research associates (Iran, China, Russia, CEFP)."
+
+  - key: washington-institute
+    name: Washington Institute for Near East Policy
+    lanes: [foreign-policy, national-security, think-tank-research]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.washingtoninstitute.org/about/employment
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Year-long research assistant cohort (applications Nov-Feb via the institute's own form)."
+
+  - key: iiss
+    name: International Institute for Strategic Studies (IISS)
+    lanes: [national-security, foreign-policy, think-tank-research]
+    groups: [geopolitical-risk, intelligence-security]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.iiss.org/about-us/careers/
+    hq: "London, UK"
+    locations: ["London, UK", "Washington, DC"]
+    notes: "Research assistants / analysts (Defence and Military Analysis, Military Balance, Conflict Security & Development)."
+
+  - key: rusi
+    name: Royal United Services Institute (RUSI)
+    lanes: [national-security, think-tank-research]
+    ats: other
+    ats_vendor: heyplumm
+    careers_url: https://app.heyplumm.com/rusi/careers/uk
+    hq: "London, UK"
+    locations: ["London, UK", "Washington, DC"]
+    notes: "Research analyst roles across military sciences, terrorism and conflict, organised crime and finance."
+
+  - key: ncuscr
+    name: National Committee on United States-China Relations
+    lanes: [foreign-policy, think-tank-research]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.ncuscr.org/employment/
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    notes: "Program associates (Track II dialogues, public outreach); email applications."
+
+  # ------------------------------------------------------------------ domestic policy think tanks / legislative analysts
+  - key: bipartisan-policy-center
+    name: Bipartisan Policy Center (BPC)
+    lanes: [policy-legislative-analyst, think-tank-research, social-policy-advocacy]
+    ats: adp
+    board: "b7ec3708-935d-4824-b8ca-81a1101b34c3"
+    careers_url: https://careers.bipartisanpolicy.org/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 11
+    notes: "ADP cid from a BPC posting; policy analysts (energy, economic, elections, health) and program internships."
+
+  - key: third-way
+    name: Third Way
+    lanes: [policy-legislative-analyst, think-tank-research]
+    ats: recruitee
+    board: thirdway
+    careers_url: https://www.thirdway.org/careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 7
+    notes: "Policy advisors / policy associates (climate, national security, economic)."
+
+  - key: manhattan-institute
+    name: Manhattan Institute
+    lanes: [think-tank-research, urban-planning-research, criminal-justice-policy, social-policy-advocacy]
+    groups: [entry-routes]
+    ats: greenhouse
+    board: manhattaninstituteforpolicyresearchinc
+    careers_url: https://manhattan.institute/careers
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "NYC urban policy and public safety research; collegiate / law-school associate programs and fellowships."
+
+  - key: partnership-for-public-service
+    name: Partnership for Public Service
+    lanes: [policy-legislative-analyst, social-policy-advocacy]
+    groups: [government]
+    ats: greenhouse
+    board: partnershipforpublicservice
+    careers_url: https://job-boards.greenhouse.io/partnershipforpublicservice
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "Government-effectiveness research and programs; term internships."
+
+  - key: center-for-american-progress
+    name: Center for American Progress (CAP)
+    lanes: [think-tank-research, policy-legislative-analyst, social-policy-advocacy]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.americanprogress.org/about-us/jobs/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Research assistants and policy analysts by policy team (job pages on americanprogress.org/job/...)."
+
+  - key: niskanen-center
+    name: Niskanen Center
+    lanes: [think-tank-research, policy-legislative-analyst, social-policy-advocacy]
+    ats: other
+    ats_vendor: gusto
+    careers_url: https://www.niskanencenter.org/careers/
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "Remote US"]
+    notes: "Policy analysts (social policy, immigration, state capacity) via Gusto postings."
+
+  - key: r-street-institute
+    name: R Street Institute
+    lanes: [think-tank-research, policy-legislative-analyst, tech-regulatory-policy]
+    ats: other
+    ats_vendor: jazzhr
+    careers_url: https://street.applytojob.com/
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "Remote US"]
+    notes: "Fellows / research associates (cybersecurity, technology, finance & insurance, criminal justice)."
+
+  - key: peterson-institute-for-international-economics
+    name: Peterson Institute for International Economics (PIIE)
+    lanes: [think-tank-research, foreign-policy]
+    groups: [geopolitical-risk]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.piie.com/about/employment
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Research Analyst program (2-year, BA/MA economics)."
+
+  # ------------------------------------------------------------------ social policy / evaluation research
+  - key: urban-institute
+    name: Urban Institute
+    lanes: [social-policy-advocacy, urban-planning-research, criminal-justice-policy, think-tank-research]
+    ats: workday
+    board: urban/wd115/Urban-Careers
+    careers_url: https://www.urban.org/about/careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: "Research assistants (quantitative / qualitative) across Justice Policy Center, Metropolitan Housing and Communities, Income & Benefits."
+
+  - key: pew-research-center
+    name: Pew Research Center
+    lanes: [think-tank-research, research-writing, social-policy-advocacy]
+    ats: workday
+    board: pewtrusts/wd5/CenterExternal
+    careers_url: https://www.pewresearch.org/about/careers/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 4
+    notes: "Research assistants / associates (Global Attitudes, demography, politics)."
+
+  - key: pew-charitable-trusts
+    name: The Pew Charitable Trusts
+    lanes: [policy-legislative-analyst, social-policy-advocacy, think-tank-research]
+    ats: workday
+    board: pewtrusts/wd5/TrustsExternal
+    careers_url: https://www.pew.org/en/about/careers
+    hq: "Philadelphia, PA"
+    locations: ["Washington, DC", "Philadelphia, PA"]
+    verified: "2026-10-25"
+    open_jobs: 15
+    notes: "Associates / officers on state policy, evidence, broadband, public health initiatives."
+
+  - key: abt-global
+    name: Abt Global
+    lanes: [social-policy-advocacy, international-orgs]
+    ats: oracle
+    board: egpy.fa.us2.oraclecloud.com/JoinAbt
+    careers_url: https://www.abtglobal.com/careers
+    hq: "Rockville, MD"
+    locations: ["Rockville, MD", "Washington, DC", "New York, NY", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 12
+    notes: "Evaluation / research analysts; many international development project posts too."
+
+  - key: american-institutes-for-research
+    name: American Institutes for Research (AIR)
+    lanes: [social-policy-advocacy, think-tank-research]
+    ats: greenhouse
+    board: americaninstitutesforresearch
+    careers_url: https://www.air.org/build-career-air
+    hq: "Arlington, VA"
+    locations: ["Arlington, VA", "Washington, DC", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 13
+    notes: "Research associates / assistants in education, health, workforce and human development."
+
+  - key: child-trends
+    name: Child Trends
+    lanes: [social-policy-advocacy, think-tank-research]
+    ats: adp
+    board: "70c1bbee-a65c-4b42-bb04-9dcb8a73868a"
+    careers_url: https://www.childtrends.org/careers/job-openings
+    hq: "Bethesda, MD"
+    locations: ["Bethesda, MD", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "Research analysts / research assistants (child welfare, reproductive health, early childhood)."
+
+  - key: results-for-america
+    name: Results for America
+    lanes: [social-policy-advocacy, policy-legislative-analyst, urban-planning-research]
+    ats: greenhouse
+    board: resultsforamerica
+    careers_url: https://results4america.org/careers/
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "Evidence-based policy; What Works Cities (city data / urban practice) associates."
+
+  - key: data-and-society
+    name: Data & Society Research Institute
+    lanes: [tech-regulatory-policy, research-writing, think-tank-research]
+    ats: greenhouse
+    board: datasocietyresearchinstitute
+    careers_url: https://datasociety.net/careers-at-data-society/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Valid board, empty at verification (hires in rounds: research analysts, editorial, policy)."
+
+  - key: institute-of-international-finance
+    name: Institute of International Finance (IIF)
+    lanes: [tech-regulatory-policy, think-tank-research]
+    groups: [geopolitical-risk]
+    ats: adp
+    board: "453feaf3-76c8-4b83-9ed0-0ea8b31a42aa"
+    careers_url: https://www.iif.com/Careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "ADP feed live but empty at verification. Regulatory affairs / economics research assistants."
+
+  - key: mdrc
+    name: MDRC
+    lanes: [social-policy-advocacy, think-tank-research]
+    ats: other
+    ats_vendor: ukg-ready
+    careers_url: https://secure6.saashr.com/ta/6162152.careers?CareersSearch
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "Oakland, CA"]
+    notes: "Research assistants / research associates (policy evaluation, NYC HQ)."
+
+  - key: mathematica
+    name: Mathematica
+    lanes: [social-policy-advocacy, think-tank-research]
+    ats: other
+    ats_vendor: cornerstone
+    careers_url: https://mathematica.csod.com/ux/ats/careersite/4/home
+    hq: "Princeton, NJ"
+    locations: ["Princeton, NJ", "Washington, DC", "Remote US"]
+    notes: "Research assistants / analysts (survey, evaluation, data)."
+
+  - key: norc
+    name: NORC at the University of Chicago
+    lanes: [social-policy-advocacy, think-tank-research]
+    ats: other
+    ats_vendor: pageup
+    careers_url: https://careers.norc.org/
+    hq: "Chicago, IL"
+    locations: ["Bethesda, MD", "Chicago, IL", "New York, NY", "Remote US"]
+    notes: "Research assistants / associates (public affairs, health, economics, criminal justice)."
+
+  # ------------------------------------------------------------------ criminal justice, NYC social and urban policy
+  - key: vera-institute-of-justice
+    name: Vera Institute of Justice
+    lanes: [criminal-justice-policy, social-policy-advocacy]
+    ats: greenhouse
+    board: verainstituteofjustice
+    careers_url: https://www.vera.org/careers
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 8
+    notes: "Research analysts and program associates (sentencing, universal representation, state initiatives)."
+
+  - key: arnold-ventures
+    name: Arnold Ventures
+    lanes: [criminal-justice-policy, social-policy-advocacy, policy-legislative-analyst]
+    ats: paylocity
+    board: 17519654-d224-4f10-9a5f-2b7ad3cd5a77
+    careers_url: https://www.arnoldventures.org/careers
+    hq: "Houston, TX"
+    locations: ["New York, NY", "Washington, DC", "Houston, TX"]
+    verified: "2026-10-25"
+    open_jobs: 4
+    notes: "Criminal-justice / health / education policy managers; philanthropy with policy staff in NYC and DC."
+
+  - key: aclu
+    name: American Civil Liberties Union (ACLU)
+    lanes: [criminal-justice-policy, social-policy-advocacy, national-security]
+    ats: greenhouse
+    board: aclu
+    careers_url: https://www.aclu.org/careers
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 16
+    notes: "National office: paralegals, advocacy and policy associates, National Security Project fellowships."
+
+  - key: brennan-center
+    name: Brennan Center for Justice
+    lanes: [criminal-justice-policy, policy-legislative-analyst, social-policy-advocacy, research-writing]
+    ats: other
+    ats_vendor: jazzhr
+    careers_url: https://brennancenter.applytojob.com/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    notes: "Research and program associates (Justice, Democracy, Liberty & National Security), associate editors, internships."
+
+  - key: center-for-justice-innovation
+    name: Center for Justice Innovation (formerly Center for Court Innovation)
+    lanes: [criminal-justice-policy, social-policy-advocacy]
+    ats: other
+    ats_vendor: unknown
+    careers_url: https://www.innovatingjustice.org/careers
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    notes: "Research department (research assistants / associates) and NYC court-based programs; careers page is bot-walled, vendor not identified."
+
+  - key: fortune-society
+    name: The Fortune Society
+    lanes: [criminal-justice-policy, social-policy-advocacy]
+    ats: other
+    ats_vendor: paycom
+    careers_url: https://www.paycomonline.net/v4/ats/web.php/jobs?clientkey=33B4B23E84A9B3F4CD16B8BC7604391F
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    notes: "Reentry services plus policy & advocacy / evaluation staff."
+
+  - key: council-of-state-governments-justice-center
+    name: CSG Justice Center
+    lanes: [criminal-justice-policy, policy-legislative-analyst]
+    ats: other
+    ats_vendor: applicantpro
+    careers_url: https://csg.applicantpro.com/jobs/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "Remote US"]
+    notes: "Policy analysts / project associates (reentry, behavioral health, justice reinvestment)."
+
+  - key: council-on-criminal-justice
+    name: Council on Criminal Justice (CCJ)
+    lanes: [criminal-justice-policy, think-tank-research]
+    ats: other
+    ats_vendor: workable
+    careers_url: https://apply.workable.com/counciloncj/
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "Remote US"]
+    notes: "Workable account 'counciloncj' linked from counciloncj.org; not API-verified (Workable rate-limited this session) - promote to ats: workable once a check returns."
+
+  - key: robin-hood
+    name: Robin Hood
+    lanes: [social-policy-advocacy]
+    ats: adp
+    board: "5690b998-5a2d-4792-b2de-97f5fca569c2"
+    careers_url: https://robinhood.org/about/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "NYC anti-poverty funder; research & evaluation / program associates."
+
+  - key: united-way-of-new-york-city
+    name: United Way of New York City
+    lanes: [social-policy-advocacy]
+    ats: adp
+    board: "f05554b5-e498-4eee-be2d-2357eab87e19"
+    careers_url: https://unitedwaynyc.org/our-culture-and-careers/
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 11
+    notes: "Advocacy & policy, program evaluation, benefits-access roles."
+
+  - key: community-service-society
+    name: Community Service Society of New York (CSS)
+    lanes: [social-policy-advocacy, urban-planning-research]
+    ats: adp
+    board: "bfa63131-def5-44e4-b58b-93b120048fdf"
+    careers_url: https://www.cssny.org/jobs
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "NYC anti-poverty research and policy (housing, labor market) plus direct-service counselors."
+
+  - key: lisc
+    name: LISC (Local Initiatives Support Corporation)
+    lanes: [urban-planning-research, social-policy-advocacy]
+    ats: greenhouse
+    board: lisc
+    careers_url: https://job-boards.greenhouse.io/lisc
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 7
+    notes: "Community development: program assistants, policy and research roles."
+
+  - key: nycedc
+    name: New York City Economic Development Corporation (NYCEDC)
+    lanes: [urban-planning-research, policy-legislative-analyst]
+    groups: [government]
+    ats: greenhouse
+    board: nycedc
+    careers_url: https://job-boards.greenhouse.io/nycedc
+    hq: "New York, NY"
+    locations: ["New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 30
+    notes: "Analysts / associates in strategic analytics, planning, real estate, green economy, legislative affairs."
+
+  # ------------------------------------------------------------------ international organisations, humanitarian, human rights
+  - key: international-monetary-fund
+    name: International Monetary Fund (IMF)
+    lanes: [international-orgs]
+    groups: [geopolitical-risk, entry-routes]
+    ats: workday
+    board: imf/wd5/IMF
+    careers_url: https://imf.wd5.myworkdayjobs.com/IMF
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 12
+    notes: "Economist Program, Fund Internship Program, research analysts / assistants. Tenant also hosts a small 'world_bank' site (4 jobs)."
+
+  - key: oecd
+    name: OECD
+    lanes: [international-orgs, tech-regulatory-policy]
+    ats: smartrecruiters
+    board: OECD
+    careers_url: https://careers.smartrecruiters.com/OECD
+    hq: "Paris, France"
+    locations: ["Paris, France", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 16
+    notes: "Junior policy analysts, internship programme; every post appears twice (English + French)."
+
+  - key: undp
+    name: UNDP (United Nations Development Programme)
+    lanes: [international-orgs]
+    ats: oracle
+    board: estm.fa.em2.oraclecloud.com/CX_1
+    careers_url: https://jobs.undp.org/cj_view_jobs.cfm
+    hq: "New York, NY"
+    locations: ["New York, NY", "Global"]
+    verified: "2026-10-25"
+    open_jobs: 115
+    notes: "Oracle board also carries UNCDF / UNV-administered posts; NY HQ roles mixed with country offices."
+
+  - key: world-food-programme
+    name: World Food Programme (WFP)
+    lanes: [international-orgs]
+    ats: workday
+    board: wfp/wd3/job_openings
+    careers_url: https://wfp.wd3.myworkdayjobs.com/job_openings
+    hq: "Rome, Italy"
+    locations: ["New York, NY", "Washington, DC", "London, UK", "Global"]
+    verified: "2026-10-25"
+    open_jobs: 107
+    notes: "Mostly field posts; London / NY liaison-office internships and associates appear here."
+
+  - key: world-bank
+    name: World Bank Group
+    lanes: [international-orgs]
+    ats: other
+    ats_vendor: cornerstone
+    careers_url: https://worldbankgroup.csod.com/ux/ats/careersite/1/home?c=worldbankgroup
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    notes: "Analyst, Junior Professional Associate and Young Professionals Program; Cornerstone - check by hand."
+
+  - key: united-nations
+    name: United Nations Secretariat
+    lanes: [international-orgs]
+    groups: [entry-routes]
+    ats: other
+    ats_vendor: un-careers
+    careers_url: https://careers.un.org/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Global"]
+    notes: "UN Careers (ex-Inspira): associate / P-2 posts, YPP, internships. Agencies (UNDP, WFP) listed separately."
+
+  - key: international-rescue-committee
+    name: International Rescue Committee (IRC)
+    lanes: [international-orgs, social-policy-advocacy]
+    ats: workday
+    board: theirc/wd1/External_Careers
+    careers_url: https://careers.rescue.org/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK", "Global"]
+    title_filter: '(?i)^(?!.*\b(engineer|developer|software|systems|HR|human resources|finance|accountant|driver|clinician|case ?worker|teacher|nurse)\b).*(polic|advoca|research|government (relations|liaison)|external relations|humanitarian affairs|fellow|evidence|\banalyst\b|program (assistant|associate|coordinator))'
+    verified: "2026-10-25"
+    open_jobs: 331
+    notes: "Phenom front end over Workday tenant 'theirc'. Filter keeps policy & advocacy, research, evidence and program-assistant titles."
+
+  - key: mercy-corps
+    name: Mercy Corps
+    lanes: [international-orgs]
+    ats: jobvite
+    board: mercycorps
+    careers_url: https://jobs.jobvite.com/mercycorps/jobs
+    hq: "Portland, OR"
+    locations: ["Washington, DC", "New York, NY", "London, UK", "Global"]
+    verified: "2026-10-25"
+    open_jobs: 28
+    notes: "mercycorps.org/careers now redirects to prosperglobal.org/careers; Jobvite slugs 'mercycorps' and 'prosperglobal' serve the same board."
+
+  - key: save-the-children
+    name: Save the Children US
+    lanes: [international-orgs, social-policy-advocacy]
+    ats: ultipro
+    board: SAV1002STCF/7d92e82b-af74-464d-859b-c5b8cba6e92e
+    careers_url: https://recruiting.ultipro.com/SAV1002STCF/JobBoard/7d92e82b-af74-464d-859b-c5b8cba6e92e
+    hq: "Fairfield, CT"
+    locations: ["Washington, DC", "Fairfield, CT", "Remote US"]
+    title_filter: '(?i)^(?!.*\b(teacher|aide|driver|nurse|cook|custodian|bus|facility|transport)\b).*(polic|advoca|research|government (relations|affairs)|humanitarian|fellow|evidence|evaluation|\banalyst\b|program (assistant|associate|coordinator)|advisor|specialist)'
+    verified: "2026-10-25"
+    open_jobs: 86
+    notes: "Board is dominated by US Head Start classroom roles - filter keeps policy, humanitarian, evaluation and advisor titles."
+
+  - key: human-rights-watch
+    name: Human Rights Watch
+    lanes: [international-orgs, research-writing]
+    ats: greenhouse
+    board: humanrightswatch
+    careers_url: https://www.hrw.org/careers
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 7
+    notes: "Research assistants / associates per division, advocacy associates, internships."
+
+  - key: amnesty-international-usa
+    name: Amnesty International USA
+    lanes: [international-orgs, social-policy-advocacy]
+    ats: adp
+    board: "c6fdd7c6-1b63-450d-ba2b-c679abf65f53|19000101_000001"
+    careers_url: https://www.amnestyusa.org/about-us/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "ADP feed live but empty at verification."
+
+  - key: national-endowment-for-democracy
+    name: National Endowment for Democracy (NED)
+    lanes: [international-orgs, foreign-policy]
+    ats: adp
+    board: "f2a07ead-ba9a-4ba0-b713-c8c25ed4edcb"
+    careers_url: https://www.ned.org/about/careers/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: "Program assistants / grants assistants by region; International Forum research roles."
+
+  - key: national-democratic-institute
+    name: National Democratic Institute (NDI)
+    lanes: [international-orgs, foreign-policy]
+    ats: rippling
+    board: ndi_careers
+    careers_url: https://www.ndi.org/careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Rippling board linked from ndi.org; the older UltiPro board NAT1051NDEM/79dbb2b6-... answered but was empty."
+
+  - key: international-republican-institute
+    name: International Republican Institute (IRI)
+    lanes: [international-orgs, foreign-policy]
+    ats: ultipro
+    board: INT1048/201c19d1-4b06-d159-bba4-6a102267f555
+    careers_url: https://www.iri.org/work-with-iri/
+    hq: "Washington, DC"
+    locations: ["Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "Program assistants / associates by region."
+
+  - key: gi-toc
+    name: Global Initiative Against Transnational Organized Crime (GI-TOC)
+    lanes: [international-orgs, criminal-justice-policy, think-tank-research]
+    groups: [sanctions-fincrime, investigations-dd]
+    ats: bamboohr
+    board: globalinitiative
+    careers_url: https://globalinitiative.bamboohr.com/careers
+    hq: "Geneva, Switzerland"
+    locations: ["Geneva, Switzerland", "Global", "Remote"]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "Analysts for regional observatories (illicit economies, organised crime)."
+
+  - key: pen-america
+    name: PEN America
+    lanes: [social-policy-advocacy, research-writing]
+    ats: bamboohr
+    board: pen
+    careers_url: https://pen.org/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Free-expression research and advocacy; program and research assistants."
+
+  - key: committee-to-protect-journalists
+    name: Committee to Protect Journalists (CPJ)
+    lanes: [international-orgs, research-writing]
+    ats: bamboohr
+    board: cpjorg
+    careers_url: https://cpj.org/about/jobs/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 1
+    notes: "Regional research associates / researchers (press-freedom documentation)."
+
+  # ------------------------------------------------------------------ newsrooms and publications (research-writing)
+  - key: new-york-times
+    name: The New York Times
+    lanes: [research-writing]
+    ats: greenhouse
+    board: thenewyorktimes
+    careers_url: https://www.nytco.com/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    title_filter: '(?i)(research|fact[- ]?check|news assistant|editorial assistant|reporter|fellow|investigat|\beditor)'
+    verified: "2026-10-25"
+    open_jobs: 146
+    notes: "Newsroom research, news assistants, fellowships. NOTE: intelligence-security.yaml lists this key first, so its security-only title_filter currently wins on merge."
+
+  - key: dow-jones
+    name: Dow Jones (The Wall Street Journal, Barron's, Newswires)
+    lanes: [research-writing, tech-regulatory-policy]
+    ats: workday
+    board: dowjones/wd1/Dow_Jones_Career
+    careers_url: https://dowjones.wd1.myworkdayjobs.com/Dow_Jones_Career
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    title_filter: '(?i)(reporter|correspondent|\beditor|editorial|news assistant|research|fact|fellow|intern)'
+    verified: "2026-10-25"
+    open_jobs: 251
+    notes: "WSJ / Newswires reporters and news assistants. NOTE: intelligence-security.yaml lists this key first, so its title_filter currently wins on merge."
+
+  - key: thomson-reuters
+    name: Thomson Reuters (Reuters News, Practical Law)
+    lanes: [research-writing, tech-regulatory-policy]
+    ats: workday
+    board: thomsonreuters/wd5/External_Career_Site
+    careers_url: https://thomsonreuters.wd5.myworkdayjobs.com/External_Career_Site
+    hq: "Toronto, Canada"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    title_filter: '(?i)^(?!.*\b(engineer|developer|software|sales|account (executive|manager)|devops)\b).*(\breporter|correspondent|journalis|\bnews\b|\beditor|editorial|fact[- ]?check|breakingviews|\bresearcher\b|research (analyst|associate|assistant)|regulatory intelligence|graduate|trainee|fellowship)'
+    search_terms: [Reuters, journalist, reporter, editor, correspondent, researcher, graduate, regulatory intelligence]
+    max_jobs: 800
+    verified: "2026-10-25"
+    open_jobs: 486
+    notes: "Reuters newsroom (reporters, duty / picture editors, graduate programme) and Practical Law legal / regulatory editors."
+
+  - key: washington-post
+    name: The Washington Post
+    lanes: [research-writing]
+    ats: workday
+    board: washpost/wd5/washingtonpostcareers
+    careers_url: https://washpost.wd5.myworkdayjobs.com/washingtonpostcareers
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY"]
+    title_filter: '(?i)^(?!.*\b(engineer|developer|software|sales|account|accountant|controller|FP&A)\b).*(reporter|correspondent|editor|editorial|research|fact|news|writer|producer|fellow|intern|columnist|graphics)'
+    verified: "2026-10-25"
+    open_jobs: 50
+    notes: "Reporters, researchers (e.g. Opinions researcher), editorial aides, fellowships. A second site 'WashingtonPostCareersArc' holds a few tech roles."
+
+  - key: the-atlantic
+    name: The Atlantic
+    lanes: [research-writing]
+    ats: workday
+    board: atlanticmedia/wd1/Careers
+    careers_url: https://atlanticmedia.wd1.myworkdayjobs.com/Careers
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 27
+    notes: "Workday tenant is still named 'atlanticmedia'. Editorial Fellowship (recent grads), fact-checking, staff writers."
+
+  - key: conde-nast
+    name: Condé Nast (The New Yorker, Vanity Fair, WIRED)
+    lanes: [research-writing]
+    ats: workday
+    board: condenast/wd115/CondeCareers
+    careers_url: https://condenast.wd115.myworkdayjobs.com/CondeCareers
+    hq: "New York, NY"
+    locations: ["New York, NY", "London, UK"]
+    title_filter: '(?i)^(?!.*\b(engineer|developer|software|sales|account (executive|manager)|commerce|beauty|fashion|style)\b).*(new yorker|fact[- ]?check|research|editorial (assistant|associate|fellow)|assistant editor|associate editor|copy (editor|associate|chief)|news (assistant|editor)|reporter|correspondent|\bwriter|investigat)'
+    verified: "2026-10-25"
+    open_jobs: 146
+    notes: "The New Yorker fact-checking / editorial-copy roles and investigations writers across titles."
+
+  - key: the-economist-group
+    name: The Economist Group (The Economist, Economist Impact, EIU)
+    lanes: [research-writing, foreign-policy]
+    groups: [geopolitical-risk]
+    ats: greenhouse
+    board: theeconomistgroup
+    careers_url: https://job-boards.eu.greenhouse.io/theeconomistgroup
+    hq: "London, UK"
+    locations: ["London, UK", "New York, NY", "Washington, DC"]
+    verified: "2026-10-25"
+    open_jobs: 49
+    notes: "EU-hosted Greenhouse board, readable through boards-api.greenhouse.io. Editorial, research and Economist Impact policy roles."
+
+  - key: financial-times
+    name: Financial Times
+    lanes: [research-writing]
+    ats: greenhouse
+    board: financialtimes33
+    careers_url: https://aboutus.ft.com/careers
+    hq: "London, UK"
+    locations: ["London, UK", "New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 53
+    notes: "Editorial early careers, specialist publications (The Banker, MandateWire reporters)."
+
+  - key: politico
+    name: POLITICO
+    lanes: [research-writing, policy-legislative-analyst, tech-regulatory-policy]
+    ats: workday
+    board: politico/wd108/POLITICO
+    careers_url: https://politico.wd108.myworkdayjobs.com/POLITICO
+    hq: "Arlington, VA"
+    locations: ["Washington, DC", "Arlington, VA", "New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 42
+    notes: "Newsroom, POLITICO Pro and AgencyIQ (regulatory analysts); editorial internships."
+
+  - key: politico-europe
+    name: POLITICO Europe
+    lanes: [research-writing, policy-legislative-analyst]
+    ats: workday
+    board: politico/wd108/POLITICOEU
+    careers_url: https://politico.wd108.myworkdayjobs.com/POLITICOEU
+    hq: "Brussels, Belgium"
+    locations: ["London, UK", "Brussels, Belgium", "Berlin, Germany"]
+    verified: "2026-10-25"
+    open_jobs: 19
+    notes: "European newsroom and Pro policy coverage (London office)."
+
+  - key: axios
+    name: Axios
+    lanes: [research-writing]
+    ats: greenhouse
+    board: axios
+    careers_url: https://job-boards.greenhouse.io/axios
+    hq: "Arlington, VA"
+    locations: ["Washington, DC", "New York, NY", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 36
+    notes: "Reporters, Axios Pro policy reporters, associates; many business-side roles too."
+
+  - key: semafor
+    name: Semafor
+    lanes: [research-writing, foreign-policy]
+    ats: greenhouse
+    board: semafor
+    careers_url: https://job-boards.greenhouse.io/semafor
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    verified: "2026-10-25"
+    open_jobs: 21
+    notes: "Editors, briefing coordinators, live-journalism roles."
+
+  - key: npr
+    name: NPR
+    lanes: [research-writing]
+    ats: greenhouse
+    board: nationalpublicradioinc
+    careers_url: https://job-boards.greenhouse.io/nationalpublicradioinc
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "New York, NY"]
+    verified: "2026-10-25"
+    open_jobs: 11
+    notes: "Editorial / production assistants, internships and fellowships."
+
+  - key: propublica
+    name: ProPublica
+    lanes: [research-writing]
+    ats: greenhouse
+    board: propublica
+    careers_url: https://job-boards.greenhouse.io/propublica
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 4
+    notes: "Investigative research / reporting fellowships (Local Reporting Network), news applications."
+
+  - key: the-marshall-project
+    name: The Marshall Project
+    lanes: [research-writing, criminal-justice-policy]
+    ats: greenhouse
+    board: themarshallproject
+    careers_url: https://www.themarshallproject.org/jobs
+    hq: "New York, NY"
+    locations: ["New York, NY", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 0
+    notes: "Criminal-justice newsroom; Greenhouse board valid but empty at verification."
+
+  - key: fiscalnote
+    name: FiscalNote (CQ Roll Call)
+    lanes: [research-writing, policy-legislative-analyst]
+    ats: lever
+    board: fiscalnote
+    careers_url: https://jobs.lever.co/fiscalnote
+    hq: "Washington, DC"
+    locations: ["Washington, DC", "Remote US"]
+    verified: "2026-10-25"
+    open_jobs: 7
+    notes: "CQ / Roll Call legislative editors and reporters; policy-intelligence analysts."
+
+  - key: factcheck-org
+    name: FactCheck.org (Annenberg Public Policy Center, UPenn)
+    lanes: [research-writing]
+    ats: workday
+    board: upenn/wd1/careers-at-penn
+    careers_url: https://www.factcheck.org/about/our-staff/
+    hq: "Philadelphia, PA"
+    locations: ["Philadelphia, PA", "Remote US"]
+    title_filter: '(?i)(factcheck|fact[- ]check|annenberg public policy|\bAPPC\b|science writer|staff writer|deputy managing editor)'
+    search_terms: [FactCheck, Annenberg Public Policy Center, fact-checker]
+    verified: "2026-10-25"
+    open_jobs: 475
+    notes: "Hires through Penn's university-wide Workday (475 jobs); search_terms + filter isolate FactCheck.org / APPC posts (0 matching at verification)."
+
+  - key: associated-press
+    name: The Associated Press (AP)
+    lanes: [research-writing]
+    ats: other
+    ats_vendor: unknown
+    careers_url: https://www.ap.org/careers/
+    hq: "New York, NY"
+    locations: ["New York, NY", "Washington, DC", "London, UK"]
+    notes: "News assistants, fellowships, reporters. Careers page bot-walled; Workday tenant 'ap' belongs to a construction firm - not AP."

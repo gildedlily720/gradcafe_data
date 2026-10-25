@@ -1,0 +1,162 @@
+[
+ {
+  "jobId": "2c348e5768d733e3cfceea25a61fe881528ecf7c57aa3ed00474fd98513e23d7",
+  "title": "Software Engineer/Lead Software Engineer",
+  "company": "State Farm",
+  "location": "Bloomington or Tempe",
+  "workplaceType": "Hybrid",
+  "commitment": "Full Time",
+  "seniorityLevel": "Mid Level",
+  "roleType": "Individual Contributor",
+  "roleActivities": [
+   "lead teams",
+   "deliver software",
+   "design solutions"
+  ],
+  "jobCategory": "Software Development",
+  "description": "Overview:\n<p style=\"margin: 0px;\">Being good neighbors – helping people, investing in our communities, and making the world a better place – is who we are at State Farm. It is at the core of how we op...",
+  "salaryCurrency": "USD",
+  "salaryFrequency": "Yearly",
+  "isCompensationTransparent": false,
+  "requirementsSummary": "Software Engineer with experience delivering software and leading collaborative initiatives in cloud-enabled environments.",
+  "technicalTools": [
+   "Python",
+   "Terraform",
+   "APIs",
+   "JSON",
+   "React",
+   "... 12 more items"
+  ],
+  "languageRequirements": [
+   "English"
+  ],
+  "driverLicenseRequired": false,
+  "retirement401kMatching": false,
+  "retirementPlan": false,
+  "tuitionReimbursement": false,
+  "generousParentalLeave": false,
+  "generousPaidTimeOff": false,
+  "fourDayWorkWeek": false,
+  "visaSponsorship": false,
+  "relocationAssistance": false,
+  "fairChance": false,
+  "militaryVeterans": false,
+  "physicalLaborIntensity": "Low",
+  "physicalPosition": "Sitting",
+  "workplaceEnvironment": "Office",
+  "computerUsage": "High",
+  "cognitiveDemand": "High",
+  "oralCommunicationLevel": "High",
+  "overtimeRequired": false,
+  "weekendAvailabilityRequired": false,
+  "holidayAvailabilityRequired": false,
+  "positionEmployerType": "External Position",
+  "workplaceCountries": [
+   "US"
+  ],
+  "workplaceContinents": [
+   "North America"
+  ],
+  "workplaceStates": [
+   "Illinois, US",
+   "Arizona, US"
+  ],
+  "workplaceCities": [
+   "Bloomington, Illinois, US",
+   "Tempe, Arizona, US"
+  ],
+  "workplaceCounties": [
+   "McLean County, Illinois, US",
+   "Maricopa County, Arizona, US"
+  ],
+  "isWorkplaceWorldwideOk": false,
+  "latitude": 40.477,
+  "longitude": -89.3859,
+  "companyName": "State Farm",
+  "companyWebsite": "statefarm.com",
+  "companySector": "Information Technology",
+  "companyIndustries": [
+   "Insurance",
+   "Financial Services"
+  ],
+  "companyActivities": [
+   "insurance",
+   "financial services"
+  ],
+  "companyTagline": "A leading provider of insurance and financial services.",
+  "companyEmployeeCount": 67000,
+  "companyHqCountry": "US",
+  "companyYearFounded": 1922,
+  "companyOrganizationType": "Cooperative / Mutual",
+  "companySubsidiaries": [
+   "State Farm Fire and Casualty Company",
+   "State Farm Life Insurance Company",
+   "State Farm General Insurance Company",
+   "State Farm Florida Insurance Company",
+   "State Farm Bank"
+  ],
+  "applyUrl": "https://jobs.statefarm.com/jobs/43740/job?utm_source=hiringcafe_integration&iis=Job%20Board&iisn=HiringCafe",
+  "portalUrl": "https://hiring.cafe/viewjob/kac5xufceyhyds01",
+  "sourceAts": "icims",
+  "postedDate": "2026-03-16T22:04:00.000Z",
+  "scrapedAt": "2026-04-05T13:50:10.906Z",
+  "source": "hiring.cafe"
+ },
+ {
+  "jobId": "8be0f3c47a1d29e6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2",
+  "title": "Analyst, Political Risk & Structured Credit",
+  "company": "Chubb",
+  "location": "New York, NY",
+  "workplaceType": "Hybrid",
+  "commitment": "Full Time",
+  "seniorityLevel": "Entry Level",
+  "roleType": "Individual Contributor",
+  "jobCategory": "Insurance Underwriting",
+  "description": "<p>Join the <strong>Political Risk</strong> team underwriting confiscation, expropriation and contract frustration risks.</p><ul><li>Prepare underwriting submissions</li><li>Monitor country risk</li></ul>",
+  "salaryMin": 75000,
+  "salaryMax": 90000,
+  "salaryCurrency": "USD",
+  "salaryFrequency": "Yearly",
+  "isCompensationTransparent": true,
+  "minYearsExperience": 1,
+  "workplaceCountries": [
+   "US"
+  ],
+  "workplaceStates": [
+   "New York, US"
+  ],
+  "workplaceCities": [
+   "New York, New York, US"
+  ],
+  "companyName": "Chubb",
+  "companyWebsite": "chubb.com",
+  "applyUrl": "https://careers.chubb.com/global/en/job/123456/Analyst-Political-Risk",
+  "portalUrl": "https://hiring.cafe/viewjob/p0l1t1c4lr1sk01",
+  "sourceAts": "workday",
+  "postedDate": "2026-10-20T15:30:00.000Z",
+  "scrapedAt": "2026-10-25T16:01:12.000Z",
+  "source": "hiring.cafe"
+ },
+ {
+  "jobId": "c0ffee00badc0de0000000000000000000000000000000000000000000000001",
+  "title": "Trust & Safety Policy Associate",
+  "company": "Discord",
+  "location": "Remote - United States",
+  "workplaceType": "Remote",
+  "commitment": "Contract",
+  "seniorityLevel": "Entry Level",
+  "description": null,
+  "salaryMin": null,
+  "salaryMax": null,
+  "applyUrl": "https://job-boards.greenhouse.io/discord/jobs/8000001",
+  "portalUrl": "https://hiring.cafe/viewjob/tsp0l1cy4ss0c1",
+  "sourceAts": "greenhouse",
+  "postedDate": "2026-10-24T00:00:00.000Z",
+  "source": "hiring.cafe"
+ },
+ {
+  "jobId": "x",
+  "title": null,
+  "company": "Nobody"
+ }
+]

@@ -1,0 +1,8 @@
+# Candidate profile used by tests/test_taxonomy.py
+preferred_locations: ["New York", "Washington", "Remote", "London"]
+remote_ok: true
+max_years_experience: 3
+include_internships: false
+include_unknown_seniority: true
+min_score: 25
+countries: ["US", "GB"]

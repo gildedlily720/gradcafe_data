@@ -1,0 +1,960 @@
+# Specialty insurance (underwriting and broking) -- employer registry for jobsweep.
+#
+# Coverage (researched 2026-10-25): Lloyd's / London-market carriers and syndicates, US & Bermudian specialty
+# carriers, reinsurers, trade-credit insurers, specialty / reinsurance / wholesale brokers, transactional-risk
+# (R&W) MGAs, K&R crisis-response consultancies, insurance law firms, shipping-finance brokers, political-risk
+# DFIs, and the large US carriers / TPAs / data firms that run insurance-fraud SIU units.
+# Every sweepable entry (ats != other) was verified live in this session via the board API (probe_ats.py check
+# or curl against the ARCHITECTURE.md 3.1 endpoint); open_jobs is the count seen on 2026-10-25.
+#
+# Big generalist boards carry search_terms (server-side; Workday/Oracle keyword search also matches description
+# boilerplate such as EEO text, so terms are distinctive single words and max_jobs -- an overall cap across terms
+# -- is raised where needed) plus a title_filter so that only lane-relevant titles survive. SIU-only carriers (GEICO, USAA, Allstate, Sedgwick) are filtered to SIU / fraud / investigator
+# titles regardless of board size.
+#
+# Notable gaps / notes:
+#   * Unsupported ATSs ("check by hand"): Beazley, Berkley, Aon, Gallagher, AXA XL (iCIMS); Lockton (Taleo);
+#     Swiss Re, Munich Re, Zurich, Aspen, Clarksons (SuccessFactors); Allianz and QBE (Phenom -- QBE's
+#     Workday site qbe/wd3/QBE-Careers exists but its public listing API returns 0, jobs are only exposed through
+#     careers.qbe.com); Liberty Mutual / LSM (Avature); Alliant, Crisis24 (Dayforce); Brit (Salesforce).
+#   * Control Risks and Hamilton use Workable, which rate-limited this session (HTTP 429 / Cloudflare 1015);
+#     they are listed as manual here -- Control Risks' board (control-risks-6) is carried as sweepable by
+#     intelligence-security.yaml, which loads first and wins the merge.
+#   * Dropped / folded in: Ince (parent entered administration 2023; firm sold to Lawfront), Woodruff Sawyer
+#     (now Gallagher), Risk Strategies / DeWitt Stern (now Brown & Brown), TigerRisk (Howden Re), Willis Re (Gallagher Re), Navigators
+#     (The Hartford), Roanoke (Munich Re), NYA (Gallagher), Founder Shield (Baldwin Group), Talbot (AIG),
+#     Price Forbes (Ardonagh Specialty), Tokio Marine Kiln / SCR (Tokio Marine HCC), Fidelis Insurance Group
+#     (renamed Pelagos Insurance Capital, May 2026; underwriting sits with The Fidelis Partnership).
+#   * Not found / too small to list: Sovereign Risk Insurance, Texel, BPL Global, Pool Re, Equinox Global,
+#     Hostage US, Coalition Against Insurance Fraud (no careers pages or unreachable), Holborn, Inigo, Ki,
+#     Mosaic Insurance, Vantage Risk, Atrium, Ark (careers pages blocked bots / no ATS found).
+#   * Researched but left out to keep the list at 80 (add back if wanted): Coalition (greenhouse 'coalition',
+#     50 jobs, mostly cyber), PURE Insurance (workday pureinsurance/wd5/PURE, 37), NJM (workday njm/wd1/njm, 38),
+#     OdysseyRe / PartnerRe (SuccessFactors), State Farm (iCIMS) and Progressive (careers.progressive.com) SIU,
+#     Bowhead Specialty, BMS Group (no ATS found).
+#   * The registry merge keeps the first file's board/title_filter for a shared key (files load alphabetically),
+#     so for control-risks / s-rm / crisis24 the intelligence-security.yaml settings win; lanes are merged.
+group: specialty-insurance
+employers:
+  # ================================================================== Lloyd's / London-market & Bermuda specialty carriers
+  - key: beazley
+    name: Beazley
+    lanes: [political-violence-terrorism, political-risk, kidnap-ransom, fine-art-specie, financial-lines]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers.beazley.com/jobs
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    notes: "iCIMS behind a Jibe search front-end. Underwriting / claims graduate programmes (London) and US underwriting trainee roles; specialty lines incl. PV/terror, K&R, fine art & specie, political risks & contingency."
+
+  - key: hiscox
+    name: Hiscox
+    lanes: [kidnap-ransom, special-risks, fine-art-specie, political-violence-terrorism, financial-lines]
+    ats: workday
+    board: hiscox/wd3/Hiscox_External_Site
+    careers_url: https://www.hiscoxgroup.com/careers
+    hq: Hamilton, Bermuda / London, UK
+    locations: [London, UK, New York, NY, Atlanta, GA]
+    verified: "2026-10-25"
+    open_jobs: 87
+    notes: "Hiscox Special Risks (K&R, extortion, crisis management), art & private client, terrorism/PV; London Market graduate scheme."
+
+  - key: convex
+    name: Convex
+    lanes: [political-risk, political-violence-terrorism, aviation, marine-cargo, financial-lines]
+    ats: pinpoint
+    board: convexin
+    careers_url: https://www.convexin.com/careers
+    hq: Hamilton, Bermuda / London, UK
+    locations: [London, UK, Bermuda]
+    verified: "2026-10-25"
+    open_jobs: 7
+    notes: "Specialty insurer/reinsurer: aerospace, political risk, terror, marine & energy, D&O."
+
+  - key: ascot-group
+    name: Ascot Group
+    lanes: [war-risk, marine-cargo, political-violence-terrorism, political-risk, financial-lines]
+    ats: oracle
+    board: fa-emkq-saasfaprod1.fa.ocs.oraclecloud.com/CX
+    careers_url: https://fa-emkq-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/requisitions
+    hq: London, UK / New York, NY
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 47
+    notes: "Lloyd's Syndicate 1414 (marine war, cargo, PV/terror, political risk) and Ascot US (New York)."
+
+  - key: canopius
+    name: Canopius
+    lanes: [political-risk, political-violence-terrorism, marine-cargo, financial-lines]
+    ats: oracle
+    board: fa-exnr-saasfaprod1.fa.ocs.oraclecloud.com/CX_1
+    careers_url: https://www.canopius.com/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 34
+
+  - key: lancashire-group
+    name: Lancashire Group
+    lanes: [political-risk, political-violence-terrorism, war-risk, aviation, marine-cargo]
+    ats: pinpoint
+    board: lancashire-group
+    careers_url: https://careers.lancashiregroup.com/
+    hq: Hamilton, Bermuda / London, UK
+    locations: [London, UK, Bermuda]
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: "Pinpoint board on careers.lancashiregroup.com; aviation war, marine war, terrorism/PV and political risk (Lancashire Syndicates 2010/3010)."
+
+  - key: ms-amlin
+    name: MS Amlin
+    lanes: [political-risk, political-violence-terrorism, marine-cargo, aviation, financial-lines]
+    ats: workday
+    board: msamlin/wd3/MsamlinCareers
+    careers_url: https://msamlin.wd3.myworkdayjobs.com/MsamlinCareers
+    hq: London, UK
+    locations: [London, UK]
+    verified: "2026-10-25"
+    open_jobs: 24
+    notes: "MS Amlin Underwriting (Lloyd's Syndicate 2001)."
+
+  - key: chaucer
+    name: Chaucer Group
+    lanes: [political-risk, political-violence-terrorism, war-risk, marine-cargo, aviation]
+    ats: workday
+    board: chaucergroup/wd3/chaucer_group_careers
+    careers_url: https://www.chaucergroup.com/careersatchaucer
+    hq: London, UK
+    locations: [London, UK, Singapore]
+    verified: "2026-10-25"
+    open_jobs: 23
+    notes: "Lloyd's (China Re). Political risk & credit / PV team; 'Specialty Associate Analyst - Exposure Management (PV, PR, CR)' entry roles and a rolling graduate trainee scheme."
+
+  - key: apollo-syndicate
+    name: Apollo Syndicate Management
+    lanes: [marine-cargo, aviation, political-violence-terrorism]
+    ats: greenhouse
+    board: apollosyndicate1969
+    careers_url: https://apollounderwriting.com/careers/jobs/
+    hq: London, UK
+    locations: [London, UK]
+    verified: "2026-10-25"
+    open_jobs: 6
+    notes: "Lloyd's Syndicate 1969 and platform partner syndicates."
+
+  - key: cfc-underwriting
+    name: CFC Underwriting
+    lanes: [financial-lines, political-violence-terrorism, special-risks]
+    ats: pinpoint
+    board: cfc
+    careers_url: https://www.cfc.com/en-us/careers/
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 68
+    notes: "Specialist Lloyd's MGA: cyber, tech/professional, terrorism & PV, contingency."
+
+  - key: the-fidelis-partnership
+    name: The Fidelis Partnership (Fidelis / Pelagos Insurance Capital)
+    lanes: [political-risk, political-violence-terrorism, aviation, marine-cargo, trade-credit-surety]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://careersuk.fidelispartnership.com/
+    hq: London, UK / Hamilton, Bermuda
+    locations: [London, UK, Dublin, Ireland, Bermuda]
+    notes: "MGU that underwrites for Pelagos Insurance Capital (Fidelis Insurance Group renamed May 2026): political risk & credit, PV, aviation & aerospace, marine. Recruitment via Avencia Consulting."
+
+  - key: brit-insurance
+    name: Brit Insurance
+    lanes: [political-violence-terrorism, political-risk, marine-cargo, financial-lines]
+    ats: other
+    ats_vendor: salesforce
+    careers_url: https://britpeople.my.salesforce-sites.com/recruit/fRecruit__ApplyJobList?portal=Brit+Careers
+    hq: London, UK
+    locations: [London, UK, New York, NY, Bermuda]
+    notes: "Salesforce fRecruit portal. Lloyd's Syndicate 2987; terror/PV underwriting, claims & underwriting assistant roles, graduate programme."
+
+  - key: aspen-insurance
+    name: Aspen Insurance
+    lanes: [political-risk, political-violence-terrorism, financial-lines, marine-cargo, aviation]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://jobs.aspen.co/
+    hq: Hamilton, Bermuda
+    locations: [London, UK, New York, NY, Rocky Hill, CT]
+    notes: "Credit & political risk, PV, financial & professional lines (Aspen Syndicate 4711); UK/US graduate programme."
+
+  - key: lloyds-of-london
+    name: Lloyd's of London (Corporation of Lloyd's)
+    lanes: [political-risk, political-violence-terrorism, war-risk, marine-cargo]
+    ats: workday
+    board: lloyds/wd3/Lloyds-of-London
+    careers_url: https://www.lloyds.com/about-lloyds/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 16
+    notes: "The market's corporation (performance management, market oversight, analyst roles, Lloyd's Americas); not a carrier."
+
+  # ================================================================== US / global specialty carriers
+  - key: chubb
+    name: Chubb
+    lanes: [political-risk, trade-credit-surety, kidnap-ransom, financial-lines, insurance-fraud-siu]
+    ats: oracle
+    board: fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/CX_2001
+    careers_url: https://careers.chubb.com
+    hq: Zurich, Switzerland / New York, NY
+    locations: [New York, NY, Whitehouse Station, NJ, Philadelphia, PA, London, UK]
+    title_filter: '(?i)(underwrit|politic|sovereign|\bcredit\b|surety|marine|cargo|aviation|aerospace|kidnap|\bK&R\b|crisis|special risks?|terror|\bwar\b|financial lines|\bD&O\b|management liability|executive (risk|liability)|transaction|\bM&A\b|fine art|specie|jewel|\bSIU\b|fraud|investigat|reinsurance|Chubb Associate|trainee|graduate|intern\b|internship|placement)'
+    search_terms: [political risk, credit, surety, marine, aviation, financial lines, fraud, Chubb Associate]
+    verified: "2026-10-25"
+    open_jobs: 726
+    notes: "Global board (~726); search_terms narrow it server-side (keyword search also matches descriptions), so the title filter also keeps generic underwriter titles. Political Risk & Specialty Credit, Chubb Crisis Management (K&R), marine, aerospace, financial lines, SIU (ESIS). 'Chubb Associate' = early-career underwriting programme; Bermuda summer placements incl. Sovereign Risk."
+
+  - key: aig
+    name: AIG
+    lanes: [political-risk, trade-credit-surety, financial-lines, aviation, kidnap-ransom]
+    ats: workday
+    board: aig/wd1/aig
+    careers_url: https://www.aig.com/careers
+    hq: New York, NY
+    locations: [New York, NY, London, UK, Jersey City, NJ]
+    title_filter: '(?i)(politic|sovereign|\bcredit\b|surety|trade credit|marine|cargo|aviation|aerospace|kidnap|\bK&R\b|crisis|special risks?|terror|\bwar\b|financial lines|\bD&O\b|management liability|executive (risk|liability)|transaction|\bM&A\b|fine art|specie|jewel|\bSIU\b|fraud|investigat|reinsurance|trainee|graduate|intern\b|internship|placement|early career|development program)'
+    max_jobs: 600
+    verified: "2026-10-25"
+    open_jobs: 430
+    notes: "Board slightly over the 400 default, so max_jobs 600 pulls it whole and the title filter keeps lane titles. Incl. Talbot (Lloyd's 1183: political risk, PV, K&R) and AIG Aerospace / Trade Credit & Political Risk."
+
+  - key: markel
+    name: Markel
+    lanes: [political-risk, trade-credit-surety, financial-lines, marine-cargo, special-risks]
+    ats: workday
+    board: markelcorp/wd5/GlobalCareers
+    careers_url: https://www.markel.com/about-us/careers
+    hq: Glen Allen, VA
+    locations: [New York, NY, London, UK, Glen Allen, VA]
+    verified: "2026-10-25"
+    open_jobs: 135
+    notes: "Markel International (London): political risk & trade credit, contingency & special risks, marine & energy; US management/professional liability."
+
+  - key: arch-capital-group
+    name: Arch Capital Group (Arch Insurance / Arch Re)
+    lanes: [political-risk, trade-credit-surety, financial-lines, marine-cargo, reinsurance-broking]
+    ats: workday
+    board: archgroup/wd1/Careers
+    careers_url: https://www.archgroup.com/careers/
+    hq: Hamilton, Bermuda
+    locations: [New York, NY, Jersey City, NJ, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 202
+    notes: "Arch political risk & credit (London), surety, executive assurance, marine; Arch Re. archgroup.com blocks bots; the Workday board is public."
+
+  - key: axis-capital
+    name: AXIS Capital
+    lanes: [political-risk, political-violence-terrorism, financial-lines, marine-cargo, aviation]
+    ats: workday
+    board: axiscapital/wd1/axiscareers
+    careers_url: https://www.axiscapital.com/careers
+    hq: Hamilton, Bermuda
+    locations: [New York, NY, Alpharetta, GA, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 70
+    notes: "Credit & political risk, terrorism & PV, professional lines, ocean marine cargo, aviation."
+
+  - key: tokio-marine-hcc
+    name: Tokio Marine HCC
+    lanes: [kidnap-ransom, political-risk, trade-credit-surety, financial-lines, aviation]
+    ats: workday
+    board: tmhcc/wd108/External
+    careers_url: https://www.tmhcc.com/en/careers
+    hq: Houston, TX
+    locations: [New York, NY, London, UK, Houston, TX]
+    verified: "2026-10-25"
+    open_jobs: 117
+    notes: "Incl. Special Contingency Risks (K&R), political risk & credit, surety & trade credit, D&O, Avemco aviation, TMHCC International / Tokio Marine Kiln."
+
+  - key: sompo-international
+    name: Sompo International
+    lanes: [political-risk, trade-credit-surety, financial-lines, marine-cargo, aviation]
+    ats: workday
+    board: endurance/wd103/SompoInternational
+    careers_url: https://www.sompo-intl.com/careers/
+    hq: Hamilton, Bermuda
+    locations: [New York, NY, Purchase, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 144
+    notes: "Workday tenant still named 'endurance'. Trainee programme (18-24 months) and summer internships in NY."
+
+  - key: starr-companies
+    name: Starr Insurance Companies
+    lanes: [aviation, marine-cargo, political-risk, financial-lines]
+    ats: workday
+    board: starrcompanies/wd1/careers
+    careers_url: https://www.starrcompanies.com/careers
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 196
+    notes: "Starr Aviation, marine, political risk & credit; junior claims handler / underwriting assistant roles."
+
+  - key: allied-world
+    name: Allied World
+    lanes: [financial-lines, trade-credit-surety, marine-cargo, aviation]
+    ats: workday
+    board: awac/wd108/AlliedWorld_Careers
+    careers_url: https://alliedworldinsurance.com/products/working-at-allied-world/
+    hq: Hamilton, Bermuda
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 48
+
+  - key: skyward-specialty
+    name: Skyward Specialty Insurance
+    lanes: [trade-credit-surety, financial-lines]
+    ats: workday
+    board: skywardinsurance/wd12/SKY
+    careers_url: https://www.skywardinsurance.com/careers
+    hq: Houston, TX
+    locations: [New York, NY, Houston, TX]
+    verified: "2026-10-25"
+    open_jobs: 4
+    notes: "Credit & political risk, surety, professional lines."
+
+  - key: great-american-insurance-group
+    name: Great American Insurance Group
+    lanes: [trade-credit-surety, marine-cargo, financial-lines]
+    ats: workday
+    board: gaig/wd1/GAIG_External
+    careers_url: https://www.greatamericaninsurancegroup.com/careers
+    hq: Cincinnati, OH
+    locations: [New York, NY, Cincinnati, OH]
+    verified: "2026-10-25"
+    open_jobs: 160
+    notes: "Fidelity/crime & surety, ocean marine, executive liability; M&A and specialty summer internships."
+
+  - key: cna
+    name: CNA
+    lanes: [financial-lines, trade-credit-surety, marine-cargo, insurance-fraud-siu]
+    ats: workday
+    board: cna/wd1/Cna_Careers
+    careers_url: https://www.cna.com/careers
+    hq: Chicago, IL
+    locations: [New York, NY, Chicago, IL, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 119
+    notes: "Management & professional liability, CNA Surety, CNA Hardy (Lloyd's marine), SIU."
+
+  - key: the-hartford
+    name: The Hartford
+    lanes: [insurance-fraud-siu, marine-cargo, financial-lines, trade-credit-surety]
+    ats: workday
+    board: thehartford/wd5/Careers_External
+    careers_url: https://www.thehartford.com/careers
+    hq: Hartford, CT
+    locations: [New York, NY, Hartford, CT]
+    title_filter: '(?i)(\bSIU\b|fraud|investigat|marine|cargo|ocean|financial lines|management liability|\bD&O\b|executive risk|\bfinpro\b|surety|\bbonds?\b|intern\b|internship|development program|trainee)'
+    verified: "2026-10-25"
+    open_jobs: 238
+    notes: "SIU field/desk investigators; Navigators marine & management liability now inside The Hartford."
+
+  - key: travelers
+    name: Travelers
+    lanes: [insurance-fraud-siu, trade-credit-surety, financial-lines, marine-cargo, kidnap-ransom]
+    ats: workday
+    board: travelers/wd5/External
+    careers_url: https://careers.travelers.com
+    hq: New York, NY
+    locations: [New York, NY, Hartford, CT]
+    title_filter: '(?i)(\bSIU\b|fraud|investigat|surety|\bbonds?\b|marine|cargo|ocean|management liability|financial lines|executive (risk|liability)|\bD&O\b|fidelity|crime|kidnap|politic|trade credit|intern\b|internship|development program|trainee)'
+    search_terms: [SIU, fraud, surety, bond, marine, management liability, development program]
+    verified: "2026-10-25"
+    open_jobs: 408
+    notes: "SIU Investigator / Associate SIU Investigator; Bond & Specialty Insurance (surety, management liability, K&R); ocean marine."
+
+  - key: nationwide
+    name: Nationwide
+    lanes: [insurance-fraud-siu, political-risk, trade-credit-surety, financial-lines]
+    ats: workday
+    board: nationwide/wd1/Nationwide_Career
+    careers_url: https://www.nationwide.com/personal/about-us/careers/
+    hq: Columbus, OH
+    locations: [Columbus, OH, Scottsdale, AZ, Remote, US]
+    title_filter: '(?i)(\bSIU\b|fraud|investigat|politic|\bcredit\b|surety|E&S|management liability|\bD&O\b|financial lines|executive (risk|liability))'
+    verified: "2026-10-25"
+    open_jobs: 153
+    notes: "SIU plus Nationwide E&S/Specialty: Credit & Political Risk (structured credit) team, surety, management liability / D&O; E&S and surety underwriting summer internships."
+
+  - key: berkshire-hathaway-specialty-insurance
+    name: Berkshire Hathaway Specialty Insurance
+    lanes: [financial-lines, trade-credit-surety, marine-cargo]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.bhspecialty.com/career-jobs/
+    hq: Boston, MA
+    locations: [New York, NY, Boston, MA, London, UK]
+    notes: "Executive & professional, surety, marine; job list on bhspecialty.com (no public ATS API found)."
+
+  - key: w-r-berkley
+    name: W. R. Berkley
+    lanes: [financial-lines, trade-credit-surety, aviation, fine-art-specie, marine-cargo]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-berkley.icims.com/jobs/search
+    hq: Greenwich, CT
+    locations: [New York, NY, Greenwich, CT, London, UK]
+    notes: "Operating units post separately (Berkley Professional Liability, Berkley Surety, Berkley Aviation, Berkley Asset Protection - jewelers block & fine art, Berkley Ocean Marine); also careers-uknordicswitz-berkley.icims.com for London."
+
+  - key: axa-xl
+    name: AXA XL
+    lanes: [fine-art-specie, political-risk, kidnap-ransom, marine-cargo, financial-lines]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers.axa.com/careers-home/jobs?tags3=AXA%20XL
+    hq: Stamford, CT / London, UK
+    locations: [New York, NY, Stamford, CT, London, UK]
+    notes: "AXA XL Art & Lifestyle, crisis management & political risk (K&R), marine; underwriting graduate programme and NY internships."
+
+  - key: zurich-insurance
+    name: Zurich Insurance (Zurich North America)
+    lanes: [political-risk, trade-credit-surety, financial-lines, marine-cargo]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://www.careers.zurich.com/
+    hq: Zurich, Switzerland / Schaumburg, IL
+    locations: [New York, NY, Schaumburg, IL, London, UK]
+    notes: "Zurich Credit & Political Risk (major New York team), surety, financial lines; underwriting training programmes."
+
+  - key: allianz-commercial
+    name: Allianz Commercial
+    lanes: [aviation, marine-cargo, fine-art-specie, financial-lines, special-risks]
+    ats: other
+    ats_vendor: phenom
+    careers_url: https://careers.allianz.com/global/en/search-results?keywords=Allianz%20Commercial
+    hq: Munich, Germany
+    locations: [New York, NY, London, UK]
+    notes: "Formerly AGCS; aviation, marine, art, financial lines, crisis management."
+
+  - key: liberty-mutual
+    name: Liberty Mutual (incl. Liberty Specialty Markets, Liberty GTS)
+    lanes: [political-risk, trade-credit-surety, transactional-liability, financial-lines, insurance-fraud-siu]
+    ats: other
+    ats_vendor: avature
+    careers_url: https://jobs.libertymutualgroup.com/
+    hq: Boston, MA
+    locations: [New York, NY, Boston, MA, London, UK]
+    notes: "LSM (London) roles via https://libertymutual1.avature.net/LibertyCareers. Political risk & trade credit, Liberty Surety, Liberty GTS transactional risk, SIU."
+
+  - key: qbe
+    name: QBE Insurance Group
+    lanes: [political-risk, trade-credit-surety, financial-lines, marine-cargo]
+    ats: other
+    ats_vendor: phenom
+    careers_url: https://careers.qbe.com/gb/en/search-results
+    hq: Sydney, Australia
+    locations: [New York, NY, London, UK]
+    notes: "Workday site qbe/wd3/QBE-Careers holds the requisitions but its public listing API returns 0 (redirects to careers.qbe.com, ~227 jobs). Recheck if QBE re-opens the Workday listing."
+
+  # ================================================================== Reinsurers
+  - key: munich-re
+    name: Munich Re (incl. Munich Re America, Roanoke)
+    lanes: [reinsurance-broking, trade-credit-surety, marine-cargo, aviation]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://careers.munichre.com/en/munichre-opportunities
+    hq: Munich, Germany
+    locations: [New York, NY, Princeton, NJ, London, UK]
+    notes: "SuccessFactors (company=mnchenerrc). Roanoke Group (customs bonds, cargo) and Munich Re Specialty post here."
+
+  - key: swiss-re
+    name: Swiss Re
+    lanes: [reinsurance-broking, political-risk, trade-credit-surety]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://careers.swissre.com/go/Search-Jobs/2744601/
+    hq: Zurich, Switzerland
+    locations: [New York, NY, Armonk, NY, London, UK]
+    notes: "Swiss Re Corporate Solutions (credit & surety, political risk); graduate and early-career reinsurance programmes."
+
+  - key: everest-re
+    name: Everest Group (Everest Re / Everest Insurance)
+    lanes: [political-risk, political-violence-terrorism, trade-credit-surety, financial-lines, reinsurance-broking]
+    ats: workday
+    board: everestre/wd5/careers
+    careers_url: https://www.everestglobal.com/us-en/career-opportunities/overview
+    hq: Hamilton, Bermuda / Warren, NJ
+    locations: [New York, NY, Warren, NJ, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 52
+    notes: "Workday via wd5.myworkdaysite.com/recruiting/everestre/careers. Political risk & credit, PV/terror, surety; reinsurance."
+
+  - key: renaissancere
+    name: RenaissanceRe
+    lanes: [reinsurance-broking, trade-credit-surety, financial-lines]
+    ats: workday
+    board: renre/wd503/RenaissanceRe_Careers
+    careers_url: https://careers.renre.com/
+    hq: Pembroke, Bermuda
+    locations: [New York, NY, London, UK, Bermuda]
+    verified: "2026-10-25"
+    open_jobs: 33
+    notes: "Summer internship - New York; analyst roles alongside underwriters."
+
+  - key: transre
+    name: TransRe
+    lanes: [reinsurance-broking, trade-credit-surety, financial-lines]
+    ats: workday
+    board: transre/wd1/TransreCareers
+    careers_url: https://transre.wd1.myworkdayjobs.com/TransreCareers
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 9
+
+  - key: scor
+    name: SCOR
+    lanes: [reinsurance-broking, trade-credit-surety, political-risk, aviation, marine-cargo]
+    ats: oracle
+    board: fa-errt-saasfaprod1.fa.ocs.oraclecloud.com/CX_2001
+    careers_url: https://www.scor.com/en/careers
+    hq: Paris, France
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 204
+
+  - key: hamilton-insurance-group
+    name: Hamilton Insurance Group
+    lanes: [reinsurance-broking, financial-lines, political-violence-terrorism]
+    ats: other
+    ats_vendor: workable
+    careers_url: https://www.hamiltongroup.com/careers/
+    hq: Pembroke, Bermuda
+    locations: [London, UK, Bermuda, New York, NY]
+    notes: "Careers page embeds a Workable widget (whr_embed 729281); Workable API rate-limited (429) during research so the account slug was not verified -- resolve via https://apply.workable.com/api/v1/widget/accounts/729281 and switch to ats: workable."
+
+  # ================================================================== Trade credit, surety, political-risk insurers & DFIs
+  - key: coface
+    name: Coface
+    lanes: [trade-credit-surety, political-risk]
+    ats: smartrecruiters
+    board: Coface
+    careers_url: https://www.coface.com/careers
+    hq: Paris, France
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 239
+    notes: "Trade credit underwriters, credit/risk analysts (business information), political risk."
+
+  - key: allianz-trade
+    name: Allianz Trade
+    lanes: [trade-credit-surety, political-risk]
+    ats: other
+    ats_vendor: phenom
+    careers_url: https://careers.allianz.com/global/en/search-results?keywords=Allianz%20Trade
+    hq: Paris, France
+    locations: [New York, NY, Owings Mills, MD, London, UK]
+    notes: "Formerly Euler Hermes: trade credit, surety, political risk; credit analyst / risk underwriter entry roles."
+
+  - key: atradius
+    name: Atradius
+    lanes: [trade-credit-surety, political-risk]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://careers.atradius.com/en/vacancies
+    hq: Amsterdam, Netherlands
+    locations: [Hunt Valley, MD, New York, NY, London, UK]
+    notes: "Trade credit, bonding/surety and collections; credit analyst and risk underwriter roles."
+
+  - key: nexus-underwriting
+    name: Nexus Underwriting (Nexus CIFS)
+    lanes: [trade-credit-surety, political-risk]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.nexusunderwriting.com/en-gb/careers
+    hq: London, UK
+    locations: [London, UK]
+    notes: "Specialty MGA; Nexus CIFS trade credit / single-situation credit team hires underwriting assistants from graduate level."
+
+  - key: us-international-development-finance-corporation
+    name: U.S. International Development Finance Corporation (DFC)
+    lanes: [political-risk]
+    groups: [government]
+    ats: other
+    ats_vendor: usajobs
+    careers_url: https://www.dfc.gov/who-we-are/careers
+    hq: Washington, DC
+    locations: [Washington, DC]
+    notes: "US political risk insurance provider (successor to OPIC); vacancies posted on USAJOBS."
+
+  - key: miga
+    name: MIGA (Multilateral Investment Guarantee Agency, World Bank Group)
+    lanes: [political-risk]
+    groups: [policy-research]
+    ats: other
+    ats_vendor: cornerstone
+    careers_url: https://www.worldbank.org/ext/en/careers
+    hq: Washington, DC
+    locations: [Washington, DC]
+    notes: "Political risk insurance / guarantees; WBG careers (worldbankgroup.csod.com) incl. analyst, JPO and Young Professionals routes."
+
+  # ================================================================== Brokers (specialty, reinsurance, wholesale)
+  - key: marsh-mclennan
+    name: Marsh McLennan (Marsh, Guy Carpenter, Oliver Wyman, Mercer)
+    lanes: [reinsurance-broking, political-risk, trade-credit-surety, transactional-liability, financial-lines]
+    ats: workday
+    board: mmc/wd1/MMC
+    careers_url: https://careers.marshmclennan.com
+    hq: New York, NY
+    locations: [New York, NY, Washington, DC, London, UK]
+    title_filter: '(?i)(politic|sovereign|\bcredit\b|surety|marine|cargo|aviation|aerospace|kidnap|\bK&R\b|crisis|special risks?|terror|\bwar\b|financial lines|\bfinpro\b|\bD&O\b|management liability|executive risk|transaction|\bM&A\b|private equity|fine art|specie|jewel|intangible|fraud|investigat|reinsurance|Guy Carpenter|broker|broking|placement|graduate|trainee|intern\b|internship|apprentice|early career)'
+    search_terms: [credit, FINPRO, aviation, cargo, transactional, Guy Carpenter, early career, graduate]
+    max_jobs: 800
+    verified: "2026-10-25"
+    open_jobs: 1981
+    notes: "Huge board (~1,981). Marsh Credit Specialties / political risk, FINPRO, Private Equity & M&A, aviation & marine; Guy Carpenter reinsurance broking; Marsh Risk Early Career Program (NY). Search terms are single distinctive words: generic words (political, marine, reinsurance) match MMC's EEO/boilerplate text and return ~1,500 hits each; 'credit' catches Credit Specialties, trade credit and political risk & structured credit roles."
+
+  - key: aon
+    name: Aon
+    lanes: [reinsurance-broking, political-risk, transactional-liability, intangibles, financial-lines]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://jobs.aon.com/jobs
+    hq: London, UK / Dublin, Ireland
+    locations: [New York, NY, Chicago, IL, London, UK]
+    notes: "Aon Reinsurance Solutions, Credit Solutions (trade credit / political risk), M&A and Transaction Solutions, Intellectual Property Solutions (intangibles), FINEX; NFP now part of Aon."
+
+  - key: wtw
+    name: WTW (Willis Towers Watson)
+    lanes: [political-risk, transactional-liability, financial-lines, aviation, marine-cargo]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://careers.wtwco.com/jobs/search
+    hq: London, UK
+    locations: [New York, NY, Arlington, VA, London, UK]
+    notes: "Custom careers.wtwco.com site (~659 jobs, no public ATS API found). Financial Solutions (credit & political risk), M&A, FINEX, aerospace, marine; graduate programmes in London."
+
+  - key: gallagher
+    name: Gallagher (Arthur J. Gallagher, Gallagher Re, NYA)
+    lanes: [reinsurance-broking, kidnap-ransom, political-risk, aviation, marine-cargo]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://jobs.ajg.com/ajg-home/jobs
+    hq: Rolling Meadows, IL
+    locations: [New York, NY, London, UK]
+    notes: "Gallagher Re (ex-Willis Re), Gallagher Specialty (aviation, marine, political risk, credit), NYA crisis response (K&R); Woodruff Sawyer (D&O) folded into Gallagher."
+
+  - key: lockton
+    name: Lockton
+    lanes: [transactional-liability, financial-lines, political-risk, reinsurance-broking]
+    ats: other
+    ats_vendor: taleo
+    careers_url: https://careers.lockton.com/browsejobs
+    hq: Kansas City, MO
+    locations: [New York, NY, Washington, DC, London, UK]
+    notes: "Lockton Re, Global Transactional Risks, financial & political risks."
+
+  - key: howden
+    name: Howden (Howden Group Holdings, Howden Re)
+    lanes: [reinsurance-broking, political-risk, transactional-liability, financial-lines, marine-cargo]
+    ats: workday
+    board: hyperiongrp/wd3/Hyperion_External
+    careers_url: https://www.howdengroupholdings.com/careers-and-culture
+    hq: London, UK
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 342
+    notes: "Tenant still 'hyperiongrp'. Howden Re (incl. ex-TigerRisk), M&A, credit & political risk, specialty; Tysers/Integro folded in."
+
+  - key: amwins
+    name: Amwins
+    lanes: [financial-lines, reinsurance-broking, marine-cargo]
+    ats: greenhouse
+    board: amwins
+    careers_url: https://www.amwins.com/who-we-are/careers/open-positions
+    hq: Charlotte, NC
+    locations: [New York, NY, Charlotte, NC, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 81
+    notes: "Wholesale specialty broker (Amwins Global Risks in London). Separate Greenhouse boards: amwins_internships (9 internships) and amwins_development (UDP, 0 open on 2026-10-25)."
+
+  - key: crc-group
+    name: CRC Group
+    lanes: [financial-lines, reinsurance-broking]
+    ats: workday
+    board: tihinsurance/wd1/CRC_Careers
+    careers_url: https://www.crcgroup.com/About-Us/Careers
+    hq: Birmingham, AL
+    locations: [New York, NY, Birmingham, AL]
+    verified: "2026-10-25"
+    open_jobs: 112
+    notes: "Wholesale specialty broker (ex-Truist Insurance Holdings, tenant 'tihinsurance')."
+
+  - key: ryan-specialty
+    name: Ryan Specialty
+    lanes: [transactional-liability, financial-lines, reinsurance-broking]
+    ats: workday
+    board: ryansg/wd5/Ryan_Specialty_Career_Site
+    careers_url: https://ryanspecialty.com/careers/
+    hq: Chicago, IL
+    locations: [New York, NY, Chicago, IL, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 91
+    notes: "RT Specialty wholesale, Ryan Transactional Risk, underwriting management (MGUs); underwriting assistant entry roles."
+
+  - key: alliant-insurance-services
+    name: Alliant Insurance Services
+    lanes: [financial-lines, transactional-liability, reinsurance-broking]
+    ats: other
+    ats_vendor: dayforce
+    careers_url: https://us231.dayforcehcm.com/CandidatePortal/en-US/allianthcm/Site/Alliant/Posting
+    hq: Newport Beach, CA
+    locations: [New York, NY]
+    notes: "Alliant Re, private equity & M&A, executive & financial risk practices."
+
+  - key: brown-and-brown
+    name: Brown & Brown (incl. Risk Strategies / DeWitt Stern)
+    lanes: [fine-art-specie, financial-lines, reinsurance-broking]
+    ats: workday
+    board: bbinsurance/wd1/Careers
+    careers_url: https://us.bbrown.com/careers/
+    hq: Daytona Beach, FL
+    locations: [New York, NY]
+    title_filter: '(?i)(fine art|specie|jewel|marine|cargo|aviation|politic|\bcredit\b|surety|transaction|\bM&A\b|financial lines|\bD&O\b|executive (risk|liability)|management liability|professional liability|reinsurance|wholesale|specialty|kidnap|crisis|intern\b|internship|graduate|trainee|early career)'
+    verified: "2026-10-25"
+    open_jobs: 269
+    notes: "Mostly retail broking; filter keeps specialty titles. Risk Strategies (fine art & collectibles via DeWitt Stern) acquired with Accession in 2025."
+
+  - key: ardonagh-specialty
+    name: Ardonagh Specialty (Price Forbes, Bishopsgate)
+    lanes: [reinsurance-broking, political-risk, marine-cargo, aviation, financial-lines]
+    ats: teamtailor
+    board: ardonaghspeciality
+    careers_url: https://ardonaghspeciality.teamtailor.com/jobs
+    hq: London, UK
+    locations: [London, UK]
+    verified: "2026-10-25"
+    open_jobs: 9
+    notes: "Lloyd's specialty & reinsurance broking (Price Forbes). Verified via jobs.rss (9 items). Group-level roles: theardonaghgroup.teamtailor.com."
+
+  - key: mcgill-and-partners
+    name: McGill and Partners
+    lanes: [reinsurance-broking, political-risk, financial-lines]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://mcgillpartners.com/career-opportunities
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    notes: "Specialty (re)insurance broker in the Lloyd's building; credit & political risk, financial lines, facultative; associate-level hires."
+
+  - key: clarksons
+    name: Clarksons
+    lanes: [marine-cargo, trade-credit-surety]
+    ats: other
+    ats_vendor: successfactors
+    careers_url: https://www.clarksons.com/home/careers/experienced-professionals/
+    hq: London, UK
+    locations: [London, UK, New York, NY, Houston, TX]
+    notes: "Shipbroking, ship finance and maritime research; Global Trainee Broker Programme and London broking internships (SuccessFactors company=hclarksonc)."
+
+  # ================================================================== Transactional risk (R&W / M&A) specialists
+  - key: euclid-transactional
+    name: Euclid Transactional
+    lanes: [transactional-liability]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://euclidtransactional.com/careers/
+    hq: New York, NY
+    locations: [New York, NY]
+    notes: "R&W / tax / contingent-risk MGA; postings listed directly on the careers page (hybrid, NY office)."
+
+  - key: ambridge-group
+    name: Ambridge Group
+    lanes: [transactional-liability]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.ambridge.com/careers
+    hq: New York, NY
+    locations: [New York, NY, London, UK]
+    notes: "Transactional risk MGA (R&W, tax, contingent); site blocks bots."
+
+  # ================================================================== Specialty lines: fine art / jewelers block, aviation, marine & war
+  - key: jewelers-mutual
+    name: Jewelers Mutual Group
+    lanes: [fine-art-specie]
+    ats: ultipro
+    board: JEW1003JEWEL/1ddbeeda-8206-7c8c-a849-dd0e865383de
+    careers_url: https://recruiting.ultipro.com/JEW1003JEWEL/JobBoard/1ddbeeda-8206-7c8c-a849-dd0e865383de
+    hq: Neenah, WI
+    locations: [Neenah, WI, Remote, US]
+    verified: "2026-10-25"
+    open_jobs: 30
+    notes: "Jewelers block / jeweler solutions insurer; verified via LoadSearchResults (30). Many remote roles."
+
+  - key: global-aerospace
+    name: Global Aerospace
+    lanes: [aviation]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.global-aero.com/about/careers/
+    hq: Morristown, NJ / London, UK
+    locations: [Morristown, NJ, Overland Park, KS, London, UK]
+    notes: "Aviation & aerospace underwriting pool; underwriting analyst / underwriting assistant postings on the WordPress careers page."
+
+  - key: us-aviation-underwriters
+    name: USAU (U.S. Aviation Underwriters / United States Aircraft Insurance Group)
+    lanes: [aviation]
+    ats: other
+    ats_vendor: cornerstone
+    careers_url: https://www.usau.com/careers/
+    hq: New York, NY
+    locations: [New York, NY]
+    notes: "Berkshire/Gen Re-affiliated aviation pool; applications through genre.csod.com."
+
+  - key: thomas-miller
+    name: Thomas Miller (UK War Risks, UK P&I, TT Club)
+    lanes: [war-risk, marine-cargo]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.thomasmiller.com/careers/recruitment/
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    notes: "Applications by email / recruitment page. Manages the UK Defence Club / UK War Risks and UK P&I and TT Club mutuals; occasional graduate / claims executive hires."
+
+  # ================================================================== Crisis response (K&R), insurance law
+  - key: control-risks
+    name: Control Risks
+    lanes: [kidnap-ransom]
+    groups: [intelligence-security, geopolitical-risk, investigations-dd]
+    ats: other
+    ats_vendor: workable
+    careers_url: https://www.controlrisks.com/careers
+    hq: London, UK
+    locations: [London, UK, New York, NY, Washington, DC]
+    notes: "Crisis & security consultancy behind many K&R policies (special risks response). Workable board control-risks-6 rate-limited (429) during this research; intelligence-security.yaml carries it as sweepable."
+
+  - key: s-rm
+    name: S-RM
+    lanes: [kidnap-ransom]
+    groups: [intelligence-security, investigations-dd]
+    ats: greenhouse
+    board: srm
+    careers_url: https://job-boards.greenhouse.io/srm
+    hq: London, UK
+    locations: [London, UK, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 17
+    notes: "Crisis response / K&R consultancy as well as corporate intelligence and cyber incident response."
+
+  - key: crisis24
+    name: Crisis24 (GardaWorld)
+    lanes: [kidnap-ransom]
+    groups: [intelligence-security]
+    ats: other
+    ats_vendor: dayforce
+    careers_url: https://usr54.dayforcehcm.com/CandidatePortal/en-US/CRISIS24
+    hq: Montreal, QC, Canada
+    locations: [New York, NY, Annapolis, MD, London, UK]
+    notes: "Crisis response / K&R consultants (ex-Clayton Consultants); crisis24.com careers links to this Dayforce portal."
+
+  - key: clyde-co
+    name: Clyde & Co
+    lanes: [aviation, marine-cargo, financial-lines]
+    groups: [investigations-dd]
+    ats: workday
+    board: clydeco/wd103/ClydecoCareers
+    careers_url: https://careers.clydeco.com/en/
+    hq: London, UK
+    locations: [New York, NY, London, UK]
+    verified: "2026-10-25"
+    open_jobs: 200
+    notes: "Insurance / reinsurance law firm (aviation, marine, political risk & trade credit, D&O coverage); paralegal and trainee routes."
+
+  # ================================================================== Insurance fraud (SIU) units, fraud analytics, claims TPAs
+  - key: geico
+    name: GEICO
+    lanes: [insurance-fraud-siu]
+    ats: workday
+    board: geico/wd1/External
+    careers_url: https://careers.geico.com
+    hq: Chevy Chase, MD
+    locations: [Chevy Chase, MD, Woodbury, NY, Remote, US]
+    title_filter: '(?i)(\bSIU\b|fraud|investigat|special investigations?)'
+    verified: "2026-10-25"
+    open_jobs: 279
+    notes: "Field SIU Investigator, anti-fraud analytics, security investigator roles."
+
+  - key: usaa
+    name: USAA
+    lanes: [insurance-fraud-siu]
+    ats: workday
+    board: usaa/wd1/USAAJOBSWD
+    careers_url: https://www.usaajobs.com
+    hq: San Antonio, TX
+    locations: [San Antonio, TX, Remote, US]
+    title_filter: '(?i)(\bSIU\b|fraud|investigat|special investigations?)'
+    verified: "2026-10-25"
+    open_jobs: 203
+    notes: "Claims fraud / financial crimes and fraud strategy analyst roles."
+
+  - key: allstate
+    name: Allstate
+    lanes: [insurance-fraud-siu]
+    ats: workday
+    board: allstate/wd5/allstate_careers
+    careers_url: https://www.allstatecorporation.com/careers.aspx
+    hq: Northbrook, IL
+    locations: [New York, NY, Northbrook, IL, Remote, US]
+    title_filter: '(?i)(\bSIU\b|fraud|investigat|special investigations?)'
+    search_terms: [SIU, special investigations, fraud, investigator]
+    verified: "2026-10-25"
+    open_jobs: 432
+    notes: "Special Investigations Unit (incl. NY-metro SIU litigation), insider-threat investigators."
+
+  - key: sedgwick
+    name: Sedgwick
+    lanes: [insurance-fraud-siu, marine-cargo, aviation]
+    ats: workday
+    board: sedgwick/wd1/sedgwick
+    careers_url: https://sedgwick.wd1.myworkdayjobs.com/sedgwick
+    hq: Memphis, TN
+    locations: [New York, NY, London, UK, Remote, US]
+    title_filter: '(?i)(\bSIU\b|fraud|investigat|special investigations?|marine|cargo|aviation|aerospace)'
+    search_terms: [fraud, special investigations, SIU, investigator, marine, aviation]
+    verified: "2026-10-25"
+    open_jobs: 597
+    notes: "Claims TPA: SIU / desktop & field investigators, anti-fraud coordinators, marine & aviation claims surveyors (London)."
+
+  - key: verisk
+    name: Verisk (ISO ClaimSearch, Verisk Maplecroft)
+    lanes: [insurance-fraud-siu, political-risk]
+    groups: [geopolitical-risk]
+    ats: oracle
+    board: fa-ewmy-saasfaprod1.fa.ocs.oraclecloud.com/CX_1
+    careers_url: https://www.verisk.com/company/careers/
+    hq: Jersey City, NJ
+    locations: [Jersey City, NJ, New York, NY, London, UK, Bath, UK]
+    verified: "2026-10-25"
+    open_jobs: 155
+    notes: "Insurance fraud analytics (ISO ClaimSearch, anti-fraud) and Verisk Maplecroft political/country risk analytics. Oracle site CX_1 (default site the UI redirects to)."
+
+  - key: shift-technology
+    name: Shift Technology
+    lanes: [insurance-fraud-siu]
+    ats: greenhouse
+    board: shifttechnology
+    careers_url: https://www.shift-technology.com/careers
+    hq: Paris, France
+    locations: [Paris, France, Boston, MA, New York, NY]
+    verified: "2026-10-25"
+    open_jobs: 18
+    notes: "AI insurance-fraud detection vendor; fraud analyst / data science roles."
+
+  - key: nicb
+    name: National Insurance Crime Bureau (NICB)
+    lanes: [insurance-fraud-siu]
+    groups: [investigations-dd]
+    ats: other
+    ats_vendor: custom
+    careers_url: https://www.nicb.org/careers
+    hq: Des Plaines, IL
+    locations: [New York, NY, Remote, US]
+    notes: "Special Agent / intelligence analyst roles and student internships; nicb.org blocks bots, ATS not identified."

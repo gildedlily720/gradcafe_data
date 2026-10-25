@@ -1,0 +1,237 @@
+{
+ "offset": 0,
+ "limit": 2,
+ "totalFound": 385,
+ "content": [
+  {
+   "id": "744000157657879",
+   "name": "Software Engineering Intern",
+   "uuid": "d71d7b24-3571-41cb-a0bb-46d6366a211d",
+   "jobAdId": "190f59ad-6681-4eff-9f7e-38666a5f3446",
+   "defaultJobAd": true,
+   "refNumber": "REF33517E",
+   "company": {
+    "identifier": "Experian",
+    "name": "Experian"
+   },
+   "releasedDate": "2026-10-25T02:43:39.709Z",
+   "location": {
+    "city": "Cyberjaya",
+    "region": "Selangor",
+    "country": "my",
+    "address": "GF, Quill 18, Lingkaran Teknokrat 3 Barat, Cyberjaya, Selangor, Malaysia",
+    "postalCode": "63000",
+    "remote": false,
+    "hybrid": false,
+    "fullLocation": "Cyberjaya, Selangor, Malaysia"
+   },
+   "industry": {
+    "id": "it_and_services",
+    "label": "Information Technology And Services"
+   },
+   "department": {
+    "id": "2618908",
+    "label": "Product Development"
+   },
+   "function": {
+    "id": "information_technology",
+    "label": "Information Technology"
+   },
+   "typeOfEmployment": {
+    "id": "intern",
+    "label": "Intern"
+   },
+   "experienceLevel": {
+    "id": "associate",
+    "label": "Associate"
+   },
+   "customField": [
+    {
+     "fieldId": "60e69e937e79e3168b3b0cff",
+     "fieldLabel": "Employee Status",
+     "valueId": "7307166c-d809-4692-a6ce-9b8c7c2f2351",
+     "valueLabel": "Fixed Term"
+    },
+    {
+     "fieldId": "60e69eb6b672f26743759012",
+     "fieldLabel": "Schedule",
+     "valueId": "1994cec9-4b4e-41c1-ad48-0a9d7075ea94",
+     "valueLabel": "Part Time"
+    },
+    {
+     "fieldId": "6156f582e72a6b6d239c984f",
+     "fieldLabel": "Work Location",
+     "valueId": "6074150",
+     "valueLabel": "MY Cyberjaya (Quill 18)"
+    },
+    {
+     "fieldId": "60e6a34d7e79e3168b3b0d01",
+     "fieldLabel": "Grade",
+     "valueId": "84184",
+     "valueLabel": "EB12.Malaysia-Technical | EB12"
+    },
+    {
+     "fieldId": "COUNTRY",
+     "fieldLabel": "Country/Region",
+     "valueId": "my",
+     "valueLabel": "Malaysia"
+    },
+    {
+     "fieldId": "60e69e78b91f374974b7ff3d",
+     "fieldLabel": "Role Type",
+     "valueId": "bf21b4b0-99e7-4670-a4f0-222ad3790c9b",
+     "valueLabel": "Hybrid"
+    },
+    {
+     "fieldId": "60bf852122069d3816fd7cd1",
+     "fieldLabel": "Department",
+     "valueId": "2618908",
+     "valueLabel": "Product Development"
+    },
+    {
+     "fieldId": "60bf852122069d3816fd7cd0",
+     "fieldLabel": "Brands",
+     "valueId": "default",
+     "valueLabel": "Experian"
+    }
+   ],
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157657879",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  },
+  {
+   "id": "744000157573989",
+   "name": "Client Executive ",
+   "uuid": "e79e06fe-82af-4818-9eae-cd72e24df96c",
+   "jobAdId": "f20c3277-67bc-4fa7-8124-185f09428015",
+   "defaultJobAd": true,
+   "refNumber": "REF33224F",
+   "company": {
+    "identifier": "Experian",
+    "name": "Experian"
+   },
+   "releasedDate": "2026-10-23T21:52:48.407Z",
+   "location": {
+    "city": "United States",
+    "region": "UNITED STATES",
+    "country": "us",
+    "address": "United States",
+    "postalCode": "United States",
+    "remote": true,
+    "hybrid": false,
+    "fullLocation": "United States, UNITED STATES, United States"
+   },
+   "industry": {
+    "id": "financial_services",
+    "label": "Financial Services"
+   },
+   "department": {
+    "id": "2618891",
+    "label": "Sales & Business Development"
+   },
+   "function": {
+    "id": "sales",
+    "label": "Sales"
+   },
+   "typeOfEmployment": {
+    "id": "permanent",
+    "label": "Full-time"
+   },
+   "experienceLevel": {
+    "id": "associate",
+    "label": "Associate"
+   },
+   "customField": [
+    {
+     "fieldId": "60e69c4340634a60d33cee4a",
+     "fieldLabel": "Cost Centre",
+     "valueId": "1100.US.600.104014",
+     "valueLabel": "1100.US.600.104014"
+    },
+    {
+     "fieldId": "60e69e937e79e3168b3b0cff",
+     "fieldLabel": "Employee Status",
+     "valueId": "2316a0dc-542b-4be2-a231-d586b8528aab",
+     "valueLabel": "Regular"
+    },
+    {
+     "fieldId": "644bd506b1b4cc44874e6d3c",
+     "fieldLabel": "Job Posting - Salary Range",
+     "valueId": "310d913f-17d9-45a3-8b0c-0ff55a7beb25",
+     "valueLabel": "See Pay Range"
+    },
+    {
+     "fieldId": "60e69eb6b672f26743759012",
+     "fieldLabel": "Schedule",
+     "valueId": "2b5b66bb-53a3-42b0-a68b-88bd1810c947",
+     "valueLabel": "Full Time"
+    },
+    {
+     "fieldId": "6156f582e72a6b6d239c984f",
+     "fieldLabel": "Work Location",
+     "valueId": "4997623",
+     "valueLabel": "US TN Franklin (720)"
+    },
+    {
+     "fieldId": "644be0f63ef8b80fd372d75e",
+     "fieldLabel": "Pay Range",
+     "valueId": "57793db4-6950-432e-a77e-7bb063c83b8b",
+     "valueLabel": "$80,000 - $130,000"
+    },
+    {
+     "fieldId": "60e6a34d7e79e3168b3b0d01",
+     "fieldLabel": "Grade",
+     "valueId": "1061",
+     "valueLabel": "000.100 | EB9"
+    },
+    {
+     "fieldId": "COUNTRY",
+     "fieldLabel": "Country/Region",
+     "valueId": "us",
+     "valueLabel": "United States"
+    },
+    {
+     "fieldId": "60e69e78b91f374974b7ff3d",
+     "fieldLabel": "Role Type",
+     "valueId": "98965939-c245-4064-a6cb-4d88862c88be",
+     "valueLabel": "Home"
+    },
+    {
+     "fieldId": "60bf852122069d3816fd7cd1",
+     "fieldLabel": "Department",
+     "valueId": "2618891",
+     "valueLabel": "Sales & Business Development"
+    },
+    {
+     "fieldId": "60e837fc3c09661099673303",
+     "fieldLabel": "Flexible Time Off",
+     "valueId": "f14e1cff-407a-46ef-9041-04604a258eb8",
+     "valueLabel": "15 Days"
+    },
+    {
+     "fieldId": "60bf852122069d3816fd7cd0",
+     "fieldLabel": "Brands",
+     "valueId": "default",
+     "valueLabel": "Experian"
+    },
+    {
+     "fieldId": "60e837853c09661099673301",
+     "fieldLabel": "Shift",
+     "valueId": "27489ba3-4a21-48f7-8c05-02b65c634d05",
+     "valueLabel": "Day Shift"
+    }
+   ],
+   "visibility": "PUBLIC",
+   "ref": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157573989",
+   "language": {
+    "code": "en",
+    "label": "English",
+    "labelNative": "English (US)"
+   }
+  }
+ ]
+}
