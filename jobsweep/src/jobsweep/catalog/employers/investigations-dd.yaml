@@ -1,0 +1,269 @@
+# NYC / NYC-hybrid and eligible US-remote employer targets, researched 2026-10-25.
+# Employer watch list: inclusion does not mean a suitable vacancy is open today.
+# Intelligence connections are limited to documented public biographies.
+group: investigations-dd
+employers:
+  - key: arkin-group
+    name: The Arkin Group
+    groups: [intelligence-security, geopolitical-risk]
+    lanes: [corporate-intelligence, due-diligence, strategic-intelligence, geopolitical-analysis]
+    ats: other
+    careers_url: https://thearkingroup.com/
+    hq: New York, NY
+    locations: ["New York, NY"]
+    notes: >-
+      NYC boutique intelligence and investigations watch list. Target research analyst,
+      geopolitical research and due-diligence roles drawing on public-record research and
+      concise analytical writing. No suitable live vacancy verified. Founder Jack Devine
+      is a former senior CIA operations official; this documents an alumni connection,
+      not a covert-agency relationship. Evidence: https://thearkingroup.com/about/
+
+  - key: ergo
+    name: Ergo
+    groups: [intelligence-security, geopolitical-risk]
+    lanes: [strategic-intelligence, geopolitical-analysis, political-forecasting, corporate-intelligence, due-diligence]
+    ats: other
+    careers_url: https://ergo.net/careers/
+    hq: New York, NY
+    locations: ["New York, NY"]
+    notes: >-
+      NYC geopolitical forecasting, Flashpoints Forum and diligence analyst target.
+      Research synthesis, political analysis, interviews and writing are the relevant
+      entry-level skill families. Check employer-linked LinkedIn openings for current
+      availability and location. Public intelligence-community connection: partner Kate
+      Crumrine previously worked at the CIA, and adviser David Cohen is a CIA veteran.
+      No covert relationship is asserted. Evidence: https://ergo.net/leadership/kate-crumrine/
+      and https://ergo.net/leadership/david-cohen/
+
+  - key: mintz-group
+    name: Mintz Group
+    lanes: [corporate-intelligence, due-diligence, beneficial-ownership, fraud-investigations, litigation-case-analyst]
+    ats: adp
+    board: 9b1dca57-4bf4-4218-bc17-ece8b0c3c406|19000101_000001
+    careers_url: https://www.mintzgroup.com/careers
+    locations: ["New York, NY"]
+    title_filter: '(?i)investigat|research|analyst|diligence|intelligence'
+    max_jobs: 200
+    verified: "2026-10-25"
+    open_jobs: 4
+    notes: >-
+      NYC investigator/research analyst watch list: adverse media, court records,
+      ownership, executive diligence and disputes research. Favor junior investigator
+      roles; current feed verification does not establish an open NYC junior vacancy.
+      Employer describes structured training and careers spanning intelligence and
+      disputes. Evidence: https://www.mintzgroup.com/careers
+
+  - key: nardello
+    name: Nardello & Co.
+    lanes: [corporate-intelligence, due-diligence, fraud-investigations, litigation-case-analyst]
+    ats: bamboohr
+    board: nardelloandco
+    careers_url: https://nardelloandco.com/careers/
+    hq: New York, NY
+    locations: ["New York, NY"]
+    title_filter: '(?i)analyst|research|investigat|intelligence|diligence'
+    max_jobs: 100
+    verified: "2026-10-25"
+    open_jobs: 5
+    notes: >-
+      NYC investigations analyst watch list, focusing on public-record research,
+      litigation support, asset tracing and due diligence. Target analyst-level
+      research roles; forensic-accounting directors and senior cyber roles require
+      separate credentials or experience. Current analyst posting was London, not an
+      NYC match. Evidence: https://nardelloandco.com/careers/ and
+      https://nardelloandco.com/contact-us/
+
+  - key: kroll
+    name: Kroll
+    groups: [sanctions-fincrime]
+    lanes: [corporate-intelligence, due-diligence, fraud-investigations, investigative-compliance, fincrime-intelligence]
+    ats: oracle
+    board: hcxs.fa.us2.oraclecloud.com/CX_1
+    careers_url: https://careers.kroll.com/en
+    locations: ["New York, NY"]
+    search_terms: [investigations, diligence, intelligence, compliance, sanctions]
+    title_filter: '(?i)investigat|diligence|intelligence|sanction|compliance'
+    max_jobs: 200
+    verified: "2026-10-25"
+    notes: >-
+      NYC Investigations, Diligence and Compliance analyst/associate target. Research,
+      adverse-media analysis, source assessment and report writing are the relevant
+      skill families. Check each opening for required language proficiency and years
+      of experience; exclude CPA-dependent accounting and technical cyber roles when
+      those qualifications are mandatory. Evidence: https://careers.kroll.com/en
+
+  - key: kobre-kim
+    name: Kobre & Kim
+    groups: [entry-routes]
+    lanes: [law-firm-analyst, litigation-case-analyst, fraud-investigations, analyst-programs, entry-level-analyst]
+    ats: workday
+    board: kobrekim/wd1/KobreKim_Analyst_External_Careers
+    careers_url: https://kobrekim.com/careers/the-analyst-program/
+    locations: ["New York, NY"]
+    title_filter: '(?i)analyst|litigation assistant'
+    max_jobs: 100
+    verified: "2026-10-25"
+    open_jobs: 3
+    notes: >-
+      Strong early-career role-family fit: Analyst I supports cross-border disputes,
+      investigations, factual analysis and legal research. The current US requisition
+      R-100568 includes NYC; US offices require at least three days in office. All
+      academic backgrounds accepted; no legal degree required. Requires work
+      authorization, strong academics and a two-year commitment. Office placement is
+      not guaranteed. 2027 cohort application deadline shown as 2026-10-27.
+      Evidence: https://kobrekim.com/careers/the-analyst-program/
+
+  - key: guidepost-solutions
+    name: Guidepost Solutions
+    groups: [intelligence-security, sanctions-fincrime]
+    lanes: [osint, corporate-intelligence, due-diligence, beneficial-ownership, fraud-investigations, investigative-compliance]
+    ats: adp
+    board: 03fad1a4-6b00-4f23-9074-c10e98f84616|9200547324610_2
+    careers_url: https://guidepostsolutions.com/careers/
+    locations: ["New York, NY"]
+    title_filter: '(?i)research|analyst|investigat|intelligence|diligence|consultant'
+    max_jobs: 100
+    verified: "2026-10-25"
+    open_jobs: 7
+    notes: >-
+      NYC hybrid OSINT/public-record research and investigations target. Employer
+      careers page lists Research Analyst, three office days weekly, requiring 3-5
+      years of relevant research; treat as a stretch until experience is checked.
+      Covers ownership, sanctions, adverse media and litigation histories. That role
+      was not present in the verified ADP feed, so also check the careers page.
+      Evidence: https://guidepostsolutions.com/es/career/research-analyst-2/
+
+  - key: stoneturn
+    name: StoneTurn
+    lanes: [corporate-intelligence, due-diligence, fraud-investigations, litigation-case-analyst]
+    ats: other
+    ats_vendor: hirecentric
+    careers_url: https://stoneturn.com/careers/
+    locations: ["New York, NY"]
+    notes: >-
+      NYC Investigations and Intelligence associate/analyst watch list. Target OSINT,
+      public records, social-media research and litigation fact-finding; many other
+      openings emphasize accounting and should be checked for degree/CPA requirements.
+      NYC intelligence practice evidence:
+      https://stoneturn.com/who-we-are/our-people/linda-ingerman/
+      and https://stoneturn.com/who-we-are/our-people/dan-murphy/
+
+  - key: berkeley-research-group
+    name: BRG (Berkeley Research Group)
+    groups: [sanctions-fincrime]
+    lanes: [corporate-intelligence, fraud-investigations, litigation-case-analyst, investigative-compliance, fincrime-intelligence]
+    ats: workday
+    board: thinkbrg/wd5/BRG_External_Career_Site
+    careers_url: https://www.thinkbrg.com/careers/
+    locations: ["New York, NY", "US Remote"]
+    search_terms: [investigations, intelligence, compliance, disputes]
+    title_filter: '(?i)investigat|intelligence|compliance|dispute'
+    max_jobs: 200
+    verified: "2026-10-25"
+    open_jobs: 142
+    notes: >-
+      NYC or explicitly NY-eligible US-remote investigations/research associate watch
+      list. Distinguish research and regulatory work from forensic accounting,
+      e-discovery engineering and advanced economic modeling. Employer has early-career
+      routes, but no suitable live NYC research vacancy confirmed in this review.
+      Evidence: https://www.thinkbrg.com/careers/early-careers/ and
+      https://www.thinkbrg.com/news/brg-strengthens-forensic-accounting-and-investigations-practice-with-two-senior-hires/
+
+  - key: fanduel
+    name: FanDuel
+    groups: [sanctions-fincrime]
+    lanes: [fraud-investigations, aml-kyc, fincrime-intelligence, investigative-compliance]
+    ats: greenhouse
+    board: fanduel
+    careers_url: https://www.fanduel.careers/open-positions/
+    locations: ["New York, NY"]
+    title_filter: '(?i)^(?!.*(?:engineer|counsel|attorney|sales|data scientist)).*(?:anti.money|aml|financial crime|fraud|investigat|sanction|integrity|compliance|responsible gaming)'
+    max_jobs: 300
+    verified: "2026-10-25"
+    open_jobs: 87
+    notes: >-
+      Unexpected sector: sports betting has AML, financial-crime, fraud and regulatory
+      investigations teams. Watch NYC analyst/associate openings with investigative
+      research, escalation and report-writing responsibilities. Current matching
+      investigations vacancy required a lawyer; no suitable NYC junior vacancy
+      confirmed. Evidence: https://www.fanduel.careers/open-positions/
+
+  - key: fanatics-betting-gaming
+    name: Fanatics Betting & Gaming / Fanatics Markets
+    groups: [sanctions-fincrime]
+    lanes: [fraud-investigations, market-surveillance, aml-kyc, investigative-compliance, fincrime-intelligence]
+    ats: greenhouse
+    board: fanaticsfbg
+    careers_url: https://job-boards.greenhouse.io/fanaticsfbg
+    locations: ["New York, NY", "US Remote"]
+    title_filter: '(?i)^(?!.*(?:engineer|counsel|attorney|sales)).*(?:compliance|surveillance|financial crime|aml|fraud|investigat|integrity|responsible gaming)'
+    max_jobs: 300
+    verified: "2026-10-25"
+    open_jobs: 73
+    notes: >-
+      Unexpected sector: sports betting and event-contract markets. Current Compliance
+      Analyst posting explicitly offers NYC hybrid or remote, with surveillance,
+      regulatory monitoring and AML exposure. It requires 1-3 years in futures/FCM
+      compliance plus CFTC/NFA knowledge, so this specific vacancy is conditional on
+      that experience. Also watch fraud and integrity research openings.
+      Evidence: https://job-boards.greenhouse.io/fanaticsfbg/jobs/4412888009
+
+  - key: sportradar
+    name: Sportradar
+    groups: [intelligence-security, sanctions-fincrime]
+    lanes: [osint, corporate-intelligence, due-diligence, fraud-investigations, market-surveillance]
+    ats: smartrecruiters
+    board: Sportradar
+    careers_url: https://sportradar.com/careers/
+    locations: ["New York, NY"]
+    search_terms: [intelligence, integrity, investigations, compliance]
+    title_filter: '(?i)^(?!.*(?:sales|engineer|business intelligence|data scientist)).*(?:intelligence|integrity|investigat|compliance|due diligence)'
+    max_jobs: 200
+    verified: "2026-10-25"
+    notes: >-
+      Sports-integrity intelligence and investigations watch list: OSINT, due diligence,
+      anti-corruption and written intelligence reports. NYC office exists, but reviewed
+      Risk & Investigations analyst vacancy was London and office-based; do not treat
+      it as NYC or remote eligible. Wait for a qualifying location and analyst opening.
+      Evidence: https://sportradar.com/careers/?job=744000147515959&lang=en-us
+      and https://sportradar.com/careers/?job=744000151586927&lang=en-us
+
+  - key: genius-sports
+    name: Genius Sports
+    groups: [sanctions-fincrime]
+    lanes: [fraud-investigations, market-surveillance, investigative-compliance]
+    ats: greenhouse
+    board: geniussports
+    careers_url: https://www.geniussports.com/careers/
+    locations: ["New York, NY"]
+    title_filter: '(?i)^(?!.*(?:sales|engineer|data scientist)).*(?:integrity|investigat|compliance|fraud|intelligence)'
+    max_jobs: 200
+    verified: "2026-10-25"
+    open_jobs: 39
+    notes: >-
+      NYC sports-integrity and anti-corruption watch list. Employer provides betting
+      integrity monitoring and information-sharing programs and has a NYC office.
+      Look for integrity monitoring, investigations and regulatory research; no
+      suitable live NYC analyst vacancy verified. Generic sports data/marketing
+      analytics titles are not the target. Evidence: https://www.geniussports.com/careers/
+      and https://investors.geniussports.com/news/news-details/2026/Genius-Sports--Pac-12-Strike-Wide-ranging-Integrity-Tech-and-AI-Partnership-to-Power-Authorized-Betting-Moment-based-Advertising-and-Performance-Analysis/default.aspx
+
+  - key: sothebys
+    name: Sotheby's
+    groups: [sanctions-fincrime]
+    lanes: [due-diligence, beneficial-ownership, aml-kyc, sanctions, investigative-compliance]
+    ats: greenhouse
+    board: sothebys
+    careers_url: https://job-boards.greenhouse.io/sothebys
+    hq: New York, NY
+    locations: ["New York, NY"]
+    title_filter: '(?i)^(?!.*(?:counsel|attorney|engineer)).*(?:compliance|kyc|aml|sanction|diligence|provenance|restitution|investigat)'
+    max_jobs: 200
+    verified: "2026-10-25"
+    open_jobs: 67
+    notes: >-
+      Unexpected sector: art and luxury auctions require customer/beneficial-owner
+      diligence, sanctions and AML controls. Watch NYC compliance, enhanced diligence
+      and provenance-research roles. Provenance positions may require art-history or
+      language expertise; current temporary KYC role was London, not an NYC match.
+      Evidence: https://help.sothebys.com/en/support/solutions/articles/44002819816-why-does-sotheby-s-conduct-kyc-checks-
