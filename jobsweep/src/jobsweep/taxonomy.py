@@ -124,45 +124,62 @@ class Group:
 # =====================================================================================================
 
 _UNI_MAP = {
-    "‘": "'",
-    "’": "'",
-    "‚": "'",
-    "‛": "'",
-    "′": "'",
-    "ʼ": "'",
-    "´": "'",
-    "“": '"',
-    "”": '"',
-    "„": '"',
-    "″": '"',
-    "‐": "-",
-    "‑": "-",
-    "‒": "-",
-    "–": "-",
-    "—": "-",
-    "―": "-",
-    "−": "-",
-    " ": " ",
-    " ": " ",
-    " ": " ",
-    " ": " ",
-    " ": " ",
-    "​": "",
-    "­": "",
-    "﻿": "",
+    # quotes and primes
+    "\u2018": "'",
+    "\u2019": "'",
+    "\u201a": "'",
+    "\u201b": "'",
+    "\u2032": "'",
+    "\u02bc": "'",
+    "\u00b4": "'",
+    "\u201c": '"',
+    "\u201d": '"',
+    "\u201e": '"',
+    "\u2033": '"',
+    # dashes and minus
+    "\u2010": "-",
+    "\u2011": "-",
+    "\u2012": "-",
+    "\u2013": "-",
+    "\u2014": "-",
+    "\u2015": "-",
+    "\u2212": "-",
+    # spaces, zero-width characters, soft hyphen, BOM
+    "\u00a0": " ",
+    "\u2007": " ",
+    "\u2009": " ",
+    "\u200a": " ",
+    "\u202f": " ",
+    "\u200b": "",
+    "\u00ad": "",
+    "\ufeff": "",
+    # ellipsis and Latin ligatures
+    "\u2026": "...",
+    "\ufb00": "ff",
+    "\ufb01": "fi",
+    "\ufb02": "fl",
+    "\ufb03": "ffi",
+    "\ufb04": "ffl",
 }
 _UNI_RE = re.compile("[" + "".join(_UNI_MAP) + "]")
+# compatibility blocks worth a full NFKC pass (letter-like symbols, enclosed alphanumerics, full-width forms)
+_COMPAT_RE = re.compile("[\u2100-\u214f\u2460-\u24ff\u3000\ufb05-\ufb4f\uff00-\uffef]")
 _ASCII_ALNUM = frozenset("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 _TOKEN_TABLE = bytes((c if (48 <= c <= 57 or 97 <= c <= 122) else 32) for c in range(256))
 
 
 def normalize_text(text: str | None) -> str:
-    """NFKC + ASCII quotes/dashes/spaces. Case is preserved."""
+    """ASCII quotes, dashes, spaces and ligatures; case is preserved.
+
+    Full NFKC costs ~80 us per 12k-char text, so it only runs when the text holds characters from the
+    compatibility blocks (full-width forms, letter-like symbols, ...).
+    """
     if not text:
         return ""
     if text.isascii():
         return text
-    text = unicodedata.normalize("NFKC", text)
+    if _COMPAT_RE.search(text):
+        text = unicodedata.normalize("NFKC", text)
     return _UNI_RE.sub(lambda m: _UNI_MAP[m.group(0)], text)
 
 
@@ -545,15 +562,23 @@ def compile_term(raw: str) -> Term:
 class _Text:
     """A normalised text: lower-case form, token set, adjacent-token pairs, canonical token string."""
 
-    __slots__ = ("norm", "low", "toks", "pairs", "canon")
+    __slots__ = ("norm", "low", "toks", "pairs", "_words", "_canon")
 
     def __init__(self, text: str | None):
         self.norm = normalize_text(text)
         self.low = self.norm.lower()
         words = self.low.encode("ascii", "replace").translate(_TOKEN_TABLE).split()
+        self._words = words
+        self._canon: bytes | None = None
         self.toks = set(words)
         self.pairs = set(zip(words, words[1:]))
-        self.canon = b" " + b" ".join(words) + b" "
+
+    @property
+    def canon(self) -> bytes:
+        """b" w1 w2 ... " (built on first use; only terms of 3+ words need it)."""
+        if self._canon is None:
+            self._canon = b" " + b" ".join(self._words) + b" "
+        return self._canon
 
 
 # =====================================================================================================
@@ -666,7 +691,6 @@ _NUM_WORDS = {
     "twenty": 20,
 }
 _NUM = r"(?:\d{1,2}|" + "|".join(_NUM_WORDS) + r")"
-_YEAR_WORD_RE = re.compile(r"y(?:ears?|rs?)\b")
 _YEARS_BEFORE_RE = re.compile(
     r"(?<![\w.,/])(?P<a>" + _NUM + r")(?:\s*\(\s*\d{1,2}\s*\))?\s*(?:\+|plus)?\s*"
     r"(?:(?:-|to|or)\s*(?P<b>" + _NUM + r")(?:\s*\(\s*\d{1,2}\s*\))?\s*\+?\s*)?"
@@ -1738,6 +1762,24 @@ def _num(word: str) -> int | None:
     return _NUM_WORDS.get(word)
 
 
+def _year_positions(low: str) -> list[tuple[int, int]]:
+    """(start, end) of the words year/years/yr/yrs in text order (str.find beats a regex scan here)."""
+    out: list[tuple[int, int]] = []
+    n = len(low)
+    for needle in ("year", "yr"):
+        i = low.find(needle)
+        while i >= 0:
+            if not i or low[i - 1] not in _ASCII_ALNUM:
+                j = i + len(needle)
+                if low[j : j + 1] == "s":
+                    j += 1
+                if j >= n or low[j] not in _ASCII_ALNUM:
+                    out.append((i, j))
+            i = low.find(needle, i + 1)
+    out.sort()
+    return out
+
+
 def parse_years_required(text: str | None, *, lowered: bool = False) -> int | None:
     """Minimum years of experience asked for ('3+ years', 'at least two (2) years', '5-7 years')."""
     if not text:
@@ -1746,10 +1788,7 @@ def parse_years_required(text: str | None, *, lowered: bool = False) -> int | No
     if "year" not in low and "yr" not in low:
         return None
     found: list[int] = []
-    for m in _YEAR_WORD_RE.finditer(low):
-        s, e = m.start(), m.end()
-        if s and low[s - 1] in _ASCII_ALNUM:
-            continue
+    for s, e in _year_positions(low):
         before = low[max(0, s - 48) : s]
         nm = _YEARS_BEFORE_RE.search(before)
         if not nm:

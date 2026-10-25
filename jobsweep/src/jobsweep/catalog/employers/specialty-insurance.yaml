@@ -600,11 +600,11 @@ employers:
     hq: New York, NY
     locations: [New York, NY, Washington, DC, London, UK]
     title_filter: '(?i)(politic|sovereign|\bcredit\b|surety|marine|cargo|aviation|aerospace|kidnap|\bK&R\b|crisis|special risks?|terror|\bwar\b|financial lines|\bfinpro\b|\bD&O\b|management liability|executive risk|transaction|\bM&A\b|private equity|fine art|specie|jewel|intangible|fraud|investigat|reinsurance|Guy Carpenter|broker|broking|placement|graduate|trainee|intern\b|internship|apprentice|early career)'
-    search_terms: [credit specialties, trade credit, FINPRO, aviation, early career, political risk, reinsurance broker, marine]
-    max_jobs: 1000
+    search_terms: [credit, FINPRO, aviation, cargo, transactional, Guy Carpenter, early career, graduate]
+    max_jobs: 800
     verified: "2026-10-25"
     open_jobs: 1981
-    notes: "Huge board (~1,981). Marsh Credit Specialties / political risk, FINPRO, Private Equity & M&A, aviation & marine; Guy Carpenter reinsurance broking; Marsh Risk Early Career Program (NY). Terms ordered narrow->broad because Workday search is OR-matching."
+    notes: "Huge board (~1,981). Marsh Credit Specialties / political risk, FINPRO, Private Equity & M&A, aviation & marine; Guy Carpenter reinsurance broking; Marsh Risk Early Career Program (NY). Search terms are single distinctive words: generic words (political, marine, reinsurance) match MMC's EEO/boilerplate text and return ~1,500 hits each; 'credit' catches Credit Specialties, trade credit and political risk & structured credit roles."
 
   - key: aon
     name: Aon
