@@ -59,6 +59,7 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.12"
+          activate-environment: true
 
       - name: Install jobsweep
         working-directory: jobsweep
@@ -98,7 +99,6 @@ jobs:
           [ "$IN_METERED" = "true" ] && args+=(--include-metered)
           # Partial source errors are normal (rate limits, a board moving); never fail the whole run on them.
           jobsweep sweep "${args[@]}" --json > "$RUNNER_TEMP/sweep-report.json" || echo "::warning::sweep reported errors"
-          jobsweep sweep --help >/dev/null
 
       - name: Digest
         id: digest
