@@ -872,7 +872,8 @@ def _sweep_result(report: Any, store: Any) -> dict[str, Any]:
             "by_source": planned.get("by_source", {}),
             "boards_sample": [b.get("employer") for b in (plan.get("boards") or [])[:30]],
             "searches_sample": [
-                {k: s.get(k) for k in ("source", "keywords", "lane")} for s in (plan.get("searches") or [])[:20]
+                {k: s.get(k) for k in ("source", "keywords", "lane")}
+                for s in (plan.get("searches") or [])[:20]
             ],
             "truncated": plan.get("truncated", {}),
         }
@@ -916,6 +917,9 @@ def _sweep_payload(*, started: bool | None = None) -> dict[str, Any]:
 
 # ---- tools ---------------------------------------------------------------------------------------
 
+#: lists of ids may also arrive as one comma-separated string. Free-text parameters are typed plain ``str``
+#: (default ""): FastMCP JSON-decodes string arguments of any other type, which would turn pasted JSON
+#: connector output or a JSON-looking note into a list/dict.
 IdList = list[str] | str | None
 
 
@@ -924,17 +928,21 @@ def search_jobs(
     query: Annotated[
         str,
         Field(
-            description='Full-text search over title, company, location and description. Words are '
+            description="Full-text search over title, company, location and description. Words are "
             'prefix-matched and ANDed; "quoted phrases" and OR work. Example: "political risk" OR "credit risk".'
         ),
     ] = "",
-    lanes: Annotated[IdList, Field(description="Lane ids (match any), e.g. ['kidnap-ransom', 'war-risk'].")] = None,
+    lanes: Annotated[
+        IdList, Field(description="Lane ids (match any), e.g. ['kidnap-ransom', 'war-risk'].")
+    ] = None,
     groups: Annotated[
         IdList, Field(description="Group ids (match any), e.g. ['sanctions-fincrime', 'government'].")
     ] = None,
     sources: Annotated[
         IdList,
-        Field(description="Source names, e.g. ['usajobs', 'nycjobs', 'greenhouse', 'import'] (see list_sources)."),
+        Field(
+            description="Source names, e.g. ['usajobs', 'nycjobs', 'greenhouse', 'import'] (see list_sources)."
+        ),
     ] = None,
     statuses: Annotated[
         IdList,
@@ -963,7 +971,9 @@ def search_jobs(
     ] = None,
     sort: Annotated[
         Literal["score", "newest", "posted", "closing", "company"],
-        Field(description="score (best first), newest (first seen), posted, closing (deadline soonest), company."),
+        Field(
+            description="score (best first), newest (first seen), posted, closing (deadline soonest), company."
+        ),
     ] = "score",
     limit: Annotated[int, Field(description="Max items (1-100).")] = 25,
     offset: Annotated[int, Field(description="Skip this many items (paging).")] = 0,
@@ -1064,7 +1074,9 @@ def get_job(
 @_tool(title="Set job triage status", idempotent=True)
 def set_job_status(
     uid: Annotated[str, Field(description="Job uid, e.g. 'lever:abc-123'.")],
-    status: Annotated[str, Field(description="One of: new, saved, applied, interviewing, offer, rejected, dismissed.")],
+    status: Annotated[
+        str, Field(description="One of: new, saved, applied, interviewing, offer, rejected, dismissed.")
+    ],
     note: Annotated[
         str, Field(description="Optional note stored with the job (omit to keep the existing note).")
     ] = "",
@@ -1081,7 +1093,7 @@ def set_job_status(
         raise ToolError(f"unknown status {status!r}; valid: {', '.join(JOB_STATUSES)}")
     key = (uid or "").strip()
     try:
-        row = get_store().set_status(key, value, note.strip() or None if note else None)
+        row = get_store().set_status(key, value, (note or "").strip() or None)
     except ValueError as exc:
         raise ToolError(str(exc)) from exc
     if row is None:
@@ -1097,7 +1109,10 @@ def list_lanes(
         bool, Field(description="Also list the inactive 'earlier-lanes' group (old interests).")
     ] = False,
     include_queries: Annotated[
-        bool, Field(description="Include each lane's keyword queries (used for searches and the Indeed connector).")
+        bool,
+        Field(
+            description="Include each lane's keyword queries (used for searches and the Indeed connector)."
+        ),
     ] = True,
 ) -> dict[str, Any]:
     """
@@ -1141,11 +1156,20 @@ def list_lanes(
             if include_queries:
                 item["queries"] = list(lane.get("queries") or [])
             lanes.append(item)
-        entry = {"id": g.get("id"), "name": g.get("name"), "count": by_group.get(g.get("id"), 0), "lanes": lanes}
+        entry = {
+            "id": g.get("id"),
+            "name": g.get("name"),
+            "count": by_group.get(g.get("id"), 0),
+            "lanes": lanes,
+        }
         if include_inactive:
             entry["active"] = g.get("active", True)
         groups.append(entry)
-    out: dict[str, Any] = {"groups": groups, "active_jobs": stats.get("active"), "new_7d": stats.get("new_7d")}
+    out: dict[str, Any] = {
+        "groups": groups,
+        "active_jobs": stats.get("active"),
+        "new_7d": stats.get("new_7d"),
+    }
     if tax is None:
         out["warning"] = "lanes.yaml could not be loaded; showing the fixed ids only"
     return out
@@ -1168,7 +1192,9 @@ async def run_sweep(
     include_metered: Annotated[
         bool, Field(description="Also run credit-metered sources (TheirStack, HasData Indeed, Apify).")
     ] = False,
-    searches: Annotated[bool, Field(description="Run keyword searches (USAJOBS, NYC Jobs, aggregators).")] = True,
+    searches: Annotated[
+        bool, Field(description="Run keyword searches (USAJOBS, NYC Jobs, aggregators).")
+    ] = True,
     boards: Annotated[bool, Field(description="Fetch employer ATS boards.")] = True,
     posted_within_days: Annotated[
         int | None, Field(description="Search sources: only postings from the last N days (default 30).")
@@ -1245,7 +1271,8 @@ async def run_sweep(
 @_tool(title="Sweep status", read_only=True)
 async def sweep_status(
     wait_seconds: Annotated[
-        float, Field(description="Wait up to this many seconds for a running sweep to finish (0 = just check).")
+        float,
+        Field(description="Wait up to this many seconds for a running sweep to finish (0 = just check)."),
     ] = 0,
     ctx: Context | None = None,
 ) -> dict[str, Any]:
@@ -1337,7 +1364,9 @@ async def live_search(
 
 
 def _looks_like_url(text: str) -> bool:
-    return bool(re.match(r"^(https?://|www\.)", text, re.I) or re.match(r"^[\w.-]+\.[a-z]{2,}(/|$)", text, re.I))
+    return bool(
+        re.match(r"^(https?://|www\.)", text, re.I) or re.match(r"^[\w.-]+\.[a-z]{2,}(/|$)", text, re.I)
+    )
 
 
 async def _check_employer(text: str, store_matches: bool) -> dict[str, Any]:
@@ -1367,7 +1396,9 @@ async def _check_employer(text: str, store_matches: bool) -> dict[str, Any]:
                 for a, b in await det.scan_careers_page(ctx, url, include_vendors=True):
                     if (a, b) not in pairs:
                         pairs.append((a, b))
-            candidates = [{"ats": a, "board": b, "sweepable": a in sweepable_ats, "via": "url"} for a, b in pairs]
+            candidates = [
+                {"ats": a, "board": b, "sweepable": a in sweepable_ats, "via": "url"} for a, b in pairs
+            ]
             for e in registry.all():
                 if any(e.ats == a and (e.board or "").lower() == b.lower() for a, b in pairs) or (
                     e.careers_url and e.careers_url.rstrip("/").lower() == url.rstrip("/").lower()
@@ -1462,9 +1493,13 @@ async def _check_employer(text: str, store_matches: bool) -> dict[str, Any]:
             "lanes": [lane for lane, _ in lane_counts.most_common(3)],
             "open_jobs": len(jobs),
         }
-        notes.append("Not in the employer registry: add suggested_registry_entry to catalog/employers/*.yaml.")
+        notes.append(
+            "Not in the employer registry: add suggested_registry_entry to catalog/employers/*.yaml."
+        )
     elif not emp.sweepable:
-        notes.append(f"Registry lists {emp.name} as not sweepable; this board ({ats}:{board}) could be added.")
+        notes.append(
+            f"Registry lists {emp.name} as not sweepable; this board ({ats}:{board}) could be added."
+        )
     out["notes"] = notes
     return out
 
@@ -1476,7 +1511,8 @@ async def check_employer(
         Field(description="Company name (e.g. 'Control Risks', 'Dataminr') or a careers / job posting URL."),
     ],
     store_matches: Annotated[
-        bool, Field(description="Store lane-matching jobs on the board so they can be triaged (default true).")
+        bool,
+        Field(description="Store lane-matching jobs on the board so they can be triaged (default true)."),
     ] = True,
     timeout_seconds: Annotated[float, Field(description="Give up after this many seconds.")] = 90,
 ) -> dict[str, Any]:
@@ -1537,7 +1573,11 @@ def _fallback_parse(payload: Any, origin: str = "claude-connector", fmt: str | N
         url = str(rec.get("url") or rec.get("job_url") or rec.get("link") or "").strip()
         if not title or not (company or url):
             continue
-        rid = rec.get("id") or rec.get("job_id") or hashlib.sha1(f"{url}|{title}|{company}".encode()).hexdigest()[:12]
+        rid = (
+            rec.get("id")
+            or rec.get("job_id")
+            or hashlib.sha1(f"{url}|{title}|{company}".encode()).hexdigest()[:12]
+        )
         jobs.append(
             Job(
                 source="import",
@@ -1712,7 +1752,9 @@ def list_sources() -> dict[str, Any]:
 
 @_tool(title="New-jobs digest", read_only=True, structured=False)
 def digest(
-    days: Annotated[float, Field(description="New matches first seen within this many days (1 = today).")] = 1,
+    days: Annotated[
+        float, Field(description="New matches first seen within this many days (1 = today).")
+    ] = 1,
     min_score: Annotated[
         float | None, Field(description="Minimum fit score; default the profile threshold (about 25).")
     ] = None,
@@ -1738,7 +1780,9 @@ def list_employers(
     manual_only: Annotated[
         bool, Field(description="Only employers without a sweepable ATS board ('check by hand').")
     ] = False,
-    lane: Annotated[str | None, Field(description="Only employers that are a prior for this lane id.")] = None,
+    lane: Annotated[
+        str | None, Field(description="Only employers that are a prior for this lane id.")
+    ] = None,
     query: Annotated[str | None, Field(description="Substring of the employer name or key.")] = None,
     limit: Annotated[int, Field(description="Max employers returned (1-500).")] = 100,
 ) -> dict[str, Any]:

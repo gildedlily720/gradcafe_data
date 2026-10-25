@@ -61,7 +61,10 @@ class FakeTaxonomy:
                 id=g,
                 name=g.title(),
                 active=True,
-                lanes=[SimpleNamespace(id=lid, name=lid.title(), active=True, queries=[lid + " analyst"]) for lid in ls],
+                lanes=[
+                    SimpleNamespace(id=lid, name=lid.title(), active=True, queries=[lid + " analyst"])
+                    for lid in ls
+                ],
             )
             for g, ls in lanes_by_group.items()
         ]
@@ -105,7 +108,13 @@ class FakeTaxonomy:
                     "name": g.name,
                     "active": g.active,
                     "lanes": [
-                        {"id": lane.id, "name": lane.name, "active": lane.active, "group": g.id, "queries": lane.queries}
+                        {
+                            "id": lane.id,
+                            "name": lane.name,
+                            "active": lane.active,
+                            "group": g.id,
+                            "queries": lane.queries,
+                        }
                         for lane in g.lanes
                     ],
                 }
@@ -454,7 +463,9 @@ def test_list_employers(board) -> None:
 
 
 def test_list_sources_reports_env_without_values(board) -> None:
-    ms.configure(settings=Settings(env={"USAJOBS_API_KEY": "secret-value-xyz", "USAJOBS_EMAIL": "me@example.com"}))
+    ms.configure(
+        settings=Settings(env={"USAJOBS_API_KEY": "secret-value-xyz", "USAJOBS_EMAIL": "me@example.com"})
+    )
     data = ok(call("list_sources"))
     rows = {r["name"]: r for r in data["sources"]}
     assert {"greenhouse", "usajobs", "nycjobs", "theirstack", "import"} <= set(rows)
@@ -551,8 +562,16 @@ def test_import_jobs_real_indeed_markdown(board) -> None:
 
 def _sweep_jobs(tax: FakeTaxonomy) -> list[Job]:
     jobs = [
-        Job(source="greenhouse", source_id="s1", title="Sanctions Analyst", company="Acme", url="https://a/1"),
-        Job(source="greenhouse", source_id="s2", title="Senior Sanctions Lead", company="Acme", url="https://a/2"),
+        Job(
+            source="greenhouse", source_id="s1", title="Sanctions Analyst", company="Acme", url="https://a/1"
+        ),
+        Job(
+            source="greenhouse",
+            source_id="s2",
+            title="Senior Sanctions Lead",
+            company="Acme",
+            url="https://a/2",
+        ),
     ]
     return [tax.classify(j) for j in jobs]
 
@@ -583,7 +602,7 @@ def test_run_sweep_returns_report_and_top_new(board, monkeypatch: pytest.MonkeyP
     assert opts.lanes == ["sanctions"] and opts.employers == ["acme-risk"] and opts.include_metered is False
     status = ok(call("sweep_status"))
     assert status["status"] == "finished" and status["run_id"] == 7
-    assert "acme" in err(call("run_sweep", {"employers": ["acme rsk partnerz"]})).lower()
+    assert "list_employers" in err(call("run_sweep", {"employers": ["Globex Intelligence"]}))
     assert "import_jobs" in err(call("run_sweep", {"sources": ["import"]}))
 
 
@@ -652,8 +671,14 @@ def test_live_search_stores_and_returns(board, monkeypatch: pytest.MonkeyPatch) 
         errors.append({"source": "adzuna", "target": query.keywords, "error": "missing env: ADZUNA_APP_ID"})
         jobs = [
             taxonomy.classify(
-                Job(source="usajobs", source_id="L1", title="Sanctions Analyst", company="Treasury",
-                    url="https://www.usajobs.gov/job/L1", location="Washington, DC")  # fmt: skip
+                Job(
+                    source="usajobs",
+                    source_id="L1",
+                    title="Sanctions Analyst",
+                    company="Treasury",
+                    url="https://www.usajobs.gov/job/L1",
+                    location="Washington, DC",
+                )  # fmt: skip
             )
         ]
         if store is not None:
@@ -661,7 +686,9 @@ def test_live_search_stores_and_returns(board, monkeypatch: pytest.MonkeyPatch) 
         return jobs
 
     install_fake(monkeypatch, "jobsweep.sweep", SweepOptions=FakeSweepOptions, live_search=live_search)
-    data = ok(call("live_search", {"keywords": "OFAC analyst", "location": "Washington, DC", "sources": "usajobs"}))
+    data = ok(
+        call("live_search", {"keywords": "OFAC analyst", "location": "Washington, DC", "sources": "usajobs"})
+    )
     assert data["total"] == 1 and data["stored"] is True
     assert data["items"][0]["uid"] == "usajobs:L1" and data["items"][0]["status"] == "new"
     assert data["errors"][0]["source"] == "adzuna"
@@ -742,7 +769,9 @@ def test_check_employer_urls(board, monkeypatch: pytest.MonkeyPatch) -> None:
 
     manual = ok(call("check_employer", {"name_or_url": "manual.example/careers"}))
     assert manual["ats"] is None and manual["registry"]["key"] == "manual-intel"
-    assert manual["candidates"] == [{"ats": "icims", "board": "manualintel", "sweepable": False, "via": "url"}]
+    assert manual["candidates"] == [
+        {"ats": "icims", "board": "manualintel", "sweepable": False, "via": "url"}
+    ]
     assert "check by hand at https://manual.example/careers" in manual["notes"][0]
 
 
@@ -788,7 +817,10 @@ def test_digest_with_real_export(board) -> None:
 def test_format_salary_and_find_employer() -> None:
     assert ms.format_salary({"salary_min": 65000, "salary_max": 75000, "salary_currency": "USD",
                              "salary_period": "year"}) == "$65,000–$75,000/yr"  # fmt: skip
-    assert ms.format_salary({"salary_min": 40000, "salary_currency": "GBP", "salary_period": "year"}) == "£40,000/yr"
+    assert (
+        ms.format_salary({"salary_min": 40000, "salary_currency": "GBP", "salary_period": "year"})
+        == "£40,000/yr"
+    )
     assert ms.format_salary({"salary_min": 28.5, "salary_max": 28.5, "salary_period": "hour"}) == "28.50/hr"
     assert ms.format_salary({}) is None
     reg = make_registry()
@@ -835,6 +867,9 @@ def test_stdio_entry_point_initializes_and_lists_tools(tmp_path: Path) -> None:
 @pytest.mark.live
 def test_live_check_employer_greenhouse(board) -> None:
     pytest.importorskip("jobsweep.sources.greenhouse")
-    data = ok(call("check_employer", {"name_or_url": "https://boards.greenhouse.io/dataminr", "store_matches": False}))
-    assert data["ats"] == "greenhouse" and data["board"] == "dataminr"
-    assert data["open_jobs"] and data["open_jobs"] > 0
+    # Sayari's Greenhouse board was verified in the registry on 2026-10-25.
+    data = ok(
+        call("check_employer", {"name_or_url": "https://boards.greenhouse.io/sayari", "store_matches": False})
+    )
+    assert data["ats"] == "greenhouse" and data["board"] == "sayari", data.get("notes")
+    assert data["open_jobs"] and data["open_jobs"] > 0, data.get("notes")
