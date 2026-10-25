@@ -1,0 +1,262 @@
+# Small lanes taxonomy for tests/test_taxonomy.py (same schema as src/jobsweep/catalog/lanes.yaml).
+version: 1
+groups:
+  - id: specialty-insurance
+    name: "Specialty insurance (underwriting and broking)"
+    active: true
+    lanes:
+      - id: political-risk
+        name: "Political risk"
+        active: true
+        title: ["political risk", "political risks", "credit and political risk", "credit & political risk", "CPRI"]
+        phrases: ["political risk insurance", "contract frustration", "expropriation", "non-honouring",
+                  "export credit agencies", "Berne Union"]
+        context: ["underwriter", "underwriting", "broker", "Lloyd's", "London market", "syndicate", "insurer"]
+        exclude: ["political campaign"]
+        queries: ["political risk underwriter", "political risk insurance analyst", "credit and political risk"]
+        usajobs: {keywords: ["political risk insurance"], series: [1101, "1160"]}
+      - id: war-risk
+        name: "War risk"
+        active: true
+        title: ["war risk", "war risks", "marine war", "hull war", "aviation war", "war & terrorism"]
+        phrases: ["Joint War Committee", "listed areas", "blocking and trapping", "war risks insurance"]
+        context: ["Lloyd's", "hull", "cargo", "marine", "underwriter", "underwriting"]
+        exclude: ["warehouse"]
+        queries: ["war risk underwriter", "marine war underwriting assistant"]
+      - id: kidnap-ransom
+        name: "Kidnap and ransom"
+        active: true
+        title: ['/\bK&R\b/', "kidnap & ransom", "kidnap and ransom", "special crime", "crisis management underwriter"]
+        phrases: ["kidnap and ransom insurance", "K&R insurance", "wrongful detention", "hostage negotiation",
+                  "crisis response consultancy"]
+        context: ["underwriter", "underwriting", "Lloyd's", "crisis management", "duty of care"]
+        exclude: ["cyber", "ransomware"]
+        queries: ["K&R underwriter", "kidnap and ransom insurance", "political risk underwriter"]
+      - id: insurance-fraud-siu
+        name: "Insurance fraud / SIU"
+        active: true
+        title: ['/\bSIU\b/', "special investigations unit", "insurance fraud", "fraud investigator"]
+        phrases: ["insurance fraud", "claims fraud", "special investigations unit"]
+        context: ["claims", "investigations", "insurer"]
+        exclude: []
+        queries: ["SIU investigator", "insurance fraud analyst"]
+
+  - id: intelligence-security
+    name: "Intelligence and security"
+    active: true
+    lanes:
+      - id: threat-intelligence
+        name: "Threat intelligence"
+        active: true
+        title: ["threat intelligence", "intelligence analyst", "threat analyst"]
+        phrases: ["intelligence assessments", "threat landscape", "geopolitical threats", "Dataminr"]
+        context: ["intelligence", "OSINT", "threats", "briefings", "monitoring"]
+        exclude: ["SOC analyst", "software engineer"]
+        queries: ["threat intelligence analyst", "intelligence analyst entry level"]
+      - id: protective-intelligence
+        name: "Protective intelligence"
+        active: true
+        title: ["protective intelligence", "executive protection", "protective analyst"]
+        phrases: ["protective intelligence program", "concerning communications", "fixated persons",
+                  "pathway to violence", "protectees"]
+        context: ["threat assessment", "travel", "executives", "OSINT"]
+        exclude: ["child protective", "data protection"]
+        queries: ["protective intelligence analyst"]
+        usajobs: {keywords: ["protective intelligence"], series: ["0132", "0080"]}
+      - id: gsoc-watch
+        name: "GSOC / watch officer"
+        active: true
+        title: ['/\bGSOC\b/', "global security operations", "security operations center", "watch officer",
+                "operations center analyst"]
+        phrases: ["global security operations center", "24/7 monitoring", "alarm monitoring", "CCTV",
+                  "emergency notifications", "incident escalation", "situational awareness"]
+        context: ["security operations", "physical security", "monitoring", "incidents", "alerts", "shifts"]
+        exclude: ["cyber", "cybersecurity", '/\bSOC\b/', "information security", "network operations"]
+        queries: ["GSOC operator", "global security operations center analyst", "watch officer"]
+        usajobs: {keywords: ["watch officer"], series: ["0132"]}
+      - id: corporate-security
+        name: "Corporate security"
+        active: true
+        title: ["corporate security", "physical security", "security risk", "global security"]
+        phrases: ["security risk assessments", "workplace violence", "insider threat program"]
+        context: ["security operations", "risk assessment", "crisis management", "investigations"]
+        exclude: ["cyber", "cybersecurity", '/\bSOC\b/', "information security", "security engineer"]
+        queries: ["corporate security analyst"]
+      - id: regional-research-specialist
+        name: "Regional research specialist"
+        active: false
+        title: ["regional analyst"]
+        phrases: []
+        context: []
+        exclude: []
+        queries: ["regional analyst middle east"]
+
+  - id: investigations-dd
+    name: "Investigations and due diligence"
+    active: true
+    lanes:
+      - id: due-diligence
+        name: "Due diligence"
+        active: true
+        title: ["due diligence", "diligence", "vetting"]
+        phrases: ["enhanced due diligence", "integrity due diligence", "adverse media", "FCPA"]
+        context: ["research", "reports", "compliance", "clients", "public records"]
+        exclude: ["cyber", "software"]
+        queries: ["due diligence analyst", "integrity due diligence associate"]
+      - id: corporate-intelligence
+        name: "Corporate intelligence"
+        active: true
+        title: ["corporate intelligence", "business intelligence investigator", "investigations analyst"]
+        phrases: ["corporate investigations", "asset tracing", "litigation support", "Kroll"]
+        context: ["investigations", "research", "clients", "public records"]
+        exclude: []
+        queries: ["corporate investigations analyst", "investigations associate"]
+
+  - id: sanctions-fincrime
+    name: "Sanctions and financial crime"
+    active: true
+    lanes:
+      - id: sanctions
+        name: "Sanctions"
+        active: true
+        title: ["sanctions", "OFAC", "screening analyst"]
+        phrases: ["economic sanctions", "sanctions screening", "sanctions compliance", "Specially Designated Nationals",
+                  "SDN List", "Office of Foreign Assets Control"]
+        context: ["compliance", "screening", "Russia", "Iran", "KYC", "AML"]
+        exclude: ["background screening", "health screening"]
+        queries: ["sanctions analyst", "OFAC compliance analyst"]
+      - id: aml-kyc
+        name: "AML / KYC"
+        active: true
+        title: ['/\bAML\b/', '/\bKYC\b/', "client onboarding", "transaction monitoring", "financial crime analyst"]
+        phrases: ["money laundering", "know your customer", "customer due diligence", "suspicious activity reports",
+                  "Bank Secrecy Act", "KYC refresh"]
+        context: ["banking", "compliance", "investigations", "risk", "sanctions"]
+        exclude: ["HR onboarding", "employee onboarding"]
+        queries: ["KYC analyst", "AML analyst"]
+
+  - id: trust-safety
+    name: "Trust and safety"
+    active: true
+    lanes:
+      - id: trust-safety-policy
+        name: "Trust and safety policy"
+        active: true
+        title: ["trust & safety", "trust and safety", '/\bT&S\b/', "content policy", "content moderator"]
+        phrases: ["content moderation", "community guidelines", "harmful content", "content policies"]
+        context: ["policy", "enforcement", "escalations", "platform", "users"]
+        exclude: ["software engineer", "engineer", "account executive", "data integrity"]
+        queries: ["trust and safety policy analyst", "content policy associate"]
+
+  - id: policy-research
+    name: "Policy research"
+    active: true
+    lanes:
+      - id: think-tank-research
+        name: "Think tank research"
+        active: true
+        title: ["research associate", "research assistant", "research fellow", "junior fellow", "program associate"]
+        phrases: ["think tank", "policy briefs", "white papers", "op-eds", "Brookings", "Atlantic Council"]
+        context: ["policy", "research", "writing", "events", "publications"]
+        exclude: ["clinical", "laboratory", "biology"]
+        queries: ["research associate think tank", "research assistant foreign policy"]
+      - id: national-security
+        name: "National security policy"
+        active: true
+        title: ["national security", "defense policy", "foreign policy"]
+        phrases: ["national security policy", "arms control", "deterrence"]
+        context: ["policy", "research", "Congress", "Pentagon"]
+        exclude: []
+        queries: ["national security policy analyst"]
+
+  - id: strategic-comms
+    name: "Strategic communications"
+    active: true
+    lanes:
+      - id: crisis-comms
+        name: "Crisis communications"
+        active: true
+        title: ["crisis communications", "issues management"]
+        phrases: ["crisis communications", "media relations"]
+        context: ["communications", "media", "reputation"]
+        exclude: []
+        queries: ["crisis communications associate"]
+
+  - id: government
+    name: "Government"
+    active: true
+    lanes:
+      - id: nyc-integrity
+        name: "NYC integrity and oversight"
+        active: true
+        title: ["inspector general", "integrity investigator", "investigative analyst", '/\bOIG\b/']
+        phrases: ["Department of Investigation", "corruption investigations", "fraud, waste and abuse",
+                  "Civilian Complaint Review Board"]
+        context: ["investigations", "audits", "interviews", "NYPD", "corruption", "oversight"]
+        exclude: ["attorney", "counsel"]
+        queries: ["investigator department of investigation"]
+        nycjobs: {keywords: ["investigator"], agencies: ["DEPARTMENT OF INVESTIGATION"]}
+      - id: federal-pathways
+        name: "Federal Pathways"
+        active: true
+        title: ["recent graduate", "recent graduates", "pathways program", "management and program analyst",
+                '/\bGS-?0?[579]\b/']
+        phrases: ["Recent Graduates Program", "Pathways Recent Graduates", "Presidential Management Fellows",
+                  "GS-0343", "GS-0132", "promotion potential"]
+        context: ["federal", "USAJOBS", "agency", "OPM"]
+        exclude: ["career pathways", "teacher"]
+        queries: ["pathways recent graduate", "management and program analyst"]
+        usajobs: {keywords: ["Recent Graduate", "Pathways"], series: ["0343", "0132"], hiring_path: ["graduates"],
+                  grade_low: 5, grade_high: "09"}
+      - id: federal-investigator
+        name: "Federal investigator"
+        active: true
+        title: ["criminal investigator", "special agent", "investigative assistant"]
+        phrases: ["Office of Inspector General", "GS-1811", "criminal investigations"]
+        context: ["federal", "investigations", "evidence"]
+        exclude: ["principal investigator"]
+        queries: ["criminal investigator", "investigative assistant"]
+
+  - id: entry-routes
+    name: "Entry routes"
+    active: true
+    lanes:
+      - id: graduate-programs
+        name: "Graduate programs"
+        active: true
+        title: ["graduate programme", "graduate program", "graduate scheme", "graduate analyst", "early careers",
+                "new grad", '/\bclass of 20\d\d\b/']
+        phrases: ["rotational program", "graduate development programme",
+                  '/\bgraduat(?:e|ing) (?:in|by) (?:(?:spring|summer|fall|may|june|december) )?20\d\d\b/']
+        context: ["training", "cohort", "rotations"]
+        exclude: ["graduate nurse", "graduate teaching assistant"]
+        queries: ["graduate programme insurance", "early careers program risk"]
+      - id: entry-level-analyst
+        name: "Entry-level analyst"
+        active: true
+        title: ["junior", "entry level", "entry-level", "underwriting assistant", "assistant underwriter", "trainee"]
+        phrases: ["entry-level position", "0-2 years of experience", "recent college graduates"]
+        context: ["training", "mentorship"]
+        exclude: ["nurse"]
+        queries: ["junior analyst risk"]
+      - id: fellowships
+        name: "Fellowships"
+        active: true
+        title: ["fellowship", "fellow", "program assistant"]
+        phrases: ["fellowship program", "one-year fellowship"]
+        context: ["cohort", "stipend"]
+        exclude: ["senior fellow", "postdoctoral", "clinical"]
+        queries: ["policy fellowship"]
+
+  - id: earlier-lanes
+    name: "Earlier lanes"
+    active: false
+    lanes:
+      - id: real-estate
+        name: "Real estate"
+        active: true
+        title: ["real estate", "acquisitions analyst"]
+        phrases: ["commercial real estate", '/\bREITs?\b/']
+        context: ["property", "leasing"]
+        exclude: []
+        queries: ["real estate analyst"]

@@ -10,11 +10,12 @@ Matching (ARCHITECTURE.md section 4.2):
 * ``/.../`` terms are raw Python regexes. A raw regex containing lower-case letters is compiled with
   ``re.IGNORECASE`` (lanes.yaml writes them that way and scopes case with ``(?-i:...)``); an all-caps
   raw regex such as ``/\\bGSOC\\b/`` is case-sensitive unless it starts with ``(?i)``.
-* Text is normalised first (NFKC, curly quotes, unicode dashes, no-break spaces).
+* Text is normalised first (curly quotes, unicode dashes, no-break spaces, ligatures; NFKC when needed).
 
-Speed: every job is tokenised once; an inverted index of "anchor" words picks the few candidate terms
-whose words all occur in the text, and only those run their regex (single-word terms need no regex).
-Classifying 20k postings with 12k-character descriptions takes a few seconds.
+Speed: every text is tokenised once into a token set and a set of adjacent-token pairs. Single-word
+terms are decided by the token set alone; multi-word terms are looked up by one of their word pairs and
+only those candidates run their regex. Raw regexes are tried only where their literal prefix occurs.
+About 1 ms per posting with a 12k-character description (20k postings in ~20 s); shorter texts are faster.
 """
 
 from __future__ import annotations
@@ -575,7 +576,7 @@ _OFF_DOMAIN_RE = re.compile(
       |medical\s+(?:assistant|director|coder|biller)|phlebotom\w*|radiolog\w*|veterinar\w*|psychiatr\w*
       |driver|mechanic|technician|electrician|plumber|carpenter|welder|machinist|hvac|janitor|custodian
       |housekeep\w*|cleaner|landscap\w*|groundskeeper|facilities|maintenance|warehouse|forklift|picker|packer
-      |chef|cook|kitchen|dishwasher|bartender|barista|food\s+service
+      |chef|cook(?!\s+county)|kitchen|dishwasher|bartender|barista|food\s+service
       |marketing|graphic\s+designer|designer|ux|ui|copywriter|product\s+manager|product\s+owner
       |product\s+management|product\s+marketing|scrum\s+master|it\s+support|help\s*desk|service\s+desk
       |desktop\s+support|sys(?:tems?)?\s*admin\w*|database\s+administrator|dba|network\s+administrator
@@ -595,7 +596,8 @@ _SENIOR_STRIP_RE = re.compile(
     re.I,
 )
 _SENIOR_RE = re.compile(
-    r"\b(?:senior|sr\.?|snr|lead|principal|director|head|vp|svp|evp|avp|vice\s+president|chief|managing"
+    r"\b(?:senior|sr\.?|snr|lead|principal|director|head(?!\s+start)|vp|svp|evp|avp|vice\s+president|chief"
+    r"|managing"
     r"|manager|executive\s+director|supervisor[y]?|superintendent|commissioner|professor|postdoc\w*"
     r"|post-doctoral|nonresident|non-resident|distinguished|visiting\s+fellow"
     r"|partner(?!\s+(?:marketing|success|programs?|relations|engagement|operations|support|enablement))"
@@ -747,16 +749,17 @@ _CYBER_PHRASES = (
 )
 
 # ---- locations ----------------------------------------------------------------------------------
-_NYC_FULL_RE = re.compile(
-    r"\b(?:nyc|new\s+york\s+city|manhattan|brooklyn|queens|bronx|staten\s+island|long\s+island\s+city"
-    r"|new\s+york\s*,\s*(?:ny|new\s+york)\b)|^\s*new\s+york\s*(?:,\s*(?:usa?|united\s+states))?\s*$",
+_NYC_RE = re.compile(
+    r"\b(?:nyc|new\s+york\s+city|manhattan|brooklyn|queens|bronx|staten\s+island|long\s+island\s+city)\b",
     re.I,
 )
+_NEW_YORK_RE = re.compile(r"\bnew\s+york\b(?!\s+state)", re.I)
+_CITY_NEW_YORK_RE = re.compile(r"^\s*([^,;()]+?)\s*,\s*new\s+york\b", re.I)  # "Albany, New York"
 _NY_STATE_RE = re.compile(
     r"\b(?:new\s+york|ny|jersey\s+city|hoboken|newark|white\s+plains|westchester|stamford)\b", re.I
 )
 _DC_FULL_RE = re.compile(
-    r"\b(?:washington\s*,?\s*d\.?\s?c\b|d\.c\.|dc|district\s+of\s+columbia|arlington|alexandria|bethesda|mclean"
+    r"\b(?:washington\s*,?\s*d\.?\s?c\b|d\.c|dc|district\s+of\s+columbia|arlington|alexandria|bethesda|mclean"
     r"|reston|tysons|chantilly|fairfax|herndon|falls\s+church|silver\s+spring|rockville|chevy\s+chase"
     r"|college\s+park|fort\s+meade|crystal\s+city|pentagon|national\s+harbor|suitland|greenbelt"
     r"|gaithersburg|dmv|national\s+capital\s+region)\b",
@@ -888,7 +891,7 @@ class Taxonomy:
     def load(cls, path: str | Path | None = None, profile: Profile | str | Path | None = None) -> Taxonomy:
         p = Path(path) if path else LANES_PATH
         loader = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
-        doc = yaml.load(p.read_text(encoding="utf-8"), Loader=loader) or {}  # noqa: S506 - safe loader
+        doc = yaml.load(p.read_text(encoding="utf-8"), Loader=loader) or {}  # (C)SafeLoader
         return cls.from_dict(doc, profile=load_profile(profile), path=p)
 
     @classmethod
@@ -1396,7 +1399,9 @@ class Taxonomy:
             full = LOC_FULL - min(rank, 2)
             for part in _loc_parts(loc):
                 if kind == "ny":
-                    if _NYC_FULL_RE.search(part):
+                    city = _CITY_NEW_YORK_RE.match(part)
+                    upstate = city is not None and not city.group(1).lower().startswith("new york")
+                    if _NYC_RE.search(part) or (_NEW_YORK_RE.search(part) and not upstate):
                         take(full, f"location: {name}")
                     elif _NY_STATE_RE.search(part):
                         take(LOC_PARTIAL, f"location: {name} (state)")
@@ -1482,9 +1487,7 @@ class Taxonomy:
         job.score = score
         job.entry_level = entry_level
         job.years_required = years
-        job.match_reasons = self._reasons(
-            results, employer, notes, entry_reasons, loc_reason, age, title_hits, body_hits
-        )
+        job.match_reasons = self._reasons(results, employer, notes, entry_reasons, loc_reason, age)
         return job
 
     def _reasons(
@@ -1495,8 +1498,6 @@ class Taxonomy:
         entry_reasons: list[str],
         loc_reason: str | None,
         age: int | None,
-        title_hits: dict[int, str],
-        body_hits: dict[int, str],
     ) -> list[str]:
         out: list[str] = []
         domain = [r for r in results if self._lane_list[r.li].group != ENTRY_GROUP]

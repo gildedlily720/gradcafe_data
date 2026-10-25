@@ -1,0 +1,6 @@
+# Profile wrapped in a top-level "profile:" key (also accepted); unknown keys are ignored.
+profile:
+  max_years_experience: 1
+  include_internships: true
+  preferred_locations: "London"
+  favourite_colour: "green"
