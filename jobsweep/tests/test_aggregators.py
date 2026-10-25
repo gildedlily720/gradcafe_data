@@ -587,22 +587,26 @@ def test_apify_actor_ids_and_inputs() -> None:
     assert other == {"query": "osint", "maxResults": 7, "location": "DC"}
 
 
-@respx.mock
 def test_apify_errors() -> None:
-    respx.post(APIFY_HC).respond(408, json={"error": {"type": "run-timeout-exceeded"}})
-    with pytest.raises(SourceError, match="300 s"):
-        run(ApifySource, lambda s: s.search(SearchQuery(keywords="x")))
-    route = respx.post(APIFY_HC).respond(401, json={"error": {"type": "user-or-token-not-found"}})
-    with pytest.raises(HTTPError) as err:
-        run(ApifySource, lambda s: s.search(SearchQuery(keywords="x")))
-    assert err.value.status == 401 and "apify-token" not in str(err.value)
-    assert route.call_count == 1  # paid run: never retried
-    respx.post(APIFY_HC).mock(side_effect=httpx.ConnectError("down"))
-    with pytest.raises(SourceError):
-        run(ApifySource, lambda s: s.search(SearchQuery(keywords="x")))
-    respx.post(APIFY_HC).respond(json={"items": [{"title": "Wrapped", "url": "https://x.example/1", "id": 9}]})
-    jobs = run(ApifySource, lambda s: s.search(SearchQuery(keywords="x")))
-    assert [j.source_id for j in jobs] == ["hiring-cafe:9"]
+    q = SearchQuery(keywords="x")
+    with respx.mock() as mock:
+        mock.post(APIFY_HC).respond(408, json={"error": {"type": "run-timeout-exceeded"}})
+        with pytest.raises(SourceError, match="300 s"):
+            run(ApifySource, lambda s: s.search(q))
+    with respx.mock() as mock:
+        route = mock.post(APIFY_HC).respond(500, json={"error": {"type": "internal-server-error"}})
+        with pytest.raises(HTTPError) as err:
+            run(ApifySource, lambda s: s.search(q))
+        assert err.value.status == 500 and "apify-token" not in str(err.value)
+        assert route.call_count == 1  # paid run: never retried
+    with respx.mock() as mock:
+        mock.post(APIFY_HC).mock(side_effect=httpx.ConnectError("down"))
+        with pytest.raises(SourceError):
+            run(ApifySource, lambda s: s.search(q))
+    with respx.mock() as mock:
+        mock.post(APIFY_HC).respond(json={"items": [{"title": "Wrapped", "url": "https://x.example/1", "id": 9}]})
+        jobs = run(ApifySource, lambda s: s.search(q))
+        assert [j.source_id for j in jobs] == ["hiring-cafe:9"]
 
 
 # ----------------------------------------------------------------------------------------------- live smoke
