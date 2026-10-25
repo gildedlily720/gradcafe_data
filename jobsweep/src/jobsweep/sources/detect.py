@@ -665,7 +665,7 @@ async def _fetch_page(ctx: SourceContext, url: str) -> tuple[str, str, list[str]
     """(final_url, html, redirect_chain_urls) or None on failure."""
     try:
         resp = await request(ctx.client, "GET", url, headers=_HTML_HEADERS, limiter=ctx.limiter, retries=1)
-    except HTTPError as exc:
+    except Exception as exc:  # noqa: BLE001 - HTTPError, invalid hop URLs, ...: scanning is best effort
         log.debug("scan %s: %s", url, exc)
         return None
     chain = [str(r.url) for r in resp.history]
