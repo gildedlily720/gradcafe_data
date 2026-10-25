@@ -144,6 +144,11 @@ def _as_list(value: Any) -> list[str]:
     return [_s(value)]
 
 
+def _today() -> date:
+    """Indirection so tests can pin 'today' (posted_within_days post-filter)."""
+    return date.today()
+
+
 def _date_part(value: Any) -> str | None:
     s = _s(value)
     if re.match(r"^\d{4}-\d{2}-\d{2}", s):
@@ -350,7 +355,7 @@ class USAJobsSource(Source):
         series = {s.zfill(4) for s in _as_list(extra.get("series"))}
         paths = {p.lower() for p in _as_list(extra.get("hiring_path"))}
         days = query.posted_within_days
-        since = (date.today() - timedelta(days=days)).isoformat() if days else None
+        since = (_today() - timedelta(days=days)).isoformat() if days else None
         limit = max(1, int(query.limit or 50))
         direct = self.direct(self.ctx.settings)
         # Post-filters (always applied; server-side too when direct) may discard results: fetch more.
