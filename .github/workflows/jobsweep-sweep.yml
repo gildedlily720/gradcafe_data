@@ -233,7 +233,7 @@ jobs:
       - name: Save state to the state branch
         run: |
           jobsweep state prune --days 120 || true
-          jobsweep state export "$RUNNER_TEMP/state.json.gz" --max-description 4000
+          jobsweep state export "$RUNNER_TEMP/state.json.gz" --max-description 20000
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           wt="$RUNNER_TEMP/state-wt"
