@@ -1,0 +1,84 @@
+name: Refresh JobSweep requirement screening
+on:
+  push:
+    paths: [".github/workflows/jobsweep-reclassify.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: jobsweep-sweep
+  cancel-in-progress: false
+env:
+  JOBSWEEP_DB: ${{ github.workspace }}/jobsweep/var/jobsweep.db
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+          activate-environment: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Apply verified requirement screening update
+        run: |
+          python - <<'PYCODE'
+          import base64, gzip, hashlib, json, subprocess
+          from pathlib import Path
+          expected, final = json.loads(base64.b64decode("W3siam9ic3dlZXAvc3JjL2pvYnN3ZWVwL2V4cGVyaWVuY2UucHkiOiBudWxsLCAiam9ic3dlZXAvc3JjL2pvYnN3ZWVwL3RheG9ub215LnB5IjogIjEzMTY0OTJmMGFkMzQ3OWQwMmZiNGJhYmFhZGJmN2YyOGFlZmYxYTEyZjU0ODg5OTkxYWE3NjhlZTQ4ODA2OGMiLCAiam9ic3dlZXAvc3JjL2pvYnN3ZWVwL21vZGVscy5weSI6ICIyNTZkMGFhMjI0YzFmNWY3OTNkY2M0OWY3MzBjNTZiOTY3N2U3ZWMyNDVjM2JjMzYzYWVmZTJhZjViZTk5NjJmIiwgImpvYnN3ZWVwL3NyYy9qb2Jzd2VlcC9zdWl0YWJpbGl0eS5weSI6ICI1YTMwMDZjMjg0ZTgxMmI4YTU0NTQyYjk1YmVhOTg3ZDBhMWJmZjIyZTYyOTM3ZGQ2NjcxZmFiZjU3NDI1ODI3IiwgImpvYnN3ZWVwL3Rlc3RzL3Rlc3RfZXhwZXJpZW5jZS5weSI6IG51bGwsICJqb2Jzd2VlcC90ZXN0cy90ZXN0X3RheG9ub215LnB5IjogImNmNDVkZDU0NzQ1YTMyODdkZmE1ZTZhNmY4NWUwMWFlOGU2M2JlNmUwN2JlZjQyZGZkZTVhYzViNGJlY2JmYzciLCAiLmdpdGh1Yi93b3JrZmxvd3Mvam9ic3dlZXAtc3dlZXAueW1sIjogIjk3ODhmZmM4MWJlY2JlYzkzMzkzOWQ0ODE5OWJkNmU0OWE3MTE3YzY1ZWQ3OTc0ZDc1MjlmODdiNDgzNTFhMDUifSwgeyJqb2Jzd2VlcC9zcmMvam9ic3dlZXAvZXhwZXJpZW5jZS5weSI6ICIyMGI2YTAzODg2YWNiY2Y4MTFiY2UwNTE2MTVhZjQ5MmE5MDVhNDczZWViNjIyZjlhNWExMmU4NDNkM2MwODc0IiwgImpvYnN3ZWVwL3NyYy9qb2Jzd2VlcC90YXhvbm9teS5weSI6ICJlNmJmY2ZmYjBmNDNkZGQ1MDg5MThhZmM1MzhiNzdkYjE5YzJjNmI5NWNjMzNhMzNjYmEwNzk4NDQ4NmZmOTU3IiwgImpvYnN3ZWVwL3NyYy9qb2Jzd2VlcC9tb2RlbHMucHkiOiAiZDA0NmE1NWVjYWRlYmYzNGNhMjFmMDAwMGNkNTRjNTVkMGNkOWFiOTAwOWZhNmRjMjg0MmMyN2IyM2I1MTkyOCIsICJqb2Jzd2VlcC9zcmMvam9ic3dlZXAvc3VpdGFiaWxpdHkucHkiOiAiNGRhYWQ5NDI3N2U2ODA4ZmMzMjFjNGIyMjIwNzJiZmJjNTcxNWI5MDE1YWZkNmM1MjRhZjE0OWMyOTliZTYxNiIsICJqb2Jzd2VlcC90ZXN0cy90ZXN0X2V4cGVyaWVuY2UucHkiOiAiMTI5NzA2Y2JkYTUwYmM3YTJhMjE4ZWIxNzUwMDE3MjIzZmRmMTRmZTZjN2YxN2FlNjg4NWE3ZGNiYzRlOTVlOCIsICJqb2Jzd2VlcC90ZXN0cy90ZXN0X3RheG9ub215LnB5IjogIjhmNzA5MzViZjFhMTc3MGY5NzEzNTNiM2Q2YTZlYzc2OGI1ZmQ2NTM1MTMyMzA0NjYxOTk1ODU5ZDEyMmRjYjUiLCAiLmdpdGh1Yi93b3JrZmxvd3Mvam9ic3dlZXAtc3dlZXAueW1sIjogImQ0ZTBjZWYyYWY1MmY0NDFlMDY2MWYxNDU3ZDBhYWMzMjg1ZmU1ZTU2Yzg2NzE5NGE1NGI5M2JkNWUxNGY1OWEifV0="))
+          actual = {name: hashlib.sha256(Path(name).read_bytes()).hexdigest() if Path(name).exists() else None for name in expected}
+          if actual != final:
+              if actual != expected:
+                  raise SystemExit("Source changed since review; refusing to overwrite")
+              patch = gzip.decompress(base64.b64decode("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"))
+              subprocess.run(["git", "apply", "--check", "-"], input=patch, check=True)
+              subprocess.run(["git", "apply", "-"], input=patch, check=True)
+          print("Reviewed requirement parsing source is ready")
+          PYCODE
+      - name: Install and check requirement parsing
+        working-directory: jobsweep
+        run: |
+          uv pip install -e '.[dev]'
+          ruff check src tests
+          ruff format --check src tests
+          pytest -q -m "not live"
+          node --test tests/*.cjs
+      - name: Commit tested source
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add jobsweep .github/workflows/jobsweep-sweep.yml
+          git diff --cached --quiet || git commit -m "Distinguish required experience, field requirements, alternatives, and sales roles"
+          git push origin HEAD:master
+      - name: Restore current state
+        run: |
+          git fetch --depth=1 origin jobsweep-state
+          git show origin/jobsweep-state:state.json.gz > "$RUNNER_TEMP/state.json.gz"
+          jobsweep state import "$RUNNER_TEMP/state.json.gz"
+      - name: Refresh screening without searches or changing application records
+        working-directory: jobsweep
+        run: |
+          python scripts/reclassify_board.py
+          jobsweep export --out "$RUNNER_TEMP/site"
+          jobsweep state export "$RUNNER_TEMP/updated-state.json.gz" --max-description 20000
+      - name: Save refreshed state
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git worktree add --detach "$RUNNER_TEMP/state-wt" origin/jobsweep-state
+          cp "$RUNNER_TEMP/updated-state.json.gz" "$RUNNER_TEMP/state-wt/state.json.gz"
+          git -C "$RUNNER_TEMP/state-wt" add state.json.gz
+          git -C "$RUNNER_TEMP/state-wt" diff --cached --quiet || git -C "$RUNNER_TEMP/state-wt" commit -m "Refresh experience requirements and role screening"
+          git -C "$RUNNER_TEMP/state-wt" push origin HEAD:jobsweep-state
+      - name: Publish refreshed board
+        run: |
+          cd "$RUNNER_TEMP/site"
+          git init -q -b gh-pages
+          git add -A
+          git commit -q -m "Refresh experience evidence and screening"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+        env:
+          GH_TOKEN: ${{ github.token }}
