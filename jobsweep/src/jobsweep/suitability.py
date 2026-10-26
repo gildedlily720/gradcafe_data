@@ -143,4 +143,20 @@ def assess_role(job: Job, profile: Profile) -> tuple[str, list[str]]:
         match = re.search(pattern, job.title or "", re.I)
         if match:
             return "excluded", ["Excluded job function in title: " + match.group(0)]
+    sales_title = re.search(
+        r"\b(?:business development|sales development|client solutions|investor relations|capital raising)\b",
+        job.title or "",
+        re.I,
+    )
+    sales_function = re.search(
+        r"(?:key|primary|main)\s+(?:function|purpose|focus|responsibility)[^.\n]{0,100}\b(?:business development|sales|fundraising|capital raising)\b|"
+        r"seeking a business development professional|\bmaintain a high level of prospecting activity\b",
+        job.description or "",
+        re.I,
+    )
+    if sales_title or sales_function:
+        evidence = (sales_title or sales_function).group(0)
+        return "excluded", [
+            "Client sales / business development rather than investigative research: " + evidence
+        ]
     return "eligible", []

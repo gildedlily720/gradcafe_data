@@ -68,7 +68,10 @@ class Job:
     score: float = 0.0  # overall fit 0..100
     lane_scores: dict[str, float] = field(default_factory=dict)  # lane id -> relevance score
     entry_level: bool | None = None  # True = entry/early-career fit, False = too senior, None = unclear
-    years_required: int | None = None  # minimum years of experience parsed from the text
+    years_required: float | None = None  # strongest mandatory minimum; None for unresolved alternatives
+    experience_requirements: list[dict[str, Any]] = field(default_factory=list)
+    experience_status: str = "not_assessed"
+    experience_version: int = 0
     match_reasons: list[str] = field(default_factory=list)  # short human readable explanations
     # Suitability is a separate evidence screen; no_flags/eligible never means all hiring criteria met.
     location_eligibility: str = "not_assessed"  # eligible | ineligible | review | not_assessed

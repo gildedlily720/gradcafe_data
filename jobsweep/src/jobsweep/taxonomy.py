@@ -33,6 +33,8 @@ from typing import Any
 import yaml
 
 from .config import CATALOG_DIR, Settings
+from .experience import VERSION as EXPERIENCE_VERSION
+from .experience import experience_flags, extract_experience
 from .models import Employer, Job, Profile, SearchQuery
 from .qualifications import assess_qualifications
 from .suitability import assess_location, assess_role
@@ -1344,7 +1346,7 @@ class Taxonomy:
     ) -> tuple[bool | None, int | None, list[str]]:
         prof = self.profile
         reasons: list[str] = []
-        years = parse_years_required(body_low, lowered=True)
+        years = job.years_required
         tags = {str(t).lower() for t in job.tags or []}
         etype = (job.employment_type or "").lower()
         level = str(job.extra.get("career_level") or "") if isinstance(job.extra, dict) else ""
@@ -1502,6 +1504,40 @@ class Taxonomy:
             self._lane_list[r.li].id for r in results if self._lane_list[r.li].group == ENTRY_GROUP
         ]
 
+        # State snapshots can truncate descriptions. Preserve evidence already extracted from
+        # the full posting; a newly fetched Job has version 0 and is always re-assessed.
+        if job.experience_version != EXPERIENCE_VERSION or not job.description.rstrip().endswith(
+            ("…", "...")
+        ):
+            audit = extract_experience(job.description)
+            if (
+                audit["experience_status"] == "incomplete"
+                and job.years_required is not None
+                and job.experience_version != EXPERIENCE_VERSION
+                and job.description.rstrip().endswith(("…", "..."))
+            ):
+                audit["years_required"] = job.years_required
+                audit["experience_requirements"].append(
+                    {
+                        "min_years": job.years_required,
+                        "level": "unverified",
+                        "scope": [],
+                        "strictly_more": False,
+                        "evidence": "Previously extracted minimum; the retained description is too short to verify its wording or field.",
+                    }
+                )
+            for key, value in audit.items():
+                setattr(job, key, value)
+        else:
+            audit = {
+                key: getattr(job, key)
+                for key in (
+                    "years_required",
+                    "experience_requirements",
+                    "experience_status",
+                    "experience_version",
+                )
+            }
         entry_level, years, entry_reasons = self._entry(job, title, body.low, entry_lanes)
         loc_pts, loc_reason = self._location(job)
         rec_pts, age = self._recency(job.posted_at, now)
@@ -1532,6 +1568,10 @@ class Taxonomy:
             if self.profile.screen_qualifications
             else ("not_assessed", [])
         )
+        if self.profile.screen_qualifications:
+            job.qualification_checks.extend(experience_flags(audit))
+            if any(check["status"] == "review" for check in job.qualification_checks):
+                job.qualification_status = "review"
         if self.profile.screen_qualifications and any("bank AVP grade" in r for r in entry_reasons):
             job.qualification_checks.append(
                 {
@@ -1836,35 +1876,9 @@ def _year_positions(low: str) -> list[tuple[int, int]]:
     return out
 
 
-def parse_years_required(text: str | None, *, lowered: bool = False) -> int | None:
-    """Minimum years of experience asked for ('3+ years', 'at least two (2) years', '5-7 years')."""
-    if not text:
-        return None
-    low = text if lowered else normalize_text(text).lower()
-    if "year" not in low and "yr" not in low:
-        return None
-    found: list[int] = []
-    for s, e in _year_positions(low):
-        before = low[max(0, s - 48) : s]
-        nm = _YEARS_BEFORE_RE.search(before)
-        if not nm:
-            continue
-        n = _num(nm.group("a"))
-        if n is None or n > _MAX_YEARS:
-            continue
-        after = low[e : e + 90]
-        if _YEARS_AFTER_BAD_RE.match(after):
-            continue
-        pre = low[max(0, s - 48 - 40) : s - len(nm.group(0))]
-        pre_tail = pre[-32:]
-        if _YEARS_PRE_BAD_RE.search(pre_tail):
-            continue
-        if not (_YEARS_AFTER_OK_RE.match(after) or _YEARS_PRE_OK_RE.search(pre_tail)):
-            continue
-        found.append(n)
-        if len(found) >= 3:
-            break
-    return min(found) if found else None
+def parse_years_required(text: str | None, *, lowered: bool = False) -> float | None:
+    """Strongest mandatory minimum; preferred figures and unresolved alternatives are not minima."""
+    return extract_experience(text)["years_required"]
 
 
 __all__ = [

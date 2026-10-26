@@ -544,7 +544,7 @@ def test_description_only_evidence_needs_more_than_one_phrase(tax: Taxonomy) -> 
         ("3 to 5 years' experience in the London market", 3),
         ("Experience: minimum 4 years in a compliance role", 4),
         ("one year of specialized experience equivalent to the GS-07 level", 1),
-        ("Bachelor's degree and 2 years of experience; or a Master's degree and 1 year of experience", 1),
+        ("Bachelor's degree and 2 years of experience; or a Master's degree and 1 year of experience", None),
         ("Candidates must be at least 18 years old.", None),
         ("For more than 20 years, our firm has advised clients.", None),
         ("Founded 25 years ago, we have offices worldwide.", None),
