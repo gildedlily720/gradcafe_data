@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T19:22",
+ "updated": "2026-10-27T19:26",
  "max_linkedin_job_id_seen": 4484236026,
  "notes": "LinkedIn IDs are sequential; anything above max_linkedin_job_id_seen was created after the last check. Keys: linkedin:<id>, glassdoor:<listingId>, or key:<employer>|<title>|<location>.",
  "items": [
@@ -122784,7 +122784,7 @@
    "lane": "Entry routes",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483157999/"
   },
   {
@@ -122808,7 +122808,7 @@
    "lane": "Entry routes",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4482637140/"
   },
   {
@@ -122820,7 +122820,7 @@
    "lane": "Entry routes",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4482621562/"
   },
   {
@@ -122844,7 +122844,7 @@
    "lane": "Entry routes",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 4 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4442867930/"
   },
   {
@@ -122856,7 +122856,7 @@
    "lane": "Entry routes",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4473876234/"
   },
   {
@@ -122940,7 +122940,7 @@
    "lane": "Entry routes",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 hour ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4480115843/"
   },
   {
@@ -122976,7 +122976,7 @@
    "lane": "Entry routes",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483177895/"
   },
   {
@@ -123000,7 +123000,7 @@
    "lane": "Entry routes",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 2 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4457391810/"
   },
   {
@@ -123372,7 +123372,7 @@
    "lane": "Government",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 hour ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4482224239/"
   },
   {
@@ -123384,7 +123384,7 @@
    "lane": "Government",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4481050541/"
   },
   {
@@ -123792,7 +123792,7 @@
    "lane": "Government",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 9 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4473693183/"
   },
   {
@@ -124044,7 +124044,7 @@
    "lane": "Government",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 hour ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4484212424/"
   },
   {
@@ -124068,7 +124068,7 @@
    "lane": "Government",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4482100593/"
   },
   {
@@ -124080,7 +124080,7 @@
    "lane": "Government",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 hour ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4484207564/"
   },
   {
@@ -124092,7 +124092,7 @@
    "lane": "Government",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4475030997/"
   },
   {
@@ -124104,7 +124104,7 @@
    "lane": "Government",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4475030998/"
   },
   {
@@ -124368,7 +124368,7 @@
    "lane": "Government",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4448681018/"
   },
   {
@@ -125388,7 +125388,7 @@
    "lane": "Intelligence and security",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 day ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4481459232/"
   },
   {
@@ -125400,7 +125400,7 @@
    "lane": "Intelligence and security",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483148976/"
   },
   {
@@ -125484,7 +125484,7 @@
    "lane": "Intelligence and security",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 2 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4481896674/"
   },
   {
@@ -125688,7 +125688,7 @@
    "lane": "Intelligence and security",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 22 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483256331/"
   },
   {
@@ -125940,7 +125940,7 @@
    "lane": "Intelligence and security",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 day ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483580160/"
   },
   {
@@ -126024,7 +126024,7 @@
    "lane": "Intelligence and security",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4482335036/"
   },
   {
@@ -127632,7 +127632,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 day ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4470897740/"
   },
   {
@@ -127812,7 +127812,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "Oct 27 section A borderline",
    "url": "https://www.linkedin.com/jobs/view/4481969546/"
   },
   {
@@ -127872,7 +127872,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4464272059/"
   },
   {
@@ -127956,7 +127956,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 2 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4484204132/"
   },
   {
@@ -127968,7 +127968,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483163610/"
   },
   {
@@ -128100,7 +128100,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 2 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483382911/"
   },
   {
@@ -128112,7 +128112,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 19 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483772291/"
   },
   {
@@ -128124,7 +128124,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 hour ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4482223070/"
   },
   {
@@ -128280,7 +128280,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 2 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4457365291/"
   },
   {
@@ -128352,7 +128352,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483138905/"
   },
   {
@@ -128364,7 +128364,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 day ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4480689305/"
   },
   {
@@ -128376,7 +128376,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 7 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483640124/"
   },
   {
@@ -128388,7 +128388,7 @@
    "lane": "Policy and research",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 7 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483636313/"
   },
   {
@@ -131652,7 +131652,7 @@
    "lane": "Strategic communications",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 4 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4481933503/"
   },
   {
@@ -131724,7 +131724,7 @@
    "lane": "Strategic communications",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 hour ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4482205771/"
   },
   {
@@ -131760,7 +131760,7 @@
    "lane": "Strategic communications",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 day ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483228663/"
   },
   {
@@ -131772,7 +131772,7 @@
    "lane": "Strategic communications",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 4 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4480691147/"
   },
   {
@@ -131796,7 +131796,7 @@
    "lane": "Strategic communications",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 21 minutes ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4484068437/"
   },
   {
@@ -131868,7 +131868,7 @@
    "lane": "Strategic communications",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4410771974/"
   },
   {
@@ -132228,7 +132228,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 day ago",
-   "status": "swept",
+   "status": "Oct 27 section A borderline",
    "url": "https://www.linkedin.com/jobs/view/4483244306/"
   },
   {
@@ -132300,7 +132300,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483193906/"
   },
   {
@@ -132312,7 +132312,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 58 minutes ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4482206982/"
   },
   {
@@ -132348,7 +132348,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4473377611/"
   },
   {
@@ -132444,7 +132444,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 19 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483267579/"
   },
   {
@@ -132456,7 +132456,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4480699340/"
   },
   {
@@ -132504,7 +132504,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 6 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4484056326/"
   },
   {
@@ -132516,7 +132516,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4429794805/"
   },
   {
@@ -132528,7 +132528,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 14 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4484000831/"
   },
   {
@@ -132588,7 +132588,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4473169010/"
   },
   {
@@ -132612,7 +132612,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 7 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4481866982/"
   },
   {
@@ -132660,7 +132660,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 2 hours ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4475888331/"
   },
   {
@@ -132684,7 +132684,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 day ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4481460407/"
   },
   {
@@ -132720,7 +132720,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 day ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483710889/"
   },
   {
@@ -132732,7 +132732,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 hour ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4484218134/"
   },
   {
@@ -132828,7 +132828,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 3 days ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4481955257/"
   },
   {
@@ -132912,7 +132912,7 @@
    "lane": "Trust and safety",
    "first_seen": "2026-10-27T19:02",
    "evidence": "linkedin 1 hour ago",
-   "status": "swept",
+   "status": "noted Oct 27 section A (off-level, off-lane, contract, out of area or re-listed)",
    "url": "https://www.linkedin.com/jobs/view/4483671475/"
   },
   {
