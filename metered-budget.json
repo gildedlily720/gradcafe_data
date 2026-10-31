@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "reservations": [
+    {
+      "day": "2026-10-25",
+      "source": "theirstack",
+      "units": 6,
+      "id": "3604d74c9a5a941ab6b872ce0b948615f58b3e2818471fa638d2577e90cf241c"
+    },
+    {
+      "day": "2026-10-25",
+      "source": "hasdata_indeed",
+      "units": 30,
+      "id": "a5f3174627c4d0dfb02598b9164aca3ce4714bdf2419ae3b80fa0d090ee4513b"
+    },
+    {
+      "day": "2026-10-25",
+      "source": "apify",
+      "units": 8,
+      "id": "0d9944bf8af3c701469784e511fdf995e17992e45097985f5609c69d61073200"
+    },
+    {
+      "day": "2026-10-26",
+      "source": "theirstack",
+      "units": 6,
+      "id": "407c170c2e909c85635862f510f9662c22d2a1b05171c38c04cff060d7be0417"
+    },
+    {
+      "day": "2026-10-26",
+      "source": "hasdata_indeed",
+      "units": 30,
+      "id": "028435c1d9691fe951895dd44cedeadd92e3b33b98e127aba77c70c40b21688e"
+    },
+    {
+      "day": "2026-10-26",
+      "source": "apify",
+      "units": 8,
+      "id": "51578b733c9dd4bdfdaecf805bb80f6506819e736b1ffb903d1b14136441b968"
+    },
+    {
+      "day": "2026-10-27",
+      "source": "theirstack",
+      "units": 6,
+      "id": "0815323c6263cb5e80af13f650fbcb922e7d99ec83fbd51de77765c1e8896161"
+    },
+    {
+      "day": "2026-10-27",
+      "source": "hasdata_indeed",
+      "units": 30,
+      "id": "bd4547e861af11b84ed52a06a142f6c9cb088c1ee6614d9695c1766e1d763299"
+    },
+    {
+      "day": "2026-10-27",
+      "source": "apify",
+      "units": 8,
+      "id": "4e2aeae3302a8d5487fa45c63377490752627ec2c0245bb4c43201d35f5f10d7"
+    },
+    {
+      "day": "2026-10-28",
+      "source": "theirstack",
+      "units": 6,
+      "id": "7bafface6d68f53612e543b8cab2134c56bec8daba736a54212a72dfcc11180f"
+    },
+    {
+      "day": "2026-10-28",
+      "source": "hasdata_indeed",
+      "units": 30,
+      "id": "a10b0f7bc4d15884de5d8a102c4218d32ddeee81d3aa58729a4e42b8120d9055"
+    },
+    {
+      "day": "2026-10-28",
+      "source": "apify",
+      "units": 8,
+      "id": "a31d360061f5769ba1b110846097f741948d8a4d3bea6a7fd32ed09b49e058db"
+    },
+    {
+      "day": "2026-10-29",
+      "source": "theirstack",
+      "units": 6,
+      "id": "5d1f1af75f3f2f9452ed4d469d950b4d23e690d2bce5f1ccffebfe325fac9bff"
+    },
+    {
+      "day": "2026-10-29",
+      "source": "hasdata_indeed",
+      "units": 30,
+      "id": "e268d79fcc3256025225eb90cde0b4242992aa93c65d1bb2c177769c88ba9221"
+    },
+    {
+      "day": "2026-10-29",
+      "source": "apify",
+      "units": 8,
+      "id": "1a35c980036a8e0cb3629ca291ab6605591b0285f8e61a2b09f095ca12ef63d2"
+    },
+    {
+      "day": "2026-10-30",
+      "source": "theirstack",
+      "units": 6,
+      "id": "518245aed6697efb276e650a4108e6c8faebda25a398b0a63064648d7ea3160e"
+    },
+    {
+      "day": "2026-10-30",
+      "source": "hasdata_indeed",
+      "units": 30,
+      "id": "1df0a23aa76cc7781d40a72e20fc5182befa358a8678ee7c5f843b1d35941c75"
+    },
+    {
+      "day": "2026-10-30",
+      "source": "apify",
+      "units": 8,
+      "id": "e5b988872574b671f4fe7cf743e04c9e18ee8243effb64949bd840ab8701c9f0"
+    },
+    {
+      "day": "2026-10-31",
+      "source": "theirstack",
+      "units": 6,
+      "id": "6859e6231b11ac0ca06a537b032efff34bf9b5e0721e45816ec0a10afe8e2bf4"
+    },
+    {
+      "day": "2026-10-31",
+      "source": "hasdata_indeed",
+      "units": 30,
+      "id": "f72714dae64ee6b9283808af47c0adb0a6871ce8e6e2f74a69b53776b1ed2795"
+    },
+    {
+      "day": "2026-10-31",
+      "source": "apify",
+      "units": 8,
+      "id": "8bcc41504ff8a91f0f5935f10d14877cc34219ff62cc20d92be928a7e3fec502"
+    }
+  ],
+  "cursors": {
+    "theirstack": 7,
+    "hasdata_indeed": 21,
+    "apify": 7
+  }
+}
