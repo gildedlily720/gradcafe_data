@@ -1,0 +1,1486 @@
+{
+ "groups": [
+  {
+   "id": "specialty-insurance",
+   "name": "Specialty insurance (underwriting and broking)",
+   "active": true,
+   "lanes": [
+    {
+     "id": "political-risk",
+     "name": "Political risk (incl. credit and political risk)",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "political risk underwriter",
+      "credit and political risk underwriting assistant",
+      "political risk insurance analyst",
+      "credit political risk associate",
+      "political risk insurance broker",
+      "political risk insurance"
+     ],
+     "count": 917
+    },
+    {
+     "id": "political-violence-terrorism",
+     "name": "Political violence and terrorism",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "political violence underwriter",
+      "terrorism political violence underwriting assistant",
+      "political violence insurance",
+      "terrorism insurance analyst",
+      "PV terrorism underwriter"
+     ],
+     "count": 152
+    },
+    {
+     "id": "war-risk",
+     "name": "War risk",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "war risk underwriter",
+      "marine war underwriting assistant",
+      "war and terrorism underwriter",
+      "war risks insurance",
+      "aviation war underwriter",
+      "hull war underwriter"
+     ],
+     "count": 49
+    },
+    {
+     "id": "kidnap-ransom",
+     "name": "Kidnap and ransom, extortion and crisis management",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "kidnap ransom crisis management",
+      "K&R underwriter",
+      "kidnap and ransom insurance",
+      "crisis management underwriter",
+      "special crime underwriting assistant",
+      "crisis response consultant"
+     ],
+     "count": 129
+    },
+    {
+     "id": "special-risks",
+     "name": "Special risks",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "special risks underwriter",
+      "contingency underwriter",
+      "event cancellation insurance",
+      "special risks underwriting assistant",
+      "personal accident special risks",
+      "accident and health underwriter"
+     ],
+     "count": 76
+    },
+    {
+     "id": "trade-credit-surety",
+     "name": "Trade credit, surety and credit analysis (incl. maritime and shipping finance)",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "trade credit underwriter",
+      "surety underwriter trainee",
+      "credit insurance analyst",
+      "shipping finance analyst",
+      "trade credit risk analyst",
+      "surety bond analyst",
+      "junior credit analyst shipping finance"
+     ],
+     "count": 982
+    },
+    {
+     "id": "transactional-liability",
+     "name": "Transactional liability (reps and warranties, M&A)",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "transactional risk insurance",
+      "W&I underwriting assistant",
+      "representations and warranties insurance analyst",
+      "transactional risk analyst",
+      "M&A insurance associate",
+      "tax insurance underwriter"
+     ],
+     "count": 180
+    },
+    {
+     "id": "financial-lines",
+     "name": "Financial lines and management liability",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "D&O underwriter",
+      "management liability underwriting assistant",
+      "financial lines analyst",
+      "professional liability underwriter trainee",
+      "financial institutions underwriter",
+      "financial lines broker",
+      "executive risk underwriting associate"
+     ],
+     "count": 1285
+    },
+    {
+     "id": "fine-art-specie",
+     "name": "Fine art, specie and jewelers block",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "fine art and specie underwriter",
+      "fine art insurance",
+      "specie underwriting assistant",
+      "jewelers block insurance",
+      "cash in transit insurance",
+      "fine art insurance broker"
+     ],
+     "count": 38
+    },
+    {
+     "id": "intangibles",
+     "name": "Intangibles",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "intangible assets insurance",
+      "intellectual property insurance analyst",
+      "IP solutions analyst",
+      "IP valuation analyst",
+      "intangibles underwriter"
+     ],
+     "count": 2
+    },
+    {
+     "id": "aviation",
+     "name": "Aviation",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "aviation underwriter",
+      "aviation insurance underwriting assistant",
+      "aviation insurance broker",
+      "aerospace insurance analyst",
+      "aviation underwriting trainee"
+     ],
+     "count": 342
+    },
+    {
+     "id": "marine-cargo",
+     "name": "Marine, cargo and maritime",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "marine cargo underwriter",
+      "marine underwriting assistant",
+      "marine insurance broker",
+      "hull and machinery underwriter",
+      "P&I club graduate",
+      "maritime intelligence analyst",
+      "marine insurance trainee"
+     ],
+     "count": 819
+    },
+    {
+     "id": "reinsurance-broking",
+     "name": "Reinsurance and specialty broking",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "reinsurance broker graduate",
+      "reinsurance analyst",
+      "treaty reinsurance analyst",
+      "facultative reinsurance",
+      "specialty broking graduate",
+      "reinsurance broking associate",
+      "Lloyd's broker trainee",
+      "wholesale broking assistant"
+     ],
+     "count": 713
+    },
+    {
+     "id": "insurance-fraud-siu",
+     "name": "Insurance fraud investigation (SIU)",
+     "active": true,
+     "group": "specialty-insurance",
+     "queries": [
+      "SIU investigator",
+      "special investigations unit analyst",
+      "insurance fraud investigator entry level",
+      "claims fraud analyst",
+      "healthcare fraud investigator",
+      "insurance fraud analyst"
+     ],
+     "count": 291
+    }
+   ],
+   "count": 2543
+  },
+  {
+   "id": "intelligence-security",
+   "name": "Intelligence and security",
+   "active": true,
+   "lanes": [
+    {
+     "id": "strategic-intelligence",
+     "name": "Risk, security and strategic intelligence",
+     "active": true,
+     "group": "intelligence-security",
+     "queries": [
+      "intelligence analyst entry level",
+      "strategic intelligence analyst",
+      "risk intelligence analyst",
+      "security intelligence analyst",
+      "global intelligence analyst",
+      "junior intelligence analyst",
+      "intelligence associate",
+      "all source intelligence analyst"
+     ],
+     "count": 1113
+    },
+    {
+     "id": "threat-intelligence",
+     "name": "Threat intelligence and threat analysis",
+     "active": true,
+     "group": "intelligence-security",
+     "queries": [
+      "threat intelligence analyst",
+      "threat analyst entry level",
+      "threat assessment analyst",
+      "threat intelligence associate",
+      "threat investigator",
+      "physical threat intelligence analyst",
+      "junior threat intelligence analyst"
+     ],
+     "count": 423
+    },
+    {
+     "id": "protective-intelligence",
+     "name": "Protective intelligence and executive protection",
+     "active": true,
+     "group": "intelligence-security",
+     "queries": [
+      "protective intelligence analyst",
+      "executive protection coordinator",
+      "executive protection analyst",
+      "protective intelligence associate",
+      "executive protection specialist",
+      "protective operations analyst"
+     ],
+     "count": 152
+    },
+    {
+     "id": "travel-risk-crisis",
+     "name": "Travel risk and crisis response",
+     "active": true,
+     "group": "intelligence-security",
+     "queries": [
+      "travel risk analyst",
+      "travel security coordinator",
+      "crisis response coordinator",
+      "travel risk management associate",
+      "assistance coordinator security",
+      "crisis management analyst"
+     ],
+     "count": 63
+    },
+    {
+     "id": "gsoc-watch",
+     "name": "GSOC, global security operations and watch officer roles",
+     "active": true,
+     "group": "intelligence-security",
+     "queries": [
+      "GSOC analyst",
+      "GSOC operator",
+      "global security operations center analyst",
+      "watch officer",
+      "security operations center operator physical security",
+      "intelligence watch analyst",
+      "global security operations specialist"
+     ],
+     "count": 189
+    },
+    {
+     "id": "corporate-security",
+     "name": "Corporate security (non-cyber) and security risk analysis",
+     "active": true,
+     "group": "intelligence-security",
+     "queries": [
+      "corporate security analyst",
+      "security risk analyst",
+      "physical security analyst",
+      "global security analyst",
+      "security risk management associate",
+      "corporate security coordinator",
+      "business continuity analyst"
+     ],
+     "count": 279
+    },
+    {
+     "id": "osint",
+     "name": "OSINT and open-source investigations",
+     "active": true,
+     "group": "intelligence-security",
+     "queries": [
+      "OSINT analyst",
+      "open source intelligence analyst",
+      "open source investigator",
+      "OSINT researcher entry level",
+      "digital investigations analyst",
+      "online investigations analyst",
+      "open source researcher"
+     ],
+     "count": 539
+    },
+    {
+     "id": "counterterrorism",
+     "name": "Counterterrorism and counter-extremism",
+     "active": true,
+     "group": "intelligence-security",
+     "queries": [
+      "counterterrorism analyst",
+      "counter extremism researcher",
+      "terrorism research assistant",
+      "countering violent extremism program",
+      "violent extremism analyst",
+      "counter terrorism research associate"
+     ],
+     "count": 209
+    },
+    {
+     "id": "regional-research-specialist",
+     "name": "Regional research specialist roles at government research contractors",
+     "active": true,
+     "group": "intelligence-security",
+     "queries": [
+      "regional research specialist",
+      "regional analyst middle east",
+      "country analyst",
+      "foreign media analyst",
+      "sociocultural analyst",
+      "regional research analyst clearance",
+      "language analyst research"
+     ],
+     "count": 304
+    },
+    {
+     "id": "defense-intel-data",
+     "name": "Defense tech and intelligence data firms",
+     "active": true,
+     "group": "intelligence-security",
+     "queries": [
+      "geospatial intelligence analyst",
+      "defense analyst entry level",
+      "imagery analyst",
+      "intelligence data analyst",
+      "national security analyst defense tech",
+      "GEOINT analyst",
+      "mission analyst defense",
+      "deployment strategist"
+     ],
+     "count": 881
+    }
+   ],
+   "count": 2187
+  },
+  {
+   "id": "investigations-dd",
+   "name": "Investigations and due diligence",
+   "active": true,
+   "lanes": [
+    {
+     "id": "corporate-intelligence",
+     "name": "Corporate intelligence and investigative research",
+     "active": true,
+     "group": "investigations-dd",
+     "queries": [
+      "investigative research analyst",
+      "corporate investigations analyst",
+      "investigations associate",
+      "corporate intelligence analyst",
+      "investigative analyst entry level",
+      "junior investigator research",
+      "investigations analyst"
+     ],
+     "count": 647
+    },
+    {
+     "id": "due-diligence",
+     "name": "Due diligence and enhanced due diligence",
+     "active": true,
+     "group": "investigations-dd",
+     "queries": [
+      "due diligence analyst",
+      "enhanced due diligence analyst",
+      "integrity due diligence researcher",
+      "due diligence research associate",
+      "third party due diligence analyst",
+      "junior due diligence analyst",
+      "reputational due diligence"
+     ],
+     "count": 476
+    },
+    {
+     "id": "beneficial-ownership",
+     "name": "Beneficial ownership research",
+     "active": true,
+     "group": "investigations-dd",
+     "queries": [
+      "beneficial ownership analyst",
+      "beneficial ownership research",
+      "corporate ownership researcher",
+      "UBO analyst",
+      "entity research analyst",
+      "ownership data analyst"
+     ],
+     "count": 34
+    },
+    {
+     "id": "fraud-investigations",
+     "name": "Fraud and counter-fraud investigations",
+     "active": true,
+     "group": "investigations-dd",
+     "queries": [
+      "fraud investigator entry level",
+      "fraud analyst",
+      "counter fraud analyst",
+      "fraud investigations analyst",
+      "anti-fraud specialist",
+      "fraud intelligence analyst",
+      "fraud examiner associate"
+     ],
+     "count": 188
+    },
+    {
+     "id": "forensic-investigations",
+     "name": "Forensic investigations",
+     "active": true,
+     "group": "investigations-dd",
+     "queries": [
+      "forensic accounting associate",
+      "forensic investigations analyst",
+      "forensic accountant entry level",
+      "digital forensics analyst",
+      "disputes and investigations associate",
+      "forensic technology analyst"
+     ],
+     "count": 134
+    },
+    {
+     "id": "law-firm-analyst",
+     "name": "Law firm analyst programs: white collar, asset recovery, international disputes, cybercrime",
+     "active": true,
+     "group": "investigations-dd",
+     "queries": [
+      "white collar analyst law firm",
+      "international arbitration analyst",
+      "law firm investigations analyst",
+      "legal analyst white collar",
+      "international disputes analyst",
+      "asset recovery analyst",
+      "case assistant law firm"
+     ],
+     "count": 61
+    },
+    {
+     "id": "litigation-case-analyst",
+     "name": "Litigation and case analyst roles",
+     "active": true,
+     "group": "investigations-dd",
+     "queries": [
+      "litigation analyst",
+      "litigation paralegal entry level",
+      "case analyst legal",
+      "litigation support analyst",
+      "legal assistant litigation recent graduate",
+      "trial preparation assistant",
+      "discovery analyst"
+     ],
+     "count": 193
+    },
+    {
+     "id": "public-defense-investigation",
+     "name": "Public defense investigation",
+     "active": true,
+     "group": "investigations-dd",
+     "queries": [
+      "public defender investigator",
+      "defense investigator",
+      "mitigation specialist",
+      "criminal defense investigator entry level",
+      "legal aid investigator",
+      "investigator public defense"
+     ],
+     "count": 37
+    },
+    {
+     "id": "nonprofit-grant-dd",
+     "name": "Nonprofit and grant due diligence",
+     "active": true,
+     "group": "investigations-dd",
+     "queries": [
+      "grants compliance associate",
+      "grantee due diligence",
+      "grants management associate",
+      "nonprofit due diligence analyst",
+      "equivalency determination",
+      "grants analyst foundation"
+     ],
+     "count": 6
+    }
+   ],
+   "count": 1374
+  },
+  {
+   "id": "geopolitical-risk",
+   "name": "Geopolitical and political risk",
+   "active": true,
+   "lanes": [
+    {
+     "id": "country-sovereign-risk",
+     "name": "Political, country and sovereign risk",
+     "active": true,
+     "group": "geopolitical-risk",
+     "queries": [
+      "political risk analyst",
+      "country risk analyst",
+      "sovereign risk analyst",
+      "political risk research associate",
+      "sovereign analyst emerging markets",
+      "political risk consultant junior"
+     ],
+     "count": 202
+    },
+    {
+     "id": "geopolitical-analysis",
+     "name": "Geopolitical and global risk analysis",
+     "active": true,
+     "group": "geopolitical-risk",
+     "queries": [
+      "geopolitical analyst",
+      "geopolitical risk analyst",
+      "global risk analyst",
+      "geopolitical research associate",
+      "junior geopolitical analyst",
+      "geopolitical intelligence analyst",
+      "global affairs analyst"
+     ],
+     "count": 481
+    },
+    {
+     "id": "political-forecasting",
+     "name": "Political analysis and forecasting",
+     "active": true,
+     "group": "geopolitical-risk",
+     "queries": [
+      "political analyst",
+      "political research analyst",
+      "forecasting research analyst",
+      "election analyst",
+      "political intelligence analyst",
+      "Washington policy analyst",
+      "polling analyst entry level"
+     ],
+     "count": 148
+    },
+    {
+     "id": "geoeconomics",
+     "name": "Geoeconomics",
+     "active": true,
+     "group": "geopolitical-risk",
+     "queries": [
+      "geoeconomics research assistant",
+      "economic statecraft",
+      "trade policy analyst",
+      "international economics research assistant",
+      "geoeconomics analyst",
+      "international trade policy research associate"
+     ],
+     "count": 255
+    },
+    {
+     "id": "economic-security",
+     "name": "Economic security and resiliency research",
+     "active": true,
+     "group": "geopolitical-risk",
+     "queries": [
+      "economic security research assistant",
+      "economic security analyst",
+      "supply chain resilience research",
+      "research security analyst",
+      "CFIUS analyst",
+      "critical minerals research analyst"
+     ],
+     "count": 72
+    },
+    {
+     "id": "supply-chain-forced-labor",
+     "name": "Supply chain risk and forced labor",
+     "active": true,
+     "group": "geopolitical-risk",
+     "queries": [
+      "supply chain risk analyst",
+      "forced labor research analyst",
+      "supply chain due diligence analyst",
+      "responsible sourcing analyst",
+      "supply chain intelligence analyst",
+      "UFLPA compliance analyst",
+      "human rights due diligence analyst"
+     ],
+     "count": 137
+    },
+    {
+     "id": "risk-consulting",
+     "name": "Risk consulting and advisory",
+     "active": true,
+     "group": "geopolitical-risk",
+     "queries": [
+      "risk consulting analyst",
+      "risk advisory associate",
+      "risk consultant entry level",
+      "strategic risk consultant",
+      "security risk consultant",
+      "risk advisory analyst graduate"
+     ],
+     "count": 482
+    },
+    {
+     "id": "primary-research-expert-networks",
+     "name": "Custom and primary research, expert networks",
+     "active": true,
+     "group": "geopolitical-risk",
+     "queries": [
+      "expert network associate",
+      "primary research associate",
+      "custom research analyst",
+      "expert network research associate",
+      "client service associate expert network",
+      "AlphaSights associate"
+     ],
+     "count": 393
+    },
+    {
+     "id": "investment-research-dd",
+     "name": "Research and due diligence for investment firms (PE, hedge funds, M&A, fundamental research programs)",
+     "active": true,
+     "group": "geopolitical-risk",
+     "queries": [
+      "investment research analyst",
+      "commercial due diligence analyst",
+      "fundamental research analyst program",
+      "hedge fund research analyst entry level",
+      "private equity research associate",
+      "M&A analyst",
+      "alternative data research analyst"
+     ],
+     "count": 1082
+    }
+   ],
+   "count": 1902
+  },
+  {
+   "id": "sanctions-fincrime",
+   "name": "Sanctions, export controls and financial crime",
+   "active": true,
+   "lanes": [
+    {
+     "id": "sanctions",
+     "name": "Sanctions research and investigations",
+     "active": true,
+     "group": "sanctions-fincrime",
+     "queries": [
+      "sanctions analyst",
+      "sanctions compliance analyst entry level",
+      "sanctions research analyst",
+      "sanctions investigator",
+      "sanctions screening analyst",
+      "OFAC compliance analyst",
+      "sanctions policy research assistant"
+     ],
+     "count": 866
+    },
+    {
+     "id": "export-controls",
+     "name": "Export controls and export compliance",
+     "active": true,
+     "group": "sanctions-fincrime",
+     "queries": [
+      "export compliance analyst",
+      "export controls analyst",
+      "trade compliance analyst entry level",
+      "export control research assistant",
+      "nonproliferation research assistant",
+      "export licensing specialist",
+      "trade compliance associate"
+     ],
+     "count": 53
+    },
+    {
+     "id": "aml-kyc",
+     "name": "AML and KYC investigations",
+     "active": true,
+     "group": "sanctions-fincrime",
+     "queries": [
+      "AML analyst entry level",
+      "KYC analyst",
+      "AML investigator",
+      "financial crimes analyst",
+      "transaction monitoring analyst",
+      "BSA AML analyst",
+      "client onboarding KYC analyst",
+      "anti money laundering investigations analyst"
+     ],
+     "count": 1951
+    },
+    {
+     "id": "fincrime-intelligence",
+     "name": "Financial crime risk analysis and financial intelligence",
+     "active": true,
+     "group": "sanctions-fincrime",
+     "queries": [
+      "financial intelligence analyst",
+      "financial crime risk analyst",
+      "FIU analyst",
+      "financial crime intelligence analyst",
+      "financial crimes risk assessment analyst",
+      "financial intelligence unit associate"
+     ],
+     "count": 1127
+    },
+    {
+     "id": "illicit-finance",
+     "name": "Illicit finance",
+     "active": true,
+     "group": "sanctions-fincrime",
+     "queries": [
+      "illicit finance analyst",
+      "illicit finance research associate",
+      "counter threat finance analyst",
+      "terrorist financing analyst",
+      "anti-corruption research assistant",
+      "kleptocracy research",
+      "transnational organized crime analyst"
+     ],
+     "count": 103
+    },
+    {
+     "id": "crypto-investigations",
+     "name": "Crypto and blockchain investigations",
+     "active": true,
+     "group": "sanctions-fincrime",
+     "queries": [
+      "blockchain investigator",
+      "crypto investigations analyst",
+      "blockchain intelligence analyst",
+      "cryptocurrency investigator entry level",
+      "on-chain analyst",
+      "crypto compliance analyst",
+      "blockchain analytics investigator"
+     ],
+     "count": 401
+    },
+    {
+     "id": "investigative-compliance",
+     "name": "Investigative compliance roles",
+     "active": true,
+     "group": "sanctions-fincrime",
+     "queries": [
+      "compliance investigations analyst",
+      "compliance investigator",
+      "ethics and compliance investigations analyst",
+      "compliance analyst investigations entry level",
+      "internal investigations analyst",
+      "conduct investigations analyst"
+     ],
+     "count": 586
+    },
+    {
+     "id": "market-surveillance",
+     "name": "Market regulation, market and trade surveillance, enforcement",
+     "active": true,
+     "group": "sanctions-fincrime",
+     "queries": [
+      "trade surveillance analyst",
+      "market surveillance analyst entry level",
+      "FINRA market regulation analyst",
+      "communications surveillance analyst",
+      "market integrity analyst",
+      "securities enforcement analyst",
+      "associate examiner FINRA"
+     ],
+     "count": 464
+    }
+   ],
+   "count": 2461
+  },
+  {
+   "id": "trust-safety",
+   "name": "Trust and safety and information integrity",
+   "active": true,
+   "lanes": [
+    {
+     "id": "trust-safety-policy",
+     "name": "Trust and safety, content policy and platform integrity",
+     "active": true,
+     "group": "trust-safety",
+     "queries": [
+      "trust and safety analyst",
+      "trust and safety specialist entry level",
+      "content policy analyst",
+      "platform integrity analyst",
+      "trust & safety associate",
+      "content policy associate",
+      "integrity analyst",
+      "online safety policy"
+     ],
+     "count": 143
+    },
+    {
+     "id": "policy-enforcement-ai-safeguards",
+     "name": "Policy enforcement, abuse and AI safeguards",
+     "active": true,
+     "group": "trust-safety",
+     "queries": [
+      "policy enforcement analyst",
+      "AI safeguards analyst",
+      "abuse investigator",
+      "safeguards enforcement analyst",
+      "trust and safety enforcement associate",
+      "anti-abuse analyst",
+      "AI safety policy analyst"
+     ],
+     "count": 338
+    },
+    {
+     "id": "ai-policy-forecasting",
+     "name": "AI policy, model policy and forecasting research organizations",
+     "active": true,
+     "group": "trust-safety",
+     "queries": [
+      "AI policy research assistant",
+      "AI governance researcher",
+      "AI policy analyst",
+      "AI policy fellow",
+      "model policy analyst",
+      "forecasting research associate",
+      "AI governance research associate"
+     ],
+     "count": 118
+    },
+    {
+     "id": "election-integrity",
+     "name": "Election integrity and democracy",
+     "active": true,
+     "group": "trust-safety",
+     "queries": [
+      "election integrity analyst",
+      "democracy program associate",
+      "election protection associate",
+      "voting rights research assistant",
+      "democracy and governance program assistant",
+      "campaign finance analyst",
+      "election security analyst"
+     ],
+     "count": 49
+    },
+    {
+     "id": "disinformation",
+     "name": "Disinformation, misinformation and influence operations",
+     "active": true,
+     "group": "trust-safety",
+     "queries": [
+      "disinformation analyst",
+      "misinformation researcher",
+      "influence operations analyst",
+      "information integrity research associate",
+      "foreign influence analyst",
+      "disinformation research assistant",
+      "narrative intelligence analyst"
+     ],
+     "count": 61
+    },
+    {
+     "id": "human-rights",
+     "name": "Human rights",
+     "active": true,
+     "group": "trust-safety",
+     "queries": [
+      "human rights research assistant",
+      "human rights program associate",
+      "human rights researcher entry level",
+      "atrocity prevention fellow",
+      "business and human rights analyst",
+      "human rights investigator",
+      "civil rights investigator"
+     ],
+     "count": 43
+    }
+   ],
+   "count": 521
+  },
+  {
+   "id": "policy-research",
+   "name": "Policy and research",
+   "active": true,
+   "lanes": [
+    {
+     "id": "national-security",
+     "name": "National security",
+     "active": true,
+     "group": "policy-research",
+     "queries": [
+      "national security research assistant",
+      "national security program assistant",
+      "defense policy research associate",
+      "national security analyst entry level",
+      "arms control research assistant",
+      "international security program coordinator",
+      "defense policy analyst"
+     ],
+     "count": 166
+    },
+    {
+     "id": "foreign-policy",
+     "name": "Foreign policy and international affairs",
+     "active": true,
+     "group": "policy-research",
+     "queries": [
+      "foreign policy research assistant",
+      "international affairs program assistant",
+      "foreign policy program coordinator",
+      "international relations research associate",
+      "foreign affairs analyst",
+      "foreign policy fellow"
+     ],
+     "count": 98
+    },
+    {
+     "id": "think-tank-research",
+     "name": "Think tank research associate, research assistant and program associate roles",
+     "active": true,
+     "group": "policy-research",
+     "queries": [
+      "think tank research assistant",
+      "think tank research associate",
+      "policy research assistant",
+      "think tank program assistant",
+      "junior fellow think tank",
+      "research associate foreign policy think tank",
+      "program coordinator think tank"
+     ],
+     "count": 398
+    },
+    {
+     "id": "international-orgs",
+     "name": "International organizations and human rights groups",
+     "active": true,
+     "group": "policy-research",
+     "queries": [
+      "junior professional officer",
+      "associate programme officer",
+      "united nations programme analyst",
+      "international organization research assistant",
+      "young professionals programme",
+      "program associate human rights organization",
+      "UN consultant research"
+     ],
+     "count": 256
+    },
+    {
+     "id": "policy-legislative-analyst",
+     "name": "Policy and legislative analyst roles",
+     "active": true,
+     "group": "policy-research",
+     "queries": [
+      "policy analyst entry level",
+      "legislative analyst",
+      "legislative assistant",
+      "legislative correspondent",
+      "policy associate",
+      "junior policy analyst",
+      "staff assistant congress",
+      "legislative fellow"
+     ],
+     "count": 193
+    },
+    {
+     "id": "tech-regulatory-policy",
+     "name": "Technology, regulatory and financial services policy",
+     "active": true,
+     "group": "policy-research",
+     "queries": [
+      "technology policy analyst",
+      "tech policy research assistant",
+      "financial regulation policy analyst",
+      "public policy associate technology",
+      "regulatory policy analyst",
+      "digital policy research associate",
+      "fintech policy analyst"
+     ],
+     "count": 331
+    },
+    {
+     "id": "criminal-justice-policy",
+     "name": "Criminal justice policy and research",
+     "active": true,
+     "group": "policy-research",
+     "queries": [
+      "criminal justice research assistant",
+      "criminal justice policy analyst",
+      "crime analyst entry level",
+      "justice policy research associate",
+      "criminal justice program associate",
+      "public safety policy analyst",
+      "criminal legal reform research"
+     ],
+     "count": 61
+    },
+    {
+     "id": "social-policy-advocacy",
+     "name": "Social policy and nonprofit advocacy",
+     "active": true,
+     "group": "policy-research",
+     "queries": [
+      "policy and advocacy associate",
+      "advocacy coordinator nonprofit",
+      "social policy research assistant",
+      "housing policy analyst",
+      "policy associate nonprofit",
+      "advocacy associate",
+      "economic justice research associate"
+     ],
+     "count": 479
+    },
+    {
+     "id": "urban-planning-research",
+     "name": "Urban and regional planning research",
+     "active": true,
+     "group": "policy-research",
+     "queries": [
+      "urban planning research assistant",
+      "planning analyst entry level",
+      "city planner I",
+      "urban policy research associate",
+      "regional planning research analyst",
+      "land use planning analyst",
+      "junior urban planner"
+     ],
+     "count": 58
+    },
+    {
+     "id": "research-writing",
+     "name": "Writing roles: research writing, reporting, editing, fact-checking, correspondence",
+     "active": true,
+     "group": "policy-research",
+     "queries": [
+      "research writer",
+      "fact checker",
+      "editorial assistant",
+      "news assistant",
+      "correspondence analyst",
+      "staff writer policy",
+      "research and writing associate"
+     ],
+     "count": 378
+    }
+   ],
+   "count": 1664
+  },
+  {
+   "id": "strategic-comms",
+   "name": "Strategic communications",
+   "active": true,
+   "lanes": [
+    {
+     "id": "strategic-comms-advisory",
+     "name": "Strategic communications and advisory research",
+     "active": true,
+     "group": "strategic-comms",
+     "queries": [
+      "strategic communications associate",
+      "strategic communications analyst",
+      "communications associate entry level",
+      "strategic advisory research analyst",
+      "corporate communications coordinator",
+      "public relations associate",
+      "strategic communications firm analyst"
+     ],
+     "count": 747
+    },
+    {
+     "id": "crisis-comms",
+     "name": "Crisis communications and issues management",
+     "active": true,
+     "group": "strategic-comms",
+     "queries": [
+      "crisis communications associate",
+      "crisis communications analyst",
+      "issues management associate",
+      "crisis and issues management coordinator",
+      "rapid response associate communications",
+      "crisis communications consultant junior"
+     ],
+     "count": 397
+    },
+    {
+     "id": "public-government-affairs",
+     "name": "Public affairs and government affairs",
+     "active": true,
+     "group": "strategic-comms",
+     "queries": [
+      "government affairs associate",
+      "public affairs associate",
+      "government relations coordinator",
+      "public affairs specialist entry level",
+      "external affairs associate",
+      "government affairs analyst",
+      "intergovernmental affairs associate"
+     ],
+     "count": 721
+    },
+    {
+     "id": "reputation-media-analysis",
+     "name": "Reputation, stakeholder and media analysis",
+     "active": true,
+     "group": "strategic-comms",
+     "queries": [
+      "media analyst",
+      "reputation research analyst",
+      "media research analyst entry level",
+      "stakeholder mapping analyst",
+      "media intelligence analyst",
+      "opposition research associate",
+      "reputation intelligence analyst"
+     ],
+     "count": 491
+    },
+    {
+     "id": "insights-monitoring",
+     "name": "Insights and monitoring",
+     "active": true,
+     "group": "strategic-comms",
+     "queries": [
+      "media monitoring analyst",
+      "insights analyst communications",
+      "social listening analyst",
+      "news monitoring associate",
+      "policy monitoring analyst",
+      "insights associate entry level",
+      "media monitoring and insights"
+     ],
+     "count": 314
+    }
+   ],
+   "count": 1284
+  },
+  {
+   "id": "government",
+   "name": "Government",
+   "active": true,
+   "lanes": [
+    {
+     "id": "district-attorney",
+     "name": "District attorney offices: counterterrorism, hate crimes, crime strategies, forensic sciences, investigative analyst",
+     "active": true,
+     "group": "government",
+     "queries": [
+      "investigative analyst district attorney",
+      "district attorney analyst",
+      "crime strategies analyst",
+      "trial preparation assistant",
+      "district attorney office investigator",
+      "hate crimes analyst",
+      "counterterrorism analyst district attorney"
+     ],
+     "count": 47
+    },
+    {
+     "id": "nyc-integrity",
+     "name": "NYC DOI, inspectors general, CCRB and integrity investigators",
+     "active": true,
+     "group": "government",
+     "queries": [
+      "Department of Investigation investigator",
+      "inspector general investigator",
+      "CCRB investigator",
+      "integrity investigator",
+      "investigative auditor",
+      "confidential investigator",
+      "oversight analyst"
+     ],
+     "count": 60
+    },
+    {
+     "id": "nyc-mayors-office",
+     "name": "NYC Mayor's Office and City Hall policy and research roles",
+     "active": true,
+     "group": "government",
+     "queries": [
+      "Mayor's Office policy analyst",
+      "NYC Mayor's Office research",
+      "City Hall policy associate",
+      "Mayor's Office special assistant",
+      "NYC Urban Fellows",
+      "Office of the Mayor analyst"
+     ],
+     "count": 43
+    },
+    {
+     "id": "nys-agencies",
+     "name": "NYS DFS, DCJS, NY Attorney General, OMIG, Comptroller, MTA, Port Authority, NYPD",
+     "active": true,
+     "group": "government",
+     "queries": [
+      "NYS Department of Financial Services analyst",
+      "DCJS research analyst",
+      "Attorney General investigator New York",
+      "OMIG investigator",
+      "Port Authority analyst",
+      "MTA analyst entry level",
+      "NYPD intelligence research specialist",
+      "New York State Comptroller examiner"
+     ],
+     "count": 36
+    },
+    {
+     "id": "ny-fed",
+     "name": "NY Fed",
+     "active": true,
+     "group": "government",
+     "queries": [
+      "New York Fed research analyst",
+      "Federal Reserve Bank of New York analyst",
+      "NY Fed supervision associate",
+      "Federal Reserve research analyst program",
+      "NY Fed markets analyst",
+      "Federal Reserve bank examiner"
+     ],
+     "count": 35
+    },
+    {
+     "id": "emergency-management",
+     "name": "Emergency management and resiliency (FEMA incl. reservist and CORE, NYC Emergency Management)",
+     "active": true,
+     "group": "government",
+     "queries": [
+      "emergency management specialist",
+      "FEMA reservist",
+      "FEMA CORE",
+      "emergency management program analyst",
+      "emergency preparedness coordinator",
+      "NYC Emergency Management",
+      "hazard mitigation specialist",
+      "resiliency planner"
+     ],
+     "count": 59
+    },
+    {
+     "id": "federal-pathways",
+     "name": "Federal Pathways Recent Graduate, GS-5 to GS-9 (series 0130, 0131, 0132, 0301, 0343, 1801): international affairs, international trade, foreign affairs, legislative analysis, correspondence, program and management analysis",
+     "active": true,
+     "group": "government",
+     "queries": [
+      "pathways recent graduate",
+      "recent graduates program analyst",
+      "pathways recent graduate foreign affairs",
+      "pathways recent graduate international trade",
+      "recent graduate management and program analyst",
+      "pathways recent graduate intelligence"
+     ],
+     "count": 27
+    },
+    {
+     "id": "federal-investigator",
+     "name": "Federal investigator roles (e.g. DOL employee benefits investigator)",
+     "active": true,
+     "group": "government",
+     "queries": [
+      "employee benefits investigator",
+      "investigator employee benefits EBSA",
+      "federal investigator entry level",
+      "criminal investigator recent graduate",
+      "industry operations investigator",
+      "wage and hour investigator",
+      "general investigator"
+     ],
+     "count": 49
+    }
+   ],
+   "count": 325
+  },
+  {
+   "id": "entry-routes",
+   "name": "Entry routes",
+   "active": true,
+   "lanes": [
+    {
+     "id": "graduate-programs",
+     "name": "Graduate, rotational and early careers programs",
+     "active": true,
+     "group": "entry-routes",
+     "queries": [
+      "graduate programme insurance",
+      "graduate underwriter specialty",
+      "rotational program analyst",
+      "early careers program risk",
+      "graduate scheme intelligence",
+      "new grad analyst program",
+      "early careers insurance broking",
+      "2027 graduate program"
+     ],
+     "count": 314
+    },
+    {
+     "id": "analyst-programs",
+     "name": "Analyst, associate and development programs",
+     "active": true,
+     "group": "entry-routes",
+     "queries": [
+      "analyst program",
+      "associate program risk",
+      "development program analyst",
+      "leadership development program",
+      "analyst development program insurance",
+      "trainee programme",
+      "full time analyst program"
+     ],
+     "count": 98
+    },
+    {
+     "id": "fellowships",
+     "name": "Fellowships and program assistant roles",
+     "active": true,
+     "group": "entry-routes",
+     "queries": [
+      "policy fellowship",
+      "research fellowship recent graduate",
+      "program assistant international affairs",
+      "junior fellow",
+      "program associate foreign policy",
+      "fellowship national security",
+      "program assistant think tank"
+     ],
+     "count": 110
+    },
+    {
+     "id": "entry-level-analyst",
+     "name": "Entry-level analyst roles",
+     "active": true,
+     "group": "entry-routes",
+     "queries": [
+      "junior analyst",
+      "entry level analyst risk",
+      "associate analyst intelligence",
+      "analyst I research",
+      "entry level research analyst",
+      "junior research analyst",
+      "trainee analyst"
+     ],
+     "count": 473
+    }
+   ],
+   "count": 945
+  },
+  {
+   "id": "earlier-lanes",
+   "name": "Earlier lanes, not in the current sweeps",
+   "active": false,
+   "lanes": [
+    {
+     "id": "program-evaluation",
+     "name": "Program evaluation and civic analytics",
+     "active": false,
+     "group": "earlier-lanes",
+     "queries": [
+      "program evaluation analyst",
+      "evaluation associate",
+      "monitoring and evaluation associate",
+      "civic analytics analyst",
+      "research and evaluation analyst",
+      "performance management analyst"
+     ],
+     "count": 37
+    },
+    {
+     "id": "philanthropy",
+     "name": "Philanthropy and grantmaking",
+     "active": false,
+     "group": "earlier-lanes",
+     "queries": [
+      "philanthropy associate",
+      "grantmaking associate",
+      "program associate foundation",
+      "philanthropic advisor analyst",
+      "grants associate foundation",
+      "impact investing analyst"
+     ],
+     "count": 27
+    },
+    {
+     "id": "digital-rights",
+     "name": "Digital rights and responsible tech",
+     "active": false,
+     "group": "earlier-lanes",
+     "queries": [
+      "digital rights research assistant",
+      "responsible tech policy associate",
+      "tech accountability researcher",
+      "internet freedom program associate",
+      "privacy and surveillance policy analyst",
+      "public interest technology fellow"
+     ],
+     "count": 33
+    },
+    {
+     "id": "economic-consulting",
+     "name": "Economic consulting and litigation support analyst programs (dropped Sept 2026)",
+     "active": false,
+     "group": "earlier-lanes",
+     "queries": [
+      "economic consulting analyst",
+      "litigation consulting analyst",
+      "economics analyst antitrust",
+      "economic consulting research analyst",
+      "damages analyst"
+     ],
+     "count": 61
+    },
+    {
+     "id": "broadcast-journalism",
+     "name": "Broadcast journalism",
+     "active": false,
+     "group": "earlier-lanes",
+     "queries": [
+      "news associate",
+      "broadcast associate news",
+      "associate producer news",
+      "desk assistant news",
+      "production assistant news",
+      "booker news"
+     ],
+     "count": 139
+    },
+    {
+     "id": "real-estate",
+     "name": "Real estate (Marx Realty internship pursuit, July 2026)",
+     "active": false,
+     "group": "earlier-lanes",
+     "queries": [
+      "real estate analyst",
+      "commercial real estate analyst entry level",
+      "real estate acquisitions analyst",
+      "real estate asset management analyst",
+      "Marx Realty"
+     ],
+     "count": 99
+    }
+   ],
+   "count": 388
+  }
+ ],
+ "generated_at": "2026-10-31T16:26:09+00:00"
+}
