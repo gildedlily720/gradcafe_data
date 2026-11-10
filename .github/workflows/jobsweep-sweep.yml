@@ -138,6 +138,24 @@ jobs:
           # Partial source errors are normal (rate limits, a board moving); never fail the whole run on them.
           jobsweep sweep "${args[@]}" --json > "$RUNNER_TEMP/sweep-report.json" || echo "::warning::sweep reported errors"
 
+      - name: Watch pass (investigator, law-enforcement, security and public-defense lanes)
+        # The full sweep's per-source query caps are spent on the first lanes in lanes.yaml, so these
+        # later lanes get their own small, capped searches. USAJOBS stays within the free Pipeworx quota.
+        if: ${{ inputs.lanes == '' && inputs.groups == '' && inputs.sources == '' }}
+        working-directory: jobsweep
+        env:
+          USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
+          USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL }}
+          PIPEWORX_API_KEY: ${{ secrets.PIPEWORX_API_KEY }}
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+        run: |
+          jobsweep sweep --no-boards --sources usajobs --lanes federal-investigator,nyc-integrity \
+            --max-queries 12 --json > "$RUNNER_TEMP/watch-usajobs.json" || echo "::warning::USAJOBS watch pass reported errors"
+          jobsweep sweep --no-boards --sources adzuna,jobspy \
+            --lanes federal-investigator,nyc-integrity,district-attorney,public-defense-investigation,gsoc-watch,protective-intelligence,emergency-management \
+            --json > "$RUNNER_TEMP/watch-keywords.json" || echo "::warning::keyword watch pass reported errors"
+
       - name: Reserve today's metered search budget
         id: metered_budget
         # Explicit source selections use the same budget path; there is no unbounded bypass.
@@ -283,6 +301,8 @@ jobs:
             ${{ runner.temp }}/digest.md
             ${{ runner.temp }}/digest.json
             ${{ runner.temp }}/sweep-report.json
+            ${{ runner.temp }}/watch-usajobs.json
+            ${{ runner.temp }}/watch-keywords.json
             ${{ runner.temp }}/metered-report.json
             ${{ runner.temp }}/metered-budget-summary.txt
           retention-days: 30

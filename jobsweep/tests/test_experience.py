@@ -64,6 +64,54 @@ def test_incomplete_or_alternative_text_requires_review():
         assert experience_flags(audit)[-1]["status"] == "review"
 
 
+NYC_DEGREE_PATHWAY = (
+    "Minimum qualifications: 1. A four-year high school diploma or its educational equivalent and four "
+    "years of satisfactory full-time experience in an industrial or governmental agency in the field of "
+    "investigation, auditing, law enforcement, security, inspections; or 2.A baccalaureate degree from an "
+    'accredited college or university; or 3. Education and/or experience equivalent to "1" or "2" above.'
+)
+DEGREE_FIRST_PATHWAY = (
+    "Minimum qualifications: 1. A baccalaureate degree from an accredited college; or 2. High school "
+    "graduation and two years of full-time paid experience in police enforcement or investigative work; "
+    "or 3. A satisfactory equivalent."
+)
+
+
+@pytest.mark.parametrize("text", [NYC_DEGREE_PATHWAY, DEGREE_FIRST_PATHWAY])
+def test_numbered_civil_service_degree_pathway_is_an_alternative(text):
+    audit = extract_experience(text)
+    assert audit["experience_status"] == "alternatives"
+    assert audit["years_required"] is None
+
+
+@pytest.mark.parametrize(
+    ("text", "minimum"),
+    [
+        ("Bachelor's degree and 3 years of investigative experience required", 3),
+        ("Analyst or Associate level; at least 3 years of experience required", 3),
+    ],
+)
+def test_degree_plus_experience_without_pathway_keeps_minimum(text, minimum):
+    assert extract_experience(text)["years_required"] == minimum
+
+
+def test_degree_pathway_keeps_nyc_investigator_out_of_excluded():
+    profile = Profile(screen_qualifications=True, strict_nyc_location=True, max_years_experience=3)
+    tax = Taxonomy.load(profile=profile)
+    job = Job(
+        source="nycjobs",
+        source_id="807504",
+        title="Confidential Investigator",
+        company="NYC Department of Investigation",
+        location="New York, NY (180 Maiden Lane)",
+        url="https://cityjobs.nyc.gov/job/807504",
+        description=NYC_DEGREE_PATHWAY,
+    )
+    tax.classify(job)
+    assert job.entry_level is not False
+    assert job.suitability == "review"
+
+
 def test_full_evidence_survives_truncated_state_and_resets_on_new_posting():
     tax = Taxonomy.load(profile=Profile(screen_qualifications=True))
     job = Job(

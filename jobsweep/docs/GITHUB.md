@@ -38,6 +38,16 @@ Each run imports `state.json.gz` from the orphan branch `jobsweep-state`, sweeps
 together with `digest.md` and `history/<date>.md`. "New" therefore means *new since the last run*, and jobs keep
 their first-seen date across runs. Delete the branch to start over.
 
+## Watch pass
+
+Search sources cap their queries per sweep (USAJOBS via Pipeworx: 12; Adzuna: 40; JobSpy: 15), and the
+full sweep spends those caps on the first lanes in `lanes.yaml`. A second, small pass after the main sweep
+searches the investigator, law-enforcement, security and public-defense lanes (`federal-investigator`,
+`nyc-integrity`, `district-attorney`, `public-defense-investigation`, `gsoc-watch`,
+`protective-intelligence`, `emergency-management`). It adds about 11 Pipeworx calls a day, well inside the
+free quota, and is skipped when a manual run names specific lanes, groups or sources. A free
+`USAJOBS_API_KEY` raises the USAJOBS cap to 200 queries.
+
 ## Reading the results
 
 * **Issue** "Job sweep digest YYYY-MM-DD" (label `jobsweep`) — new matches grouped by lane, entry-level first.
