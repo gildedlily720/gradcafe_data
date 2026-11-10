@@ -1798,13 +1798,14 @@ groups:
                   hiring_path: ["graduates"], grade_low: "05", grade_high: "09"}
 
       - id: federal-investigator
-        name: "Federal investigator roles (e.g. DOL employee benefits investigator)"
+        name: "Federal investigator and law-enforcement officer roles (special agents, CBP and ICE officers, DOL investigators)"
         active: true
         title: ["employee benefits investigator", '/\bInvestigator \(Employee Benefits\)/', "employee benefits security",
                 "criminal investigator", "special agent", "investigative specialist", "general investigator",
                 "wage and hour investigator", "wage-hour investigator", "investigative assistant",
                 '/\bInvestigator \((?:General|Criminal|Fraud|Compliance)\)/', "federal investigator",
-                "industry operations investigator", "OIG investigator"]
+                "industry operations investigator", "OIG investigator", "border protection officer",
+                "deportation officer", "deputy u.s. marshal", "deputy united states marshal"]
         phrases: ["Employee Benefits Security Administration", "EBSA", "ERISA",
                   "Employee Retirement Income Security Act", "Wage and Hour Division", "Office of Inspector General",
                   "Federal Bureau of Investigation", "Homeland Security Investigations", "Diplomatic Security Service",
@@ -1814,12 +1815,15 @@ groups:
         context: ["federal", "investigations", "interviews", "evidence", "subpoenas", "compliance", "enforcement",
                   "travel", "U.S. citizenship", "background investigation"]
         exclude: ["clinical", "principal investigator"]
-        queries: ["employee benefits investigator", "investigator employee benefits EBSA",
-                  "federal investigator entry level", "criminal investigator recent graduate",
-                  "industry operations investigator", "wage and hour investigator", "general investigator"]
-        usajobs: {keywords: ["Investigator (Employee Benefits)", "Investigator", "Criminal Investigator",
+        queries: ["special agent recent graduate", "criminal investigator recent graduate", "CBP officer",
+                  "deportation officer", "employee benefits investigator", "federal investigator entry level",
+                  "industry operations investigator", "wage and hour investigator"]
+        # Public-facing GL/GS-5 to 9 law-enforcement openings (Secret Service, ATF, DEA, CBP, ICE) qualify on
+        # a bachelor's or one year of graduate study; series 1895 is CBP Officer.
+        usajobs: {keywords: ["Special Agent", "Investigator", "Customs and Border Protection Officer",
+                             "Deportation Officer", "Investigator (Employee Benefits)", "Criminal Investigator",
                              "Industry Operations Investigator", "Wage and Hour Investigator"],
-                  series: ["1801", "1810", "1811"]}
+                  series: ["1801", "1810", "1811", "1895"]}
 
   # ===================================================================================================
   - id: entry-routes

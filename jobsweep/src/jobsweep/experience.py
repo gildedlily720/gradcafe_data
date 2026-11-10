@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import re
 
-VERSION = 1
+# 2: numbered civil-service pathways ("or 2. A baccalaureate degree") count as alternatives.
+VERSION = 2
 WORDS = dict(
     zip(
         "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty".split(),
@@ -174,8 +175,11 @@ def extract_experience(text: str | None) -> dict:
     mandatory = [r for r in requirements if r["level"] == "required" and r["min_years"] is not None]
     alternatives = bool(mandatory) and bool(
         re.search(
-            r"\bor\s+(?:a\s+|an\s+)?(?:master|bachelor|ph\.?d|doctor|equivalent)|"
-            r"(?:master|bachelor|ph\.?d|doctor)[^\n.]{0,120}\bor\b[^\n.]{0,100}(?:year|experience)|"
+            # Civil-service notices number their pathways ("; or 2. A baccalaureate degree ...").
+            r"\bor\s+(?:\(?\d{1,2}[.)]\s*)?(?:a\s+|an\s+)?(?:master|bachelor|baccalaureate|associate(?:'s)?\s+degree|ph\.?d|doctor|equivalent)|"
+            r"(?:master|bachelor|baccalaureate|ph\.?d|doctor)[^\n.]{0,120}\bor\b[^\n.]{0,100}(?:year|experience)|"
+            r"(?:master|bachelor|baccalaureate)[^\n]{0,160}?\bor\s+(?:\(?\d{1,2}[.)]\s*)?(?:a\s+|an\s+)?"
+            r"(?:four-year\s+)?(?:high school|associate(?:'s)?\s+degree)|"
             r"(?:education|degree|college|credits|diploma)[^\n.]{0,160}(?:substitut|in lieu|instead)|"
             r"equivalent combination of[^\n.]{0,80}(?:education|experience)|"
             r"\bOR\s*\n\s*(?:\d[.)]\s*)?(?:a |an )?(?:high school|associate|bachelor|master)",

@@ -267,3 +267,71 @@ employers:
       and provenance-research roles. Provenance positions may require art-history or
       language expertise; current temporary KYC role was London, not an NYC match.
       Evidence: https://help.sothebys.com/en/support/solutions/articles/44002819816-why-does-sotheby-s-conduct-kyc-checks-
+
+  # Public defense investigator units: field interviews, records and trial preparation alongside
+  # investigators who often come from police, military or federal investigative backgrounds.
+  - key: brooklyn-defender-services
+    name: Brooklyn Defender Services
+    groups: [policy-research]
+    lanes: [public-defense-investigation, litigation-case-analyst, criminal-justice-policy]
+    ats: adp
+    board: 6eee909a-799e-42a2-971e-30ee0eca1d61|19000101_000001
+    careers_url: https://bds.org/careers
+    hq: Brooklyn, NY
+    locations: ["Brooklyn, NY", "Queens, NY"]
+    title_filter: '(?i)^(?!.*(?:attorney|counsel|lawyer)).*(?:investigat|mitigation|paralegal|analyst|advocate|specialist)'
+    max_jobs: 100
+    verified: "2026-11-10"
+    open_jobs: 11
+    notes: >-
+      Public defender with criminal, family and immigration practices. Watch investigator,
+      mitigation and paralegal roles; attorney postings are filtered out. ADP board verified
+      2026-11-10 with 11 openings. Evidence: https://bds.org/careers
+
+  - key: legal-aid-society-nyc
+    name: The Legal Aid Society (New York City)
+    groups: [policy-research]
+    lanes: [public-defense-investigation, litigation-case-analyst, criminal-justice-policy]
+    ats: other
+    careers_url: https://legalaidnyc.org/careers-opportunities/
+    hq: New York, NY
+    locations: ["New York, NY"]
+    notes: >-
+      Largest NYC public defender; its Criminal Defense Practice employs staff investigators.
+      No supported ATS board was detected on 2026-11-10, so check the careers page by hand.
+
+  - key: bronx-defenders
+    name: The Bronx Defenders
+    groups: [policy-research]
+    lanes: [public-defense-investigation, litigation-case-analyst, criminal-justice-policy]
+    ats: other
+    careers_url: https://www.bronxdefenders.org/about-us/careers/
+    hq: Bronx, NY
+    locations: ["Bronx, NY"]
+    notes: >-
+      Holistic public defender with an investigations team. No supported ATS board was
+      detected on 2026-11-10; check the careers page by hand.
+
+  - key: queens-defenders
+    name: Queens Defenders
+    groups: [policy-research]
+    lanes: [public-defense-investigation, litigation-case-analyst]
+    ats: other
+    careers_url: https://queensdefenders.org/careers/
+    hq: Queens, NY
+    locations: ["Queens, NY"]
+    notes: >-
+      Queens public defender. No supported ATS board was detected on 2026-11-10; check the
+      careers page by hand.
+
+  - key: neighborhood-defender-service
+    name: Neighborhood Defender Service of Harlem
+    groups: [policy-research]
+    lanes: [public-defense-investigation, litigation-case-analyst]
+    ats: other
+    ats_vendor: icims
+    careers_url: https://careers-neighborhooddefender.icims.com/
+    hq: New York, NY
+    locations: ["New York, NY"]
+    notes: >-
+      Harlem public defender on iCIMS, which jobsweep cannot sweep; check by hand.
