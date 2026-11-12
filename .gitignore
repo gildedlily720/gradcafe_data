@@ -10,3 +10,5 @@ jobsweep/var/
 jobsweep/site/
 jobsweep/.env
 .env
+# browser-tool scratch output (page snapshots, console logs)
+.playwright-mcp/
