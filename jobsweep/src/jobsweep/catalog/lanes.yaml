@@ -1707,7 +1707,8 @@ groups:
         title: ["bank examiner", "insurance examiner", "criminal justice program representative",
                 "program research specialist", "examiner of municipal affairs", "medical facilities auditor",
                 "Medicaid fraud", "program integrity", "NYPD", "Port Authority", "MTA", "DCJS", "OMIG",
-                "NYS DFS", "excise tax investigator"]
+                "NYS DFS", "excise tax investigator", "revenue crimes specialist", "parole officer",
+                "/\\bOffice of Special Investigation\\b/"]
         phrases: ["New York State Department of Financial Services", "Department of Financial Services",
                   "Division of Criminal Justice Services", "Office of the Attorney General",
                   "New York State Attorney General", "Office of the Medicaid Inspector General",

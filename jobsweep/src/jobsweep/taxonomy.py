@@ -1703,14 +1703,10 @@ class Taxonomy:
     ) -> list[SearchQuery]:
         """Keyword queries for one search source, interleaved across lanes (see ARCHITECTURE 4.1)."""
         if source in FEED_SOURCES:
-            return [
-                SearchQuery(
-                    keywords="*",
-                    extra={"feed": True},
-                    limit=FEED_LIMIT,
-                    posted_within_days=posted_within_days,
-                )
-            ]
+            # Feeds list only open postings (the sources drop closed ones), so a posted-date window
+            # would hide postings that stay open longer than the window and let ``Store.expire``
+            # retire them while they are still open. Always read the whole feed.
+            return [SearchQuery(keywords="*", extra={"feed": True}, limit=FEED_LIMIT)]
         if lane_ids:
             lanes = [self.lanes[x] for x in dict.fromkeys(lane_ids) if x in self.lanes]
             unknown = [x for x in lane_ids if x not in self.lanes]
