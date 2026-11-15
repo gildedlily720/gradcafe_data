@@ -793,7 +793,8 @@ def test_search_plan_feed_sources(tax: Taxonomy, source: str) -> None:
     assert len(plan) == 1
     q = plan[0]
     assert isinstance(q, SearchQuery)
-    assert (q.keywords, q.extra, q.limit, q.posted_within_days) == ("*", {"feed": True}, 5000, 7)
+    # Feeds hold only open postings; a posted-date window would drop long-open ones.
+    assert (q.keywords, q.extra, q.limit, q.posted_within_days) == ("*", {"feed": True}, 5000, None)
     assert tax.search_plan(["war-risk"], source=source)[0].keywords == "*"
 
 
