@@ -10,3 +10,6 @@ jobsweep/var/
 jobsweep/site/
 jobsweep/.env
 .env
+
+# Browser-automation logs written by the Playwright MCP server
+.playwright-mcp/
