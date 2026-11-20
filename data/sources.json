@@ -1,0 +1,245 @@
+[
+ {
+  "name": "greenhouse",
+  "label": "Greenhouse job boards",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://developers.greenhouse.io/job-board.html"
+ },
+ {
+  "name": "lever",
+  "label": "Lever job postings",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://github.com/lever/postings-api"
+ },
+ {
+  "name": "ashby",
+  "label": "Ashby job boards",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://developers.ashbyhq.com/docs/public-job-posting-api"
+ },
+ {
+  "name": "workday",
+  "label": "Workday career sites",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://www.workday.com/"
+ },
+ {
+  "name": "smartrecruiters",
+  "label": "SmartRecruiters career sites",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://developers.smartrecruiters.com/docs/posting-api"
+ },
+ {
+  "name": "workable",
+  "label": "Workable career pages",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://help.workable.com/"
+ },
+ {
+  "name": "recruitee",
+  "label": "Recruitee career sites",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://docs.recruitee.com/"
+ },
+ {
+  "name": "personio",
+  "label": "Personio career pages (XML feed)",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://developer.personio.de/docs/retrieving-open-job-positions"
+ },
+ {
+  "name": "breezy",
+  "label": "Breezy HR career portals",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://developer.breezy.hr/"
+ },
+ {
+  "name": "bamboohr",
+  "label": "BambooHR career sites",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://documentation.bamboohr.com/docs/getting-started"
+ },
+ {
+  "name": "paylocity",
+  "label": "Paylocity Recruiting career pages",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://recruiting.paylocity.com/"
+ },
+ {
+  "name": "adp",
+  "label": "ADP Workforce Now career centers",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://developers.adp.com/"
+ },
+ {
+  "name": "ultipro",
+  "label": "UKG Pro (UltiPro) job boards",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://www.ukg.com/"
+ },
+ {
+  "name": "oracle",
+  "label": "Oracle Recruiting Cloud job sites",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://docs.oracle.com/en/cloud/saas/human-resources/farws/api-recruiting-candidate-experience-job-requisitions.html"
+ },
+ {
+  "name": "jobvite",
+  "label": "Jobvite career sites",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://jobs.jobvite.com/"
+ },
+ {
+  "name": "rippling",
+  "label": "Rippling ATS job boards",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://ats.rippling.com/"
+ },
+ {
+  "name": "pinpoint",
+  "label": "Pinpoint career sites",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://developers.pinpointhq.com/"
+ },
+ {
+  "name": "teamtailor",
+  "label": "Teamtailor career sites (RSS)",
+  "kind": "board",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://docs.teamtailor.com/"
+ },
+ {
+  "name": "usajobs",
+  "label": "USAJOBS (federal)",
+  "kind": "search",
+  "available": true,
+  "reason": "Pipeworx fallback (free, ~50 calls/day)",
+  "metered": false,
+  "docs_url": "https://developer.usajobs.gov/api-reference/get-api-search"
+ },
+ {
+  "name": "nycjobs",
+  "label": "NYC Jobs (City of New York, Open Data)",
+  "kind": "search",
+  "available": true,
+  "reason": "ok (anonymous Socrata, shared rate limit)",
+  "metered": false,
+  "docs_url": "https://data.cityofnewyork.us/City-Government/Jobs-NYC-Postings/kpav-sd4t"
+ },
+ {
+  "name": "nysjobs",
+  "label": "StateJobsNY (New York State)",
+  "kind": "search",
+  "available": true,
+  "reason": "ok (public HTML listing, best effort; details fetched on enrich)",
+  "metered": false,
+  "docs_url": "https://statejobs.ny.gov/public/vacancyTable.cfm"
+ },
+ {
+  "name": "adzuna",
+  "label": "Adzuna job search API",
+  "kind": "search",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://developer.adzuna.com/docs/search"
+ },
+ {
+  "name": "theirstack",
+  "label": "TheirStack job search API",
+  "kind": "search",
+  "available": true,
+  "reason": "ok",
+  "metered": true,
+  "docs_url": "https://theirstack.com/en/docs/api-reference/jobs/search_jobs_v1"
+ },
+ {
+  "name": "hasdata_indeed",
+  "label": "Indeed via HasData scraper API",
+  "kind": "search",
+  "available": true,
+  "reason": "ok",
+  "metered": true,
+  "docs_url": "https://docs.hasdata.com/apis/indeed/listing"
+ },
+ {
+  "name": "jobspy",
+  "label": "JobSpy scraper (Indeed, LinkedIn, Google, ZipRecruiter, Glassdoor)",
+  "kind": "search",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": "https://github.com/speedyapply/JobSpy"
+ },
+ {
+  "name": "apify",
+  "label": "Apify actors (hiring.cafe scraper, JobSpy actor)",
+  "kind": "search",
+  "available": true,
+  "reason": "ok",
+  "metered": true,
+  "docs_url": "https://docs.apify.com/api/v2/act-run-sync-get-dataset-items-post"
+ },
+ {
+  "name": "import",
+  "label": "Imported jobs (Claude connectors, JSON / CSV / markdown)",
+  "kind": "import",
+  "available": true,
+  "reason": "ok",
+  "metered": false,
+  "docs_url": ""
+ }
+]
